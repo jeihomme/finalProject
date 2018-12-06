@@ -16,10 +16,11 @@ public class MypageController {
 	= LoggerFactory.getLogger(MypageController.class);
 	
 	@Autowired MypageService mService;
+	
 	@RequestMapping(value = "/mypage/info", method=RequestMethod.GET)
 	public void info() {
 		logger.info("hihi");
-//		infoView
+		mService.infoView();
 		
 	}
 	
@@ -172,4 +173,5 @@ public class MypageController {
 	public void deleteBoardAdmin() {
 //		calendarView
 	}
+	
 }
