@@ -1,11 +1,14 @@
 package web.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import web.dao.face.MypageDao;
 
 @Service
 public class MypageServiceImpl implements MypageService{
 	
-//	@Autowired MypageDao mDao;
+	@Autowired MypageDao mDao;
 	
 	@Override
 	public void infoView() {
