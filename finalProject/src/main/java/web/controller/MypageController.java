@@ -172,4 +172,5 @@ public class MypageController {
 	public void deleteBoardAdmin() {
 //		calendarView
 	}
+	
 }
