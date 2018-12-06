@@ -18,7 +18,9 @@ public class MypageController {
 	@Autowired MypageService mService;
 	@RequestMapping(value = "/mypage/info", method=RequestMethod.GET)
 	public void info() {
+		logger.info("hihi");
 //		infoView
+		
 	}
 	
 	@RequestMapping(value = "/mypage/modifyInfo", method=RequestMethod.GET)
@@ -136,7 +138,7 @@ public class MypageController {
 //		calendarView
 	}
 	
-	@RequestMapping(value = "/mypage/modifyCalendar", method=RequestMethod.POST)
+	@RequestMapping(value = "/mypage/deleteCalendar", method=RequestMethod.POST)
 	public void deleteCalendar() {
 //		calendarView
 	}

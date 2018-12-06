@@ -1,4 +1,4 @@
-package web.dao;
+package web.dao.face;
 
 public interface MypageDao {
 	public void selectInfoByUserId();

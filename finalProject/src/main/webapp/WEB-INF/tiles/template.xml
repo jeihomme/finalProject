@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+<!-- 	헤더 푸터 안보이게 하기 -->
+	<definition name="file/fileup" template="/WEB-INF/views/file/fileup.jsp" />
+<!-- 	<definition name="board/list" template="/WEB-INF/views/board/list.jsp" /> -->
+	
+<!-- 	<definition name="board/list" template="/WEB-INF/views/board/list.jsp" /> -->
+	
+<!-- 	<definition name="board" template="/WEB-INF/views/board*" /> -->
+<!-- 	<definition name="board/list" extends="board"> -->
+<!-- 		<put-attribute name="body" value="/WEB-INF/views/board/{1}.jsp" /> -->
+<!-- 	</definition> -->
+
+<!-- 	프로젝트 안에 있는 모든 파일들에 헤더 푸터가 보이게 한다 -->
+	<definition name="tilesbase" template="/WEB-INF/tiles/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp"/>
+		<put-attribute name="body"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp"/>
+	</definition>
+	
+	<definition name="*" extends="tilesbase">
+		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+	</definition>
+	
+	<definition name="*/*" extends="tilesbase">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+	</definition>
+	
+	<definition name="*/*/*" extends="tilesbase">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+	</definition>
+</tiles-definitions>
