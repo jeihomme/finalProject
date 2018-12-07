@@ -9,11 +9,6 @@
 	cursor:pointer;
 }
 
-body{
-	background-color:#000000;
-	text-color:#ffffff;
-}
-
 #headerMenu {
  	float:right; 
 	text-align:right;
