@@ -26,6 +26,11 @@
 	border: 1px solid blue;
 }
 
+#body{
+	background-color:#000000;
+	text-color:#ffffff;
+}
+
 </style>
 
 <script
