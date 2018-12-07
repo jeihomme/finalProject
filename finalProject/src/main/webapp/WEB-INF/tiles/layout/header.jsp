@@ -40,7 +40,8 @@
 }
 
 #headerMenu a:hover {
-	color:#D4F4FA;
+/* 	color:#D4F4FA; */
+	color: gold;
 /* 	메뉴 밑줄 색상 */
 	border-bottom:3px solid #ffffff;
 }
@@ -61,7 +62,7 @@
 </style>
 <!-- 헤더 타이틀 -->
 <div >
-	<h1 class="headerTitle" onclick="location.href='/board/list' ">Please Insert Image</h1>
+	<h1 class="headerTitle" onclick="location.href='/board/list' ">Insert Image</h1>
 </div>
 
 <!-- 헤더 메뉴 -->
