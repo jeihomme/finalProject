@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <style type="text/css">
 	.adminMenu p{
 		float:left;
@@ -43,22 +45,68 @@
 		float:left;
 	}
 </style>
-   
-<div class="adminMenu">
-	<p onclick=" location.href='/board/list' ">Mypage</p>
-	<p onclick="location.href='/board/list' ">회원 정보수정</p>
-	<p onclick="location.href='/board/list' ">회원 관리</p>
-	<p onclick="location.href='/board/list' ">게시글 관리</p>
-</div><br><br>
 
-<div class="adminMypageMain">
-	<div class="adminMypageMainInfo">
-		<p class="adminDetailTitle">관리자 마이페이지 메인 </p>
-		<hr>
-		<p class="adminDetailInfo">아이디 : </p>
-	</div>
-	<div class="adminMypageMainImage">
-		<p >이미지 넣어주세요 </p>
-	</div>
+<c:if test="${loginInfo.roleId eq 0 }">
+	<div class="adminMenu">
+		<p onclick=" location.href='/board/list' ">Mypage</p>
+		<p onclick="location.href='/board/list' ">회원 정보수정</p>
+		<p onclick="location.href='/board/list' ">회원 관리</p>
+		<p onclick="location.href='/board/list' ">게시글 관리</p>
+	</div><br><br>
 	
-</div>
+	<div class="adminMypageMain">
+		<div class="adminMypageMainInfo">
+			<p class="adminDetailTitle">관리자 마이페이지 메인 </p>
+			<hr>
+			<p class="adminDetailInfo">아이디 : </p>
+		</div>
+		<div class="adminMypageMainImage">
+			<p >이미지 넣어주세요 </p>
+		</div>
+		
+	</div>
+</c:if>
+
+<c:if test="${loginInfo.roleId eq 1 }">
+	<div class="adminMenu">
+		<p onclick=" location.href='/board/list' ">Mypage</p>
+		<p onclick="location.href='/board/list' ">회원 정보수정</p>
+		<p onclick="location.href='/board/list' ">지원 현황</p>
+		<p onclick="location.href='/board/list' ">일정표</p>
+	</div><br><br>
+	
+	<div class="adminMypageMain">
+		<div class="adminMypageMainInfo">
+			<p class="adminDetailTitle">Bar 마이페이지 메인 </p>
+			<hr>
+			<p class="adminDetailInfo">아이디 : </p>
+		</div>
+		<div class="adminMypageMainImage">
+			<p >이미지 넣어주세요 </p>
+		</div>
+		
+	</div>
+</c:if>
+
+<c:if test="${loginInfo.roleId eq 2 }">
+	<div class="adminMenu">
+		<p onclick=" location.href='/board/list' ">Mypage</p>
+		<p onclick="location.href='/board/list' ">회원 정보수정</p>
+		<p onclick="location.href='/board/list' ">밴드 소개</p>
+		<p onclick="location.href='/board/list' ">지원 현황</p>
+		<p onclick="location.href='/board/list' ">추천 Bar</p>
+		<p onclick="location.href='/board/list' ">일정표</p>
+	</div><br><br>
+	
+	<div class="adminMypageMain">
+		<div class="adminMypageMainInfo">
+			<p class="adminDetailTitle">Band 마이페이지 메인 </p>
+			<hr>
+			<p class="adminDetailInfo">아이디 : </p>
+		</div>
+		<div class="adminMypageMainImage">
+			<p >이미지 넣어주세요 </p>
+		</div>
+		
+	</div>
+</c:if>
