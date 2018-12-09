@@ -62,13 +62,13 @@
 </style>
 <!-- 헤더 타이틀 -->
 <div >
-	<h1 class="headerTitle" onclick="location.href='/board/list' ">Insert Image</h1>
+	<h1 class="headerTitle" onclick="location.href='/main' ">Insert Image</h1>
 </div>
 
 <!-- 헤더 메뉴 -->
 <div id="headerMenu">
 	<ul>
-	<li><a href="#">Bar</a>
+	<li><a>Bar</a>
 		<ul>
 			<li><a href="#">Sub Menu 1</a></li>
 			<li><a href="#">Sub Menu 2</a></li>
@@ -76,17 +76,7 @@
 		</ul>
 	</li>
 	
-	<li><a href="#">Band</a>
-	
-		<ul>
-			<li><a href="#">Sub Menu 1</a></li>
-			<li><a href="#">Sub Menu 2</a></li>
-			<li><a href="#">Sub Menu 3</a></li>
-		</ul>
-	
-	</li>
-	
-	<li><a href="#">Ad</a>
+	<li><a>Band</a>
 	
 		<ul>
 			<li><a href="#">Sub Menu 1</a></li>
@@ -96,7 +86,17 @@
 	
 	</li>
 	
-	<li><a href="#">Notice</a>
+	<li><a>Ad</a>
+	
+		<ul>
+			<li><a href="#">Sub Menu 1</a></li>
+			<li><a href="#">Sub Menu 2</a></li>
+			<li><a href="#">Sub Menu 3</a></li>
+		</ul>
+	
+	</li>
+	
+	<li><a>Notice</a>
 	
 		<ul>
 			<li><a href="#">Sub Menu 1</a></li>
@@ -104,7 +104,7 @@
 			<li><a href="#">Sub Menu 3</a></li>
 		</ul>
 	</li>
-	<li><a href="#">Login</a>
+	<li><a>Login</a>
 	
 		<ul>
 			<li><a href="#">Sub Menu 1</a></li>
@@ -112,12 +112,12 @@
 			<li><a href="#">Sub Menu 3</a></li>
 		</ul>
 	</li>
-	<li><a href="#">Mypage</a>
+	<li><a>Mypage</a>
 	
 		<ul>
-			<li><a href="#">Sub Menu 1</a></li>
-			<li><a href="#">Sub Menu 2</a></li>
-			<li><a href="#">Sub Menu 3</a></li>
+			<li><a href="/mypage/info">계정관리</a></li>
+			<li><a href="#">로그아웃</a></li>
+			<li><a href="#">계정탈퇴</a></li>
 		</ul>
 	</li>
 	

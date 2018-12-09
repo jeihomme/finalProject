@@ -45,8 +45,7 @@
 </style>
    
 <div class="adminMenu">
-
-	<p onclick="location.href='/board/list' ">Mypage</p>
+	<p onclick=" location.href='/board/list' ">Mypage</p>
 	<p onclick="location.href='/board/list' ">회원 정보수정</p>
 	<p onclick="location.href='/board/list' ">회원 관리</p>
 	<p onclick="location.href='/board/list' ">게시글 관리</p>
