@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  마이바티스 3 매퍼 Doctype -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!--  매퍼 설정 -->
+<mapper namespace="web.dao.face.MemberDao">
+
+	<insert id="insertUserinfo"
+		parameterType="web.dto.Member">
+		
+		insert into member(
+			userId
+			, roleId
+			, password
+			, userName
+			)
+		values(
+			#{userId }
+			, #{roleId }
+			, #{password }
+			, #{userName }
+		)
+<!-- 	setInt(), setString() 함수와 같은 것 -->
+	</insert>
+	
+	<select id="selectById"
+	parameterType="web.dto.Member"
+	resultType="web.dto.Member">
+	
+		select
+			*
+		from member
+		where userId = #{userId }
+	</select>
+	
+</mapper>

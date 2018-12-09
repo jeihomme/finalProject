@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <style type="text/css">
 .headerTitle {
 	padding:10px;
@@ -77,49 +78,47 @@
 	</li>
 	
 	<li><a>Band</a>
-	
 		<ul>
 			<li><a href="#">Sub Menu 1</a></li>
 			<li><a href="#">Sub Menu 2</a></li>
 			<li><a href="#">Sub Menu 3</a></li>
 		</ul>
-	
 	</li>
 	
 	<li><a>Ad</a>
-	
 		<ul>
 			<li><a href="#">Sub Menu 1</a></li>
 			<li><a href="#">Sub Menu 2</a></li>
 			<li><a href="#">Sub Menu 3</a></li>
 		</ul>
-	
 	</li>
 	
 	<li><a>Notice</a>
-	
 		<ul>
 			<li><a href="#">Sub Menu 1</a></li>
 			<li><a href="#">Sub Menu 2</a></li>
 			<li><a href="#">Sub Menu 3</a></li>
 		</ul>
 	</li>
+	
+	<c:if test="${not login }">
 	<li><a>Login</a>
-	
 		<ul>
-			<li><a href="#">Sub Menu 1</a></li>
-			<li><a href="#">Sub Menu 2</a></li>
-			<li><a href="#">Sub Menu 3</a></li>
+			<li><a href="/member/login">로그인</a></li>
+			<li><a href="/member/join">회원가입</a></li>
 		</ul>
 	</li>
-	<li><a>Mypage</a>
+	</c:if>
 	
+	<c:if test="${login }">
+	<li><a>${loginInfo.userName }</a>님
 		<ul>
 			<li><a href="/mypage/info">계정관리</a></li>
-			<li><a href="#">로그아웃</a></li>
+			<li><a href="/member/logout">로그아웃</a></li>
 			<li><a href="#">계정탈퇴</a></li>
 		</ul>
 	</li>
+	</c:if>
 	
 	</ul>
 </div><br>
