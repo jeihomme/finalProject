@@ -50,6 +50,18 @@
 		color: gold;
 	}
 	
+	.modifyInfoDone b{
+	color:#fff;
+	}
+	
+	.modifyInfoDone input{
+		color:#000;
+	}
+	
+	.modifyBtn {
+		color:#000;
+	}
+
 </style>
 
 <c:if test="${loginInfo.roleId eq 0 }">
@@ -62,11 +74,15 @@
 	
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">관리자 마이페이지 메인 </p>
-			<hr>
-			<p class="adminDetailInfo">계정 : ${loginInfo.userId }</p>
-			<p class="adminDetailInfo">이름 : ${loginInfo.userName }</p>
-			<p class="adminDetailInfo">이름 : ${loginInfo.userName }</p>
+			<form class="modifyInfoDone" action="/mypage/modifyInfo" method="post">
+				<p class="adminDetailTitle">관리자 마이페이지 메인 </p>
+				<hr>
+				<p class="adminDetailInfo">계정 : ${loginInfo.userId }</p>
+				<p class="adminDetailInfo">이름 : ${loginInfo.userName }</p>
+				<b class="adminDetailInfo">닉네임 : </b>
+				<input value="${loginInfo.userName }"/><br>
+				<button class="modifyBtn">저장</button>
+			</form>
 		</div>
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>
@@ -121,5 +137,3 @@
 		
 	</div>
 </c:if>
-
-<button>저장</button>
