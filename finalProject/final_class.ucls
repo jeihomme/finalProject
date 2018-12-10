@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <interface id="1" language="java" name="web.dao.MypageDao" project="finalProject" 
-    file="/finalProject/src/main/java/web/dao/MypageDao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="959" y="303"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <class id="2" language="java" name="web.controller.MypageController" project="finalProject" 
+  <class id="1" language="java" name="web.controller.MypageController" project="finalProject" 
     file="/finalProject/src/main/java/web/controller/MypageController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="152" y="294"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -19,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="3" language="java" name="web.service.MypageService" project="finalProject" 
-    file="/finalProject/src/main/java/web/service/MypageService.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="2" language="java" name="web.service.face.MypageService" project="finalProject" 
+    file="/finalProject/src/main/java/web/service/face/MypageService.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="416" y="240"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -28,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="4" language="java" name="web.service.MypageServiceImpl" project="finalProject" 
-    file="/finalProject/src/main/java/web/service/MypageServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="web.service.impl.MypageServiceImpl" project="finalProject" 
+    file="/finalProject/src/main/java/web/service/impl/MypageServiceImpl.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="691" y="249"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -37,21 +28,21 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="5">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="6" name="mService">        
+  <association id="4">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="5" name="mService">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="7" minimum="0" maximum="1">        
+      <multiplicity id="6" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="8">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="3"/>  
+  <realization id="7">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
