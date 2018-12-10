@@ -1,10 +1,14 @@
 package web.dao.face;
 
+import web.dto.Member;
+
 public interface MypageDao {
-	public void selectInfoByUserId();
-	public void insertInfo();
-	public void updateInfo();
-	public void updatePw();
+//	회원정보
+	public Member selectInfoByUserId(Member member);
+//	회원정보 업데이트
+	public void updateInfo(Member member);
+//	회원정보 비밀번호 업데이트
+	public void updatePw(Member member);
 	
 	public void selectIntroListByUserId();
 	

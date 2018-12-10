@@ -1,6 +1,8 @@
 package web.dto;
 
-public class Member {
+import java.io.Serializable;
+
+public class Member implements Serializable{
 	private String userId;
 	private int roleId;
 	private String password;

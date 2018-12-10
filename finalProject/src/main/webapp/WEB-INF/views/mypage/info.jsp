@@ -64,8 +64,8 @@
 		<div class="adminMypageMainInfo">
 			<p class="adminDetailTitle">관리자 마이페이지 메인 </p>
 			<hr>
-			<p class="adminDetailInfo">계정 : ${loginInfo.userId }</p>
-			<p class="adminDetailInfo">이름 : ${loginInfo.userName }</p>
+			<p class="adminDetailInfo">계정 : ${member.userId }</p>
+			<p class="adminDetailInfo">이름 : ${member.userName }</p>
 		</div>
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>
@@ -87,8 +87,8 @@
 		<div class="adminMypageMainInfo">
 			<p class="adminDetailTitle">Bar 마이페이지 메인 </p>
 			<hr>
-			<p class="adminDetailInfo">계정 : ${loginInfo.userId }</p>
-			<p class="adminDetailInfo">이름 : ${loginInfo.userName }</p>
+			<p class="adminDetailInfo">계정 : ${member.userId }</p>
+			<p class="adminDetailInfo">이름 : ${member.userName }</p>
 		</div>
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>
@@ -110,8 +110,8 @@
 		<div class="adminMypageMainInfo">
 			<p class="adminDetailTitle">Band 마이페이지 메인 </p>
 			<hr>
-			<p class="adminDetailInfo">계정 : ${loginInfo.userId }</p>
-			<p class="adminDetailInfo">이름 : ${loginInfo.userName }</p>
+			<p class="adminDetailInfo">계정 : ${member.userId }</p>
+			<p class="adminDetailInfo">이름 : ${member.userName }</p>
 		</div>
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>

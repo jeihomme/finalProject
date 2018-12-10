@@ -6,12 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import web.dto.Member;
 import web.service.face.MemberService;
-import web.service.face.MypageService;
 
 @Controller
 public class MainController {
@@ -23,10 +23,13 @@ public class MainController {
 	
 	@RequestMapping(value = "/main", method=RequestMethod.GET)
 	public void main(
-			HttpSession session
+			Member member
+			, HttpSession session
+			, Model model
 			) {
 		logger.info("---main---");
-//		session.getAttribute("loginInfo");
+		
+		System.out.println(session.getAttribute("loginInfo"));
 	}
 	
 	@RequestMapping(value = "/member/join", method=RequestMethod.GET)
@@ -69,7 +72,7 @@ public class MainController {
 		
 		System.out.println("member : " + session.getAttribute("loginInfo"));
 		
-		return "main";
+		return "redirect:/main";
 
 	}
 	
