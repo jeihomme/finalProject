@@ -1,4 +1,4 @@
-package web.service;
+package web.service.face;
 
 public interface MypageService {
 	public void infoView();

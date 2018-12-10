@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import web.dto.Member;
-import web.service.MemberService;
-import web.service.MypageService;
+import web.service.face.MemberService;
+import web.service.face.MypageService;
 
 @Controller
 public class MainController {
