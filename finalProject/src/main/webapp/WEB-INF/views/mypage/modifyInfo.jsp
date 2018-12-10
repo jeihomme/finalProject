@@ -54,8 +54,8 @@
 
 <c:if test="${loginInfo.roleId eq 0 }">
 	<div class="adminMenu">
-		<p class="selectMenu" onclick=" location.href='/mypage/info' ">Mypage</p>
-		<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
+		<p onclick=" location.href='/mypage/info' ">Mypage</p>
+		<p class="selectMenu" onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
 		<p onclick="location.href='/mypage/userAdmin' ">회원 관리</p>
 		<p onclick="location.href='/mypage/boardAdmin' ">게시글 관리</p>
 	</div><br><br>
@@ -65,6 +65,7 @@
 			<p class="adminDetailTitle">관리자 마이페이지 메인 </p>
 			<hr>
 			<p class="adminDetailInfo">계정 : ${loginInfo.userId }</p>
+			<p class="adminDetailInfo">이름 : ${loginInfo.userName }</p>
 			<p class="adminDetailInfo">이름 : ${loginInfo.userName }</p>
 		</div>
 		<div class="adminMypageMainImage">
@@ -76,8 +77,8 @@
 
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
-		<p class="selectMenu" onclick=" location.href='/board/list' ">Mypage</p>
-		<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
+		<p onclick=" location.href='/board/list' ">Mypage</p>
+		<p class="selectMenu" onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
 		<p onclick="location.href='/mypage/intro' ">바 소개</p>
 		<p onclick="location.href='/board/list' ">지원 현황</p>
 		<p onclick="location.href='/board/list' ">일정표</p>
@@ -93,13 +94,14 @@
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>
 		</div>
+		
 	</div>
 </c:if>
 
 <c:if test="${loginInfo.roleId eq 2 }">
 	<div class="adminMenu">
-		<p class="selectMenu" onclick=" location.href='/board/list' ">Mypage</p>
-		<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
+		<p onclick=" location.href='/board/list' ">Mypage</p>
+		<p class="selectMenu" onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
 		<p onclick="location.href='/mypage/intro' ">밴드 소개</p>
 		<p onclick="location.href='/mypage/voluenteer' ">지원 현황</p>
 		<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
@@ -116,5 +118,8 @@
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>
 		</div>
+		
 	</div>
 </c:if>
+
+<button>저장</button>

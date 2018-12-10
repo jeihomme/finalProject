@@ -3,7 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
 <!DOCTYPE html>
-<html id="html">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -12,23 +12,31 @@
 /* 	모든 페이지에 적용되는 스타일 */
 
 .wrap {
-	width: 700px;
-	margin: 0 auto;
+	positon: fixed;
 }
 
 .header {
 /* 	width: 700px; */
-	border: 1px solid red;
 }
 
 .footer {
 /* 	width: 700px; */
-	border: 1px solid blue;
 }
 
 #body{
 	background-color:#000000;
 	color:#ffffff;
+	
+/* 	화면 고정 */
+	width: 800px;
+	positon: fixed;
+	
+/* 	가운데 정렬 */
+	margin: 0 auto;
+}
+
+html {
+	margin: 0 auto;
 }
 
 </style>
