@@ -134,6 +134,5 @@
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>
 		</div>
-		
 	</div>
 </c:if>
