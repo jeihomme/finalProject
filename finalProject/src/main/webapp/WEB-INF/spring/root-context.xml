@@ -45,7 +45,7 @@
 <!-- 	패키지 구조가 바뀐다면, 이 설정도 변경해줘야한다 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage"
-			value="web.dao"/>
+			value="web.dao.face"/>
 <!-- 			value는 상세하게 하는게 좋다 -->
 	</bean>
 </beans>

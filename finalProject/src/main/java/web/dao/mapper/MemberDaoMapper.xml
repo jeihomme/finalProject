@@ -15,12 +15,18 @@
 			userId
 			, roleId
 			, password
+			, email
+			, telcom
+			, contact
 			, userName
 			)
 		values(
 			#{userId }
 			, #{roleId }
 			, #{password }
+			, #{email }
+			, #{telcom }
+			, #{contact }
 			, #{userName }
 		)
 <!-- 	setInt(), setString() 함수와 같은 것 -->

@@ -1,12 +1,17 @@
 package web.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import web.dto.Member;
 import web.service.face.MypageService;
 
 @Controller
@@ -15,36 +20,77 @@ public class MypageController {
 	private static final Logger logger
 	= LoggerFactory.getLogger(MypageController.class);
 	
-	@Autowired MypageService mService;
+	@Autowired MypageService mpService;
 	
 	@RequestMapping(value = "/mypage/info", method=RequestMethod.GET)
-	public void info() {
+	public void info(
+			HttpSession session
+			, Model model
+			) {
 		logger.info("---info---");
-		mService.infoView();
+		Member member = (Member) session.getAttribute("loginInfo");
+		logger.info(member.toString());
+		
+		model.addAttribute("member", member);
 		
 	}
 	
 	@RequestMapping(value = "/mypage/modifyInfo", method=RequestMethod.GET)
-	public void modify() {
+	public void modify(
+			HttpSession session
+			, Model model
+			) {
 		logger.info("---modify---");
-		mService.infoView();
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		logger.info(member.toString());
+		
+		model.addAttribute("member", member);
 	}
 	
 	@RequestMapping(value = "/mypage/modifyInfo", method=RequestMethod.POST)
-	public void modifyProc() {
+	public String modifyProc(
+			HttpSession session
+			, HttpServletRequest req
+			) {
 		logger.info("---modifyProc---");
-//		infoModify
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		member.setEmail(req.getParameter("email"));
+		member.setTelcom(req.getParameter("telcom"));
+		member.setContact( Integer.parseInt(req.getParameter("contact")) );
+		
+		mpService.infoModify(member);
+		
+		return "redirect:/mypage/info";
 	}
 	
-	@RequestMapping(value = "/mypage/modifyPw", method=RequestMethod.GET)
-	public void modifyPw() {
-		logger.info("---modifyPw---");
-	}
+//	@RequestMapping(value = "/mypage/modifyPw", method=RequestMethod.GET)
+//	public void modifyPw(
+//			HttpSession session
+//			, Model model
+//			) {
+//		logger.info("---modifyPw---");
+//		
+//		Member member = (Member) session.getAttribute("loginInfo");
+//		logger.info(member.toString());
+//		
+//		model.addAttribute("member", member);
+//	}
 	
 	@RequestMapping(value = "/mypage/modifyPw", method=RequestMethod.POST)
-	public void modifyPwProc() {
+	public String modifyPwProc(
+			HttpSession session
+			, HttpServletRequest req
+			) {
 		logger.info("---modifyPwProc---");
-//		modifyPw
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		member.setPassword(req.getParameter("newPassword"));
+		
+		mpService.modifyPw(member);
+		
+		return "redirect:/mypage/modifyInfo";
 	}
 //	--------------------------------------------------------------------	
 	@RequestMapping(value = "/mypage/intro", method=RequestMethod.GET)

@@ -3,30 +3,33 @@ package web.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import web.dao.face.MemberDao;
 import web.dao.face.MypageDao;
+import web.dto.Member;
 import web.service.face.MypageService;
 
 @Service
 public class MypageServiceImpl implements MypageService{
 	
-	@Autowired MypageDao mDao;
+	@Autowired MypageDao mpDao;
 	
 	@Override
-	public void infoView() {
+	public Member infoView(Member member) {
 		// TODO Auto-generated method stub
 		
+		return mpDao.selectInfoByUserId(member);
 	}
 
 	@Override
-	public void infoModify() {
+	public void infoModify(Member member) {
 		// TODO Auto-generated method stub
-		
+		mpDao.updateInfo(member);
 	}
 
 	@Override
-	public void modifyPw() {
+	public void modifyPw(Member member) {
 		// TODO Auto-generated method stub
-		
+		mpDao.updatePw(member);
 	}
 
 	@Override

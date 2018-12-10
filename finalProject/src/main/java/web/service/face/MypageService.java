@@ -1,9 +1,14 @@
 package web.service.face;
 
+import web.dto.Member;
+
 public interface MypageService {
-	public void infoView();
-	public void infoModify();
-	public void modifyPw();
+//	회원정보
+	public Member infoView(Member member);
+//	회원정보 수정
+	public void infoModify(Member member);
+//	회원 비밀번호 수정
+	public void modifyPw(Member member);
 	
 	public void introList();
 	

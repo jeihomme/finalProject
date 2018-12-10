@@ -8,17 +8,25 @@
   <!--  매퍼 설정 -->
 <mapper namespace="web.dao.face.MypageDao">
 
-	<select id="selectInfoByUserId">
-<!-- 	parameterType="web.dto.Member" -->
-<!-- 	resultType="web.dto.Member" -->
-	
+	<select id="selectInfoByUserId"
+	parameterType="web.dto.Member"
+	resultType="web.dto.Member">
 		select
-			no
-			, id
-			, pw
-			, nick
+			*
 		from member
-		where id = #{id }
+		where userId = #{userId }
 	</select>
+	
+	<update id="updateInfo"
+	parameterType="web.dto.Member">
+		update member set email=#{email }, telcom=#{telcom }, contact=#{contact }
+		where userid = #{userId }
+	</update>
+	
+	<update id="updatePw"
+	parameterType="web.dto.Member">
+		update member set password=#{password }
+		where userid = #{userId }
+	</update>
 	
 </mapper>
