@@ -59,7 +59,7 @@
 		<p onclick="location.href='/mypage/userAdmin' ">회원 관리</p>
 		<p onclick="location.href='/mypage/boardAdmin' ">게시글 관리</p>
 	</div><br><br>
-	
+	<hr>
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
 			<p class="adminDetailTitle">관리자 마이페이지 메인 </p>

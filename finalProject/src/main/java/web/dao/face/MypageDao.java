@@ -1,6 +1,10 @@
 package web.dao.face;
 
+import java.util.List;
+
 import web.dto.Member;
+import web.dto.Resume;
+import web.utils.Paging;
 
 public interface MypageDao {
 //	회원정보
@@ -41,11 +45,15 @@ public interface MypageDao {
 	public void updateCalendar();
 	public void deleteCalendar();
 	
-	public void selectUserList();
-	public void selectUserByUserId();
-	public void deleteUser();
+	public int selectUserListCnt();
+	public int selectCntAll(String search);
+	public List<Member> selectUserList(Paging paging);
+	public List<Member> selectUserByUserId(Paging paging);
+	public void deleteUser(Member member);
 	
-	public void selectBoardList();
-	public void selectBoardByBoardName();
-	public void deleteBoard();
+	public List<Resume> selectBoardList(Paging paging);
+	public List<Resume> selectBoardByResumeNo(Paging paging);
+	public void deleteBoard(Resume resume);
+	
+	
 }

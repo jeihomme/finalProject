@@ -133,7 +133,7 @@ $(document).ready(function() {
 		<p onclick="location.href='/mypage/userAdmin' ">회원 관리</p>
 		<p onclick="location.href='/mypage/boardAdmin' ">게시글 관리</p>
 	</div><br><br>
-	
+	<hr>
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
 			

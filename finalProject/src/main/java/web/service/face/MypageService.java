@@ -1,6 +1,12 @@
 package web.service.face;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import web.dto.Member;
+import web.dto.Resume;
+import web.utils.Paging;
 
 public interface MypageService {
 //	회원정보
@@ -35,11 +41,18 @@ public interface MypageService {
 	public void modifyCalendar();
 	public void deleteCalendar();
 	
-	public void userView();
-	public void userSearch();
-	public void userDelete();
+//	public void userView();
+	public int getCurPage(HttpServletRequest req);
+	public String getSearch(HttpServletRequest req);
+	public int getTotalCount(String search);
+	public int getTotalCount();
+	public List<Member> userView(Paging paging);
+	public List<Member> userSearch(Paging paging);
+	public void userDelete(Member member);
 	
-	public void boardView();
-	public void boardSearch();
-	public void boardDelete();
+	public List<Resume> boardView(Paging paging);
+	public List<Resume> boardSearch(Paging paging);
+	public void boardDelete(Resume resume);
+	
+	
 }

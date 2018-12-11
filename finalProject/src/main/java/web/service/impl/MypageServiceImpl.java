@@ -1,12 +1,17 @@
 package web.service.impl;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import web.dao.face.MemberDao;
 import web.dao.face.MypageDao;
 import web.dto.Member;
+import web.dto.Resume;
 import web.service.face.MypageService;
+import web.utils.Paging;
 
 @Service
 public class MypageServiceImpl implements MypageService{
@@ -141,39 +146,72 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public void userView() {
-		// TODO Auto-generated method stub
-		
+	public int getTotalCount() {
+		return mpDao.selectUserListCnt();
+	}
+	
+	@Override
+	public int getTotalCount(String search) {
+		return mpDao.selectCntAll(search);
 	}
 
 	@Override
-	public void userSearch() {
-		// TODO Auto-generated method stub
+	public int getCurPage(HttpServletRequest req) {
+	
+		//요청파라미터 받기
+		String curPage = req.getParameter("curPage");
 		
+		//null이나 ""이 아니면 int로 리턴
+		if( curPage != null && !"".equals(curPage) ) {
+			return Integer.parseInt( curPage );
+		}
+
+		//null이나 "" 면 0으로 반환
+		return 0;
+	}
+	
+	@Override
+	public String getSearch(HttpServletRequest req) {
+		//요청파라미터 받기
+		String search = req.getParameter("searchKeyowrd");
+		
+		return search;
+	}
+//	--------------------------유저 관리
+	@Override
+	public List<Member> userView(Paging paging) {
+		// TODO Auto-generated method stub
+		return mpDao.selectUserList(paging);
+	}
+	
+	@Override
+	public List<Member> userSearch(Paging paging) {
+		// TODO Auto-generated method stub
+		return mpDao.selectUserByUserId(paging);
+	}
+	
+	@Override
+	public void userDelete(Member member) {
+		// TODO Auto-generated method stub
+		mpDao.deleteUser(member);
+	}
+//	------------------------------- 게시글 관리
+	@Override
+	public List<Resume> boardView(Paging paging) {
+		// TODO Auto-generated method stub
+		return mpDao.selectBoardList(paging);
 	}
 
 	@Override
-	public void userDelete() {
+	public List<Resume> boardSearch(Paging paging) {
 		// TODO Auto-generated method stub
-		
+		return mpDao.selectBoardByResumeNo(paging);
 	}
 
 	@Override
-	public void boardView() {
+	public void boardDelete(Resume resume) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void boardSearch() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void boardDelete() {
-		// TODO Auto-generated method stub
-		
+		mpDao.deleteBoard(resume);
 	}
 	
 }
