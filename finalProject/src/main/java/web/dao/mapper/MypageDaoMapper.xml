@@ -29,4 +29,78 @@
 		where userid = #{userId }
 	</update>
 	
+	<select id="selectUserListCnt" resultType="int">
+		select count(*) from member
+	</select>
+
+	<select id="selectCntAll" parameterType="String"
+		resultType="int">
+		select count(*) from member
+		WHERE userId LIKE '%'||#{search }||'%'
+	</select>
+	
+	<select id="selectUserList" parameterType="web.utils.Paging"
+		resultType="web.dto.Member">
+		SELECT * FROM (
+		SELECT rownum rnum, B.* FROM (
+		SELECT * FROM member
+		ORDER BY userId DESC
+		) B
+		ORDER BY rnum
+		)
+		WHERE rnum between #{startNo } AND
+		#{endNo }
+	</select>
+	
+	<select id="selectUserByUserId" parameterType="web.utils.Paging"
+		resultType="web.dto.Member">
+		SELECT * FROM (
+		 SELECT rownum rnum, B.* FROM (
+		 	SELECT * FROM member
+			WHERE userId LIKE '%'||#{search }||'%'
+		 	ORDER BY userId DESC
+		 ) B
+		 ORDER BY rnum
+		)
+		WHERE rnum between #{startNo } AND
+		#{endNo }
+	</select>
+	
+	<delete id="deleteUser" parameterType="web.dto.Member">
+		delete member
+		where userId=#{userId }
+	</delete>
+	
+	<select id="selectBoardList" parameterType="web.utils.Paging"
+		resultType="web.dto.Resume">
+		SELECT * FROM (
+		SELECT rownum rnum, B.* FROM (
+		SELECT * FROM resume
+		ORDER BY resumeNo DESC
+		) B
+		ORDER BY rnum
+		)
+		WHERE rnum between #{startNo } AND
+		#{endNo }
+	</select>
+	
+	<select id="selectBoardByResumeNo" parameterType="web.utils.Paging"
+		resultType="web.dto.Resume">
+		SELECT * FROM (
+		 SELECT rownum rnum, B.* FROM (
+		 	SELECT * FROM resume
+			WHERE resumeNo LIKE '%'||#{search }||'%'
+		 	ORDER BY resumeNo DESC
+		 ) B
+		 ORDER BY rnum
+		)
+		WHERE rnum between #{startNo } AND
+		#{endNo }
+	</select>
+	
+	<delete id="deleteBoard" parameterType="web.dto.Resume">
+		delete resume
+		where resumeNo=#{resumeNo }
+	</delete>
+	
 </mapper>

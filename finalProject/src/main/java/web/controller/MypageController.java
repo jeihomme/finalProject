@@ -1,5 +1,7 @@
 package web.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import web.dto.Member;
+import web.dto.Resume;
 import web.service.face.MypageService;
+import web.utils.Paging;
 
 @Controller
 public class MypageController {
@@ -64,19 +68,6 @@ public class MypageController {
 		
 		return "redirect:/mypage/info";
 	}
-	
-//	@RequestMapping(value = "/mypage/modifyPw", method=RequestMethod.GET)
-//	public void modifyPw(
-//			HttpSession session
-//			, Model model
-//			) {
-//		logger.info("---modifyPw---");
-//		
-//		Member member = (Member) session.getAttribute("loginInfo");
-//		logger.info(member.toString());
-//		
-//		model.addAttribute("member", member);
-//	}
 	
 	@RequestMapping(value = "/mypage/modifyPw", method=RequestMethod.POST)
 	public String modifyPwProc(
@@ -215,39 +206,187 @@ public class MypageController {
 	}
 //	-------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/userAdmin", method=RequestMethod.GET)
-	public void userAdmin() {
+	public void userAdmin(
+			HttpServletRequest req
+			, Model model
+			) {
 		logger.info("---userAdmin---");
-//		userView
+		
+		int CurPage = mpService.getCurPage(req);
+		
+		logger.info("---getTotalCount---");
+		int totalCount = mpService.getTotalCount();
+		
+		logger.info("---Paging---");
+		Paging paging = new Paging(totalCount, CurPage);
+		
+		logger.info("---getPagingList---");
+		List<Member> mbList = mpService.userView(paging);
+		
+		logger.info("---addAttribute---");
+		model.addAttribute("mbList", mbList);
+		model.addAttribute("paging", paging);
 	}
 	
-	@RequestMapping(value = "/mypage/searchUser", method=RequestMethod.POST)
-	public void searchUserAdmin() {
+	@RequestMapping(value = "/mypage/userAdmin", method=RequestMethod.POST)
+	public void searchUserAdmin(
+			HttpServletRequest req
+			, Model model
+			) {
 		logger.info("---searchUserAdmin---");
-//		userSearch
+		
+		System.out.println(req.getParameter("searchCategory"));
+		System.out.println(req.getParameter("searchKeyowrd"));
+		
+		int CurPage = mpService.getCurPage(req);
+		
+		String search = mpService.getSearch(req);
+		Paging paging;
+		
+//		검색어가 있다면
+		if( search!=null && !"".equals(search) ) {
+			logger.info("---getTotalCount---");
+			logger.info("---search String : "+search);
+			int totalCount = mpService.getTotalCount(search);
+			logger.info("---totalCount String : "+totalCount);
+			
+			logger.info("---Paging---");
+			paging = new Paging(totalCount, CurPage);
+			
+			//페이징 객체에 검색어 적용
+			paging.setSearch(search);
+			
+			logger.info("---getPagingList---");
+			
+			List<Member> mbList = mpService.userSearch(paging);
+			
+			logger.info("---addAttribute---");
+			model.addAttribute("mbList", mbList);
+			model.addAttribute("paging", paging);
+			
+		}
+//		검색어가 없다면,
+		else {
+			logger.info("---getTotalCount---");
+			int totalCount = mpService.getTotalCount();
+			
+			logger.info("---Paging---");
+			paging = new Paging(totalCount, CurPage);
+			
+			logger.info("---getPagingList---");
+			
+			List<Member> mbList = mpService.userView(paging);
+			
+			logger.info("---addAttribute---");
+			model.addAttribute("mbList", mbList);
+			model.addAttribute("paging", paging);
+		}
 	}
 	
 	@RequestMapping(value = "/mypage/deleteUser", method=RequestMethod.POST)
-	public void deleteUserAdmin() {
+	public String deleteUserAdmin(
+			HttpServletRequest req
+			) {
 		logger.info("---deleteUserAdmin---");
-//		userDelete
+		Member member = new Member();
+		member.setUserId(req.getParameter("userId"));
+		
+		logger.info(member.toString());
+		mpService.userDelete(member);
+		
+		return "redirect:/mypage/userAdmin";
 	}
 //	-------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/boardAdmin", method=RequestMethod.GET)
-	public void boardAdmin() {
-		logger.info("---boardAdmin---");
-//		userView
+	public void boardAdmin(
+			HttpServletRequest req
+			, Model model
+			) {
+			logger.info("---boardAdmin---");
+			
+			int CurPage = mpService.getCurPage(req);
+			
+			logger.info("---getTotalCount---");
+			int totalCount = mpService.getTotalCount();
+			
+			logger.info("---Paging---");
+			Paging paging = new Paging(totalCount, CurPage);
+			
+			logger.info("---getPagingList---");
+			List<Resume> rsList = mpService.boardView(paging);
+			
+			logger.info("---addAttribute---");
+			model.addAttribute("rsList", rsList);
+			model.addAttribute("paging", paging);
 	}
 	
-	@RequestMapping(value = "/mypage/searchBoard", method=RequestMethod.POST)
-	public void searchBoardAdmin() {
-		logger.info("---searchBoardAdmin---");
-//		calendarView
+	@RequestMapping(value = "/mypage/boardAdmin", method=RequestMethod.POST)
+	public void searchBoardAdmin(
+			HttpServletRequest req
+			, Model model
+			) {
+			logger.info("---searchBoardAdmin---");
+			
+			System.out.println(req.getParameter("searchCategory"));
+			System.out.println(req.getParameter("searchKeyowrd"));
+			
+			int CurPage = mpService.getCurPage(req);
+			
+			String search = mpService.getSearch(req);
+			Paging paging;
+			
+	//		검색어가 있다면
+			if( search!=null && !"".equals(search) ) {
+				logger.info("---getTotalCount---");
+				logger.info("---search String : "+search);
+				int totalCount = mpService.getTotalCount(search);
+				logger.info("---totalCount String : "+totalCount);
+				
+				logger.info("---Paging---");
+				paging = new Paging(totalCount, CurPage);
+				
+				//페이징 객체에 검색어 적용
+				paging.setSearch(search);
+				
+				logger.info("---getPagingList---");
+				
+				List<Resume> rsList = mpService.boardSearch(paging);
+				
+				logger.info("---addAttribute---");
+				model.addAttribute("rsList", rsList);
+				model.addAttribute("paging", paging);
+				
+			}
+	//		검색어가 없다면,
+			else {
+				logger.info("---getTotalCount---");
+				int totalCount = mpService.getTotalCount();
+				
+				logger.info("---Paging---");
+				paging = new Paging(totalCount, CurPage);
+				
+				logger.info("---getPagingList---");
+				
+				List<Resume> rsList = mpService.boardView(paging);
+				
+				logger.info("---addAttribute---");
+				model.addAttribute("rsList", rsList);
+				model.addAttribute("paging", paging);
+			}
 	}
 	
 	@RequestMapping(value = "/mypage/deleteBoard", method=RequestMethod.POST)
-	public void deleteBoardAdmin() {
-		logger.info("---deleteBoardAdmin---");
-//		calendarView
+	public String deleteBoardAdmin(
+			HttpServletRequest req
+			) {
+			logger.info("---deleteBoardAdmin---");
+			Resume resume = new Resume();
+			resume.setResumeNo(Integer.parseInt(req.getParameter("resumeNo") ));
+			
+			logger.info(resume.toString());
+			mpService.boardDelete(resume);
+			
+			return "redirect:/mypage/boardAdmin";
 	}
 	
 }
