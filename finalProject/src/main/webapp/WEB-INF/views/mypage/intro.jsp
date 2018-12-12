@@ -57,7 +57,7 @@
 	.adminMypageMainImage {
 		border: 1px solid #fff;
 		margin: 10px;
-		width: 335px;
+		width: 290px;
 		height: 280px;
 		float:left;
 	}
@@ -98,29 +98,33 @@
 <hr>
 <div class="adminMypageMain">
 	<div class="adminMypageMainInfo">
-		<p class="adminDetailTitle">관리자 회원 관리 </p>
+		<p class="adminDetailTitle">밴드 소개 </p>
 		<hr>
-		<p class="adminDetailInfo">회원을 검색하여 강제 삭제할 수 있는 공간입니다.</p>
+		<ul class="adminDetailInfo">
+			<li >이력서는 최대 5개까지 작성 가능합니다.</li>
+			<li>지원하고자 하는 Bar마다 내용을 다르게 할 수 있습니다.</li>
+		</ul>
 	</div>
+	
 	<div class="adminMypageMainImage">
 		<p >이미지 넣어주세요 </p>
 	</div>
 </div>
-<div class="adminMypageSearchDiv">
-	<div class="searchUserinfo">
-		<form action="/mypage/userAdmin" method="post">
-			검색조건 <select class="searchBtn" name="searchCategory">
-				<option class="searchBtn" value="">카테고리</option>
-			    <option class="searchBtn" value="userId">아이디</option>
-			    <option class="searchBtn" value="contact">연락처</option>
-			    <option class="searchBtn" value="userName">이름</option>
-			</select>
+<!-- <div class="adminMypageSearchDiv"> -->
+<!-- 	<div class="searchUserinfo"> -->
+<!-- 		<form action="/mypage/userAdmin" method="post"> -->
+<!-- 			검색조건 <select class="searchBtn" name="searchCategory"> -->
+<!-- 				<option class="searchBtn" value="">카테고리</option> -->
+<!-- 			    <option class="searchBtn" value="userId">아이디</option> -->
+<!-- 			    <option class="searchBtn" value="contact">연락처</option> -->
+<!-- 			    <option class="searchBtn" value="userName">이름</option> -->
+<!-- 			</select> -->
 			
-			검색어 입력 <input class="searchBtn" type="text" name="searchKeyowrd" />
-			<button class="searchBtn"> 검색 </button>
-		</form>
-	</div>
-</div>
+<!-- 			검색어 입력 <input class="searchBtn" type="text" name="searchKeyowrd" /> -->
+<!-- 			<button class="searchBtn"> 검색 </button> -->
+<!-- 		</form> -->
+<!-- 	</div> -->
+<!-- </div> -->
 <style type="text/css">
 /* tr th:not(:nth-child(2)) { */
 tr th {
@@ -354,6 +358,128 @@ $(document).ready(function() {
 	});
 });
 </script>
+
+<div class="adminMypageSearchRes">
+	<div>
+		<table class="table table-hover table-striped table-condensed">
+		
+	<tr>
+		<th>아이디</th>
+		<th>유저타입</th>
+		<th>이메일</th>
+		<th>연락처</th>
+		<th>실명</th>
+		<th>정의구현</th>
+	</tr>
+	
+		<c:forEach items="${mbList }" var="i">
+			<c:if test="${i.roleId eq 1 || i.roleId eq 2}">
+<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
+				<tr>
+	<!-- 			<tr id="memberView"> -->
+	<%-- 				<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
+	<%-- 				<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
+					<td>${i.userId }</td>
+					<c:choose>
+						<c:when test="${i.roleId eq 1}">
+							<td>바</td>
+						</c:when>
+						<c:when test="${i.roleId eq 2}">
+							<td>밴드</td>
+						</c:when>
+					</c:choose>
+					<td>${i.email }</td>
+					<td>${i.contact }</td>
+<%-- 					<c:if test="${i.userName}"> --%>
+						<td>${i.userName }</td>
+<%-- 					</c:if> --%>
+<%-- 					<c:if test="${not i.userName }"> --%>
+<!-- 						<td>없음</td> -->
+<%-- 					</c:if> --%>
+					<td>
+					<form action="/mypage/deleteUser" method="post">
+						<input type="hidden" name="userId" value="${i.userId }">
+						<button class="searchBtn">회원삭제</button>
+					</form></td>
+				</tr>
+			</c:if>
+		</c:forEach>
+			
+	</table>
+		
+	<div id="pagingBox" class="text-center">
+	  <ul class="pagination pagination-sm">
+	  
+<%-- 		<c:if test="${paging.curPage ne 1 }"> --%>
+<!-- 	    <li> -->
+<!-- 	      <a href="/board/list" aria-label="First"> -->
+<!-- 	        <span aria-hidden="true">&larr;처음</span> -->
+<!-- 	      </a> -->
+<!-- 	    </li> -->
+<%-- 		</c:if> --%>
+	  
+	  	<!-- 이전 페이지 -->
+	  	<!-- 첫 페이지라면 버튼 동작 안 되게 만들기 -->
+<%-- 	  	<c:if test="${paging.curPage eq 1 }"> --%>
+<!-- 	    <li class="disabled"> -->
+<!-- 	        <span aria-hidden="true">&laquo;</span> -->
+<!-- 	    </li> -->
+<%-- 	    </c:if> --%>
+	    
+<%-- 	  	<c:if test="${paging.curPage ne 1 }"> --%>
+<!-- 	    <li> -->
+<%-- 	      <a href="/board/list?curPage=${paging.curPage-1 }" aria-label="Previous"> --%>
+<!-- 	        <span aria-hidden="true">&laquo;</span> -->
+<!-- 	      </a> -->
+<!-- 	    </li> -->
+<%-- 	    </c:if> --%>
+	    
+	    	<!-- 이전 페이지 -->
+	    <c:if test="${paging.curPage ne 1}">
+    		<button id="ajaxBtnPrev" class="searchBtn" name="ajaxBtnPrev">Prev</button>
+    	</c:if>
+    	
+	    <!-- 페이징 리스트 -->
+	    <c:forEach
+ 	     begin="${paging.startPage }"
+ 	     end="${paging.endPage }"
+ 	     var="i">
+	
+			<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
+<%-- 			<c:if test="${paging.curPage eq i}">           --%>
+<!-- 	    	  <li class="active"> -->
+<%-- 	    	  	<a href="/board/list?curPage=${i }">${i }</a> --%>
+<!-- 	    	  	</li> -->
+<%-- 	    	</c:if> --%>
+<%-- 			<c:if test="${paging.curPage ne i}">           --%>
+<!-- 	    	  <li> -->
+<%-- 	    	  <a href="/board/list?curPage=${i }">${i }</a> --%>
+<!-- 	    	  </li> -->
+<%-- 	    	</c:if> --%>
+	    	<button id="ajaxBtn${paging.startPage+i-1 }" class="searchBtn" name="ajaxBtn${paging.startPage+i-1 }" value="${paging.startPage+i-1 }">${paging.startPage+i-1 }</button>
+	    </c:forEach>
+		
+		<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
+			
+	    <!-- 다음 페이지 -->
+	  	<c:if test="${paging.curPage eq paging.totalPage }">
+	    <li class="disabled">
+	    	
+<!-- 	        <span aria-hidden="true">&raquo;</span> -->
+	    </li>
+		</c:if>
+		
+<%-- 	  	<c:if test="${paging.curPage ne paging.totalPage }"> --%>
+<!-- 	    <li> -->
+<%-- 	      <a href="/board/list?curPage=${paging.curPage+1 }" aria-label="Next"> --%>
+<!-- 	        <span aria-hidden="true">&raquo;</span> -->
+<!-- 	      </a> -->
+<!-- 	    </li> -->
+<%-- 	    </c:if> --%>
+	    </ul>
+	</div>
+	</div>
+</div>
 
 <div class="adminMypageSearchRes">
 	<div>

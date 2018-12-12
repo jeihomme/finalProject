@@ -1,5 +1,6 @@
 package web.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import web.dto.Band;
+import web.dto.BandMember;
 import web.dto.Member;
 import web.dto.Resume;
 import web.service.face.MypageService;
@@ -35,8 +38,21 @@ public class MypageController {
 		Member member = (Member) session.getAttribute("loginInfo");
 		logger.info(member.toString());
 		
+		if( member.getRoleId() == 2) {
+			Band band = new Band();
+			band.setUserId(member.getUserId());
+			band = mpService.getBand(band);
+			
+			BandMember bandMember = new BandMember();
+			bandMember.setBandName(band.getBandName());
+			List<BandMember> bandMemberList = mpService.getBandMember(bandMember);
+			
+			logger.info(bandMember.toString());
+			
+			model.addAttribute("band", band);
+			model.addAttribute("bandMemberList", bandMemberList);
+		}
 		model.addAttribute("member", member);
-		
 	}
 	
 	@RequestMapping(value = "/mypage/modifyInfo", method=RequestMethod.GET)
@@ -44,11 +60,26 @@ public class MypageController {
 			HttpSession session
 			, Model model
 			) {
+		
 		logger.info("---modify---");
 		
 		Member member = (Member) session.getAttribute("loginInfo");
 		logger.info(member.toString());
 		
+		if( member.getRoleId() == 2) {
+			Band band = new Band();
+			band.setUserId(member.getUserId());
+			band = mpService.getBand(band);
+			
+			BandMember bandMember = new BandMember();
+			bandMember.setBandName(band.getBandName());
+			List<BandMember> bandMemberList = mpService.getBandMember(bandMember);
+			
+			logger.info(bandMemberList.toString());
+			
+			model.addAttribute("band", band);
+			model.addAttribute("bandMemberList", bandMemberList);
+		}
 		model.addAttribute("member", member);
 	}
 	
@@ -59,14 +90,84 @@ public class MypageController {
 			) {
 		logger.info("---modifyProc---");
 		
+		try {
+			req.setCharacterEncoding("euc-kr");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		Member member = (Member) session.getAttribute("loginInfo");
 		member.setEmail(req.getParameter("email"));
 		member.setTelcom(req.getParameter("telcom"));
 		member.setContact( Integer.parseInt(req.getParameter("contact")) );
 		
+		if( member.getRoleId() == 2) {
+			Band band = new Band();
+			band.setUserId(member.getUserId());
+			band = mpService.getBand(band);
+			
+			BandMember bandMember = new BandMember();
+			bandMember.setBandName(band.getBandName());
+			List<BandMember> bandMemberList = mpService.getBandMember(bandMember);
+			
+			int i = 1;
+			for(BandMember bM : bandMemberList) {
+				bM.setBandMemberNo(i);
+				bM.setBandMemName(req.getParameter("bandMemName"+i));
+				bM.setBandMemInfo(req.getParameter("bandMemInfo"+i));
+				
+				i++;
+				mpService.infoBandMemberModify(bM);
+				
+				logger.info(bandMemberList.toString());
+			}
+			logger.info(bandMemberList.toString());
+		}
 		mpService.infoModify(member);
 		
-		return "redirect:/mypage/info";
+		return "redirect:/mypage/modifyInfo";
+	}
+	
+	@RequestMapping(value = "/mypage/addMemberlist", method=RequestMethod.POST)
+	public String addMemberlistProc(
+			HttpSession session
+			) {
+			logger.info("---addMemberlist---");
+			
+			Member member = (Member) session.getAttribute("loginInfo");
+			logger.info(member.toString());
+			
+			Band band = new Band();
+			band.setUserId(member.getUserId());
+			band = mpService.getBand(band);
+			
+			BandMember bandMember = new BandMember();
+			bandMember.setBandName(band.getBandName());
+			mpService.addMemberList(bandMember);
+		
+		return "redirect:/mypage/modifyInfo";
+	}
+	
+	@RequestMapping(value = "/mypage/minMemberlist", method=RequestMethod.POST)
+	public String minMemberlistProc(
+			HttpSession session
+			) {
+			logger.info("---addMemberlist---");
+			
+			Member member = (Member) session.getAttribute("loginInfo");
+			logger.info(member.toString());
+			
+			Band band = new Band();
+			band.setUserId(member.getUserId());
+			band = mpService.getBand(band);
+			
+			BandMember bandMember = new BandMember();
+			bandMember.setBandName(band.getBandName());
+			
+			mpService.minMemberList(bandMember);
+		
+		return "redirect:/mypage/modifyInfo";
 	}
 	
 	@RequestMapping(value = "/mypage/modifyPw", method=RequestMethod.POST)

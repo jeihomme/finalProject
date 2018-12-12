@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.dao.face.MypageDao;
+import web.dto.Band;
+import web.dto.BandMember;
 import web.dto.Member;
 import web.dto.Resume;
 import web.service.face.MypageService;
@@ -32,11 +34,17 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
+	public void infoBandMemberModify(BandMember bandMember) {
+		// TODO Auto-generated method stub
+		mpDao.updateBandMember(bandMember);
+	}
+	
+	@Override
 	public void modifyPw(Member member) {
 		// TODO Auto-generated method stub
 		mpDao.updatePw(member);
 	}
-
+//	----------------------------------------------------------
 	@Override
 	public void introList() {
 		// TODO Auto-generated method stub
@@ -213,5 +221,30 @@ public class MypageServiceImpl implements MypageService{
 		// TODO Auto-generated method stub
 		mpDao.deleteBoard(resume);
 	}
+//	-----------------------------------
+	@Override
+	public Band getBand(Band band) {
+		// TODO Auto-generated method stub
+		return mpDao.selectBandByUserId(band);
+	}
+	
+	@Override
+	public List<BandMember>  getBandMember(BandMember bandMember) {
+		// TODO Auto-generated method stub
+		return mpDao.selectBandMemberByBandName(bandMember);
+	}
+
+	@Override
+	public void addMemberList(BandMember bandMember) {
+		// TODO Auto-generated method stub
+		mpDao.insertBandMemberList(bandMember);
+	}
+
+	@Override
+	public void minMemberList(BandMember bandMember) {
+		// TODO Auto-generated method stub
+		mpDao.deleteBandMemberList(bandMember);
+	}
+
 	
 }
