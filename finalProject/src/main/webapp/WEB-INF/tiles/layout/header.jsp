@@ -146,13 +146,7 @@ table {
 <!-- 헤더 메뉴 -->
 <div id="headerMenu">
 	<ul>
-	<li><a>Bar</a>
-		<ul>
-			<li><a href="#">Sub Menu 1</a></li>
-			<li><a href="#">Sub Menu 2</a></li>
-			<li><a href="#">Sub Menu 3</a></li>
-		</ul>
-	</li>
+	<li><a href="/bar/barlist">Bar</a></li>
 	
 	<li><a>Band</a>
 		<ul>

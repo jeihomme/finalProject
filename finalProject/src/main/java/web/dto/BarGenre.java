@@ -3,26 +3,26 @@ package web.dto;
 public class BarGenre {
 	
 	private String barName;
-	private int genreNo;
-
+	private String genreNo;
+	
 	public String getBarName() {
 		return barName;
 	}
 	public void setBarName(String barName) {
 		this.barName = barName;
 	}
-	public int getGenreNo() {
+	public String getGenreNo() {
 		return genreNo;
 	}
-	public void setGenreNo(int genreNo) {
+	public void setGenreNo(String genreNo) {
 		this.genreNo = genreNo;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "BarGame [barName=" + barName + ", genreNo=" + genreNo + "]";
+		return "BarGenre [barName=" + barName + ", genreNo=" + genreNo + "]";
 	}
-	
+
 	
 
 }

@@ -4,11 +4,11 @@ public class Bar {
 	
 	private String barName;
 	private String userId;
-	private int profileNo;
-	private int lovationNo;
+	private String profileNo;
+	private String lovationNo;
 	private String barInfo;
 	private String manager;
-	private int contact;
+	private String contact;
 	
 	public String getBarName() {
 		return barName;
@@ -22,16 +22,16 @@ public class Bar {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public int getProfileNo() {
+	public String getProfileNo() {
 		return profileNo;
 	}
-	public void setProfileNo(int profileNo) {
+	public void setProfileNo(String profileNo) {
 		this.profileNo = profileNo;
 	}
-	public int getLovationNo() {
+	public String getLovationNo() {
 		return lovationNo;
 	}
-	public void setLovationNo(int lovationNo) {
+	public void setLovationNo(String lovationNo) {
 		this.lovationNo = lovationNo;
 	}
 	public String getBarInfo() {
@@ -46,18 +46,20 @@ public class Bar {
 	public void setManager(String manager) {
 		this.manager = manager;
 	}
-	public int getContact() {
+	public String getContact() {
 		return contact;
 	}
-	public void setContact(int contact) {
+	public void setContact(String contact) {
 		this.contact = contact;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Bar [barName=" + barName + ", userId=" + userId + ", profileNo=" + profileNo + ", lovationNo="
 				+ lovationNo + ", barInfo=" + barInfo + ", manager=" + manager + ", contact=" + contact + "]";
 	}
+	
+
 	
 	
 
