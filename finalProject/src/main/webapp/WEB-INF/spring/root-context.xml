@@ -14,6 +14,23 @@
 		<property name="password" value="tiger"/>
 	</bean>
 	
+		<!-- mail bean Gmail-->
+ 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+ 		<property name="host" value="smtp.gmail.com"/>
+  		<property name="port" value="587"/>
+  		<property name="username" value="jazzbar0831@gmail.com"/>
+  		<property name="password" value="password1!!"/>
+  		<property name="javaMailProperties">
+  	<props>
+   		<prop key="mail.smtp.auth">true</prop>
+    	<prop key="mail.smtp.starttls.enable">true</prop>
+    	<prop key="mail.smtp.timeout">8500</prop> 
+    	<prop key="mail.debug">true</prop> 
+   </props>
+  </property>
+
+	</bean>
+	
 <!-- 	jdbc Logger -->
 <!-- 	마이바티스 쿼리 로그 Proxy -->
 <!-- 		net.sf.log4jdbc.Log4jdbcProxyDataSource dataSource -->
