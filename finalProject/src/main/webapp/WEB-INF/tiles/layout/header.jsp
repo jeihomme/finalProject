@@ -27,6 +27,10 @@ table {
         color: white;
 }
 
+.modal-backdrop {
+	background-color: black;
+}
+
 @media screen and (min-width: 768px) { 
         .modal:before {
                 display: inline-block;
@@ -50,6 +54,24 @@ table {
     display: inline-block;
 	vertical-align: middle;
 	width: 30%;
+}
+
+.loginBtn {
+	height:16px;
+	color:#f1f1f1;
+	font-family:arial;
+	font-size:20px;
+	padding: 0 10px 0 10px;
+	text-decoration:none;
+	height: 28px;
+}
+
+.loginBtn:hover {
+/* 	color:#D4F4FA; */
+	color: gold;
+	height: 28px;
+/* 	메뉴 밑줄 색상 */
+	border-bottom:3px solid #ffffff;
 }
 
 .headerTitle {
@@ -152,7 +174,7 @@ table {
 	<c:if test="${not login }">
 	<li><a>Login</a>
 		<ul>
-			<li data-target="#layerpop" data-toggle="modal">로그인</li>
+			<li class="loginBtn" data-target="#layerpop" data-toggle="modal">로그인</li>
 			<li><a href="/member/join">회원가입</a></li>
 		</ul>
 	</li>
