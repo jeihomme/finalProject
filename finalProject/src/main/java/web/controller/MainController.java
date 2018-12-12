@@ -45,7 +45,7 @@ public class MainController {
 			) {
 		logger.info("---memberJoinProc---");
 		System.out.println("joinProc user : " + member);
-		mService.setUserinfo(member);
+		mService.join(member);
 		
 		return "redirect:/member/login";
 	}
@@ -63,7 +63,7 @@ public class MainController {
 			) {
 		logger.info("---memberLoginProc---");
 		
-		Member member = mService.getUserinfo(inputMemberInfo);
+		Member member = mService.loginInfo(inputMemberInfo);
 		
 		System.out.println("member : " + member);
 		
