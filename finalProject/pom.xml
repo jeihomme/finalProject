@@ -27,6 +27,20 @@
 	<dependencies>
 	
 	<!-- 	사용자 라이브러리!! -->
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>mail</artifactId>
+		<version>1.4.7</version>
+	</dependency>
+
+	<!-- mail 서포트 -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
+
+	
 <!-- 	Jackson-databind 2.9.7 -->
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>

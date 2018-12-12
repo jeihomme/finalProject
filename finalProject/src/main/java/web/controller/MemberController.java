@@ -1,0 +1,139 @@
+package web.controller;
+
+
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import web.dto.Band;
+import web.dto.Bar;
+import web.dto.Member;
+import web.service.face.MemberService;
+
+@Controller
+public class MemberController {
+
+	@Autowired MemberService memberService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
+	@RequestMapping(value="/loginloginMain", method=RequestMethod.GET)
+	public void loginMain() {
+		
+	}
+	
+	@RequestMapping(value="/member/join", method=RequestMethod.GET)
+	public void join() {
+		
+	}
+	
+	@RequestMapping(value="/member/join", method=RequestMethod.POST)
+	public void joinProc(Member member) {
+		// 가입
+		memberService.join(member);
+	
+	}
+	
+	@RequestMapping(value="/member/barjoin", method=RequestMethod.GET)
+	public void barJoin() {
+		
+	}
+	
+	@RequestMapping(value="/member/barjoin", method=RequestMethod.POST)
+	public String barJoinProc(Bar bar) {
+		// bar 가입
+		memberService.barJoin(bar);
+		
+		return "redirect:/loginMain";
+	}
+	
+	@RequestMapping(value="/member/bandjoin", method=RequestMethod.GET)
+	public void bandJoin() {
+		
+	}
+	
+	@RequestMapping(value="/member/bandjoin", method=RequestMethod.POST)
+	public String bandJoinProc(Band band) {
+		// band 가입
+		memberService.bandJoin(band);
+		
+		return "redirect:/loginMain";
+	}
+	
+	@RequestMapping(value="/member/IdCheck", method=RequestMethod.GET)
+	public void idCheck(Member member) {
+		// 아이디 중복 확인
+		memberService.checkId(member);
+		
+	}
+	
+	@RequestMapping(value="/member/login", method=RequestMethod.GET)
+	public void login() {
+		
+	}
+	
+	@RequestMapping(value="/member/login", method=RequestMethod.POST)
+	public String loginProc(
+			Member member,
+			HttpSession session) {
+		
+		String redirectUrl = null;
+		
+		if(memberService.login(member)) {
+			// 로그인 성공
+			session.setAttribute("login", true);
+			session.setAttribute("loginId", member.getUserId());
+			session.setAttribute("loginPw", member.getPassword());
+			
+			member = memberService.loginInfo(member);
+			
+			session.setAttribute("loginName", member.getUserName());
+			
+			redirectUrl = "/loginMain";
+			
+		} else {
+			// 로그인 실패
+			redirectUrl = "/member/login";
+		}
+		
+		return "redirect:"+redirectUrl;
+		
+	}
+	
+	@RequestMapping(value="/member/checkUserId", method=RequestMethod.GET)
+	public String checkUserId(Member member) {
+		
+		String redirectUrl = null;
+		
+		// 이메일과 일치하는 아이디가 있을 경우 (유저가 입력한 정보가 회원 정보와 일치)
+		if(memberService.checkUserId(member)) {
+			
+			redirectUrl = "/member/findIdMailSend";
+		}
+	
+		return "redirect:"+redirectUrl;
+	}
+	
+	@RequestMapping(value="/member/checkUserPw", method=RequestMethod.GET)
+	public String checkUserPw(Member member) {
+		
+		String redirectUrl = null;
+		
+		// 이메일과 일치하는 아이디가 있을 경우 (유저가 입력한 정보가 회원 정보와 일치)
+		if(memberService.checkPassword(member)) {
+			
+			redirectUrl = "/member/findPwMailSend";
+		}
+	
+		return "redirect:"+redirectUrl;
+	}
+
+
+
+	
+}
