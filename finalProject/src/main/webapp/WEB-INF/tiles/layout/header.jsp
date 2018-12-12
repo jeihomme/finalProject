@@ -188,7 +188,7 @@ table {
 	</c:if>
 	
 	<c:if test="${login }">
-	<li><a>${loginName }</a>님
+	<li><a>${loginInfo.userName }</a>님
 		<ul>
 			<li><a href="/mypage/info">계정관리</a></li>
 			<li><a href="/member/logout">로그아웃</a></li>
@@ -217,10 +217,10 @@ table {
 		        <table style="border: none;">
 				<tr>
 				<td>ID:&nbsp;</td>
-				<td><input type="text" name="userId" /></td></tr>
+				<td><input type="text" style="color: black" name="userId" /></td></tr>
 				<tr>
 				<td>PW:&nbsp;</td>
-				<td><input type="password" name="password" /></td></tr>
+				<td><input type="password" style="color: black" name="password" /></td></tr>
 				</table>
 				<br>
 			</form>
