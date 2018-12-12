@@ -22,7 +22,7 @@ public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
-	@RequestMapping(value="/loginloginMain", method=RequestMethod.GET)
+	@RequestMapping(value="/loginMain", method=RequestMethod.GET)
 	public void loginMain() {
 		
 	}
@@ -132,7 +132,16 @@ public class MemberController {
 	
 		return "redirect:"+redirectUrl;
 	}
-
+	
+	@RequestMapping(value="/member/logout", method=RequestMethod.GET)
+	public String logout(HttpSession session) {
+		
+		session.setAttribute("login", false);
+		
+		session.invalidate();
+		
+		return "redirect:/main";
+	}
 
 
 	
