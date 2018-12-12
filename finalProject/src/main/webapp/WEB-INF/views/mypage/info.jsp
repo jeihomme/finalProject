@@ -76,7 +76,7 @@
 
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
-		<p class="selectMenu" onclick=" location.href='/board/list' ">Mypage</p>
+		<p class="selectMenu" onclick=" location.href='/mypage/info' ">Mypage</p>
 		<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
 		<p onclick="location.href='/mypage/intro' ">바 소개</p>
 		<p onclick="location.href='/board/list' ">지원 현황</p>
@@ -98,13 +98,14 @@
 
 <c:if test="${loginInfo.roleId eq 2 }">
 	<div class="adminMenu">
-		<p class="selectMenu" onclick=" location.href='/board/list' ">Mypage</p>
+		<p class="selectMenu" onclick=" location.href='/mypage/info' ">Mypage</p>
 		<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
 		<p onclick="location.href='/mypage/intro' ">밴드 소개</p>
-		<p onclick="location.href='/mypage/voluenteer' ">지원 현황</p>
+		<p onclick="location.href='/mypage/volunteer' ">지원 현황</p>
 		<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
 		<p onclick="location.href='/mypage/calendar' ">일정표</p>
 	</div><br><br>
+	
 	
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
@@ -112,6 +113,8 @@
 			<hr>
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
+			<p class="adminDetailInfo">번호 : ${member.contact }</p>
+			<p class="adminDetailInfo">장르 : ${member.userName }</p>
 		</div>
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>

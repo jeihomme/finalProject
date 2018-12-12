@@ -63,7 +63,7 @@
 	}
 
 	/* The Modal (background) */
-	.modal {
+	.modal-pw {
 	    display: none; /* Hidden by default */
 	    position: fixed; /* Stay in place */
 	    z-index: 1; /* Sit on top */
@@ -78,12 +78,13 @@
 	}
 	
 	/* Modal Content */
-	.modal-content {
+	.modal-content-pw {
 	    background-color: #000;
-	    margin: auto;
+		margin: 0 auto;
 	    padding: 20px;
-	    border: 1px solid #fff;
-	    width: 80%;
+	    border: 3px solid #fff;
+		width: 400px;
+		text-align:center;
 	}
 	
 	/* The Close Button */
@@ -137,29 +138,29 @@ $(document).ready(function() {
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
 			
-				<p class="adminDetailTitle">관리자 마이페이지 메인 </p>
-				<hr>
-				<p class="adminDetailInfo">계정 : ${member.userId }</p>
-				<p class="adminDetailInfo">이름 : ${member.userName }</p>
-				<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><br>
-				
-										<form class="modifyInfoDone" action="/mypage/modifyPw" method="post">
-											<!-- The Modal -->
-											<div id="myModal" class="modal">
-											  <!-- Modal content -->
-											  <div id="modal-content" class="modal-content">
-											    <p class="close">X</p>
-											    <h2>비밀번호 변경</h2>
-											    
-												<b class="adminDetailInfo">현재 PW : </b><input type="password" class="inputIDPW" name="password" ><br>
-												<b class="adminDetailInfo">새 PW : </b><input type="password" class="inputIDPW" name="newPassword" ><br>
-												<b class="adminDetailInfo">새 PW 확인 : </b><input type="password" class="inputIDPW" name="newPassword" ><br>
-												
-												<button class="modifyBtn">수정</button><br>
-												
-											  </div>
-											</div>
-										</form>
+			<p class="adminDetailTitle">관리자 마이페이지 메인 </p>
+			<hr>
+			<p class="adminDetailInfo">계정 : ${member.userId }</p>
+			<p class="adminDetailInfo">이름 : ${member.userName }</p>
+			<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><br>
+			
+			<form class="modifyInfoDone" action="/mypage/modifyPw" method="post">
+				<!-- The Modal -->
+				<div id="myModal" class="modal-pw">
+				  <!-- Modal content -->
+				  <div class="modal-content-pw">
+				    <p class="close">X</p>
+				    <h2>비밀번호 변경</h2>
+				    
+					<b class="adminDetailInfo">현재 PW : </b><input type="password" class="inputIDPW" name="password" ><br>
+					<b class="adminDetailInfo">새 PW : </b><input type="password" class="inputIDPW" name="newPassword" ><br>
+					<b class="adminDetailInfo">새 PW 확인 : </b><input type="password" class="inputIDPW" name="newPassword" ><br>
+					
+					<button class="modifyBtn">수정</button><br>
+					
+				  </div>
+				</div>
+			</form>
 			
 			<form class="modifyInfoDone" action="/mypage/modifyInfo" method="post">
 				<b class="adminDetailInfo">이메일 : </b><input name="email" value="${member.email }"/><br>
@@ -177,7 +178,7 @@ $(document).ready(function() {
 
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
-		<p onclick=" location.href='/board/list' ">Mypage</p>
+		<p onclick=" location.href='/mypage/info' ">Mypage</p>
 		<p class="selectMenu" onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
 		<p onclick="location.href='/mypage/intro' ">바 소개</p>
 		<p onclick="location.href='/board/list' ">지원 현황</p>
@@ -200,7 +201,7 @@ $(document).ready(function() {
 
 <c:if test="${loginInfo.roleId eq 2 }">
 	<div class="adminMenu">
-		<p onclick=" location.href='/board/list' ">Mypage</p>
+		<p onclick=" location.href='/mypage/info' ">Mypage</p>
 		<p class="selectMenu" onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
 		<p onclick="location.href='/mypage/intro' ">밴드 소개</p>
 		<p onclick="location.href='/mypage/voluenteer' ">지원 현황</p>

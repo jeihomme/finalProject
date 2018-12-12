@@ -76,7 +76,7 @@
 
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
-		<p onclick=" location.href='/board/list' ">Mypage</p>
+		<p onclick=" location.href='/mypage/info' ">Mypage</p>
 		<p class="selectMenu" onclick="location.href='/board/list' ">회원 정보수정</p>
 		<p onclick="location.href='/board/list' ">지원 현황</p>
 		<p onclick="location.href='/board/list' ">일정표</p>
@@ -98,12 +98,12 @@
 
 <c:if test="${loginInfo.roleId eq 2 }">
 	<div class="adminMenu">
-		<p onclick=" location.href='/board/list' ">Mypage</p>
-		<p class="selectMenu" onclick="location.href='/board/list' ">회원 정보수정</p>
-		<p onclick="location.href='/board/list' ">밴드 소개</p>
-		<p onclick="location.href='/board/list' ">지원 현황</p>
-		<p onclick="location.href='/board/list' ">추천 Bar</p>
-		<p onclick="location.href='/board/list' ">일정표</p>
+		<p onclick=" location.href='/mypage/info' ">Mypage</p>
+		<p class="selectMenu" onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
+		<p onclick="location.href='/mypage/intro' ">밴드 소개</p>
+		<p onclick="location.href='/mypage/volunteer' ">지원 현황</p>
+		<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
+		<p onclick="location.href='/mypage/calendar' ">일정표</p>
 	</div><br><br>
 	
 	<div class="adminMypageMain">
