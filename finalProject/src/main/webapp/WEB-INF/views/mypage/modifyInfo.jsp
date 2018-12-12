@@ -62,6 +62,9 @@
 		color:#000;
 	}
 
+	.modifyBandValue {
+		width:100px;
+	}
 	/* The Modal (background) */
 	.modal-pw {
 	    display: none; /* Hidden by default */
@@ -234,20 +237,67 @@ $(document).ready(function() {
 		<p onclick=" location.href='/mypage/info' ">Mypage</p>
 		<p class="selectMenu" onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
 		<p onclick="location.href='/mypage/intro' ">밴드 소개</p>
-		<p onclick="location.href='/mypage/voluenteer' ">지원 현황</p>
+		<p onclick="location.href='/mypage/volunteer' ">지원 현황</p>
 		<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
 		<p onclick="location.href='/mypage/calendar' ">일정표</p>
 	</div><br><br>
-	
+	<hr>
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
+			
 			<p class="adminDetailTitle">Band 마이페이지 메인 </p>
 			<hr>
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
+			<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><br>
+			
+			<form class="modifyInfoDone" action="/mypage/modifyPw" method="post">
+				<!-- The Modal -->
+				<div id="myModal" class="modal-pw">
+				  <!-- Modal content -->
+				  <div class="modal-content-pw">
+				    <p class="close">X</p>
+				    <h2>비밀번호 변경</h2>
+				    
+					<b class="adminDetailInfo">현재 PW : </b><input type="password" class="inputIDPW" name="password" ><br>
+					<b class="adminDetailInfo">새 PW : </b><input type="password" class="inputIDPW" name="newPassword" ><br>
+					<b class="adminDetailInfo">새 PW 확인 : </b><input type="password" class="inputIDPW" name="newPassword" ><br>
+					
+					<button class="modifyBtn">수정</button><br>
+					
+				  </div>
+				</div>
+			</form>
+				<p class="adminDetailInfo">밴드 : ${band.bandName }</p>
+				<b class="adminDetailInfo">멤버</b>
+				
+				<form class="modifyInfoDone" action="/mypage/addMemberlist" method="post">
+					<button class="modifyBtn">+</button>
+				</form>
+					<c:if test="${bandMemberList[0].bandMemberNo > 0}">
+						<form class="modifyInfoDone" action="/mypage/minMemberlist" method="post">
+							<button class="modifyBtn">-</button>
+						</form>
+					</c:if>
+				
+			<form class="modifyInfoDone" action="/mypage/modifyInfo" method="post">
+				<b class="adminDetailInfo">이메일 : </b><input name="email" value="${member.email }"/><br>
+				<b class="adminDetailInfo">통신사 : </b><input name="telcom" value="${member.telcom }"/><br>
+				<b class="adminDetailInfo">연락처 : </b><input name="contact" value="${member.contact }"/><br><br>
+				<ul id = 'memberList'>
+					<c:forEach
+					items="${bandMemberList }" var="i" varStatus="status">
+					<li>
+					<input class="modifyBandValue" name="bandMemName${status.count }" value="${i.bandMemName }"/> - <input class="modifyBandValue" name="bandMemInfo${status.count }" value="${i.bandMemInfo }"/>
+					</li>
+					</c:forEach>
+				</ul>
+				<button type="submit" class="modifyBtn">수정</button>
+			</form>
 		</div>
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>
 		</div>
+		
 	</div>
 </c:if>
