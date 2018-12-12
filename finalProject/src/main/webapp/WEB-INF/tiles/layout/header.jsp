@@ -2,7 +2,56 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- 자바스크립트 -->
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#btnLogin").click(function() {
+		$("#form").submit();
+	});
+});
+
+</script>
+
 <style type="text/css">
+	
+table {
+	text-align: center;
+	margin: auto;
+}
+
+.modal {
+        text-align: center;
+		background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        
+        color: white;
+}
+
+@media screen and (min-width: 768px) { 
+        .modal:before {
+                display: inline-block;
+                vertical-align: middle;
+                content: " ";
+                height: 100%;
+        }
+}
+
+.modal-body {
+	text-align: center;
+	margin: auto;
+}
+
+.modal-footer {
+	text-align: center;
+	margin: auto;
+}
+
+.modal-dialog {
+    display: inline-block;
+	vertical-align: middle;
+	width: 30%;
+}
+
 .headerTitle {
 	padding:10px;
 	color:#ffffff;
@@ -103,14 +152,14 @@
 	<c:if test="${not login }">
 	<li><a>Login</a>
 		<ul>
-			<li><a href="/member/login">로그인</a></li>
+			<li data-target="#layerpop" data-toggle="modal">로그인</li>
 			<li><a href="/member/join">회원가입</a></li>
 		</ul>
 	</li>
 	</c:if>
 	
 	<c:if test="${login }">
-	<li><a>${loginInfo.userName }</a>님
+	<li><a>${loginName }</a>님
 		<ul>
 			<li><a href="/mypage/info">계정관리</a></li>
 			<li><a href="/member/logout">로그아웃</a></li>
@@ -121,5 +170,41 @@
 	
 	</ul>
 </div><br>
+
+<!-- 로그인 모달 -->
+<div class="modal fade" id="layerpop" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- header -->
+      <div class="modal-header">
+        <!-- 닫기(x) 버튼 -->
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- header title -->
+        <h2 class="modal-title text-center">Login</h2>
+      </div>
+      <!-- body -->
+      <div class="modal-body text-center">
+            <form id=form action="/member/login" method="post">
+		        <table style="border: none;">
+				<tr>
+				<td>ID:&nbsp;</td>
+				<td><input type="text" name="userId" /></td></tr>
+				<tr>
+				<td>PW:&nbsp;</td>
+				<td><input type="password" name="password" /></td></tr>
+				</table>
+				<br>
+			</form>
+			<button type="button" id="btnLogin">Login</button>
+			<a href="/main"><button type="button" id="btnCancel" data-dismiss="modal">Cancel</button></a>
+      </div>
+      <!-- Footer -->
+      <div class="modal-footer text-center">
+      	<a href="/member/join">회원가입</a>&nbsp;&nbsp;&nbsp;
+      	<a href="/member/findIdPw">아이디/비밀번호 찾기</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <hr>

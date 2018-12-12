@@ -22,11 +22,6 @@ public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
-	@RequestMapping(value="/loginMain", method=RequestMethod.GET)
-	public void loginMain() {
-		
-	}
-	
 	@RequestMapping(value="/member/join", method=RequestMethod.GET)
 	public void join() {
 		
@@ -49,7 +44,7 @@ public class MemberController {
 		// bar 가입
 		memberService.barJoin(bar);
 		
-		return "redirect:/loginMain";
+		return "redirect:/main";
 	}
 	
 	@RequestMapping(value="/member/bandjoin", method=RequestMethod.GET)
@@ -62,7 +57,7 @@ public class MemberController {
 		// band 가입
 		memberService.bandJoin(band);
 		
-		return "redirect:/loginMain";
+		return "redirect:/main";
 	}
 	
 	@RequestMapping(value="/member/IdCheck", method=RequestMethod.GET)
@@ -90,11 +85,13 @@ public class MemberController {
 			session.setAttribute("loginId", member.getUserId());
 			session.setAttribute("loginPw", member.getPassword());
 			
+			logger.info(member.toString());
+			
 			member = memberService.loginInfo(member);
 			
 			session.setAttribute("loginName", member.getUserName());
 			
-			redirectUrl = "/loginMain";
+			redirectUrl = "/main";
 			
 		} else {
 			// 로그인 실패

@@ -43,7 +43,7 @@ public class MailController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/loginMain";
+		return "redirect:/main";
 		
 	}
 	
@@ -73,7 +73,7 @@ public class MailController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/loginMain";
+		return "redirect:/main";
 		
 	}
 	
@@ -103,7 +103,7 @@ public class MailController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/loginMain";
+		return "redirect:/main";
 		
 	}
 	
@@ -133,7 +133,7 @@ public class MailController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/loginMain";
+		return "redirect:/main";
 		
 	}
 }
