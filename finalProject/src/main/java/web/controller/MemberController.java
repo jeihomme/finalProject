@@ -82,20 +82,19 @@ public class MemberController {
 		if(memberService.login(member)) {
 			// 로그인 성공
 			session.setAttribute("login", true);
-			session.setAttribute("loginId", member.getUserId());
-			session.setAttribute("loginPw", member.getPassword());
 			
 			logger.info(member.toString());
 			
 			member = memberService.loginInfo(member);
 			
-			session.setAttribute("loginName", member.getUserName());
+			session.setAttribute("loginInfo", member);
+
 			
 			redirectUrl = "/main";
 			
 		} else {
 			// 로그인 실패
-			redirectUrl = "/member/login";
+			redirectUrl = "/main";
 		}
 		
 		return "redirect:"+redirectUrl;
