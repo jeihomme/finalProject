@@ -145,7 +145,7 @@ public class MypageController {
 //		deleteSound
 	}
 //	--------------------------------------------------------------------
-	@RequestMapping(value = "/mypage/volunteer", method=RequestMethod.POST)
+	@RequestMapping(value = "/mypage/volunteer", method=RequestMethod.GET)
 	public void searchVolunteer() {
 		logger.info("---searchVolunteer---");
 //		searchVolunteerUser
