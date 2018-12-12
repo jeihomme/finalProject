@@ -2,11 +2,14 @@ package web.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import web.dto.Bar;
 import web.dto.Calendar;
 import web.dto.Location;
 import web.service.face.BarService;
 
+@Service
 public class BarServiceImpl implements BarService{
 
 	@Override

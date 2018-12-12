@@ -8,4 +8,37 @@
 <!--  매퍼 설정 -->
 <mapper namespace="web.dao.face.BarDao">
 
+	<select id="getBarList" parameterType="web.dto.Bar" resultType="web.dto.Bar">
+	
+	</select>
+	
+	<select id="getByLocation" parameterType="web.dto.Bar" resultType="web.dto.Bar">
+	
+	</select>
+	
+	<select id="getBarListMore" parameterType="web.dto.Bar" resultType="web.dto.Bar">
+	
+	</select>
+	
+	<select id="viewBar" parameterType="web.dto.Bar" resultType="web.dto.Bar">
+	
+	</select>
+	
+	<select id="getLocation" parameterType="web.dto.Location" resultType="web.dto.Location">
+	
+	</select>
+	
+	<select id="getBarCalendar" parameterType="web.dto.Calendar" resultType="web.dto.Calendar">
+	
+	</select>
+	
+	<insert id="barRequest" parameterType="web.dto.Bar">
+	
+	</insert>
+	
+	<update id="updateBarInfo" parameterType="web.dto.Bar">
+	
+	</update>
+	
+
 </mapper>
