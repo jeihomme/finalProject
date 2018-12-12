@@ -54,6 +54,13 @@ table {
     display: inline-block;
 	vertical-align: middle;
 	width: 30%;
+	
+	background-color: black;
+	border: 5px solid white;
+}
+
+.modal-content {
+	background-color: black;
 }
 
 .loginBtn {
@@ -217,7 +224,7 @@ table {
 				</table>
 				<br>
 			</form>
-			<button type="button" id="btnLogin">Login</button>
+			<button type="button" id="btnLogin" style="color:#337ab7">Login</button>
 			<a href="/main"><button type="button" id="btnCancel" data-dismiss="modal">Cancel</button></a>
       </div>
       <!-- Footer -->
