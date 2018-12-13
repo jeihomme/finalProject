@@ -3,11 +3,12 @@ package web.dao.face;
 import java.util.List;
 
 import web.dto.Advertise;
+import web.utils.Paging;;
 
 public interface AdvertiseDao {
 
 	// 전체 조회
-	public List selectAll();
+	public List selectPagingList(Paging paging);
 	
 	// 구인구직 글쓰기
 	public void insertAdvertise();
@@ -23,5 +24,7 @@ public interface AdvertiseDao {
 	
 	// 게시판 총 글수 출력
 	public int selectAdvertiseCntAll();
+	
+	
 	
 }
