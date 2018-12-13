@@ -96,6 +96,9 @@ table {
 	padding: 0 10px 0 10px;
 	text-decoration:none;
 	height: 28px;
+	
+	border: none;
+	background-color: rgba(0,0,0,0);
 }
 
 .loginBtn:hover {
@@ -200,7 +203,7 @@ table {
 	<c:if test="${not login }">
 	<li><a>Login</a>
 		<ul>
-			<li class="loginBtn" data-target="#layerpop" data-toggle="modal">로그인</li>
+			<li><button class="loginBtn" data-target="#layerpop" data-toggle="modal">로그인</button></li>
 <!-- 			<li><a href="/member/join">회원가입</a></li> -->
 		</ul>
 	</li>
