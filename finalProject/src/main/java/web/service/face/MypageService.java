@@ -54,5 +54,8 @@ public interface MypageService {
 	public List<Resume> boardSearch(Paging paging);
 	public void boardDelete(Resume resume);
 	
+	//bar 소개
+	public void barInfo();
+	
 	
 }

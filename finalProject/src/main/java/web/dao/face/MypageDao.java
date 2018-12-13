@@ -55,5 +55,8 @@ public interface MypageDao {
 	public List<Resume> selectBoardByResumeNo(Paging paging);
 	public void deleteBoard(Resume resume);
 	
+	//bar 소개
+	public void barInfoD();
+	
 	
 }
