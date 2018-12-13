@@ -9,7 +9,7 @@ import web.dto.Location;
 public interface BarDao {
 	
 	// 바 전체 리스트
-	public List<Bar> getBarList();
+	public List<Bar> getBarList(Bar bar);
 	
 	// 지역 번호로 검색 (location Check)
 	public List<Bar> getByLocation(int locationNo);
