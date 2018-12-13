@@ -47,7 +47,7 @@ public class MailController {
 		
 	}
 	
-	@RequestMapping(value="/member/joinMailSend")
+	@RequestMapping(value="/member/joinmail")
 	public String joinMailSend(Member member) {
 		
 		member = memberService.loginInfo(member);
@@ -77,7 +77,7 @@ public class MailController {
 		
 	}
 	
-	@RequestMapping(value="/member/findIdMailSend")
+	@RequestMapping(value="/member/findidmail")
 	public String findIDMailSend(Member member) {
 		
 		member = memberService.loginInfo(member);
@@ -107,7 +107,7 @@ public class MailController {
 		
 	}
 	
-	@RequestMapping(value="/member/findPwMailSend")
+	@RequestMapping(value="/member/findpwmailsend")
 	public String findPWMailSend(Member member) {
 		
 		member = memberService.loginInfo(member);

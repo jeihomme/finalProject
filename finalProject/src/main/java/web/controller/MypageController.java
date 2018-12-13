@@ -523,4 +523,9 @@ public class MypageController {
 			return "redirect:/mypage/boardAdmin";
 	}
 	
+	@RequestMapping(value = "/mypage/barInfo", method=RequestMethod.GET)
+	public void barInfo() {
+		logger.info("---barInfo---");
+	}
+	
 }

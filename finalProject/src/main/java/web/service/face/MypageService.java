@@ -66,6 +66,7 @@ public interface MypageService {
 	public List<Resumes> getResumesList(Resumes resumes);
 	public List<Music> getMusicList(Music music);
 	
-	
+	//bar 소개
+	public void barInfo();
 	
 }

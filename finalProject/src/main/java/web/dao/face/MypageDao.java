@@ -68,4 +68,7 @@ public interface MypageDao {
 	public List<Resumes> selectResumesListByBandName(Resumes resumes);
 	public List<Music> selectMusicListByBandName(Music music);
 	
+  //bar 소개
+	public void barInfoD();
+  
 }

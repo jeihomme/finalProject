@@ -265,5 +265,9 @@ public class MypageServiceImpl implements MypageService{
 		return mpDao.selectMusicListByBandName(music);
 	}
 
-	
+	@Override
+	public void barInfo() {
+		// TODO Auto-generated method stub
+		
+	}
 }
