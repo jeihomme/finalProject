@@ -201,7 +201,7 @@ table {
 	<li><a>Login</a>
 		<ul>
 			<li class="loginBtn" data-target="#layerpop" data-toggle="modal">로그인</li>
-			<li><a href="/member/join">회원가입</a></li>
+<!-- 			<li><a href="/member/join">회원가입</a></li> -->
 		</ul>
 	</li>
 	</c:if>
