@@ -81,11 +81,11 @@
 	</delete>
 	
 	<select id="selectBoardList" parameterType="web.utils.Paging"
-		resultType="web.dto.Resume">
+		resultType="web.dto.Resumes">
 		SELECT * FROM (
 		SELECT rownum rnum, B.* FROM (
-		SELECT * FROM resume
-		ORDER BY resumeNo DESC
+		SELECT * FROM resumes
+		ORDER BY resumesNo DESC
 		) B
 		ORDER BY rnum
 		)
@@ -93,13 +93,13 @@
 		#{endNo }
 	</select>
 	
-	<select id="selectBoardByResumeNo" parameterType="web.utils.Paging"
-		resultType="web.dto.Resume">
+	<select id="selectBoardByResumesNo" parameterType="web.utils.Paging"
+		resultType="web.dto.Resumes">
 		SELECT * FROM (
 		 SELECT rownum rnum, B.* FROM (
-		 	SELECT * FROM resume
-			WHERE resumeNo LIKE '%'||#{search }||'%'
-		 	ORDER BY resumeNo DESC
+		 	SELECT * FROM resumes
+			WHERE resumesNo LIKE '%'||#{search }||'%'
+		 	ORDER BY resumesNo DESC
 		 ) B
 		 ORDER BY rnum
 		)
@@ -107,9 +107,9 @@
 		#{endNo }
 	</select>
 	
-	<delete id="deleteBoard" parameterType="web.dto.Resume">
-		delete resume
-		where resumeNo=#{resumeNo }
+	<delete id="deleteBoard" parameterType="web.dto.Resumes">
+		delete resumes
+		where resumesNo=#{resumesNo }
 	</delete>
 	
 	<select id="selectBandByUserId" parameterType="web.dto.Band"
@@ -160,4 +160,33 @@
 		</selectKey>
 		delete BandMember where bandMemberNo = #{bandMemberNo }
 	</insert>
+	
+<!-- 	public Resumes selectResumesByBandName(Resumes resumes); -->
+	<select id="selectResumesByBandName" parameterType="web.dto.Resumes"
+		resultType="web.dto.Resumes">
+		select
+			*
+		from Resumes
+		where bandName = #{bandName }
+	</select>
+<!-- 	public List<Resumes> selectResumesListByBandName(Resumes resumes); -->
+	<select id="selectResumesListByBandName" parameterType="web.dto.Resumes"
+		resultType="web.dto.Resumes">
+		select
+			*
+		from Resumes
+		where bandName = #{bandName }
+		order by ResumesNo
+	</select>
+	
+<!-- 	public List<Music> selectMusicListByBandName(Music music); -->
+	<select id="selectMusicListByBandName" parameterType="web.dto.Music"
+		resultType="web.dto.Music">
+		select
+			musicNo, bandName, musicTitle, originName, storedName, written_date
+<!-- 			to_char(written_date, 'YY/MM/DD') -->
+		from music
+		where bandName = #{bandName }
+		order by musicNo
+	</select>
 </mapper>

@@ -11,7 +11,8 @@ import web.dao.face.MypageDao;
 import web.dto.Band;
 import web.dto.BandMember;
 import web.dto.Member;
-import web.dto.Resume;
+import web.dto.Music;
+import web.dto.Resumes;
 import web.service.face.MypageService;
 import web.utils.Paging;
 
@@ -52,7 +53,7 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public void resumeView() {
+	public void resumesView() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -82,7 +83,7 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public void resumeModify() {
+	public void resumesModify() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -205,21 +206,21 @@ public class MypageServiceImpl implements MypageService{
 	}
 //	------------------------------- 게시글 관리
 	@Override
-	public List<Resume> boardView(Paging paging) {
+	public List<Resumes> boardView(Paging paging) {
 		// TODO Auto-generated method stub
 		return mpDao.selectBoardList(paging);
 	}
 
 	@Override
-	public List<Resume> boardSearch(Paging paging) {
+	public List<Resumes> boardSearch(Paging paging) {
 		// TODO Auto-generated method stub
 		return mpDao.selectBoardByResumeNo(paging);
 	}
 
 	@Override
-	public void boardDelete(Resume resume) {
+	public void boardDelete(Resumes resumes) {
 		// TODO Auto-generated method stub
-		mpDao.deleteBoard(resume);
+		mpDao.deleteBoard(resumes);
 	}
 //	-----------------------------------
 	@Override
@@ -244,6 +245,24 @@ public class MypageServiceImpl implements MypageService{
 	public void minMemberList(BandMember bandMember) {
 		// TODO Auto-generated method stub
 		mpDao.deleteBandMemberList(bandMember);
+	}
+
+	@Override
+	public Resumes getResumes(Resumes resumes) {
+		// TODO Auto-generated method stub
+		return mpDao.selectResumesByBandName(resumes);
+	}
+
+	@Override
+	public List<Resumes> getResumesList(Resumes resumes) {
+		// TODO Auto-generated method stub
+		return mpDao.selectResumesListByBandName(resumes);
+	}
+
+	@Override
+	public List<Music> getMusicList(Music music) {
+		// TODO Auto-generated method stub
+		return mpDao.selectMusicListByBandName(music);
 	}
 
 	

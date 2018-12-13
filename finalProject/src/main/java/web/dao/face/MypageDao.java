@@ -5,7 +5,8 @@ import java.util.List;
 import web.dto.Band;
 import web.dto.BandMember;
 import web.dto.Member;
-import web.dto.Resume;
+import web.dto.Music;
+import web.dto.Resumes;
 import web.utils.Paging;
 
 public interface MypageDao {
@@ -54,13 +55,17 @@ public interface MypageDao {
 	public List<Member> selectUserByUserId(Paging paging);
 	public void deleteUser(Member member);
 	
-	public List<Resume> selectBoardList(Paging paging);
-	public List<Resume> selectBoardByResumeNo(Paging paging);
-	public void deleteBoard(Resume resume);
+	public List<Resumes> selectBoardList(Paging paging);
+	public List<Resumes> selectBoardByResumeNo(Paging paging);
+	public void deleteBoard(Resumes resumes);
 	
 	public Band selectBandByUserId(Band band);
 	public List<BandMember>  selectBandMemberByBandName(BandMember bandMember);
 	public void insertBandMemberList(BandMember bandMember);
 	public void deleteBandMemberList(BandMember bandMember);
+	
+	public Resumes selectResumesByBandName(Resumes resumes);
+	public List<Resumes> selectResumesListByBandName(Resumes resumes);
+	public List<Music> selectMusicListByBandName(Music music);
 	
 }

@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import web.dto.Band;
 import web.dto.BandMember;
 import web.dto.Member;
-import web.dto.Resume;
+import web.dto.Music;
+import web.dto.Resumes;
 import web.service.face.MypageService;
 import web.utils.Paging;
 
@@ -186,21 +187,48 @@ public class MypageController {
 	}
 //	--------------------------------------------------------------------	
 	@RequestMapping(value = "/mypage/intro", method=RequestMethod.GET)
-	public void intro() {
+	public void intro(
+			HttpSession session
+			, Model model
+			) {
 		logger.info("---intro---");
+		Member member = (Member) session.getAttribute("loginInfo");
+		logger.info(member.toString());
+		
+		Band band = new Band();
+		band.setUserId(member.getUserId());
+		band = mpService.getBand(band);
+		logger.info(band.toString());
+		
+		Resumes resumes = new Resumes();
+		resumes.setBandName(band.getBandName());
+		logger.info(resumes.toString());
+		List<Resumes> resumesList = mpService.getResumesList(resumes);
+		logger.info(resumesList.toString());
+		
+		Music music = new Music();
+		music.setBandName(band.getBandName());
+		logger.info(music.toString());
+		List<Music> musicList = mpService.getMusicList(music);
+		logger.info(musicList.toString());
+		
+		model.addAttribute("member", member);
+		model.addAttribute("band", band);
+		model.addAttribute("resumesList", resumesList);
+		model.addAttribute("musicList", musicList);
 //		introList
 	}
 //	--------------------------------------------------------------------
-	@RequestMapping(value = "/mypage/resume", method=RequestMethod.GET)
-	public void resumeView() {
-		logger.info("---resumeView---");
+	@RequestMapping(value = "/mypage/resumes", method=RequestMethod.GET)
+	public void resumesView() {
+		logger.info("---resumesView---");
 
 //		resumeView
 	}
 	
 	@RequestMapping(value = "/mypage/modifyIntro", method=RequestMethod.GET)
-	public void modifyResume() {
-		logger.info("---modifyResume---");
+	public void modifyResumes() {
+		logger.info("---modifyResumes---");
 //		resumeView
 	}
 	
@@ -229,8 +257,8 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/mypage/modifyIntro", method=RequestMethod.POST)
-	public void modifyResumeProc() {
-		logger.info("---modifyResumeProc---");
+	public void modifyResumesProc() {
+		logger.info("---modifyResumesProc---");
 //		resumeModify
 	}
 	
@@ -414,7 +442,7 @@ public class MypageController {
 			Paging paging = new Paging(totalCount, CurPage);
 			
 			logger.info("---getPagingList---");
-			List<Resume> rsList = mpService.boardView(paging);
+			List<Resumes> rsList = mpService.boardView(paging);
 			
 			logger.info("---addAttribute---");
 			model.addAttribute("rsList", rsList);
@@ -451,7 +479,7 @@ public class MypageController {
 				
 				logger.info("---getPagingList---");
 				
-				List<Resume> rsList = mpService.boardSearch(paging);
+				List<Resumes> rsList = mpService.boardSearch(paging);
 				
 				logger.info("---addAttribute---");
 				model.addAttribute("rsList", rsList);
@@ -468,7 +496,7 @@ public class MypageController {
 				
 				logger.info("---getPagingList---");
 				
-				List<Resume> rsList = mpService.boardView(paging);
+				List<Resumes> rsList = mpService.boardView(paging);
 				
 				logger.info("---addAttribute---");
 				model.addAttribute("rsList", rsList);
@@ -481,12 +509,17 @@ public class MypageController {
 			HttpServletRequest req
 			) {
 			logger.info("---deleteBoardAdmin---");
-			Resume resume = new Resume();
-			resume.setResumeNo(Integer.parseInt(req.getParameter("resumeNo") ));
+			Resumes resumes = new Resumes();
+			resumes.setResumesNo(Integer.parseInt(req.getParameter("resumeNo") ));
 			
-			logger.info(resume.toString());
-			mpService.boardDelete(resume);
+			logger.info(resumes.toString());
+			mpService.boardDelete(resumes);
 			
+			int[] a = { 1, 2, 3};
+			
+			for(int i =0; i < a.length; i++) {
+				
+			}
 			return "redirect:/mypage/boardAdmin";
 	}
 	

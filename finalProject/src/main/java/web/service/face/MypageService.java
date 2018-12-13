@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import web.dto.Band;
 import web.dto.BandMember;
 import web.dto.Member;
-import web.dto.Resume;
+import web.dto.Music;
+import web.dto.Resumes;
 import web.utils.Paging;
 
 public interface MypageService {
@@ -21,13 +22,13 @@ public interface MypageService {
 	
 	public void introList();
 	
-	public void resumeView();
+	public void resumesView();
 	public void createBasicInfo();
 	public void createSoundFile();
 	public void createHistory();
 	public void createIntro();
 	
-	public void resumeModify();
+	public void resumesModify();
 	
 	public void uploadSound();
 	public void deleteSound();
@@ -53,14 +54,17 @@ public interface MypageService {
 	public List<Member> userSearch(Paging paging);
 	public void userDelete(Member member);
 	
-	public List<Resume> boardView(Paging paging);
-	public List<Resume> boardSearch(Paging paging);
-	public void boardDelete(Resume resume);
+	public List<Resumes> boardView(Paging paging);
+	public List<Resumes> boardSearch(Paging paging);
+	public void boardDelete(Resumes resumes);
 	
 	public Band getBand(Band band);
 	public List<BandMember>  getBandMember(BandMember bandMember);
 	public void addMemberList(BandMember bandMember);
 	public void minMemberList(BandMember bandMember);
+	public Resumes getResumes(Resumes resumes);
+	public List<Resumes> getResumesList(Resumes resumes);
+	public List<Music> getMusicList(Music music);
 	
 	
 	
