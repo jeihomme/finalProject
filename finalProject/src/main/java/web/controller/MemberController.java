@@ -60,7 +60,7 @@ public class MemberController {
 		return "redirect:/main";
 	}
 	
-	@RequestMapping(value="/member/IdCheck", method=RequestMethod.GET)
+	@RequestMapping(value="/member/idcheck", method=RequestMethod.GET)
 	public void idCheck(Member member) {
 		// 아이디 중복 확인
 		memberService.checkId(member);
@@ -83,10 +83,10 @@ public class MemberController {
 			// 로그인 성공
 			session.setAttribute("login", true);
 			
-			logger.info(member.toString());
-			
+			// 로그인된 아이디의 정보 가져오기
 			member = memberService.loginInfo(member);
 			
+			// loginInfo로 member의 정보 보내기
 			session.setAttribute("loginInfo", member);
 
 			
@@ -101,7 +101,7 @@ public class MemberController {
 		
 	}
 	
-	@RequestMapping(value="/member/checkUserId", method=RequestMethod.GET)
+	@RequestMapping(value="/member/checkuserid", method=RequestMethod.GET)
 	public String checkUserId(Member member) {
 		
 		String redirectUrl = null;
@@ -109,13 +109,13 @@ public class MemberController {
 		// 이메일과 일치하는 아이디가 있을 경우 (유저가 입력한 정보가 회원 정보와 일치)
 		if(memberService.checkUserId(member)) {
 			
-			redirectUrl = "/member/findIdMailSend";
+			redirectUrl = "/member/findidmailsend";
 		}
 	
 		return "redirect:"+redirectUrl;
 	}
 	
-	@RequestMapping(value="/member/checkUserPw", method=RequestMethod.GET)
+	@RequestMapping(value="/member/checkuserpw", method=RequestMethod.GET)
 	public String checkUserPw(Member member) {
 		
 		String redirectUrl = null;
@@ -123,7 +123,7 @@ public class MemberController {
 		// 이메일과 일치하는 아이디가 있을 경우 (유저가 입력한 정보가 회원 정보와 일치)
 		if(memberService.checkPassword(member)) {
 			
-			redirectUrl = "/member/findPwMailSend";
+			redirectUrl = "/member/findpwmailsend";
 		}
 	
 		return "redirect:"+redirectUrl;
