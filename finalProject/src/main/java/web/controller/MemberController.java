@@ -1,12 +1,18 @@
 package web.controller;
 
 
+import java.io.IOException;
+import java.io.Writer;
+
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,6 +24,9 @@ import web.service.face.MemberService;
 @Controller
 public class MemberController {
 
+	@Inject
+	private JavaMailSender mailSender;
+	
 	@Autowired MemberService memberService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -27,11 +36,23 @@ public class MemberController {
 		
 	}
 	
+	@Transactional
 	@RequestMapping(value="/member/join", method=RequestMethod.POST)
 	public void joinProc(Member member) {
 		// 가입
 		memberService.join(member);
-	
+		
+//		// 인증키 생성
+//		String key = memberService.getKey(50, false);
+		
+//		// 인증키 DB 저장 - 아직 만드는 중
+//		memberService.createJoinKey(member.getEmail(), key);
+//		
+//		// 이메일 전송 형식
+//		MailSender sendMail = new MailSender(mailSender);
+//		sendMail.setSubject("[JazzBar] 서비스 이메일 인증");
+//		sendMail.setText(new StringBuffer().append("<h1>메일 인증</h1>").append("<a href=)");
+		
 	}
 	
 	@RequestMapping(value="/member/barjoin", method=RequestMethod.GET)
@@ -73,31 +94,34 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.POST)
-	public String loginProc(
+	public void loginProc(
 			Member member,
-			HttpSession session) {
-		
-		String redirectUrl = null;
+			HttpSession session,
+			Writer out) {
 		
 		if(memberService.login(member)) {
-			// 로그인 성공
-			session.setAttribute("login", true);
 			
-			// 로그인된 아이디의 정보 가져오기
-			member = memberService.loginInfo(member);
-			
-			// loginInfo로 member의 정보 보내기
-			session.setAttribute("loginInfo", member);
+			try {
+				out.write("{\"res\": true}" );
 
+				// 로그인 성공
+				session.setAttribute("login", true);
+				
+				logger.info(member.toString());
+				
+				// 로그인된 아이디의 정보 가져오기
+				member = memberService.loginInfo(member);
+				
+				// loginInfo로 member의 정보 보내기
+				session.setAttribute("loginInfo", member);
 			
-			redirectUrl = "/main";
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
-		} else {
-			// 로그인 실패
-			redirectUrl = "/main";
-		}
+
+		} 
 		
-		return "redirect:"+redirectUrl;
 		
 	}
 	

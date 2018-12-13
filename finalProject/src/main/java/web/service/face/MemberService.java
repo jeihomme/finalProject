@@ -6,6 +6,9 @@ import web.dto.Member;
 
 public interface MemberService {
 
+	// 가입 확인 메일에 적용시킬 문자 출력
+	public String getKey(int size, boolean lowerCheck);
+	
 	// 가입
 	public void join(Member member);
 	

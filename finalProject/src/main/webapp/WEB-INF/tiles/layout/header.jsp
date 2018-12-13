@@ -12,28 +12,65 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#btnLogin").click(function() {
-		$("#form").submit();
+	    // 공백 검사
+	    if(document.loginPost.userId.value.indexOf(" ")>=0) {
+	    	alert("아이디에 공백이 들어가면 안 됩니다.");
+	    	$("input[name=userId]").val("");
+	    	post.userId.focus();
+	    	return;
+	    }
+	    
+	    if(document.loginPost.password.value.indexOf(" ")>=0) {
+	    	alert("비밀번호에 공백이 들어가면 안 됩니다.");
+	    	$("input[name=password]").val("");
+	    	post.password.focus();
+	    	return;
+	    }
+	    
+	    // 공란 있는지 확인
+	    if(document.loginPost.userId.value.length==0) {
+	        alert("아이디를 입력해 주세요.");
+	        post.userId.focus();
+	        return;
+	    }
+		
+	    if(document.loginPost.password.value.length==0) {
+	        alert("비밀번호를 입력해 주세요.");
+	        post.password.focus();
+	        return;
+	    }
+		
+	    // 넘겨 줄 값 설정
+	    var formData = {
+	    	userId: $("#userId").val(),
+	    	password: $("#password").val()
+	    };
+	    
+		$.ajax({
+			type: "POST",
+			url: "/member/login",
+			dataType: "json",
+			data: formData,
+			success: function(res) {
+				
+				sessionStorage.setItem("userId", formData.userId);
+				sessionStorage.setItem("password", formData.password);
+						
+// 				alert("로그인 성공!");
+				console.log(res);
+					
+				$("form").submit();
+					
+				location.href="/main";
+				
+			},
+			error: function() {
+				alert("아이디 혹은 비밀번호가 잘못되었습니다.");
+			}
+			
+		});
 	});
 });
-
-var IMP = window.IMP; // 생략 가능
-IMP.init("imp20193587"); // 가맹점 식별코드
-
-//IMP.certification(param, callback) 호출
-IMP.certification({ // param
-    merchant_uid: "ORD20180131-0000011"
-}, function (rsp) { // callback
-    if (rsp.success) {
-       
-        // 인증 성공 시 로직,
-        
-    } else {
-        
-        // 인증 실패 시 로직,
-       
-    }
-});
-
 
 </script>
 
@@ -65,9 +102,16 @@ table {
         }
 }
 
+.modal-title {
+	color: gold;
+}
+
 .modal-body {
 	text-align: center;
 	margin: auto;
+	vertical-align: middle;
+	
+	height: 170px;
 }
 
 .modal-footer {
@@ -201,11 +245,7 @@ table {
 	</li>
 	
 	<c:if test="${not login }">
-	<li><a>Login</a>
-		<ul>
-			<li><button class="loginBtn" data-target="#layerpop" data-toggle="modal">로그인</button></li>
-<!-- 			<li><a href="/member/join">회원가입</a></li> -->
-		</ul>
+	<li><button class="loginBtn" data-target="#layerpop" data-toggle="modal">Login</button>
 	</li>
 	</c:if>
 	
@@ -229,25 +269,27 @@ table {
       <!-- header -->
       <div class="modal-header">
         <!-- 닫기(x) 버튼 -->
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" style="color: white">&times;</button>
         <!-- header title -->
-        <h2 class="modal-title text-center">Login</h2>
+        <h3 class="modal-title text-center">Login</h3>
       </div>
       <!-- body -->
       <div class="modal-body text-center">
-            <form id=form action="/member/login" method="post">
+            <form id=form action="/member/login" method="post" name="loginPost">
+		        <br>
 		        <table style="border: none;">
 				<tr>
 				<td>ID:&nbsp;</td>
-				<td><input type="text" style="color: black" name="userId" /></td></tr>
+				<td><input type="text" style="color: black" id="userId" name="userId" /></td></tr>
 				<tr>
 				<td>PW:&nbsp;</td>
-				<td><input type="password" style="color: black" name="password" /></td></tr>
+				<td><input type="password" style="color: black" id="password" name="password" /></td></tr>
 				</table>
 				<br>
 			</form>
 			<button type="button" id="btnLogin" style="color:#337ab7">Login</button>
-			<a href="/main"><button type="button" id="btnCancel" data-dismiss="modal">Cancel</button></a>
+<!-- 			<a href="/main"><button type="button" id="btnCancel" data-dismiss="modal">Cancel</button></a> -->
+      		<br>
       </div>
       <!-- Footer -->
       <div class="modal-footer text-center">
