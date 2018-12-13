@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 <!-- 자바스크립트 -->
 <script type="text/javascript">
 $(document).ready(function() {
@@ -9,6 +15,25 @@ $(document).ready(function() {
 		$("#form").submit();
 	});
 });
+
+var IMP = window.IMP; // 생략 가능
+IMP.init("imp20193587"); // 가맹점 식별코드
+
+//IMP.certification(param, callback) 호출
+IMP.certification({ // param
+    merchant_uid: "ORD20180131-0000011"
+}, function (rsp) { // callback
+    if (rsp.success) {
+       
+        // 인증 성공 시 로직,
+        
+    } else {
+        
+        // 인증 실패 시 로직,
+       
+    }
+});
+
 
 </script>
 
