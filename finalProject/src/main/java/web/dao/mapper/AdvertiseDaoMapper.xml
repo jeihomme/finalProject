@@ -5,6 +5,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="web.dao.face.AdvertiseDao">
-  
+  <sql id="selectAdvertise">
+	SELECT bandName , collaboNo , findNo ,adsNo FROM advertise
+</sql>
+	<select id="selectPagingList" resultMap="Advertise" parameterType="web.util.Paging">
+	SELECT * FROM ( SELECT rownum rnum, B.* FROM (
+<include refid="selectAdvertise"/>
+	) B ORDER BY adsNo DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum
+</select>
+<select id="selectCntAll" resultType="int">
+	SELECT COUNT(*) CNT FROM (
+<include refid="selectBoard"/>
+	) CNT
+</select>
   
   </mapper>
