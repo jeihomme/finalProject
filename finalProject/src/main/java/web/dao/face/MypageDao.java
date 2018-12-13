@@ -58,6 +58,8 @@ public interface MypageDao {
 	public List<Resume> selectBoardByResumeNo(Paging paging);
 	public void deleteBoard(Resume resume);
 	
+	//bar 소개
+	public void barInfoD();
 	public Band selectBandByUserId(Band band);
 	public List<BandMember>  selectBandMemberByBandName(BandMember bandMember);
 	public void insertBandMemberList(BandMember bandMember);

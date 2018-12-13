@@ -57,11 +57,13 @@ public interface MypageService {
 	public List<Resume> boardSearch(Paging paging);
 	public void boardDelete(Resume resume);
 	
+	//bar 소개
+	public void barInfo();
+  
 	public Band getBand(Band band);
 	public List<BandMember>  getBandMember(BandMember bandMember);
 	public void addMemberList(BandMember bandMember);
 	public void minMemberList(BandMember bandMember);
-	
 	
 	
 }

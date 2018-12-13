@@ -221,6 +221,14 @@ public class MypageServiceImpl implements MypageService{
 		// TODO Auto-generated method stub
 		mpDao.deleteBoard(resume);
 	}
+
+
+	@Override
+	public void barInfo() {
+		// TODO Auto-generated method stub
+		
+	}
+
 //	-----------------------------------
 	@Override
 	public Band getBand(Band band) {
@@ -245,6 +253,7 @@ public class MypageServiceImpl implements MypageService{
 		// TODO Auto-generated method stub
 		mpDao.deleteBandMemberList(bandMember);
 	}
+
 
 	
 }
