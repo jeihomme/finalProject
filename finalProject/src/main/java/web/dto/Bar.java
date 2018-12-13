@@ -5,7 +5,7 @@ public class Bar {
 	private String barName;
 	private String userId;
 	private String profileNo;
-	private String lovationNo;
+	private String locationNo;
 	private String barInfo;
 	private String manager;
 	private String contact;
@@ -28,11 +28,11 @@ public class Bar {
 	public void setProfileNo(String profileNo) {
 		this.profileNo = profileNo;
 	}
-	public String getLovationNo() {
-		return lovationNo;
+	public String getLocationNo() {
+		return locationNo;
 	}
-	public void setLovationNo(String lovationNo) {
-		this.lovationNo = lovationNo;
+	public void setLocationNo(String locationNo) {
+		this.locationNo = locationNo;
 	}
 	public String getBarInfo() {
 		return barInfo;
@@ -52,14 +52,13 @@ public class Bar {
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Bar [barName=" + barName + ", userId=" + userId + ", profileNo=" + profileNo + ", lovationNo="
-				+ lovationNo + ", barInfo=" + barInfo + ", manager=" + manager + ", contact=" + contact + "]";
+		return "Bar [barName=" + barName + ", userId=" + userId + ", profileNo=" + profileNo + ", locationNo="
+				+ locationNo + ", barInfo=" + barInfo + ", manager=" + manager + ", contact=" + contact + "]";
 	}
 	
-
 	
 	
 

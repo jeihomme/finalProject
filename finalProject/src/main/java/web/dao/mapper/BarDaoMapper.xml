@@ -9,7 +9,16 @@
 <mapper namespace="web.dao.face.BarDao">
 
 	<select id="getBarList" parameterType="web.dto.Bar" resultType="web.dto.Bar">
-	
+		SELECT
+			barName,
+			userId,
+			profileNo,
+			locationNo,
+			barInfo,
+			manager,
+			contact
+		FROM
+			BAR
 	</select>
 	
 	<select id="getByLocation" parameterType="web.dto.Bar" resultType="web.dto.Bar">

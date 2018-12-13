@@ -10,11 +10,26 @@
 		padding:10px;
 		margin: 0 auto;
 	}
+	
+	#location {
+		border: 1px solid #fff;
+		width: 1200px;
+		height: auto;
+		margin: 10px auto;
+		
+	}
 </style>
 
 <div class="test">
 	<p onclick="location.href= '/main' "> 메인으로 </p>
-</div>    
+</div>
+
+<div id="location">
+	<div>
+		바 소개글
+	</div>
+
+</div>
 
 <div class="test">
 	<p onclick="location.href= '/bar/barlist' "> 바 리스트로 </p>

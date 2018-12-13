@@ -19,32 +19,13 @@
 	<p onclick="location.href= '/main' "> 메인으로 </p>
 </div> <br>
 
-<div class="test">
-	<p onclick="location.href= '/bar/viewbar' "> <img src="/resources/testimage/1.png"> </p> 
-	<p class="font" onclick="location.href= '/bar/viewbar' "> 1번 바 </p> 
-</div>
+<h2>Bar List</h2>
+<hr>
 
-<div class="test">
-	<p onclick="location.href= '/bar/viewbar' "> <img src="/resources/testimage/2.jpg"> </p> 
-	<p class="font" onclick="location.href= '/bar/viewbar' "> 2번 바 </p> 
-</div>
+<c:forEach var="row" items="${list }">
+	<div class="test">
+		<p onclick="location.href= '/bar/viewbar' "> <img src="/resources/testimage/1.png"> </p> 
+		<p class="font" onclick="location.href= '/bar/viewbar?barName=${row.barName}'"> ${row.barName } </p> 
+	</div>
+</c:forEach>
 
-<div class="test">
-	<p onclick="location.href= '/bar/viewbar' "> <img src="/resources/testimage/3.jpg"> </p> 
-	<p class="font" onclick="location.href= '/bar/viewbar' "> 3번 바 </p> 
-</div>
-
-<div class="test">
-	<p onclick="location.href= '/bar/viewbar' "> <img src="/resources/testimage/4.jpg"> </p> 
-	<p class="font" onclick="location.href= '/bar/viewbar' "> 4번 바 </p> 
-</div>
-
-<div class="test">
-	<p onclick="location.href= '/bar/viewbar' "> <img src="/resources/testimage/5.jpg"> </p> 
-	<p class="font" onclick="location.href= '/bar/viewbar' "> 5번 바 </p> 
-</div>
-
-<div class="test">
-	<p onclick="location.href= '/bar/viewbar' "> <img src="/resources/testimage/6.jpg"> </p> 
-	<p class="font" onclick="location.href= '/bar/viewbar' "> 6번 바 </p> 
-</div>
