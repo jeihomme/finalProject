@@ -2,6 +2,8 @@ package web.dao.face;
 
 import java.util.List;
 
+import web.dto.Band;
+import web.dto.BandMember;
 import web.dto.Member;
 import web.dto.Resume;
 import web.utils.Paging;
@@ -11,6 +13,7 @@ public interface MypageDao {
 	public Member selectInfoByUserId(Member member);
 //	회원정보 업데이트
 	public void updateInfo(Member member);
+	public void updateBandMember(BandMember bandMember);
 //	회원정보 비밀번호 업데이트
 	public void updatePw(Member member);
 	
@@ -57,6 +60,9 @@ public interface MypageDao {
 	
 	//bar 소개
 	public void barInfoD();
-	
+	public Band selectBandByUserId(Band band);
+	public List<BandMember>  selectBandMemberByBandName(BandMember bandMember);
+	public void insertBandMemberList(BandMember bandMember);
+	public void deleteBandMemberList(BandMember bandMember);
 	
 }

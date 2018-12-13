@@ -66,6 +66,8 @@
 			<hr>
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
+			<p class="adminDetailInfo">이메일 : ${member.email }</p>
+			<p class="adminDetailInfo">번호 : ${member.email }</p>
 		</div>
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>
@@ -89,6 +91,8 @@
 			<hr>
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
+			<p class="adminDetailInfo">이메일 : ${member.email }</p>
+			<p class="adminDetailInfo">번호 : ${member.email }</p>
 		</div>
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>
@@ -105,16 +109,24 @@
 		<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
 		<p onclick="location.href='/mypage/calendar' ">일정표</p>
 	</div><br><br>
-	
-	
+	<hr>
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
 			<p class="adminDetailTitle">Band 마이페이지 메인 </p>
 			<hr>
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
-			<p class="adminDetailInfo">번호 : ${member.contact }</p>
-			<p class="adminDetailInfo">장르 : ${member.userName }</p>
+			<p class="adminDetailInfo">이메일 : ${member.email }</p>
+			<p class="adminDetailInfo">연락처 : ${member.email }</p><br>
+			<p class="adminDetailInfo">밴드 : ${band.bandName }</p>
+			<p class="adminDetailInfo">멤버</p>
+			
+			<ul>
+				<c:forEach items="${bandMemberList }" var="i">
+				<li>${i.bandMemName } - ${i.bandMemInfo }</li>
+				</c:forEach>
+			</ul>
+			
 		</div>
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>

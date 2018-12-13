@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import web.dto.Band;
+import web.dto.BandMember;
 import web.dto.Member;
 import web.dto.Resume;
 import web.utils.Paging;
@@ -13,6 +15,7 @@ public interface MypageService {
 	public Member infoView(Member member);
 //	회원정보 수정
 	public void infoModify(Member member);
+	public void infoBandMemberModify(BandMember bandMember);
 //	회원 비밀번호 수정
 	public void modifyPw(Member member);
 	
@@ -56,6 +59,11 @@ public interface MypageService {
 	
 	//bar 소개
 	public void barInfo();
+  
+	public Band getBand(Band band);
+	public List<BandMember>  getBandMember(BandMember bandMember);
+	public void addMemberList(BandMember bandMember);
+	public void minMemberList(BandMember bandMember);
 	
 	
 }

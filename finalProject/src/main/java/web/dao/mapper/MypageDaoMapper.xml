@@ -20,13 +20,22 @@
 	<update id="updateInfo"
 	parameterType="web.dto.Member">
 		update member set email=#{email }, telcom=#{telcom }, contact=#{contact }
-		where userid = #{userId }
+		where userId = #{userId }
 	</update>
 	
+<!-- 	public void updateBandMember(List<BandMember> bandMember); -->
+	<update id="updateBandMember"
+	parameterType="web.dto.BandMember">
+		update bandMember set
+			bandMemName=#{bandMemName }
+			, bandMemInfo=#{bandMemInfo }
+		where bandName = #{bandName } and bandMemberNo = #{bandMemberNo }
+	</update>
+
 	<update id="updatePw"
 	parameterType="web.dto.Member">
 		update member set password=#{password }
-		where userid = #{userId }
+		where userId = #{userId }
 	</update>
 	
 	<select id="selectUserListCnt" resultType="int">
@@ -103,4 +112,52 @@
 		where resumeNo=#{resumeNo }
 	</delete>
 	
+	<select id="selectBandByUserId" parameterType="web.dto.Band"
+		resultType="web.dto.Band">
+		select * from band
+		where userId = #{userId }
+	</select>
+	
+	<select id="selectBandMemberByBandName" parameterType="web.dto.BandMember"
+		resultType="web.dto.BandMember">
+		select
+			*
+		from bandMember
+		where bandName = #{bandName }
+		order by bandMemberNo
+	</select>
+	
+<!-- 	public void insertBandMemberList(BandMember bandMember); -->
+	<insert id="insertBandMemberList" parameterType="web.dto.BandMember">
+		<selectKey keyProperty="bandMemberNo" resultType="int" order="BEFORE">
+<!-- 			select dept_seq.nextval from dual -->
+			select * from (
+			select NVL(max(bandMemberNo)+1, 1) from bandMember
+			order by bandMemberNo desc
+			)
+			where rownum = 1
+<!-- 			select max(no)+1 no from test_member -->
+		</selectKey>
+		insert into BandMember
+			values(
+			#{bandMemberNo }
+			, ''
+			, #{bandName }
+			, ''
+			)
+	</insert>
+	
+<!-- 	public void deleteBandMemberList(BandMember bandMember); -->
+	<insert id="deleteBandMemberList" parameterType="web.dto.BandMember">
+		<selectKey keyProperty="bandMemberNo" resultType="int" order="BEFORE">
+<!-- 			select dept_seq.nextval from dual -->
+			select * from (
+			select bandMemberNo from bandMember
+			order by bandMemberNo desc
+			)
+			where rownum = 1
+<!-- 			select max(no)+1 no from test_member -->
+		</selectKey>
+		delete BandMember where bandMemberNo = #{bandMemberNo }
+	</insert>
 </mapper>
