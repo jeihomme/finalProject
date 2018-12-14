@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
+
+import web.dto.Bar;
+
 import web.dto.Genre;
 import web.dto.Member;
 import web.dto.Music;
@@ -74,7 +77,7 @@ public interface MypageService {
 	public Genre getGenre(Genre genre);
 	
 	//bar 소개
-	public void barInfo();
+	public Bar barInfo(Bar bar);
 	
 	
 	

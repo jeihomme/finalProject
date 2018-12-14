@@ -11,7 +11,11 @@ import web.dao.face.MypageDao;
 import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
+
+import web.dto.Bar;
+
 import web.dto.Genre;
+
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
@@ -267,10 +271,11 @@ public class MypageServiceImpl implements MypageService{
 		return mpDao.selectMusicListByBandName(music);
 	}
 
+
 	@Override
-	public void barInfo() {
-		// TODO Auto-generated method stub
+	public Bar barInfo(Bar bar) {
 		
+		return mpDao.barInfoBarno(bar);
 	}
 
 	@Override

@@ -5,7 +5,11 @@ import java.util.List;
 import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
+
+import web.dto.Bar;
+
 import web.dto.Genre;
+
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
@@ -70,6 +74,10 @@ public interface MypageDao {
 	public List<Resumes> selectResumesListByBandName(Resumes resumes);
 	public List<Music> selectMusicListByBandName(Music music);
 	
+
+	//bar 소개
+	public Bar barInfoBarno(Bar bar);
+
 	public void deleteResumesByResumesNo(Resumes resumes);
 	public void deleteMusicByMusicNo(Music music);
 	
@@ -80,10 +88,4 @@ public interface MypageDao {
 	
   //bar 소개
 	public void barInfoD();
-	
-	
-	
-	
-	
-  
 }

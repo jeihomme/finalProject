@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
+
+import web.dto.Bar;
 import web.dto.Genre;
+
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
@@ -575,9 +578,18 @@ public class MypageController {
 			return "redirect:/mypage/boardAdmin";
 	}
 	
+	//bar 소개
 	@RequestMapping(value = "/mypage/barInfo", method=RequestMethod.GET)
-	public void barInfo() {
+	public void barInfo(Bar bar,
+			HttpServletRequest req,
+			Model model) {
 		logger.info("---barInfo---");
-	}
+		mpService.barInfo(bar);
+		System.out.println(mpService.barInfo(bar));
+		
+		model.addAttribute("barno",	mpService.barInfo(bar));
 	
+	}
+//	return "/mypage/barInfo";
 }
+
