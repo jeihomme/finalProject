@@ -10,19 +10,35 @@ import web.dao.face.BandGenreDao;
 import web.dao.face.MusicDao;
 import web.dto.Advertise;
 import web.service.face.AdvertiseService;
+import web.utils.Paging;
 
 @Service
 public class AdvertiseServiceImpl implements AdvertiseService {
 
-	@Autowired AdvertiseDao advertiseDao;
+	@Autowired private AdvertiseDao advertiseDao;
 	@Autowired MusicDao musicDao;
 	@Autowired BandGenreDao bandGenreDao;
 	
 	
 	@Override
-	public List getList() {
+	public List getList(Paging paging) {
+	
+		return advertiseDao.selectPagingList(paging);
+	}
+	
+	@Override
+	public Paging getPaging(int curPage, int listCount, int pageCount) {
+		
+		int totalCount = this.selectCountAll();
+		
+		Paging paging = new Paging(totalCount , curPage , listCount , pageCount);
+		
+		return paging;
+	}
+	
+	public int selectCountAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return advertiseDao.selectAdvertiseCntAll();
 	}
 	@Override
 	public Advertise view(Advertise advertiseView) {
@@ -54,4 +70,5 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		// TODO Auto-generated method stub
 		
 	}
+	
 }

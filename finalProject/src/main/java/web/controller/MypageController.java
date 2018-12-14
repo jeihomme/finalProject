@@ -15,11 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import web.dto.Band;
+import web.dto.BandGenre;
 import web.dto.BandMember;
+
 import web.dto.Bar;
+import web.dto.Genre;
+
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
+import web.service.face.MemberService;
 import web.service.face.MypageService;
 import web.utils.Paging;
 
@@ -30,6 +35,7 @@ public class MypageController {
 	= LoggerFactory.getLogger(MypageController.class);
 	
 	@Autowired MypageService mpService;
+	@Autowired MemberService mbService;
 	
 	@RequestMapping(value = "/mypage/info", method=RequestMethod.GET)
 	public void info(
@@ -213,24 +219,74 @@ public class MypageController {
 		List<Music> musicList = mpService.getMusicList(music);
 		logger.info(musicList.toString());
 		
-		model.addAttribute("member", member);
-		model.addAttribute("band", band);
+//		model.addAttribute("band", band);
 		model.addAttribute("resumesList", resumesList);
 		model.addAttribute("musicList", musicList);
 //		introList
 	}
-//	--------------------------------------------------------------------
+	
 	@RequestMapping(value = "/mypage/resumes", method=RequestMethod.GET)
-	public void resumesView() {
+	public void resumesView(
+			HttpSession session
+			, Model model
+			, HttpServletRequest req
+			) {
 		logger.info("---resumesView---");
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		member = mbService.loginInfo(member);
+		logger.info(member.toString());
+		
+		Band band = new Band();
+		band.setUserId(member.getUserId());
+		band = mpService.getBand(band);
+		logger.info(band.toString());
+		
+		Resumes resumes = new Resumes();
+		resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
+		mpService.getResumes(resumes);
+		logger.info(resumes.toString());
+		
+		BandGenre bandGenre = new BandGenre();
+		bandGenre.setBandNo(band.getBandNo());
+		bandGenre = mpService.getBandGenre(bandGenre);
+		logger.info(bandGenre.toString());
+		
+		Genre genre = new Genre();
+		genre.setGenreNo(bandGenre.getGenreNo());
+		genre = mpService.getGenre(genre);
+		logger.info(genre.toString());
+		
+		model.addAttribute("member", member);
+		model.addAttribute("band", band);
+		model.addAttribute("genre", genre);
+		
+		model.addAttribute("resumes", resumes);
+		
+	}
+	
+	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.GET)
+	public void modifyResumes() {
+		logger.info("---modifyResumes---");
+//		resumeView
+	}
+	
+	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.POST)
+	public void modifyResumesProc() {
+		logger.info("---createResumes---");
 
 //		resumeView
 	}
 	
-	@RequestMapping(value = "/mypage/modifyIntro", method=RequestMethod.GET)
-	public void modifyResumes() {
-		logger.info("---modifyResumes---");
-//		resumeView
+	@RequestMapping(value = "/mypage/deleteResumes", method=RequestMethod.POST)
+	public String deleteResumes(
+			Resumes resumes
+			) {
+		logger.info("---deleteResumes---");
+		
+		mpService.deleteResumes(resumes);
+		
+		return "redirect:/mypage/intro";
 	}
 	
 	@RequestMapping(value = "/mypage/basicInfo", method=RequestMethod.POST)
@@ -251,17 +307,11 @@ public class MypageController {
 //		createHistory
 	}
 	
-	@RequestMapping(value = "/mypage/intro", method=RequestMethod.POST)
-	public void uploadCreateIntro() {
-		logger.info("---uploadCreateIntro---");
-//		createIntro
-	}
-	
-	@RequestMapping(value = "/mypage/modifyIntro", method=RequestMethod.POST)
-	public void modifyResumesProc() {
-		logger.info("---modifyResumesProc---");
-//		resumeModify
-	}
+//	@RequestMapping(value = "/mypage/intro", method=RequestMethod.POST)
+//	public void uploadCreateIntro() {
+//		logger.info("---uploadCreateIntro---");
+////		createIntro
+//	}
 	
 	@RequestMapping(value = "/mypage/insertSound", method=RequestMethod.POST)
 	public void uploadSound() {
@@ -269,10 +319,14 @@ public class MypageController {
 //		uploadSound
 	}
 	
-	@RequestMapping(value = "/board/deleteSound", method=RequestMethod.POST)
-	public void deleteSound() {
+	@RequestMapping(value = "/mypage/deleteSound", method=RequestMethod.POST)
+	public String deleteSound(
+			Music music
+			) {
 		logger.info("---deleteSound---");
-//		deleteSound
+		mpService.deleteSound(music);
+		
+		return "redirect:/mypage/intro";
 	}
 //	--------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/volunteer", method=RequestMethod.GET)

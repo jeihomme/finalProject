@@ -41,6 +41,7 @@
 	}
 	
 	.adminMypageMainInfo {
+/* 		border: 1px solid #fff; */
 		margin: 10px;
 		float:left;
 	}
@@ -51,7 +52,15 @@
 	}
 	
 	.adminDetailInfo {
+		width:144px;
 		font-size:13px;
+		float:right;
+	}
+	
+	.adminDetailMust {
+		font-size:8px;
+		color:gold;
+		float:left;
 	}
 	
 	.adminMypageMainImage {
@@ -87,44 +96,6 @@
 	}
 </style>
 
-<div class="adminMenu">
-	<p onclick=" location.href='/mypage/info' ">Mypage</p>
-	<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-	<p class="selectMenu" onclick="location.href='/mypage/intro' ">밴드 소개</p>
-	<p onclick="location.href='/mypage/volunteer' ">지원 현황</p>
-	<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
-	<p onclick="location.href='/mypage/calendar' ">일정표</p>
-</div><br><br>
-<hr>
-<div class="adminMypageMain">
-	<div class="adminMypageMainInfo">
-		<p class="adminDetailTitle">밴드 소개 </p>
-		<hr>
-		<ul class="adminDetailInfo">
-			<li >이력서는 최대 5개까지 작성 가능합니다.</li>
-			<li>지원하고자 하는 Bar마다 내용을 다르게 할 수 있습니다.</li>
-		</ul>
-	</div>
-	
-	<div class="adminMypageMainImage">
-		<p >이미지 넣어주세요 </p>
-	</div>
-</div>
-<!-- <div class="adminMypageSearchDiv"> -->
-<!-- 	<div class="searchUserinfo"> -->
-<!-- 		<form action="/mypage/userAdmin" method="post"> -->
-<!-- 			검색조건 <select class="searchBtn" name="searchCategory"> -->
-<!-- 				<option class="searchBtn" value="">카테고리</option> -->
-<!-- 			    <option class="searchBtn" value="userId">아이디</option> -->
-<!-- 			    <option class="searchBtn" value="contact">연락처</option> -->
-<!-- 			    <option class="searchBtn" value="userName">이름</option> -->
-<!-- 			</select> -->
-			
-<!-- 			검색어 입력 <input class="searchBtn" type="text" name="searchKeyowrd" /> -->
-<!-- 			<button class="searchBtn"> 검색 </button> -->
-<!-- 		</form> -->
-<!-- 	</div> -->
-<!-- </div> -->
 <style type="text/css">
 /* tr th:not(:nth-child(2)) { */
 tr th {
@@ -155,10 +126,83 @@ td {
 	}
 </style>
 
+<div class="adminMenu">
+	<p onclick=" location.href='/mypage/info' ">Mypage</p>
+	<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
+	<p class="selectMenu" onclick="location.href='/mypage/intro' ">밴드 소개</p>
+	<p onclick="location.href='/mypage/volunteer' ">지원 현황</p>
+	<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
+	<p onclick="location.href='/mypage/calendar' ">일정표</p>
+</div><br><br>
+<hr>
+<div class="adminMypageMain">
+	<div class="adminMypageMainInfo">
+		<p class="adminDetailTitle">기본정보 </p>
+		
+		<div class="adminMypageMainInfo">
+			<input type="file" name="profileNo"/>
+		</div>
+		<div class="adminMypageMainInfo">
+			<b class="adminDetailInfo">밴드명</b><p class="adminDetailMust">(필수) </p><br>
+			${band.bandName }<br><br>
+<!-- 			<input type="text" name="bandName"/><br> -->
+			<b class="adminDetailInfo">연락처 </b><p class="adminDetailMust">(필수) </p><br>
+			${member.contact }<br>
+<!-- 			<input type="text" name="contact"/><br> -->
+		</div>
+		<div class="adminMypageMainInfo">
+			<b class="adminDetailInfo">이메일 </b><p class="adminDetailMust">(필수) </p><br>
+<!-- 			<input type="text" name="email"/><br> -->
+			${member.email }<br><br>
+			<b class="adminDetailInfo">장르 </b><p class="adminDetailMust">(필수) </p>
+			${bandGenre.genreTitle }<br>
+<!-- 			<input type="text" name="genreNo"/><br> -->
+<!-- 			<select name="genre"> -->
+<!-- 				<option value=""></option> -->
+<!-- 				<option value="비밥"></option><option value="스윙"></option> -->
+<!-- 				<option value="펑크"></option><option value="모던"></option> -->
+<!-- 				<option value="보사노바"></option><option value="부기우기"></option> -->
+<!-- 			</select> -->
+		</div>
+		
+	</div>
+</div>
+<hr>
 <div class="adminMypageSearchRes">
 	<div>
-		<b class="bandIntroHeader">밴드소개 리스트</b>
-		<button class="bandIntroInsert" onclick="location.href='/mypage/resumes' ">소개 등록</button>
+		<b class="bandIntroHeader">첨부파일</b>
+		<table class="table table-hover table-striped table-condensed">
+			<tr>
+				<th>밴드소개 제목</th>
+				<th>첨부파일</th>
+			</tr>
+		
+			<c:forEach items="${resumesList }" var="i">
+	<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
+					<tr>
+		<!-- 			<tr id="memberView"> -->
+		<%-- 				<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
+		<%-- 				<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
+						<td><a href="/mypage/resumes?resumesNo=${i.resumesNo }">${i.bandInfo }</a>
+							<form class="bandModifyBtn" action="/mypage/deleteResumes" method="post">
+								<input type="hidden" name="resumesNo" value="${i.resumesNo }">
+								<button class="searchBtn">삭제</button>
+							</form>
+							<form class="bandModifyBtn" action="/mypage/deleteUser" method="post">
+								<input type="hidden" name="userId" value="${i.resumesNo }">
+								<button class="searchBtn">수정</button>
+							</form>
+						</td>
+						<td>${i.musicNo }</td>
+					</tr>
+			</c:forEach>
+		</table>
+	</div>
+</div>
+<hr>
+<div class="adminMypageSearchRes">
+	<div>
+		<b class="bandIntroHeader">History</b>
 		<table class="table table-hover table-striped table-condensed">
 			
 			<tr>
@@ -189,38 +233,10 @@ td {
 	</div>
 </div>
 
-<div class="adminMypageSearchRes">
-	<div>
-		<form action="/mypage/deleteUser" method="post">
-			<b class="bandIntroHeader">첨부파일 리스트</b>
-			<button class="bandIntroInsert">파일 첨부</button>
-		</form>
-		<table class="table table-hover table-striped table-condensed">
-			
-			<tr>
-				<th>파일번호</th>
-				<th>파일명</th>
-				<th>등록/수정일</th>
-			</tr>
-		
-			<c:forEach items="${musicList }" var="i">
-	<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
-					<tr>
-		<!-- 			<tr id="memberView"> -->
-		<%-- 				<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
-		<%-- 				<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
-						<td>${i.musicNo }</td>
-						<td><a href="">${i.musicTitle }</a>
-							<form class="bandModifyBtn" action="/mypage/deleteSound" method="post">
-								<input type="hidden" name="musicNo" value="${i.musicNo }">
-								<button class="searchBtn">삭제</button>
-							</form>
-						</td>
-						<td>날짜
-<%-- 						${i.written_date } --%>
-						</td>
-					</tr>
-			</c:forEach>
-		</table>
+<hr>
+<div class="adminMypageMain">
+	<div class="adminMypageMainInfo">
+		<p class="adminDetailTitle">밴드 소개 </p>
+		밴드 소개
 	</div>
 </div>

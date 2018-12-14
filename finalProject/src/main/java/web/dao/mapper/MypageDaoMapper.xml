@@ -190,8 +190,45 @@
 		order by musicNo
 	</select>
 
+
 	<select id="barInfoBarno" parameterType="web.dto.Bar" 
 		resultType="web.dto.Bar">
 		select contact,barInfo,manager from bar where barNo=#{barNo}
 		</select>
+	
+<!-- 	public void deleteResumesByResumesNo(Resumes resumes); -->
+	<delete id="deleteResumesByResumesNo" parameterType="web.dto.Resumes">
+		delete resumes
+		where resumesNo=#{resumesNo }
+	</delete>
+<!-- 	public void deleteMusicByMusicNo(Music music); -->
+	<delete id="deleteMusicByMusicNo" parameterType="web.dto.Music">
+		delete music
+		where musicNo=#{musicNo }
+	</delete>
+<!-- 	public Resumes selectResumesByResumesNo(Resumes resumes); -->
+	<select id="selectResumesByResumesNo" parameterType="web.dto.Resumes"
+		resultType="web.dto.Resumes">
+		select
+			*
+		from Resumes
+		where resumesNo = #{resumesNo }
+	</select>
+
+<!-- public BandGenre selectBandGenreByBandNo(BandGenre bandGenre); -->
+	<select id="selectBandGenreByBandNo" parameterType="web.dto.BandGenre"
+		resultType="web.dto.BandGenre">
+		select
+			*
+		from BandGenre
+		where bandNo = #{bandNo }
+	</select>
+<!-- 	public Genre selectGenreByGenreNo(Genre genre); -->
+	<select id="selectGenreByGenreNo" parameterType="web.dto.Genre"
+		resultType="web.dto.Genre">
+		select
+			*
+		from Genre
+		where genreNo = #{genreNo }
+	</select>
 </mapper>
