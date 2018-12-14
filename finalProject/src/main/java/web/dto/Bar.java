@@ -25,7 +25,6 @@ public class Bar {
 	public void setBarNo(int barNo) {
 		this.barNo = barNo;
 	}
-
 	public String getBarName() {
 		return barName;
 	}
@@ -81,10 +80,13 @@ public class Bar {
 	public void setManager(String manager) {
 		this.manager = manager;
 	}
+	public String getContact() {
+		return contact;
+	}
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
 	
-	
-	
-	
-	
+
 
 }
