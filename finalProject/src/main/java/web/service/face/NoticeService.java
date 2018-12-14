@@ -3,12 +3,16 @@ package web.service.face;
 import java.util.List;
 
 import web.dto.Notice;
+import web.utils.Paging;
 
 public interface NoticeService {
 
 	
 	// 전체 조회
-			public List getList();
+			public List getList(Paging paging);
+			
+			// 페이징 정보 만들기
+			public Paging getPaging(int curPage , int listCount , int pageCount);
 			
 			// 글쓰기
 			public void write();

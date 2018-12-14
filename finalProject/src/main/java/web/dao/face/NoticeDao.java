@@ -3,10 +3,11 @@ package web.dao.face;
 import java.util.List;
 
 import web.dto.Notice;
+import web.utils.Paging;
 
 public interface NoticeDao {
 	
-	public List selectAll();
+	public List selectPagingList(Paging paging);
 
 	
 	// 공지사항 답변 쓰기
