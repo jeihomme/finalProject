@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import web.dao.face.MypageDao;
 import web.dto.Band;
+import web.dto.BandGenre;
 import web.dto.BandMember;
+import web.dto.Genre;
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
@@ -95,9 +97,9 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public void deleteSound() {
+	public void deleteSound(Music music) {
 		// TODO Auto-generated method stub
-		
+		mpDao.deleteMusicByMusicNo(music);
 	}
 
 	@Override
@@ -250,7 +252,7 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public Resumes getResumes(Resumes resumes) {
 		// TODO Auto-generated method stub
-		return mpDao.selectResumesByBandName(resumes);
+		return mpDao.selectResumesByResumesNo(resumes);
 	}
 
 	@Override
@@ -269,5 +271,23 @@ public class MypageServiceImpl implements MypageService{
 	public void barInfo() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void deleteResumes(Resumes resumes) {
+		// TODO Auto-generated method stub
+		mpDao.deleteResumesByResumesNo(resumes);
+	}
+
+	@Override
+	public BandGenre getBandGenre(BandGenre bandGenre) {
+		// TODO Auto-generated method stub
+		return mpDao.selectBandGenreByBandNo(bandGenre);
+	}
+
+	@Override
+	public Genre getGenre(Genre genre) {
+		// TODO Auto-generated method stub
+		return mpDao.selectGenreByGenreNo(genre);
 	}
 }

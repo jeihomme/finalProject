@@ -5,7 +5,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import web.dto.Band;
+import web.dto.BandGenre;
 import web.dto.BandMember;
+import web.dto.Genre;
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
@@ -31,7 +33,7 @@ public interface MypageService {
 	public void resumesModify();
 	
 	public void uploadSound();
-	public void deleteSound();
+	public void deleteSound(Music music);
 	
 	public void searchVolunteerUser();
 	public void volunteerToBarViewList();
@@ -66,7 +68,14 @@ public interface MypageService {
 	public List<Resumes> getResumesList(Resumes resumes);
 	public List<Music> getMusicList(Music music);
 	
+	public void deleteResumes(Resumes resumes);
+	
+	public BandGenre getBandGenre(BandGenre bandGenre);
+	public Genre getGenre(Genre genre);
+	
 	//bar 소개
 	public void barInfo();
+	
+	
 	
 }

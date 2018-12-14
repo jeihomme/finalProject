@@ -3,7 +3,9 @@ package web.dao.face;
 import java.util.List;
 
 import web.dto.Band;
+import web.dto.BandGenre;
 import web.dto.BandMember;
+import web.dto.Genre;
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
@@ -68,7 +70,20 @@ public interface MypageDao {
 	public List<Resumes> selectResumesListByBandName(Resumes resumes);
 	public List<Music> selectMusicListByBandName(Music music);
 	
+	public void deleteResumesByResumesNo(Resumes resumes);
+	public void deleteMusicByMusicNo(Music music);
+	
+	public Resumes selectResumesByResumesNo(Resumes resumes);
+	
+	public BandGenre selectBandGenreByBandNo(BandGenre bandGenre);
+	public Genre selectGenreByGenreNo(Genre genre);
+	
   //bar 소개
 	public void barInfoD();
+	
+	
+	
+	
+	
   
 }
