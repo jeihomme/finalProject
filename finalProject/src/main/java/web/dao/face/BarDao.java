@@ -5,11 +5,12 @@ import java.util.List;
 import web.dto.Bar;
 import web.dto.Calendar;
 import web.dto.Location;
+import web.dto.ProfilePic;
 
 public interface BarDao {
 	
 	// 바 전체 리스트
-	public List<Bar> getBarList(Bar bar);
+	public List<Bar> getBarList(Bar bar, ProfilePic profilePic);
 	
 	// 지역 번호로 검색 (location Check)
 	public List<Bar> getByLocation(int locationNo);
