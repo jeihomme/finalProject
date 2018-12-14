@@ -269,7 +269,7 @@ table {
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" style="color: white">&times;</button>
         <h3 class="modal-title text-center">Login</h3>
-      </div>
+      </div> 
       <div class="modal-body text-center">
             <form id="loginForm" action="/member/login" method="post" name="loginPost">
 		        <br>
