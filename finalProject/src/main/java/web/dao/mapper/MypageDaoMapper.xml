@@ -189,4 +189,9 @@
 		where bandName = #{bandName }
 		order by musicNo
 	</select>
+
+	<select id="barInfoBarno" parameterType="web.dto.Bar" 
+		resultType="web.dto.Bar">
+		select contact,barInfo,manager from bar where barNo=#{barNo}
+		</select>
 </mapper>

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import web.dto.Band;
 import web.dto.BandMember;
+import web.dto.Bar;
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
@@ -67,6 +68,6 @@ public interface MypageService {
 	public List<Music> getMusicList(Music music);
 	
 	//bar 소개
-	public void barInfo();
+	public Bar barInfo(Bar bar);
 	
 }

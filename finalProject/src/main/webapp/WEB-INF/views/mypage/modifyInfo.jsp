@@ -217,6 +217,7 @@ $(document).ready(function() {
 				<%-- 				<input name="telcom" value="${member.telcom }"/><br> --%>
 				<%-- 				<b class="adminDetailInfo">연락처 : </b><input name="contact" value="${member.contact }"/><br> --%>
 			</form>
+			
 			<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button>
 			<br>
 
@@ -241,10 +242,10 @@ $(document).ready(function() {
 					</div>
 				</div>
 			</form>
+			
 			<button class="modifyBtn">수정</button>
 
 		</div>
-
 
 		<div class="adminMypageMainImage">
 			<p>이미지 넣어주세요</p>

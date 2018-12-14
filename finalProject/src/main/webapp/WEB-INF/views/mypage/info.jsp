@@ -80,7 +80,7 @@
 	<div class="adminMenu">
 		<p class="selectMenu" onclick=" location.href='/mypage/info' ">Mypage</p>
 		<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-		<p onclick="location.href='/mypage/intro' ">바 소개</p>
+		<p onclick="location.href='/mypage/barInfo' ">바 소개</p>
 		<p onclick="location.href='/board/list' ">지원 현황</p>
 		<p onclick="location.href='/board/list' ">일정표</p>
 	</div><br><br>
