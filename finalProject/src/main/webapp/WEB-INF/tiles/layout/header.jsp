@@ -53,18 +53,18 @@ $(document).ready(function() {
 			data: formData,
 			success: function(res) {
 				
+				// 로그인 성공시 userId 및 password로 저장
 				sessionStorage.setItem("userId", formData.userId);
 				sessionStorage.setItem("password", formData.password);
-						
-// 				alert("로그인 성공!");
-				console.log(res);
 					
-				$("form").submit();
+				// login form submit
+				$("loginForm").submit();
 					
 				location.href="/main";
 				
 			},
 			error: function() {
+				// 로그인 실패, 아이디 or 비밀번호 오류
 				alert("아이디 혹은 비밀번호가 잘못되었습니다.");
 			}
 			
@@ -266,16 +266,12 @@ table {
 <div class="modal fade" id="layerpop" >
   <div class="modal-dialog">
     <div class="modal-content">
-      <!-- header -->
       <div class="modal-header">
-        <!-- 닫기(x) 버튼 -->
         <button type="button" class="close" data-dismiss="modal" style="color: white">&times;</button>
-        <!-- header title -->
         <h3 class="modal-title text-center">Login</h3>
       </div>
-      <!-- body -->
       <div class="modal-body text-center">
-            <form id=form action="/member/login" method="post" name="loginPost">
+            <form id="loginForm" action="/member/login" method="post" name="loginPost">
 		        <br>
 		        <table style="border: none;">
 				<tr>
@@ -288,10 +284,9 @@ table {
 				<br>
 			</form>
 			<button type="button" id="btnLogin" style="color:#337ab7">Login</button>
-<!-- 			<a href="/main"><button type="button" id="btnCancel" data-dismiss="modal">Cancel</button></a> -->
+ 			<a href="/main"><button type="button" id="btnCancel" data-dismiss="modal">Cancel</button></a>
       		<br>
       </div>
-      <!-- Footer -->
       <div class="modal-footer text-center">
       	<a href="/member/join">회원가입</a>&nbsp;&nbsp;&nbsp;
       	<a href="/member/findIdPw">아이디/비밀번호 찾기</a>
