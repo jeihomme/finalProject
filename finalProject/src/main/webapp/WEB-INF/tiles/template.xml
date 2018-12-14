@@ -7,6 +7,7 @@
 <tiles-definitions>
 <!-- 	헤더 푸터 안보이게 하기 -->
 	<definition name="enter" template="/WEB-INF/views/enter.jsp" />
+	
 <!-- 	<definition name="board/list" template="/WEB-INF/views/board/list.jsp" /> -->
 	
 <!-- 	<definition name="board/list" template="/WEB-INF/views/board/list.jsp" /> -->
