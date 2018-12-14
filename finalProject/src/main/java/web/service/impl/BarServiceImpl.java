@@ -10,6 +10,7 @@ import web.dto.Band;
 import web.dto.Bar;
 import web.dto.Calendar;
 import web.dto.Location;
+import web.dto.ProfilePic;
 import web.service.face.BarService;
 
 @Service
@@ -18,9 +19,9 @@ public class BarServiceImpl implements BarService{
 	@Autowired BarDao barDao;
 
 	@Override
-	public List<Bar> barList(Bar bar) {
+	public List<Bar> barList(Bar bar, ProfilePic profilePic) {
 		
-		return barDao.getBarList(bar);
+		return barDao.getBarList(bar, profilePic);
 	}
 
 	@Override

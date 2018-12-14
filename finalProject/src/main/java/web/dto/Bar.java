@@ -2,6 +2,7 @@ package web.dto;
 
 public class Bar {
 	
+	private String barNo;
 	private String barName;
 	private String userId;
 	private String profileNo;
@@ -10,6 +11,12 @@ public class Bar {
 	private String manager;
 	private String contact;
 	
+	public String getBarNo() {
+		return barNo;
+	}
+	public void setBarNo(String barNo) {
+		this.barNo = barNo;
+	}
 	public String getBarName() {
 		return barName;
 	}
@@ -52,14 +59,13 @@ public class Bar {
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
-	
 	@Override
 	public String toString() {
-		return "Bar [barName=" + barName + ", userId=" + userId + ", profileNo=" + profileNo + ", locationNo="
-				+ locationNo + ", barInfo=" + barInfo + ", manager=" + manager + ", contact=" + contact + "]";
+		return "Bar [barNo=" + barNo + ", barName=" + barName + ", userId=" + userId + ", profileNo=" + profileNo
+				+ ", locationNo=" + locationNo + ", barInfo=" + barInfo + ", manager=" + manager + ", contact="
+				+ contact + "]";
 	}
 	
-	
-	
+
 
 }
