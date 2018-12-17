@@ -15,7 +15,7 @@ import web.dto.BandMember;
 import web.dto.Bar;
 
 import web.dto.Genre;
-
+import web.dto.History;
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
@@ -300,5 +300,23 @@ public class MypageServiceImpl implements MypageService{
 	public void updatePublicResumes(Resumes resumes) {
 		// TODO Auto-generated method stub
 		mpDao.updatePublicResumesByResumesNo(resumes);
+	}
+
+	@Override
+	public void createResumes(Resumes resumes) {
+		// TODO Auto-generated method stub
+		mpDao.insertResumesByBandName(resumes);
+	}
+
+	@Override
+	public List<History> getHistoryList(Resumes resumes) {
+		// TODO Auto-generated method stub
+		return mpDao.selectHistoryByBandName(resumes);
+	}
+
+	@Override
+	public Music getMusic(Resumes resumes) {
+		// TODO Auto-generated method stub
+		return mpDao.selectMusicByResumesNo(resumes);
 	}
 }

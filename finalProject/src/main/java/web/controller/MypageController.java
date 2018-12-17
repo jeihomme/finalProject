@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
-
 import web.dto.Bar;
 import web.dto.Genre;
-
+import web.dto.History;
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
@@ -214,7 +213,7 @@ public class MypageController {
 		logger.info(resumesList.toString());
 		
 		Music music = new Music();
-		music.setBandName(band.getBandName());
+		music.setBandNo(band.getBandNo());
 		logger.info(music.toString());
 		List<Music> musicList = mpService.getMusicList(music);
 		logger.info(musicList.toString());
@@ -225,13 +224,40 @@ public class MypageController {
 //		introList
 	}
 	
+	@RequestMapping(value = "/mypage/createResumes", method=RequestMethod.GET)
+	public void createResumes(
+			HttpSession session
+			, Model model
+			) {
+		logger.info("---createResumes---");
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		member = mbService.loginInfo(member);
+		logger.info(member.toString());
+		
+		Band band = new Band();
+		band.setUserId(member.getUserId());
+		band = mpService.getBand(band);
+		logger.info(band.toString());
+		
+		Resumes resumes = new Resumes();
+		resumes.setBandName(band.getBandName());
+		logger.info(resumes.toString());
+		
+		mpService.createResumes(resumes);
+		logger.info(resumes.toString());
+		
+		model.addAttribute("member", member);
+		model.addAttribute("resumes", resumes);
+	}
+	
 	@RequestMapping(value = "/mypage/resumes", method=RequestMethod.GET)
-	public void resumesView(
+	public void resumes(
 			HttpSession session
 			, Model model
 			, HttpServletRequest req
 			) {
-		logger.info("---resumesView---");
+		logger.info("---resumes---");
 		
 		Member member = (Member) session.getAttribute("loginInfo");
 		member = mbService.loginInfo(member);
@@ -244,7 +270,7 @@ public class MypageController {
 		
 		Resumes resumes = new Resumes();
 		resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
-		mpService.getResumes(resumes);
+		resumes = mpService.getResumes(resumes);
 		logger.info(resumes.toString());
 		
 		BandGenre bandGenre = new BandGenre();
@@ -257,11 +283,18 @@ public class MypageController {
 		genre = mpService.getGenre(genre);
 		logger.info(genre.toString());
 		
+		Music music = mpService.getMusic(resumes);
+		logger.info(music.toString());
+		
+		List<History> historyList = mpService.getHistoryList(resumes);
+		
 		model.addAttribute("member", member);
 		model.addAttribute("band", band);
 		model.addAttribute("genre", genre);
 		
 		model.addAttribute("resumes", resumes);
+		model.addAttribute("music", music);
+		model.addAttribute("historyList", historyList);
 		
 	}
 	
@@ -308,9 +341,50 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.GET)
-	public void modifyResumes() {
-		logger.info("---modifyResumes---");
-//		resumeView
+	public void modifyResumes(
+			HttpSession session
+			, Model model
+			, HttpServletRequest req
+			) {
+		logger.info("---resumes---");
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		member = mbService.loginInfo(member);
+		logger.info(member.toString());
+		
+		Band band = new Band();
+		band.setUserId(member.getUserId());
+		band = mpService.getBand(band);
+		logger.info(band.toString());
+		
+		Resumes resumes = new Resumes();
+		resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
+		resumes = mpService.getResumes(resumes);
+		logger.info(resumes.toString());
+		
+		BandGenre bandGenre = new BandGenre();
+		bandGenre.setBandNo(band.getBandNo());
+		bandGenre = mpService.getBandGenre(bandGenre);
+		logger.info(bandGenre.toString());
+		
+		Genre genre = new Genre();
+		genre.setGenreNo(bandGenre.getGenreNo());
+		genre = mpService.getGenre(genre);
+		logger.info(genre.toString());
+		
+		Music music = mpService.getMusic(resumes);
+		logger.info(music.toString());
+		
+		List<History> historyList = mpService.getHistoryList(resumes);
+		
+		model.addAttribute("member", member);
+		model.addAttribute("band", band);
+		model.addAttribute("genre", genre);
+		
+		model.addAttribute("resumes", resumes);
+		model.addAttribute("music", music);
+		model.addAttribute("historyList", historyList);
+		
 	}
 	
 	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.POST)

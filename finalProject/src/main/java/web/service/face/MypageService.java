@@ -11,6 +11,7 @@ import web.dto.BandMember;
 import web.dto.Bar;
 
 import web.dto.Genre;
+import web.dto.History;
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
@@ -76,9 +77,14 @@ public interface MypageService {
 	public BandGenre getBandGenre(BandGenre bandGenre);
 	public Genre getGenre(Genre genre);
 	public void updatePublicResumes(Resumes resumes);
+	public void createResumes(Resumes resumes);
+	public List<History> getHistoryList(Resumes resumes);
+	public Music getMusic(Resumes resumes);
 	
 	//bar 소개
 	public Bar barInfo(Bar bar);
+	
+	
 	
 	
 	

@@ -183,10 +183,9 @@
 	<select id="selectMusicListByBandName" parameterType="web.dto.Music"
 		resultType="web.dto.Music">
 		select
-			musicNo, bandName, musicTitle, originName, storedName, written_date
-<!-- 			to_char(written_date, 'YY/MM/DD') -->
+			*
 		from music
-		where bandName = #{bandName }
+		where bandNo = #{bandNo }
 		order by musicNo
 	</select>
 
@@ -238,4 +237,32 @@
 		update resumes set publicResumes = #{publicResumes }
 		where resumesNo = #{resumesNo }
 	</update>
+	
+<!-- 	public Resumes insertResumesByBandName(Resumes resumes); -->
+	<insert id="insertResumesByBandName" parameterType="web.dto.Resumes">
+		insert into resumes(
+			resumesNo
+			, bandName
+			)
+			values(
+			(select max(#{resumesNo })+1 from resumes)
+			,#{bandName }
+			)
+	</insert>
+<!-- public List<History> selectHistoryByBandName(Resumes resumes); -->
+	<select id="selectHistoryByBandName" parameterType="web.dto.Resumes"
+		resultType="web.dto.History">
+		select h.* from resumes r, history h
+		where
+			r.historyNo = h.historyNo
+			and r.bandName=#{bandName }
+	</select>
+<!-- 	public Music selectMusicByResumesNo(Resumes resumes); -->
+	<select id="selectMusicByResumesNo" parameterType="web.dto.Resumes"
+		resultType="web.dto.Music">
+		select m.* from resumes r, Music m
+		where
+			r.musicNo = m.musicNo
+			and r.resumesNo=#{resumesNo }
+	</select>
 </mapper>

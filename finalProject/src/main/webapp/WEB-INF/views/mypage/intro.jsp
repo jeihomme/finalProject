@@ -180,7 +180,7 @@ $(document).ready(function() {
 <div class="adminMypageSearchRes">
 	<div>
 		<b class="bandIntroHeader">밴드소개 리스트</b>
-		<button class="bandIntroInsert" onclick="location.href='/mypage/resumes' ">소개 등록</button>
+		<button class="bandIntroInsert" onclick="location.href='/mypage/createResumes' ">소개 등록</button>
 		<table class="table table-hover table-striped table-condensed">
 			
 			<tr>
@@ -188,7 +188,9 @@ $(document).ready(function() {
 				<th>밴드소개 제목</th>
 				<th>첨부파일</th>
 			</tr>
-			<c:forEach items="${resumesList }" var="i">
+			<c:forEach
+			items="${resumesList }" var="i"
+			>
 				<tr>
 					<td>
 					<c:if test="${i.publicResumes eq 1}"> 
@@ -199,7 +201,7 @@ $(document).ready(function() {
 					</c:if>
 					</td>
 					<td>
-					<a href="/mypage/resumes?resumesNo=${i.resumesNo }">${i.bandInfo }</a>
+					<a href="/mypage/resumes?resumesNo=${i.resumesNo }">${i.resumesTitle }</a>
 						
 							
 						<form class="bandModifyBtn" action="/mypage/deleteResumes" method="post">
@@ -229,7 +231,6 @@ $(document).ready(function() {
 		<table class="table table-hover table-striped table-condensed">
 			
 			<tr>
-				<th>파일번호</th>
 				<th>파일명</th>
 				<th>등록/수정일</th>
 			</tr>
@@ -240,16 +241,13 @@ $(document).ready(function() {
 		<!-- 			<tr id="memberView"> -->
 		<%-- 				<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
 		<%-- 				<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
-						<td>${i.musicNo }</td>
 						<td><a href="">${i.musicTitle }</a>
 							<form class="bandModifyBtn" action="/mypage/deleteSound" method="post">
 								<input type="hidden" name="musicNo" value="${i.musicNo }">
 								<button class="searchBtn">삭제</button>
 							</form>
 						</td>
-						<td>날짜
-<%-- 						${i.written_date } --%>
-						</td>
+						<td>${i.writtenDate }</td>
 					</tr>
 			</c:forEach>
 		</table>

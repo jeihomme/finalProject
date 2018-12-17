@@ -1,18 +1,18 @@
 package web.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Music {
 	private int musicNo;
-	private String bandName;
+	private int bandNo;
 	private String musicTitle;
-	private String originName;
-	private String storedName;
-	private Date written_date;
+	private String path;
+	private Date writtenDate;
 	@Override
 	public String toString() {
-		return "Music [musicNo=" + musicNo + ", bandName=" + bandName + ", musicTitle=" + musicTitle + ", originName="
-				+ originName + ", storedName=" + storedName + ", written_date=" + written_date + "]";
+		return "Music [musicNo=" + musicNo + ", bandNo=" + bandNo + ", musicTitle=" + musicTitle + ", path=" + path
+				+ ", writtenDate=" + writtenDate + "]";
 	}
 	public int getMusicNo() {
 		return musicNo;
@@ -20,11 +20,11 @@ public class Music {
 	public void setMusicNo(int musicNo) {
 		this.musicNo = musicNo;
 	}
-	public String getBandName() {
-		return bandName;
+	public int getBandNo() {
+		return bandNo;
 	}
-	public void setBandName(String bandName) {
-		this.bandName = bandName;
+	public void setBandNo(int bandNo) {
+		this.bandNo = bandNo;
 	}
 	public String getMusicTitle() {
 		return musicTitle;
@@ -32,22 +32,17 @@ public class Music {
 	public void setMusicTitle(String musicTitle) {
 		this.musicTitle = musicTitle;
 	}
-	public String getOriginName() {
-		return originName;
+	public String getPath() {
+		return path;
 	}
-	public void setOriginName(String originName) {
-		this.originName = originName;
+	public void setPath(String path) {
+		this.path = path;
 	}
-	public String getStoredName() {
-		return storedName;
+	public Date getWrittenDate() {
+		return writtenDate;
 	}
-	public void setStoredName(String storedName) {
-		this.storedName = storedName;
+	public void setWrittenDate(Date writtenDate) {
+		this.writtenDate = writtenDate;
 	}
-	public Date getWritten_date() {
-		return written_date;
-	}
-	public void setWritten_date(Date written_date) {
-		this.written_date = written_date;
-	}
+	
 }

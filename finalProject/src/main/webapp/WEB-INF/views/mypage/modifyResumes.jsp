@@ -75,7 +75,7 @@
 		color: gold;
 	}
 	
-	.resumesBtn {
+	.searchBtn {
 		margin: 0 auto;
 		color: black;
 	}
@@ -123,7 +123,7 @@ td {
 	.bandIntroInsert {
 		color: black;
 		background-color:gold;
-		float:center;
+		float:right;
 	}
 	
 	.bandModifyBtn {
@@ -185,7 +185,7 @@ td {
 			</tr>
 		
 			<tr>
-				<td>${resumes.resumesTitle }</td>
+				<td><input type="text" name="resumesTitle" value="${resumes.resumesTitle }"/></td>
 			</tr>
 			
 		</table>
@@ -241,9 +241,6 @@ td {
 
 <hr>
 <div class="resumesViewDiv">
-	<button class="resumesBtn" onclick="location.href='/mypage/intro' ">뒤로가기</button>
-	<form action="/mypage/modifyResumes" method="get">
-	<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
-		<button class="resumesBtn" >수정</button>
-	</form>
+	<button class="searchBtn" onclick="location.href='/mypage/intro' ">뒤로가기</button>
+	<button class="searchBtn" onclick="location.href='/mypage/modifyResumes' ">수정</button>
 </div>

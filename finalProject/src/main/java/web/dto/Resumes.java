@@ -3,14 +3,16 @@ package web.dto;
 public class Resumes {
 	private int resumesNo;
 	private int publicResumes;
+	private String resumesTitle;
 	private String bandName;
 	private int historyNo;
 	private String BandInfo;
 	private int musicNo;
 	@Override
 	public String toString() {
-		return "Resumes [resumesNo=" + resumesNo + ", publicResumes=" + publicResumes + ", bandName=" + bandName
-				+ ", historyNo=" + historyNo + ", BandInfo=" + BandInfo + ", musicNo=" + musicNo + "]";
+		return "Resumes [resumesNo=" + resumesNo + ", publicResumes=" + publicResumes + ", resumesTitle=" + resumesTitle
+				+ ", bandName=" + bandName + ", historyNo=" + historyNo + ", BandInfo=" + BandInfo + ", musicNo="
+				+ musicNo + "]";
 	}
 	public int getResumesNo() {
 		return resumesNo;
@@ -23,6 +25,12 @@ public class Resumes {
 	}
 	public void setPublicResumes(int publicResumes) {
 		this.publicResumes = publicResumes;
+	}
+	public String getResumesTitle() {
+		return resumesTitle;
+	}
+	public void setResumesTitle(String resumesTitle) {
+		this.resumesTitle = resumesTitle;
 	}
 	public String getBandName() {
 		return bandName;
@@ -48,6 +56,7 @@ public class Resumes {
 	public void setMusicNo(int musicNo) {
 		this.musicNo = musicNo;
 	}
+	
 	
 	
 }

@@ -296,11 +296,11 @@ $(document).ready(function() {
 				<form class="modifyInfoDone" action="/mypage/addMemberlist" method="post">
 					<button class="modifyBtn">+</button>
 				</form>
-					<c:if test="${bandMemberList[0].bandMemberNo > 0}">
-						<form class="modifyInfoDone" action="/mypage/minMemberlist" method="post">
-							<button class="modifyBtn">-</button>
-						</form>
-					</c:if>
+				<c:if test="${bandMemberList[0].bandMemberNo > 0}">
+					<form class="modifyInfoDone" action="/mypage/minMemberlist" method="post">
+						<button class="modifyBtn">-</button>
+					</form>
+				</c:if>
 				
 			<form class="modifyInfoDone" action="/mypage/modifyInfo" method="post">
 				<b class="adminDetailInfo">이메일 : </b><input name="email" value="${member.email }"/><br>
