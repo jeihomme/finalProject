@@ -38,6 +38,7 @@ public class AdvertiseController {
 //		model.addAttribute("list" ,list);
 		
 		logger.info("구인구직 리스트");
+		logger.info("구인구직 리스트");
 		
 	}
 	

@@ -11,7 +11,7 @@ public interface NoticeDao {
 
 	
 	// 공지사항 답변 쓰기
-	public void insertNotice();
+	public void insertNotice(Notice notice);
 	
 	// 공지사항 답변 수정 
 	public void updateNotice();

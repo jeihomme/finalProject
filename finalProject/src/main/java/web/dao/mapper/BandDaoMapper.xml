@@ -6,5 +6,21 @@
   
 <!--  매퍼 설정 -->
 <mapper namespace="web.dao.face.BandDao">
-
+	<select id="getList" resultType="web.dto.Band">
+		SELECT bandNo, bandName, userId, profileNo, calendarNo
+		FROM band
+	</select>
+	
+	<sql id="getBandNo">
+		SELECT bandNo
+		FROM bandGenre
+		WHERE GenreNo = #{genre }
+	</sql>
+	
+	<select id="getByCate" parameterType="String" resultType="web.dto.Band">
+		SELECT bandNo, bandName, userId, profileNo, calendarNo
+		FROM band
+		WHERE bandNo = 
+			<include refid="getBandNo" />
+	</select>
 </mapper>

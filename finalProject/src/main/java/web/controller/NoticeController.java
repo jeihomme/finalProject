@@ -4,10 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import web.dto.Notice;
 import web.service.face.NoticeService;
 
 @Controller
@@ -26,8 +28,28 @@ public class NoticeController {
 			) {
 		
 		
-		
-		
 		logger.info("공지사항 리스트");
+	}
+	
+	@RequestMapping(value="/notice/view" , method=RequestMethod.GET)
+	public void view(Model model) {
+		logger.info("상세보기 폼");
+	}
+	
+	@RequestMapping(value="/notice/write" , method=RequestMethod.GET)
+	public String write() {
+		
+		logger.info("글쓰기 폼");
+		
+		return "/notice/write";
+	}
+	
+	@RequestMapping(value="/notice/write", method=RequestMethod.POST)
+	public String writeProc(Notice notice) {
+		
+		noticeService.write(notice);
+		
+		logger.info("글쓰기 처리");
+		return null;
 	}
 }

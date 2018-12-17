@@ -1,7 +1,10 @@
-package web.controller.band;
+package web.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import web.dto.Band;
 import web.service.face.BandService;
@@ -9,12 +12,15 @@ import web.service.face.BandService;
 @Controller
 public class BandController {
 
+	private static final Logger logger = LoggerFactory.getLogger(BandController.class);
 	@Autowired BandService bandService;
 	
 	// 전체 리스트
-	public String bandList() {
+	@RequestMapping(value="/band/bandList")
+	public void bandList() {
+		logger.info("연결됐다");
 		
-		return null;
+		
 		
 	}
 	
