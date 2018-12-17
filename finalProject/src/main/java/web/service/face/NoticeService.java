@@ -15,7 +15,7 @@ public interface NoticeService {
 			public Paging getPaging(int curPage , int listCount , int pageCount);
 			
 			// 글쓰기
-			public void write();
+			public void write(Notice notice);
 			
 			// 글보기
 			public Notice view(Notice noticeView);

@@ -17,8 +17,8 @@ public class NoticeServiceImpl implements NoticeService {
 
 
 	@Override
-	public void write() {
-		// TODO Auto-generated method stub
+	public void write(Notice notice) {
+	noticeDao.insertNotice(notice);
 		
 	}
 
