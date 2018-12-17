@@ -295,4 +295,10 @@ public class MypageServiceImpl implements MypageService{
 		// TODO Auto-generated method stub
 		return mpDao.selectGenreByGenreNo(genre);
 	}
+
+	@Override
+	public void updatePublicResumes(Resumes resumes) {
+		// TODO Auto-generated method stub
+		mpDao.updatePublicResumesByResumesNo(resumes);
+	}
 }

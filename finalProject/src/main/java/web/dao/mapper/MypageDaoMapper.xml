@@ -231,4 +231,11 @@
 		from Genre
 		where genreNo = #{genreNo }
 	</select>
+	
+<!-- 	public void updatePublicResumesByResumesNo(Resumes resumes); -->
+	<update id="updatePublicResumesByResumesNo"
+	parameterType="web.dto.Resumes">
+		update resumes set publicResumes = #{publicResumes }
+		where resumesNo = #{resumesNo }
+	</update>
 </mapper>

@@ -154,7 +154,29 @@ td {
 		float:right;
 	}
 </style>
-
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#commitPublicResumes").click( function() {
+		
+		publicResumes = $("checkbox[name='publicResumes']").val();
+		
+		$.ajax({
+			type: "post"
+			, url: "/mypage/commitPublicResumes"
+				, data: {
+					publicResumes : publicResumes
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	});
+});
+</script> 
 <div class="adminMypageSearchRes">
 	<div>
 		<b class="bandIntroHeader">밴드소개 리스트</b>
@@ -162,28 +184,37 @@ td {
 		<table class="table table-hover table-striped table-condensed">
 			
 			<tr>
+				<th>공개</th>
 				<th>밴드소개 제목</th>
 				<th>첨부파일</th>
 			</tr>
-		
 			<c:forEach items="${resumesList }" var="i">
-	<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
-					<tr>
-		<!-- 			<tr id="memberView"> -->
-		<%-- 				<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
-		<%-- 				<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
-						<td><a href="/mypage/resumes?resumesNo=${i.resumesNo }">${i.bandInfo }</a>
-							<form class="bandModifyBtn" action="/mypage/deleteResumes" method="post">
-								<input type="hidden" name="resumesNo" value="${i.resumesNo }">
-								<button class="searchBtn">삭제</button>
-							</form>
-							<form class="bandModifyBtn" action="/mypage/deleteUser" method="post">
-								<input type="hidden" name="userId" value="${i.resumesNo }">
-								<button class="searchBtn">수정</button>
-							</form>
-						</td>
-						<td>${i.musicNo }</td>
-					</tr>
+				<tr>
+					<td>
+					<c:if test="${i.publicResumes eq 1}"> 
+						<input type="checkbox" name="publicResumes" value="1" checked="checked">
+					</c:if>
+					<c:if test="${i.publicResumes eq 0}"> 
+						<input type="checkbox" name="publicResumes" value="0">
+					</c:if>
+					</td>
+					<td>
+					<a href="/mypage/resumes?resumesNo=${i.resumesNo }">${i.bandInfo }</a>
+						
+							
+						<form class="bandModifyBtn" action="/mypage/deleteResumes" method="post">
+							<input type="hidden" name="resumesNo" value="${i.resumesNo }">
+							<button class="searchBtn">삭제</button>
+						</form>
+						<form class="bandModifyBtn" action="/mypage/deleteUser" method="post">
+							<input type="hidden" name="userId" value="${i.resumesNo }">
+							<button class="searchBtn">수정</button>
+						</form>
+						<button id="commitPublicResumes" class="searchBtn">대표 이력서 설정</button>
+					</td>
+					<td>${i.musicNo }</td>
+				</tr>
+				
 			</c:forEach>
 		</table>
 	</div>
