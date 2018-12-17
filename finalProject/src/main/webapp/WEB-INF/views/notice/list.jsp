@@ -26,7 +26,9 @@
 
 #dtnWrite {
 
-    width:100px;
+	height:50px;
+
+    width:70px;
 
     background-color: #ECE8E8;
 
@@ -49,7 +51,10 @@
     margin: 4px;
 
     cursor: pointer;
-
+	
+	float: right;
+	
+	margin-right: 350px;
 }
 
 
@@ -89,7 +94,7 @@
 </c:forEach>
 </table>
 <hr>
-<button id="dtnWrite" onclick="location.href='/board/write';" style="color:black">글쓰기</button>
+<button id="dtnWrite" onclick="location.href='/notice/write';" style="color:black" >글쓰기</button>
 
 </div>
 
