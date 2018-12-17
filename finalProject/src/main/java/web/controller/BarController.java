@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Bar;
+import web.dto.ProfilePic;
 import web.service.face.BarService;
 
 @Controller
@@ -28,10 +28,13 @@ public class BarController {
 	public void barList(Model model) {
 		
 		Bar bar = new Bar();
+		ProfilePic profilePic = new ProfilePic();
 		
 		logger.info(">> barList");
 		
-		List<Bar> list = barService.barList(bar);
+		List<Bar> list = barService.barList(bar, profilePic);
+		
+		logger.info("list size : " + list.size());
 		
 		model.addAttribute("list", list);
 		
