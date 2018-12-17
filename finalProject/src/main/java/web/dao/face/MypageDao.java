@@ -9,7 +9,7 @@ import web.dto.BandMember;
 import web.dto.Bar;
 
 import web.dto.Genre;
-
+import web.dto.History;
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
@@ -86,8 +86,15 @@ public interface MypageDao {
 	public BandGenre selectBandGenreByBandNo(BandGenre bandGenre);
 	public Genre selectGenreByGenreNo(Genre genre);
 	public void updatePublicResumesByResumesNo(Resumes resumes);
+	public void insertResumesByBandName(Resumes resumes);
+	public List<History> selectHistoryByBandName(Resumes resumes);
+	public Music selectMusicByResumesNo(Resumes resumes);
 	
   //bar 소개
 	public void barInfoD();
+	
+	
+	
+	
 	
 }

@@ -2,16 +2,16 @@ package web.dto;
 
 public class BandGenre {
 
-	private String bandNo;
+	private int bandNo;
 	private int genreNo;
 	@Override
 	public String toString() {
 		return "BandGenre [bandNo=" + bandNo + ", genreNo=" + genreNo + "]";
 	}
-	public String getBandNo() {
+	public int getBandNo() {
 		return bandNo;
 	}
-	public void setBandNo(String bandNo) {
+	public void setBandNo(int bandNo) {
 		this.bandNo = bandNo;
 	}
 	public int getGenreNo() {
@@ -20,7 +20,5 @@ public class BandGenre {
 	public void setGenreNo(int genreNo) {
 		this.genreNo = genreNo;
 	}
-	
-	
 	
 }
