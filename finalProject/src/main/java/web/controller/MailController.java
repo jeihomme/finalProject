@@ -24,7 +24,7 @@ public class MailController {
 		
 		String setFrom = "jazzbar0831@gmail.com";
 		String setTo = "aksdnjfe@gmail.com";
-		String title = "[FINAL] Mail Test";
+		String title = "[JazzBar] Final Mail Test";
 		String content = "메일 전송이 성공적으로 이루어졌습니다. -June-";
 		
 		try {
