@@ -265,6 +265,48 @@ public class MypageController {
 		
 	}
 	
+	
+	@RequestMapping(value = "/mypage/commitPublicResumes", method=RequestMethod.POST)
+	public String commitPublicResumes(
+			HttpSession session
+			, HttpServletRequest req
+			) {
+		logger.info("---commitPublicResumes---");
+//		resumeView
+		
+		logger.info("---intro---");
+		Member member = (Member) session.getAttribute("loginInfo");
+		logger.info(member.toString());
+		
+		Band band = new Band();
+		band.setUserId(member.getUserId());
+		band = mpService.getBand(band);
+		logger.info(band.toString());
+		
+		Resumes resumes = new Resumes();
+		resumes.setBandName(band.getBandName());
+		logger.info(resumes.toString());
+		
+		List<Resumes> resumesList = mpService.getResumesList(resumes);
+		logger.info(resumesList.toString());
+		
+		for(Resumes rs : resumesList) {
+			
+			logger.info(rs.toString());
+			logger.info(req.getParameter("publicResumes"));
+			
+			rs.setResumesNo(Integer.parseInt(req.getParameter("resumesNo")));
+			rs.setPublicResumes(Integer.parseInt(req.getParameter("publicResumes")) );
+			
+			mpService.updatePublicResumes(rs);
+			
+		}
+		logger.info(resumesList.toString());
+		
+		
+		return "redirect:/mypage/intro";
+	}
+	
 	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.GET)
 	public void modifyResumes() {
 		logger.info("---modifyResumes---");

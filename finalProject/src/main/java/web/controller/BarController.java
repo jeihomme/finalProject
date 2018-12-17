@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import web.dto.Bar;
+import web.dto.Location;
 import web.dto.ProfilePic;
 import web.service.face.BarService;
 
@@ -45,16 +46,19 @@ public class BarController {
 	
 	// 바 소개보기
 	@RequestMapping(value="/bar/viewbar", method=RequestMethod.GET)
-	public void viewBar(
-			Bar barInfo,
-			Model model) {
+	public void viewBar(Model model) {
 		
+		Bar bar = new Bar();
+		ProfilePic profilePic = new ProfilePic();
+		Location location = new Location();
 		logger.info(">> viewBar");
-//		barInfo = barService.barView(barInfo);
-//		
-//		logger.info(barInfo.toString());
-//		model.addAttribute("barInfo", barInfo);
+		
+		model.addAttribute("view", barService.barView(bar, profilePic, location));
+
+		
+		logger.info(model.toString());
 	}
+
 	
 	// 소개 수정 폼
 	@RequestMapping(value="/bar/updatebarinfo", method=RequestMethod.GET)

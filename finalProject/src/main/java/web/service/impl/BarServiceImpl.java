@@ -43,9 +43,9 @@ public class BarServiceImpl implements BarService{
 	}
 
 	@Override
-	public Bar barView(Bar bar) {
+	public Bar barView(Bar bar, ProfilePic profilePic, Location location) {
 		// TODO Auto-generated method stub
-		return null;
+		return barDao.viewBar(bar);
 	}
 
 	@Override
