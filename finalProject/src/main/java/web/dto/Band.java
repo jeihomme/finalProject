@@ -6,6 +6,7 @@ public class Band {
 	private String userId;
 	private int profileNo;
 	private int calendarNo;
+	
 	@Override
 	public String toString() {
 		return "Band [BandNo=" + BandNo + ", bandName=" + bandName + ", userId=" + userId + ", profileNo=" + profileNo
@@ -41,8 +42,5 @@ public class Band {
 	public void setCalendarNo(int calendarNo) {
 		this.calendarNo = calendarNo;
 	}
-	
-	
-	
 	
 }
