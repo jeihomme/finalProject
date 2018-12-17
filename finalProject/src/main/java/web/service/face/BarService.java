@@ -20,7 +20,7 @@ public interface BarService {
 	public List<Bar> barListMore();
 	
 	// 바 소개
-	public Bar barView(Bar bar);
+	public Bar barView(Bar bar, ProfilePic profilePic, Location location);
 	
 	// 일정 보기 (calendar)
 	public List<Calendar> barCalendar(Bar bar);

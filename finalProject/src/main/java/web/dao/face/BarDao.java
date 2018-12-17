@@ -19,7 +19,7 @@ public interface BarDao {
 	public List<Bar> getBarListMore();
 	
 	// 바 소개
-	public Bar viewBar(String barInfo);
+	public Bar viewBar(Bar bar);
 	public Location getLocation(String locationName);
 	
 	// 일정보기 (calendar)
@@ -30,6 +30,6 @@ public interface BarDao {
 	
 	// 바 정보 수정
 	public void updateBarInfo(Bar barInfo, Location locationName);
-	
+	 
 
 }
