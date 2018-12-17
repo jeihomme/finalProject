@@ -208,8 +208,8 @@ $(document).ready(function() {
 							<input type="hidden" name="resumesNo" value="${i.resumesNo }">
 							<button class="searchBtn">삭제</button>
 						</form>
-						<form class="bandModifyBtn" action="/mypage/deleteUser" method="post">
-							<input type="hidden" name="userId" value="${i.resumesNo }">
+						<form class="bandModifyBtn" action="/mypage/modifyResumes" method="get">
+							<input type="hidden" name="resumesNo" value="${i.resumesNo }">
 							<button class="searchBtn">수정</button>
 						</form>
 						<button id="commitPublicResumes" class="searchBtn">대표 이력서 설정</button>
