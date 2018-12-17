@@ -12,20 +12,37 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	// 약관 동의 모달을 켰을 경우
-	$("#joinAgreeModal").click(function() {
-				
-		$("#joinProcBtn").click(function() {
+	$(".close").click(function() {
+		$("#loginModal").hide();
+		$("#joinAgreeModal").hide();
+		$("#joinModal1").hide();
+	});
+	
+	$('.modal').on('hidden.bs.modal', function() {
+	    console.log('modal close');
+		$(this).removeData('bs.modal');
+		$('.modal-content').empty();
+	});
+	
+	$("#joinProcBtn").click(function() {
 		// 약관 동의를 안 했을 경우
-			if(document.joinAgreePost1.joinAgree1.value=="disagree") {
-				alert("동의하셔야 합니다.");
-			}
+		if(document.joinAgreePost1.joinAgree1.value=="disagree") {
+			alert("약관에 모두 동의하셔야 합니다");
+			joinAgreePost1.joinAgree1.focus();
+		}
+		
+		if(document.joinAgreePost2.joinAgree2.value=="disagree") {
+			alert("약관에 모두 동의하셔야 합니다");
+			joinAgreePost2.joinAgree2.focus();
+		}
 			
-		});
+		// 약관에 모두 동의했을 경우 joinModal을 보여줌
+		$("#joinModal1").show();
+		$("#joinAgreeModal").hide();
+			
 		// 로그인 모달과 가입 모달 숨기기
 		$("#loginModal").hide();
 		$(".modal-backdrop").remove();
-		$("#joinModal1").hide();
 		
 		console.log("로그인 모달 숨김");
 	});
@@ -47,27 +64,27 @@ $(document).ready(function() {
 	    if(document.loginPost.userId.value.indexOf(" ")>=0) {
 	    	alert("아이디에 공백이 들어가면 안 됩니다.");
 	    	$("input[name=userId]").val("");
-	    	post.userId.focus();
+	    	loginPost.userId.focus();
 	    	return;
 	    }
 	    
 	    if(document.loginPost.password.value.indexOf(" ")>=0) {
 	    	alert("비밀번호에 공백이 들어가면 안 됩니다.");
 	    	$("input[name=password]").val("");
-	    	post.password.focus();
+	    	loginPost.password.focus();
 	    	return;
 	    }
 	    
 	    // 공란 있는지 확인
 	    if(document.loginPost.userId.value.length==0) {
 	        alert("아이디를 입력해 주세요.");
-	        post.userId.focus();
+	        loginPost.userId.focus();
 	        return;
 	    }
 		
 	    if(document.loginPost.password.value.length==0) {
 	        alert("비밀번호를 입력해 주세요.");
-	        post.password.focus();
+	        loginPost.password.focus();
 	        return;
 	    }
 		
@@ -357,8 +374,8 @@ table {
 				④ 법인고객 회원가입의 경우 서비스 이용자와 이용요금 납입자가 다를 경우 회사는 이를 확인하기 위하여 제 증명을 요구할 수 있습니다.<br>
 	      	</div>
 		      	<div class="text-right" style="padding-top: 10px;">
-			      	<form name="joinAgreePost1">
-			      	<input type="radio" name="joinAgree1" value="disagree">동의하지 않습니다&nbsp;&nbsp;&nbsp;
+			      	<form name="joinAgreePost1" id="joinAgreePost1">
+			      	<input type="radio" name="joinAgree1" value="disagree" checked="checked">동의하지 않습니다&nbsp;&nbsp;&nbsp;
 			      	<input type="radio" name="joinAgree1" value="agree">동의합니다
 			      	</form>
 		      	</div>
@@ -383,14 +400,14 @@ table {
 				더 자세한 내용에 대해서는 개인정보처리방침을 참고하시기 바랍니다.<br>
 	      	</div>
 		      	<div class="text-right" style="padding-top: 10px;">
-		      		<form name="joinAgreePost2">
-			      	<input type="radio" name="joinAgree2" value="disagree">동의하지 않습니다&nbsp;&nbsp;&nbsp;
+		      		<form name="joinAgreePost2" id="joinAgreePost2">
+			      	<input type="radio" name="joinAgree2" value="disagree" checked="checked">동의하지 않습니다&nbsp;&nbsp;&nbsp;
 			      	<input type="radio" name="joinAgree2" value="agree">동의합니다
 			      	</form>
 		      	</div>
          </div><br><br>
 			<button type="button" data-toggle="modal" data-target="#loginModal" style="color: black;"> &#60; Prev</button>
- 			<button type="button" data-toggle="modal" data-target="#joinModal1" style="color: black;" id="joinProcBtn">Next &#62;</button>
+ 			<button type="button" style="color: black;" id="joinProcBtn">Next &#62;</button>
       		<br>
       </div>
     </div>
