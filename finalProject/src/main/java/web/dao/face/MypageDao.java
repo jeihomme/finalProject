@@ -85,7 +85,9 @@ public interface MypageDao {
 	
 	public BandGenre selectBandGenreByBandNo(BandGenre bandGenre);
 	public Genre selectGenreByGenreNo(Genre genre);
+	public void updatePublicResumesByResumesNo(Resumes resumes);
 	
   //bar 소개
 	public void barInfoD();
+	
 }

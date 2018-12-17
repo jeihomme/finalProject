@@ -75,9 +75,11 @@ public interface MypageService {
 	
 	public BandGenre getBandGenre(BandGenre bandGenre);
 	public Genre getGenre(Genre genre);
+	public void updatePublicResumes(Resumes resumes);
 	
 	//bar 소개
 	public Bar barInfo(Bar bar);
+	
 	
 	
 	

@@ -2,20 +2,27 @@ package web.dto;
 
 public class Resumes {
 	private int resumesNo;
+	private int publicResumes;
 	private String bandName;
 	private int historyNo;
 	private String BandInfo;
 	private int musicNo;
 	@Override
 	public String toString() {
-		return "Resumes [resumesNo=" + resumesNo + ", bandName=" + bandName + ", historyNo=" + historyNo + ", BandInfo="
-				+ BandInfo + ", musicNo=" + musicNo + "]";
+		return "Resumes [resumesNo=" + resumesNo + ", publicResumes=" + publicResumes + ", bandName=" + bandName
+				+ ", historyNo=" + historyNo + ", BandInfo=" + BandInfo + ", musicNo=" + musicNo + "]";
 	}
 	public int getResumesNo() {
 		return resumesNo;
 	}
 	public void setResumesNo(int resumesNo) {
 		this.resumesNo = resumesNo;
+	}
+	public int getPublicResumes() {
+		return publicResumes;
+	}
+	public void setPublicResumes(int publicResumes) {
+		this.publicResumes = publicResumes;
 	}
 	public String getBandName() {
 		return bandName;
@@ -41,5 +48,6 @@ public class Resumes {
 	public void setMusicNo(int musicNo) {
 		this.musicNo = musicNo;
 	}
+	
 	
 }
