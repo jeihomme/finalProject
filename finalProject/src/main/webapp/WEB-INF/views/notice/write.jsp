@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js">
 $(document).ready(function() {
@@ -96,14 +92,12 @@ height:40px;
 }
 </style>
 
-</head>
-<body>
 
 <h1>글쓰기</h1>
 <hr>
 <div>
 <form action="/notice/write" method="POST">
-<h4>작성자 :<input style="color:black" type="text" name="id" value="${userId }" readonly="readonly"/></h4>
+<h4>작성자 :<input style="color:black" type="text" name="userId" value="${userId }" /></h4>
 <h4> 제목 : <input  type="text" name="title" style="color: black"/></h4><br>
 	<h4>내용 :</h4><textarea  id="content" name = "content" rows="20" cols="60" style="resize:none;" ></textarea><br><br>
 
@@ -114,6 +108,3 @@ height:40px;
 </form>
 
 
-</div>
-</body>
-</html>

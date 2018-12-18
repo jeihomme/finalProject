@@ -13,7 +13,7 @@
   	<!-- 첫 페이지라면 금지 표시 -->
   	<c:if test="${paging.curPage eq 1 }"><!-- 첫페이지일때 -->
   	<li class="disabled">
-      <a href="/board/list"
+      <a href="/notice/list"
        aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
@@ -23,7 +23,7 @@
   	<li>
   	  <fmt:parseNumber var="p" integerOnly="true" value="${(paging.curPage/paging.pageCount)}"/>
   	  <fmt:parseNumber var="prevPage" integerOnly="true" value="${(p-1)*paging.pageCount+1 }"/>
-      <a href="/board/list?curPage=${prevPage }"
+      <a href="/notice/list?curPage=${prevPage }"
        aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
@@ -41,13 +41,13 @@
     	
     	<c:if test="${paging.curPage eq page }">
 	   	<li class="active">
-	   		<a href="/board/list?curPage=${page }">${page }</a>
+	   		<a href="/notice/list?curPage=${page }">${page }</a>
 	   	</li>
 	   	</c:if>
 	
 	   	<c:if test="${paging.curPage ne page }">
 	   	<li>
-		   	<a href="/board/list?curPage=${page }">${page }</a>
+		   	<a href="/notice/list?curPage=${page }">${page }</a>
 	   	</li>
 	   	</c:if>
     </c:forEach>
@@ -61,7 +61,7 @@
   	<!-- 마지막 페이지라면 금지 표시 -->
   	<c:if test="${paging.curPage eq paging.totalPage }"><!-- 마지막 페이지일때 -->
   	<li class="disabled">
-      <a href="/board/list?curPage=${paging.totalPage }"
+      <a href="/notice/list?curPage=${paging.totalPage }"
        aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
@@ -73,7 +73,7 @@
   	<fmt:parseNumber var="nextPage" integerOnly="true" value="${(p+1)*paging.pageCount+1 }"/>
 
   	<li>
-      <a href="/board/list?curPage=${nextPage }"
+      <a href="/notice/list?curPage=${nextPage }"
        aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>

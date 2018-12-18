@@ -2,7 +2,10 @@ package web.service.face;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Band;
 import web.dto.BandGenre;
@@ -35,9 +38,6 @@ public interface MypageService {
 	public void createIntro();
 	
 	public void resumesModify();
-	
-	public void uploadSound();
-	public void deleteSound(Music music);
 	
 	public void searchVolunteerUser();
 	public void volunteerToBarViewList();
@@ -80,9 +80,15 @@ public interface MypageService {
 	public void createResumes(Resumes resumes);
 	public List<History> getHistoryList(Resumes resumes);
 	public Music getMusic(Resumes resumes);
+	public void uploadSound(ServletContext context, Music music, MultipartFile file);
+	public void deleteSound(Music music);
+	public void updateSoundBandTable(Music music);
 	
 	//bar 소개
 	public Bar barInfo(Bar bar);
+	
+	
+	
 	
 	
 	

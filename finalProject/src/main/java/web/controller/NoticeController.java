@@ -1,5 +1,8 @@
 package web.controller;
 
+import java.lang.ProcessBuilder.Redirect;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import web.dto.Notice;
 import web.service.face.NoticeService;
+import web.utils.Paging;
 
 @Controller
 public class NoticeController {
@@ -21,18 +25,30 @@ public class NoticeController {
 	
 	@RequestMapping(value="/notice/list" , method=RequestMethod.GET)
 	public void list(
-			@RequestParam(required=false , defaultValue="0") int cutPage,
+			@RequestParam(required=false , defaultValue="0") int curPage,
 			@RequestParam(required=false , defaultValue="10") int listCount,
-			@RequestParam(required=false , defaultValue="10") int pageCount
-			
+			@RequestParam(required=false , defaultValue="10") int pageCount,
+			Model model
 			) {
+		Paging paging = noticeService.getPaging(curPage, listCount, pageCount);
+		model.addAttribute("paging" , paging);
 		
+		List<Notice> list = noticeService.getList(paging);
+		model.addAttribute("list" , list);
 		
 		logger.info("공지사항 리스트");
 	}
 	
 	@RequestMapping(value="/notice/view" , method=RequestMethod.GET)
-	public void view(Model model) {
+	public void view(Model model , Notice notice , int noticeNo) {
+		
+		noticeNo = notice.getNoticeNo();
+		
+		notice = noticeService.view(noticeNo);
+		
+		model.addAttribute("notice" , notice);
+		
+		
 		logger.info("상세보기 폼");
 	}
 	
@@ -50,6 +66,6 @@ public class NoticeController {
 		noticeService.write(notice);
 		
 		logger.info("글쓰기 처리");
-		return null;
+		return "redirect:/notice/list";
 	}
 }

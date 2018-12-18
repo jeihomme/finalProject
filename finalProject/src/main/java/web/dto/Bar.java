@@ -2,7 +2,7 @@ package web.dto;
 
 public class Bar {
 	
-	private String barNo;
+	private int barNo;
 	private String barName;
 	private String userId;
 	private String profileNo;
@@ -17,43 +17,10 @@ public class Bar {
 	private String barAddress;
 	private String genreNo;
 	private String genreName;
-	
-	
-	
-	public String getLocationNo() {
-		return locationNo;
-	}
-	public void setLocationNo(String locationNo) {
-		this.locationNo = locationNo;
-	}
-	public String getLocationName() {
-		return locationName;
-	}
-	public void setLocationName(String locationName) {
-		this.locationName = locationName;
-	}
-	public String getBarAddress() {
-		return barAddress;
-	}
-	public void setBarAddress(String barAddress) {
-		this.barAddress = barAddress;
-	}
-	public String getGenreNo() {
-		return genreNo;
-	}
-	public void setGenreNo(String genreNo) {
-		this.genreNo = genreNo;
-	}
-	public String getGenreName() {
-		return genreName;
-	}
-	public void setGenreName(String genreName) {
-		this.genreName = genreName;
-	}
-	public String getBarNo() {
+	public int getBarNo() {
 		return barNo;
 	}
-	public void setBarNo(String barNo) {
+	public void setBarNo(int barNo) {
 		this.barNo = barNo;
 	}
 	public String getBarName() {
@@ -110,7 +77,36 @@ public class Bar {
 	public void setStoredName(String storedName) {
 		this.storedName = storedName;
 	}
-	
+	public String getLocationNo() {
+		return locationNo;
+	}
+	public void setLocationNo(String locationNo) {
+		this.locationNo = locationNo;
+	}
+	public String getLocationName() {
+		return locationName;
+	}
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
+	}
+	public String getBarAddress() {
+		return barAddress;
+	}
+	public void setBarAddress(String barAddress) {
+		this.barAddress = barAddress;
+	}
+	public String getGenreNo() {
+		return genreNo;
+	}
+	public void setGenreNo(String genreNo) {
+		this.genreNo = genreNo;
+	}
+	public String getGenreName() {
+		return genreName;
+	}
+	public void setGenreName(String genreName) {
+		this.genreName = genreName;
+	}
 	@Override
 	public String toString() {
 		return "Bar [barNo=" + barNo + ", barName=" + barName + ", userId=" + userId + ", profileNo=" + profileNo
@@ -121,5 +117,6 @@ public class Bar {
 	}
 	
 	
-
+	
+	
 }

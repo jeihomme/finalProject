@@ -18,7 +18,7 @@ public interface NoticeService {
 			public void write(Notice notice);
 			
 			// 글보기
-			public Notice view(Notice noticeView);
+			public Notice view(int noticeNo);
 			
 			// 글삭제
 			public void delete(Notice notice);
