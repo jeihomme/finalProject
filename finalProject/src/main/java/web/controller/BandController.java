@@ -27,9 +27,6 @@ public class BandController {
 		List band = bandService.bandList();
 		List genre = bandService.genreList();
 		
-		logger.info("band : " + band.toString());
-		logger.info("genre : " + genre.toString());
-		
 		model.addAttribute("band", band);
 		model.addAttribute("genre", genre);
 		

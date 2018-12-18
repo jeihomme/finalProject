@@ -7,8 +7,9 @@
 <div style="background-color:gray; border-radius:20px;">
 	<table>
 		<tr>
-			<c:forEach items="${genre }" var="g"/>
-			<th><a>${g.genreTitle }</a></th>
+			<c:forEach items="${genre }" var="g">
+				<th><a>${g.genreTitle }</a></th>
+			</c:forEach>
 		</tr>
 	</table>
 </div>

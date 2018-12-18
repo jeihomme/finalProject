@@ -6,8 +6,9 @@
   
 <!--  매퍼 설정 -->
 <mapper namespace="web.dao.face.GenreDao">
-	<select id="getList" resultType="web.dto.Genre">
-		SELECT GenreNo, GenreName
+
+	<select id="getGenre" resultType="web.dto.Genre">
+		SELECT GenreNo, GenreName genreTitle
 		FROM Genre
 		ORDER BY GenreNo
 	</select>
