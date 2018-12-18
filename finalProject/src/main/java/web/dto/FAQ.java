@@ -1,16 +1,20 @@
 package web.dto;
 
+import java.util.Date;
+
 public class FAQ {
 
 	private int faqNo;
 	private String userId;
-	private String title;
-	private String content;
-
+	private String question;
+	private String answer;
+	private Date writtenDate;
+	
 	
 	@Override
 	public String toString() {
-		return "FAQ [faqNo=" + faqNo + ", userId=" + userId + ", title=" + title + ", content=" + content + "]";
+		return "FAQ [faqNo=" + faqNo + ", userId=" + userId + ", question=" + question + ", answer=" + answer
+				+ ", writtenDate=" + writtenDate + "]";
 	}
 
 
@@ -34,26 +38,40 @@ public class FAQ {
 	}
 
 
-	public String getTitle() {
-		return title;
+	public String getQuestion() {
+		return question;
 	}
 
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setQuestion(String question) {
+		this.question = question;
 	}
 
 
-	public String getContent() {
-		return content;
+	public String getAnswer() {
+		return answer;
 	}
 
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+
+	public Date getWrittenDate() {
+		return writtenDate;
+	}
+
+
+	public void setWrittenDate(Date writtenDate) {
+		this.writtenDate = writtenDate;
 	}
 	
 	
 	
 	
+	
+	
+	
+		
 }

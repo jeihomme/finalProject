@@ -50,7 +50,7 @@ td {
 
 <div class="container">
 
-<h1>공지사항 - LIST</h1>
+<h1>FAQ - LIST</h1>
 <hr>
 <table id="noticeTable" class="table table-striped table-hover">
 <tr style="color:black">
@@ -60,18 +60,18 @@ td {
 	<th>작성일</th>
 </tr>
 
-<c:forEach items="${list }" var="board">
+<c:forEach items="${list }" var="faq">
 <tr >
-	<td>${board.noticeNo }</td>
-	<td><a href="/notice/view?noticeNo=${board.noticeNo}">${board.title }</a></td>
-	<td>${board.userId }</td>
-	<td><fmt:formatDate value="${board.writtenDate }" pattern="yyyy-MM-dd"/></td>
+	<td>${faq.faqNo }</td>
+	<td><a href="/notice/view?noticeNo=${faq.faqNo}">${board.question }</a></td>
+	<td>${faq.userId }</td>
+	<td><fmt:formatDate value="${faq.writtenDate }" pattern="yyyy-MM-dd"/></td>
 </tr>
 </c:forEach>
 
 </table>
 <hr>
-<button id="btnWrite" onclick="location.href='/notice/write';" >글쓰기</button>
+<button id="btnWrite" onclick="location.href='/faq/write';" >글쓰기</button>
 
 </div>
 <jsp:include page="../util/paging.jsp" />
