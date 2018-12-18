@@ -5,30 +5,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="web.dao.face.NoticeDao">
-<resultMap type="web.dto.Notice" id="Notice">
-</resultMap>
+
 <sql id="selectNotice">
-SELECT noticeNo, title, userId, content, write_date FROM notice
+SELECT noticeNo, title, userId, content, writtenDate FROM notice
 </sql>
-<select id="selectPagingList" resultMap="Notice" parameterType="web.utils.Paging">
+<select id="selectPagingList" resultType="web.dto.Notice" parameterType="web.utils.Paging">
 SELECT * FROM ( SELECT rownum rnum, B.* FROM (
 <include refid="selectNotice"/>
 ) B ORDER BY noticeNo DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum
 </select>
-<select id="selectCntAll" resultType="int">
+<select id="selectNoticeCntAll" resultType="int">
 SELECT COUNT(*) CNT FROM (
 <include refid="selectNotice"/>
 ) CNT
 </select>
 
 <insert id="insert"  parameterType="web.dto.Notice">
+	<selectKey keyProperty="noticeNo" resultType="int">
+		SELECT notice_seq.nextval FROM DUAL
+	</selectKey>
 	INSERT INTO board (noticeNo ,
 						TITLE ,
 						userId ,
 						CONTENT ,
 						writtenDate
 						)
-		VALUES (notice_seq.nextval , #{title} , #{userId} , #{CONTENT} , sysdate)				
+		VALUES (#{noticeNo} , #{title} , #{userId} , #{CONTENT} , sysdate)				
 </insert>
 
 </mapper>

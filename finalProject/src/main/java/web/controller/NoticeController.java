@@ -1,5 +1,7 @@
 package web.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import web.dto.Notice;
 import web.service.face.NoticeService;
+import web.utils.Paging;
 
 @Controller
 public class NoticeController {
@@ -21,12 +24,16 @@ public class NoticeController {
 	
 	@RequestMapping(value="/notice/list" , method=RequestMethod.GET)
 	public void list(
-			@RequestParam(required=false , defaultValue="0") int cutPage,
+			@RequestParam(required=false , defaultValue="1") int curPage,
 			@RequestParam(required=false , defaultValue="10") int listCount,
-			@RequestParam(required=false , defaultValue="10") int pageCount
-			
+			@RequestParam(required=false , defaultValue="10") int pageCount,
+			Model model
 			) {
+		Paging paging = noticeService.getPaging(curPage, listCount, pageCount);
+		model.addAttribute("paging" , paging);
 		
+		List<Notice> list = noticeService.getList(paging);
+		model.addAttribute("list" , list);
 		
 		logger.info("공지사항 리스트");
 	}

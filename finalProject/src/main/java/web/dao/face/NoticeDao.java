@@ -20,7 +20,7 @@ public interface NoticeDao {
 	public void deleteNotice();
 	
 	// 공지사항 답변  상세보기
-	public Notice selectNotice(int faqNo);
+	public Notice selectNotice(int noticeNo);
 	
 	// 공지사항  총 글수 출력
 	public int selectNoticeCntAll();
