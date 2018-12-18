@@ -10,20 +10,55 @@
 
 <!-- 자바스크립트 -->
 <script type="text/javascript">
-$(document).ready(function() {
+
+function onlyNum(event){ // 숫자만 입력하기 위한 함수
+	   event = event || window.event;
+	   var keyID = (event.which) ? event.which : event.keyCode;
+	   if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) {
+	      return;
+	   } else {
+	      return false;
+	   }
+	}
 	
+function removeChar(event) { // 글자수 초과시 최대 글자 수만큼 자르는 함수
+	   event = event || window.event;
+	   var keyID = (event.which) ? event.which : event.keyCode;
+	   if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) {
+	      return;      
+	   } else{
+	      event.target.value = event.target.value.replace(/[^0-9]/g, "");
+	   }
+	}
+
+$(document).ready(function() {
+	// x 버튼(닫기 버튼) 클릭시
 	$(".close").click(function() {
+		// 전체 모달 숨기기
+		$("#loginModal").hide();
+		$("#joinAgreeModal").hide();
+		$("#joinModal1").hide();
+		$("#joinModal2").hide();
+		
+		// Form 안의 내용 초기화
+		document.getElementById("loginForm").reset();
+		document.getElementById("joinAgreePost1").reset();
+		document.getElementById("joinAgreePost2").reset();
+		document.getElementById("joinForm1").reset();
+	});
+	
+	$(".modal-backdrop").click(function() {
 		$("#loginModal").hide();
 		$("#joinAgreeModal").hide();
 		$("#joinModal1").hide();
 	});
-	
-	$('.modal').on('hidden.bs.modal', function() {
-	    console.log('modal close');
-		$(this).removeData('bs.modal');
-		$('.modal-content').empty();
+
+	$("#joinProcPrev").click(function() {
+		$("joinAgreeModal").hide();
+		$("loginModal").show();
 	});
 	
+	// 약관 동의 모달을 켰을 경우
 	$("#joinProcBtn").click(function() {
 		// 약관 동의를 안 했을 경우
 		if(document.joinAgreePost1.joinAgree1.value=="disagree") {
@@ -38,25 +73,30 @@ $(document).ready(function() {
 			
 		// 약관에 모두 동의했을 경우 joinModal을 보여줌
 		$("#joinModal1").show();
-		$("#joinAgreeModal").hide();
 			
 		// 로그인 모달과 가입 모달 숨기기
 		$("#loginModal").hide();
-		$(".modal-backdrop").remove();
+		$("#joinAgreeModal").hide();
 		
 		console.log("로그인 모달 숨김");
 	});
 	
+	// 약관 동의 모달을 띄웠을 경우
+	$("#joinAgreeModal").click(function() {
+		// 로그인 모달 숨기기
+		$("#loginModal").hide();
+	});
 	
 	// 회원가입 모달을 띄웠을 경우
-	$("#joinModal1").click(function() {
-		
-		//로그인 모달과 약관 동의 모달 숨기기
-		$("#loginModal").hide();
-		$(".modal-backdrop").remove();
+	$("#joinModal1").click(function() {		
+		// 약관 동의 모달 숨기기
 		$("#joinAgreeModal").hide();
-		
-		console.log("회원가입 동의 모달 숨김");
+	});
+
+	// 가입 두 번째 모달을 켰을 경우
+	$("#joinModal2").click(function() {
+		// 가입 모달 1 숨기기
+		$("#joinModal1").hide();
 	});
 	
 	$("#btnLogin").click(function() {
@@ -124,14 +164,13 @@ $(document).ready(function() {
 
 <style type="text/css">
 	
-table {
+table, .modal-footer, .joinAgree {
 	text-align: center;
 	margin: auto;
 }
 
 .modal {
         text-align: center;
-        
         color: white;
 }
 
@@ -149,21 +188,10 @@ table {
         }
 }
 
-
 .modal-body {
 	text-align: center;
 	margin: auto;
 	vertical-align: middle;
-}
-
-.modal-footer {
-	text-align: center;
-	margin: auto;
-}
-
-.joinAgree {
-	text-align: center;
-	margin: auto;
 }
 
 .modal-dialog {
@@ -173,7 +201,7 @@ table {
 }
 
 .modal-content {
-	background-color: black;
+	background-color: #181818;
 }
 
 .loginBtn {
@@ -200,8 +228,8 @@ table {
 #btnLogin {
 	border: none;
 	outline: none;
-	color: #2ca2ba;
-	background-color: black;
+	color: gold;
+	background-color: #181818;
 }
 
 .headerTitle {
@@ -328,10 +356,10 @@ table {
 		        <table style="border: none; line-height: 180%;">
 				<tr>
 				<td>ID:&nbsp;&nbsp;</td>
-				<td><input type="text" style="background-color: black; border: none; border-bottom: 3px solid #2ca2ba; width: 120%;" id="userId" name="userId" placeholder="아이디를 입력해 주세요"/><br></td></tr>
-				<tr>
+				<td><input type="text" style="border: none; color: black; width: 120%; border-bottom: 2px solid gold;" id="userId" name="userId" placeholder=" 아이디를 입력해 주세요"/><br></td></tr>
+				<tr style="padding-bottom: 3px;">
 				<td>PW:&nbsp;&nbsp;</td>
-				<td><input type="password" style="background-color: black; border: none; border-bottom: 3px solid #2ca2ba; width: 120%;" id="password" name="password" placeholder="비밀번호를 입력해 주세요"/></td></tr>
+				<td><input type="password" style="border: none; color: black; width: 120%; border-bottom: 2px solid gold;" id="password" name="password" placeholder=" 비밀번호를 입력해 주세요"/></td></tr>
 				</table>
 				<br>
 			</form>
@@ -349,13 +377,13 @@ table {
   <div class="modal-dialog modal-lg" style="width: 55%;">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" style="color: white">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" style="color: white"><b>&times;</b></button>
         <h3 class="modal-title text-center"><b>Sign Up</b></h3>
       </div> 
       <div class="modal-body text-center" style="height: 500px;">
      	 <div class="agreeDiv text-center" style="margin-right: 100px; margin-left: 100px;"><br>
 	     	 <div class="text-left" style="padding-bottom: 12px;"><b>ㆍ 서비스 약관 동의&nbsp;<font color="red">*</font></b></div>
-	      	<div class="joinAgree text-right" style="overflow-y: scroll; height: 100px; width: 100%; border:1px solid gold;">
+	      	<div class="joinAgree text-right" style="overflow-y: scroll; height: 100px; width: 100%; border:2px solid gold;">
 	      		<b>제 1 장 총 칙</b><br>
 				제 1 조 목적<br>
 				본 약관은 서비스 이용자가 주식회사 JazzBar(이하 “회사”라 합니다)가 제공하는 온라인상의 인터넷 서비스(이하 “서비스”라고 하며, 접속 가능한 유∙무선 단말기의 종류와는 상관없이 이용 가능한 “회사”가 제공하는 모든 “서비스”를 의미합니다. 이하 같습니다)에 회원으로 가입하고 이를 이용함에 있어 회사와 회원(본 약관에 동의하고 회원등록을 완료한 서비스 이용자를 말합니다. 이하 “회원”이라고 합니다)의 권리•의무 및 책임사항을 규정함을 목적으로 합니다.<br>
@@ -383,7 +411,7 @@ table {
          
          <div class="agreeDiv2 text-center" style="margin-right: 100px; margin-left: 100px;"><br>
 	     	 <div class="text-left" style="padding-bottom: 12px;"><b>ㆍ 개인정보 수집 및 이용 동의&nbsp;<font color="red">*</font></b></div>
-	      	<div class="joinAgree text-right" style="overflow-y: scroll; height: 100px; width: 100%; border:1px solid gold;">
+	      	<div class="joinAgree text-right" style="overflow-y: scroll; height: 100px; width: 100%; border:2px solid gold;">
 			(주)JazzBar는 아래의 목적으로 개인정보를 수집 및 이용하며, 회원의 개인정보를 안전하게 취급하는데 최선을 다합니다.<br>
 				<b>1. 수집목적</b><br>
 				• 이용자 식별, 원활한 의사소통, 부정이용 시 제재 및 기록 <br>
@@ -406,7 +434,7 @@ table {
 			      	</form>
 		      	</div>
          </div><br><br>
-			<button type="button" data-toggle="modal" data-target="#loginModal" style="color: black;"> &#60; Prev</button>
+			<button type="button" style="color: black;" id="joinProcPrev"> &#60; Prev</button>
  			<button type="button" style="color: black;" id="joinProcBtn">Next &#62;</button>
       		<br>
       </div>
@@ -414,7 +442,7 @@ table {
   </div>
 </div>
 
-<!-- 회원가입 모달 -->
+<!-- 회원가입 모달 1 -->
 <div class="modal" id="joinModal1" aria-hidden="true" style="display: none" >
   <div class="modal-dialog modal-lg" style="width: 55%;">
     <div class="modal-content">
@@ -423,18 +451,61 @@ table {
         <h3 class="modal-title text-center"><b>Sign Up</b></h3>
       </div> 
       <div class="modal-body text-center"  style="height: 500px;">
-            <form id="joinForm" action="/member/join" method="post" name="joinPost">
+            <form id="joinForm1" action="/member/join" method="post" name="joinPost">
 		        <br>
 		        <table style="border: none;">
 				<tr>
 				<td>ID:&nbsp;</td>
-				<td><input type="text" style="color: black" id="userId" name="joinuserId" /></td></tr>
+				<td><input type="text" style="color: black" id="joinUserId" name="joinuserId" /></td>
+				<td>Email:&nbsp;</td>
+				<td><input type="text" style="color: black" id="joinEmail" name="joinEmail"/></td>
+				</tr>
 				<tr>
 				<td>PW:&nbsp;</td>
-				<td><input type="password" style="color: black" id="password" name="joinPassword" /></td></tr>
+				<td><input type="password" style="color: black" id="joinPassword" name="joinPassword" /></td>
+				<td>Name:&nbsp;</td>
+				<td><input type="text" style="color: black" id="joinUserName" name="joinUserName"/></td>
+				</tr>
 				<tr>
 				<td>PW Check:&nbsp;</td>
-				<td><input type="password" style="color: black" id="password" name="passwordChk" /></td></tr>
+				<td><input type="password" style="color: black" id="passwordChk" name="passwordChk" /></td>
+				<td>Phone:&nbsp;</td>
+				<td>
+					<select id="joinTelcom" name="joinTelcom">
+						<option value="" selected>통신사 선택</option>
+						<option value="1">KT</option>
+						<option value="2">SK</option>
+						<option value="3">LG</option>
+					</select>&nbsp;
+					<input type="text" name="joinContact" id="joinContact"  placeholder="숫자만 입력해 주세요"  onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/></td>
+				</tr>
+				</table>
+				<br>
+			</form>
+            
+			<button type="button" data-toggle="modal" data-target="#joinAgreeModal" style="color: black;"> &#60; Prev</button>
+ 			<button type="button" data-toggle="modal" data-target="#joinModal2" style="color: black;">Next &#62;</button>
+      		<br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 회원가입 모달 2 -->
+<div class="modal" id="joinModal2" aria-hidden="true" style="display: none" >
+  <div class="modal-dialog modal-lg" style="width: 55%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" style="color: white">&times;</button>
+        <h3 class="modal-title text-center"><b>Sign Up</b></h3>
+      </div> 
+      <div class="modal-body text-center"  style="height: 500px;">
+            <form id="joinForm2" action="/member/join" method="post" name="joinPost">
+		        <br>
+		        <table style="border: none;">
+				<tr>
+				<td></td>
+				</tr>
 				</table>
 				<br>
 			</form>
