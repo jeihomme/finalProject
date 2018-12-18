@@ -46,12 +46,13 @@ public class BarController {
 	
 	// 바 소개보기
 	@RequestMapping(value="/bar/viewbar", method=RequestMethod.GET)
-	public void viewBar(Model model) {
+	public void viewBar(Bar bar, Model model) {
 		
-		Bar bar = new Bar();
 		ProfilePic profilePic = new ProfilePic();
 		Location location = new Location();
 		logger.info(">> viewBar");
+		
+		logger.info(bar.toString());
 		
 		model.addAttribute("view", barService.barView(bar, profilePic, location));
 
