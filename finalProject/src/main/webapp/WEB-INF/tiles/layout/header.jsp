@@ -471,13 +471,13 @@ table, .modal-footer, .joinAgree {
 				<td><input type="password" style="color: black" id="passwordChk" name="passwordChk" /></td>
 				<td>Phone:&nbsp;</td>
 				<td>
-					<select id="joinTelcom" name="joinTelcom">
+					<select id="joinTelcom" name="joinTelcom" style="color: black">
 						<option value="" selected>통신사 선택</option>
 						<option value="1">KT</option>
 						<option value="2">SK</option>
 						<option value="3">LG</option>
 					</select>&nbsp;
-					<input type="text" name="joinContact" id="joinContact"  placeholder="숫자만 입력해 주세요"  onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/></td>
+					<input type="text" style="color: black" name="joinContact" id="joinContact"  placeholder="숫자만 입력해 주세요"  onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/></td>
 				</tr>
 				</table>
 				<br>
