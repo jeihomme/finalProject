@@ -43,6 +43,14 @@ public class BandServiceImpl implements BandService {
 	}
 	
 	@Override
+	public List getProPic() {
+
+		List list = bandDao.getProPic();
+		
+		return list;
+	}
+	
+	@Override
 	public Band bandView(String bandName) {
 		// TODO Auto-generated method stub
 		return null;
@@ -59,7 +67,5 @@ public class BandServiceImpl implements BandService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
 
 }

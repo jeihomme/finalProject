@@ -23,4 +23,10 @@
 		WHERE bandNo = 
 			<include refid="getBandNo" />
 	</select>
+	
+	<select id="getProPic" resultType="web.dto.ProfilePic">
+		SELECT ProfileNo, path, OriginName, StoredName
+		FROM profilePic
+		ORDER BY profileNo
+	</select>
 </mapper>

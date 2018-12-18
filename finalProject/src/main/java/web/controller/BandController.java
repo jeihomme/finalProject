@@ -26,9 +26,11 @@ public class BandController {
 		
 		List band = bandService.bandList();
 		List genre = bandService.genreList();
+		List profile = bandService.getProPic();
 		
 		model.addAttribute("band", band);
 		model.addAttribute("genre", genre);
+		model.addAttribute("profile", profile);
 		
 	}
 	
