@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import web.dao.face.FAQDao;
 import web.dto.FAQ;
 import web.service.face.FAQService;
+import web.utils.Paging;
 
 @Service
 public class FAQServiceImpl  implements FAQService{
@@ -15,21 +16,36 @@ public class FAQServiceImpl  implements FAQService{
 	@Autowired FAQDao faqDao;
 
 	@Override
-	public List getList() {
+	public List getList(Paging paging) {
 		// TODO Auto-generated method stub
-		return null;
+		return faqDao.selectPagingList(paging);
 	}
 
 	@Override
-	public void write() {
+	public Paging getPaging(int curPage, int listCount, int pageCount) {
+		
+		int totalCount = this.selectCountAll();
+		
+		Paging paging = new Paging(totalCount , curPage , listCount , pageCount);
+		
+		return paging;
+	}
+
+	private int selectCountAll() {
+		// TODO Auto-generated method stub
+		return faqDao.selectFAQCntAll();
+	}
+
+	@Override
+	public void write(FAQ faq) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public FAQ view(FAQ faqView) {
+	public FAQ view(int faqNo) {
 		// TODO Auto-generated method stub
-		return null;
+		return faqDao.selectFAQ(faqNo);
 	}
 
 	@Override
@@ -43,4 +59,7 @@ public class FAQServiceImpl  implements FAQService{
 		// TODO Auto-generated method stub
 		
 	}
+
+	
+
 }

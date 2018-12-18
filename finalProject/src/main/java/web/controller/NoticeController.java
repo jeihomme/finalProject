@@ -1,5 +1,6 @@
 package web.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -65,6 +66,6 @@ public class NoticeController {
 		noticeService.write(notice);
 		
 		logger.info("글쓰기 처리");
-		return null;
+		return "redirect:/notice/list";
 	}
 }

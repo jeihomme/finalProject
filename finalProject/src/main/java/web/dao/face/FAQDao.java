@@ -3,15 +3,16 @@ package web.dao.face;
 import java.util.List;
 
 import web.dto.FAQ;
+import web.utils.Paging;
 
 public interface FAQDao {
 
 	// 전체조회
-	public List selectAll();
+	public List selectPagingList(Paging paging);
 
 	
 	// FAQ 답변 쓰기
-	public void insertFAQ();
+	public void insertFAQ(FAQ faq);
 	
 	// FAQ 답변 수정 
 	public void updateFAQ();

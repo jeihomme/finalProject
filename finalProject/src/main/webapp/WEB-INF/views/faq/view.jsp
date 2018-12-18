@@ -7,23 +7,22 @@
 <table>
 	<tr>
 		<th>번호</th>
-		<td>${notice.noticeNo }</td>
+		<td>${faq.faqNo }</td>
 	</tr>
 
 	<tr>
 		<th>제목</th>
-		<td>${notice.title }</td>
-	</tr>
-	<tr>
-		<th>내용</th>
-		<td>${notice.content }</td>
+		<td>${faq.question }</td>
 	</tr>
 	
 	<tr>
 		<th>작성자</th>
 		<td>${notice.userId }</td>
 	</tr>
-
+	<tr>
+		<th>답변</th>
+		<td>${faq.answer }</td>
+	</tr>
 	
 	<tr>
 		<th>작성일</th>
