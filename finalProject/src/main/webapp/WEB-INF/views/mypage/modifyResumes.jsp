@@ -99,6 +99,11 @@
 	.resumesViewDiv {
 		text-align:center;
 	}
+	
+	.insertResumesInfo {
+		color:#000;
+		width:600px;
+	}
 </style>
 
 <style type="text/css">
@@ -185,7 +190,7 @@ td {
 			</tr>
 		
 			<tr>
-				<td><input type="text" name="resumesTitle" value="${resumes.resumesTitle }"/></td>
+				<td><input type="text" class="insertResumesInfo" name="resumesTitle" value="${resumes.resumesTitle }"/></td>
 			</tr>
 			
 		</table>
@@ -196,14 +201,20 @@ td {
 <div class="adminMypageSearchRes">
 	<div>
 		<b class="bandIntroHeader">첨부파일</b>
+		
 		<table class="table table-hover table-striped table-condensed">
 			<tr>
 				<th>파일명</th>
 				<th>등록/수정일</th>
 			</tr>
 			<tr>
-				<td>${music.musicTitle }</td>
+				
 				<td>
+				<select class="insertResumesInfo" name="musicNo">
+					<c:forEach items="${musicList }" var="i">
+						<option value=${i } >${i.musicTitle }</option>
+					</c:forEach>
+				</select>
 				${music.writtenDate }
 				</td>
 			</tr>
@@ -241,6 +252,13 @@ td {
 
 <hr>
 <div class="resumesViewDiv">
-	<button class="searchBtn" onclick="location.href='/mypage/intro' ">뒤로가기</button>
-	<button class="searchBtn" onclick="location.href='/mypage/modifyResumes' ">수정</button>
+	<c:if test="${bandInfo eq null}">
+		<button class="searchBtn" onclick="location.href='/mypage/intro' ">취소</button>
+		<button class="searchBtn" onclick="location.href='/mypage/modifyResumes' ">완료</button>
+	</c:if>
+	
+	<c:if test="${bandInfo ne null}">
+		<button class="searchBtn" onclick="location.href='/mypage/intro' ">뒤로가기</button>
+		<button class="searchBtn" onclick="location.href='/mypage/modifyResumes' ">수정</button>
+	</c:if>
 </div>

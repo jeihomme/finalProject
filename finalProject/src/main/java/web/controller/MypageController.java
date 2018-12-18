@@ -3,6 +3,7 @@ package web.controller;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Band;
 import web.dto.BandGenre;
@@ -208,48 +211,28 @@ public class MypageController {
 		
 		Resumes resumes = new Resumes();
 		resumes.setBandName(band.getBandName());
-		logger.info(resumes.toString());
+//		logger.info(resumes.toString());
 		List<Resumes> resumesList = mpService.getResumesList(resumes);
 		logger.info(resumesList.toString());
 		
 		Music music = new Music();
 		music.setBandNo(band.getBandNo());
-		logger.info(music.toString());
+//		logger.info(music.toString());
 		List<Music> musicList = mpService.getMusicList(music);
 		logger.info(musicList.toString());
 		
-//		model.addAttribute("band", band);
+		model.addAttribute("band", band);
 		model.addAttribute("resumesList", resumesList);
 		model.addAttribute("musicList", musicList);
-//		introList
 	}
 	
-	@RequestMapping(value = "/mypage/createResumes", method=RequestMethod.GET)
-	public void createResumes(
-			HttpSession session
-			, Model model
-			) {
-		logger.info("---createResumes---");
-		
-		Member member = (Member) session.getAttribute("loginInfo");
-		member = mbService.loginInfo(member);
-		logger.info(member.toString());
-		
-		Band band = new Band();
-		band.setUserId(member.getUserId());
-		band = mpService.getBand(band);
-		logger.info(band.toString());
-		
-		Resumes resumes = new Resumes();
-		resumes.setBandName(band.getBandName());
-		logger.info(resumes.toString());
-		
-		mpService.createResumes(resumes);
-		logger.info(resumes.toString());
-		
-		model.addAttribute("member", member);
-		model.addAttribute("resumes", resumes);
-	}
+//	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.GET)
+//	public void createResumes(
+//			HttpSession session
+//			, Model model
+//			) {
+//		logger.info("---createResumes---");
+//	}
 	
 	@RequestMapping(value = "/mypage/resumes", method=RequestMethod.GET)
 	public void resumes(
@@ -283,8 +266,11 @@ public class MypageController {
 		genre = mpService.getGenre(genre);
 		logger.info(genre.toString());
 		
-		Music music = mpService.getMusic(resumes);
-		logger.info(music.toString());
+		Music music = new Music();
+		if ( resumes.getMusicNo() != 0) {
+			music = mpService.getMusic(resumes);
+			logger.info(music.toString());
+		}
 		
 		List<History> historyList = mpService.getHistoryList(resumes);
 		
@@ -345,6 +331,7 @@ public class MypageController {
 			HttpSession session
 			, Model model
 			, HttpServletRequest req
+			, @RequestParam(required=false , defaultValue="0") int cutPage
 			) {
 		logger.info("---resumes---");
 		
@@ -357,11 +344,6 @@ public class MypageController {
 		band = mpService.getBand(band);
 		logger.info(band.toString());
 		
-		Resumes resumes = new Resumes();
-		resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
-		resumes = mpService.getResumes(resumes);
-		logger.info(resumes.toString());
-		
 		BandGenre bandGenre = new BandGenre();
 		bandGenre.setBandNo(band.getBandNo());
 		bandGenre = mpService.getBandGenre(bandGenre);
@@ -372,19 +354,40 @@ public class MypageController {
 		genre = mpService.getGenre(genre);
 		logger.info(genre.toString());
 		
-		Music music = mpService.getMusic(resumes);
-		logger.info(music.toString());
+		Music music = new Music();
+		music.setBandNo(band.getBandNo());
+//		logger.info(music.toString());
+		List<Music> musicList = mpService.getMusicList(music);
+		logger.info(musicList.toString());
 		
-		List<History> historyList = mpService.getHistoryList(resumes);
-		
-		model.addAttribute("member", member);
+		Resumes resumes = new Resumes();
+		if ( req.getParameter("resumesNo") != null && !"".equals(req.getParameter("resumesNo"))) {
+			resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
+			resumes = mpService.getResumes(resumes);
+			logger.info(resumes.toString());
+			
+			List<History> historyList = mpService.getHistoryList(resumes);
+			
+//			model.addAttribute("member", member);
+//			model.addAttribute("band", band);
+//			model.addAttribute("genre", genre);
+			
+//			model.addAttribute("resumes", resumes);
+			model.addAttribute("music", music);
+			model.addAttribute("historyList", historyList);
+		} else {
+			resumes.setBandName(band.getBandName());
+			
+			mpService.createResumes(resumes);
+			logger.info(resumes.toString());
+			
+		}
 		model.addAttribute("band", band);
 		model.addAttribute("genre", genre);
 		
+		model.addAttribute("member", member);
 		model.addAttribute("resumes", resumes);
-		model.addAttribute("music", music);
-		model.addAttribute("historyList", historyList);
-		
+		model.addAttribute("musicList", musicList);
 	}
 	
 	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.POST)
@@ -429,10 +432,21 @@ public class MypageController {
 ////		createIntro
 //	}
 	
-	@RequestMapping(value = "/mypage/insertSound", method=RequestMethod.POST)
-	public void uploadSound() {
-		logger.info("---uploadSound---");
-//		uploadSound
+	@Autowired ServletContext context;
+	@RequestMapping(value = "/mypage/uploadSoundIntro", method=RequestMethod.POST)
+	public String uploadSoundIntro(
+		@RequestParam(value="file") MultipartFile file
+		, HttpServletRequest req
+		) {
+			logger.info("---uploadSound---");
+			
+		//context, filepload
+//		서버 컨텍스트 리얼패스, 업로드파일정보 전달
+		Music music = new Music();
+		music.setBandNo( Integer.parseInt( req.getParameter("bandNo")) ); 
+		mpService.uploadSound(context, music, file);
+		
+		return "redirect:/mypage/intro";
 	}
 	
 	@RequestMapping(value = "/mypage/deleteSound", method=RequestMethod.POST)
@@ -440,7 +454,9 @@ public class MypageController {
 			Music music
 			) {
 		logger.info("---deleteSound---");
+		mpService.updateSoundBandTable(music);
 		mpService.deleteSound(music);
+		
 		
 		return "redirect:/mypage/intro";
 	}

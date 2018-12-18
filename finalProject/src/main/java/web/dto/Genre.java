@@ -2,10 +2,10 @@ package web.dto;
 
 public class Genre {
 	private int genreNo;
-	private String genreTitle;
+	private String genreName;
 	@Override
 	public String toString() {
-		return "Genre [genreNo=" + genreNo + ", genreTitle=" + genreTitle + "]";
+		return "Genre [genreNo=" + genreNo + ", genreName=" + genreName + "]";
 	}
 	public int getGenreNo() {
 		return genreNo;
@@ -13,12 +13,13 @@ public class Genre {
 	public void setGenreNo(int genreNo) {
 		this.genreNo = genreNo;
 	}
-	public String getGenreTitle() {
-		return genreTitle;
+	public String getGenreName() {
+		return genreName;
 	}
-	public void setGenreTitle(String genreTitle) {
-		this.genreTitle = genreTitle;
+	public void setGenreName(String genreName) {
+		this.genreName = genreName;
 	}
+	
 	
 	
 }

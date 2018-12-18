@@ -160,9 +160,9 @@ $(document).ready(function() {
 				    <p class="close">X</p>
 				    <h2>비밀번호 변경</h2>
 				    
-					<b class="adminDetailInfo">현재 PW : </b><input type="password" class="inputIDPW" name="password" ><br>
-					<b class="adminDetailInfo">새 PW : </b><input type="password" class="inputIDPW" name="newPassword" ><br>
-					<b class="adminDetailInfo">새 PW 확인 : </b><input type="password" class="inputIDPW" name="newPassword" ><br>
+					<b class="adminDetailInfo">현재 PW : </b><input type="password"  name="password" ><br>
+					<b class="adminDetailInfo">새 PW : </b><input type="password"  name="newPassword" ><br>
+					<b class="adminDetailInfo">새 PW 확인 : </b><input type="password"  name="newPassword" ><br>
 					
 					<button class="modifyBtn">수정</button><br>
 					
@@ -230,11 +230,11 @@ $(document).ready(function() {
 						<h2>비밀번호 변경</h2>
 
 						<b class="adminDetailInfo">현재 PW : </b><input type="password"
-							class="inputIDPW" name="password"><br> <b
+							 name="password"><br> <b
 							class="adminDetailInfo">새 PW : </b><input type="password"
-							class="inputIDPW" name="newPassword"><br> <b
+							 name="newPassword"><br> <b
 							class="adminDetailInfo">새 PW 확인 : </b><input type="password"
-							class="inputIDPW" name="newPassword"><br>
+							 name="newPassword"><br>
 
 						<button class="modifyBtn">수정</button>
 						<br>
@@ -281,9 +281,9 @@ $(document).ready(function() {
 				    <p class="close">X</p>
 				    <h2>비밀번호 변경</h2>
 				    
-					<b class="adminDetailInfo">현재 PW : </b><input type="password" class="inputIDPW" name="password" ><br>
-					<b class="adminDetailInfo">새 PW : </b><input type="password" class="inputIDPW" name="newPassword" ><br>
-					<b class="adminDetailInfo">새 PW 확인 : </b><input type="password" class="inputIDPW" name="newPassword" ><br>
+					<b class="adminDetailInfo">현재 PW : </b><input type="password"  name="password" ><br>
+					<b class="adminDetailInfo">새 PW : </b><input type="password"  name="newPassword" ><br>
+					<b class="adminDetailInfo">새 PW 확인 : </b><input type="password"  name="newPassword" ><br>
 					
 					<button class="modifyBtn">수정</button><br>
 					

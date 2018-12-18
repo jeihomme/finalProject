@@ -39,9 +39,6 @@ public interface MypageDao {
 	public void insertResume();
 	public void updateResume();
 	
-	public void insertSound();
-	public void deleteSound();
-	
 	public void selectVolunteerListByUserId();
 	public void selectVolunteerToBarListByVolunteerId();
 	public void deleteVolunteerToBar();
@@ -88,10 +85,18 @@ public interface MypageDao {
 	public void updatePublicResumesByResumesNo(Resumes resumes);
 	public void insertResumesByBandName(Resumes resumes);
 	public List<History> selectHistoryByBandName(Resumes resumes);
+	
 	public Music selectMusicByResumesNo(Resumes resumes);
+	public void insertSound(Music music);
+	public void deleteSoundByMusicNo(Music music);
+	public void updateResumesByMusicNo(Music music);
 	
   //bar 소개
 	public void barInfoD();
+	
+	
+	
+	
 	
 	
 	
