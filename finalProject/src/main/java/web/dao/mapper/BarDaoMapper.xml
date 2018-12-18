@@ -29,7 +29,7 @@
 	    WHERE B.PROFILENO = P.PROFILENO
 	        AND B.GENRENO = G.GENRENO
 	        AND B.LOCATIONNO = L.LOCATIONNO 
-   		 ORDER BY BARNO
+	        AND B.BARNO = #{barNo }
 	</select>
 	
 	<select id="getLocation" parameterType="web.dto.Location" resultType="web.dto.Location">

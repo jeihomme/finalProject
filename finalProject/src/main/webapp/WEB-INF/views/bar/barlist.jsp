@@ -24,8 +24,8 @@
 
 <c:forEach var="row" items="${list }">
 	<div class="test">
-		<p onclick="location.href= '/bar/viewbar?barName=${row.barName}' "> <img src="https://${row.path }/${row.originName }"> </p> 
-		<p class="font" onclick="location.href= '/bar/viewbar?barName=${row.barName}'"> ${row.barName } </p> 
+		<p onclick="location.href= '/bar/viewbar?barNo=${row.barNo}' "> <img src="https://${row.path }/${row.originName }"> </p> 
+		<p class="font" onclick="location.href= '/bar/viewbar?barNo=${row.barNo}'"> ${row.barName } </p> 
 	</div>
 </c:forEach>
 
