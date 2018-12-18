@@ -1,9 +1,12 @@
 package web.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import web.dto.Band;
@@ -17,10 +20,18 @@ public class BandController {
 	
 	// 전체 리스트
 	@RequestMapping(value="/band/bandList")
-	public void bandList() {
+	public void bandList(
+			Model model) {
 		logger.info("연결됐다");
 		
+		List band = bandService.bandList();
+		List genre = bandService.genreList();
 		
+		logger.info("band : " + band.toString());
+		logger.info("genre : " + genre.toString());
+		
+		model.addAttribute("band", band);
+		model.addAttribute("genre", genre);
 		
 	}
 	

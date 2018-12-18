@@ -5,14 +5,12 @@
 
 <h1>Band</h1>
 <div style="background-color:gray; border-radius:20px;">
-	여기에 장르를 뿌린다<br>
-	z<br>
-	z<br>
-	z<br>
-	z<br>
-	z<br>
-	z<br>
-	zz<br>
+	<table>
+		<tr>
+			<c:forEach items="${genre }" var="g"/>
+			<th><a>${g.genreTitle }</a></th>
+		</tr>
+	</table>
 </div>
 
 <br><br>
