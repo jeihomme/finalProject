@@ -24,7 +24,7 @@ public class NoticeController {
 	
 	@RequestMapping(value="/notice/list" , method=RequestMethod.GET)
 	public void list(
-			@RequestParam(required=false , defaultValue="1") int curPage,
+			@RequestParam(required=false , defaultValue="0") int curPage,
 			@RequestParam(required=false , defaultValue="10") int listCount,
 			@RequestParam(required=false , defaultValue="10") int pageCount,
 			Model model
@@ -39,7 +39,15 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/notice/view" , method=RequestMethod.GET)
-	public void view(Model model) {
+	public void view(Model model , Notice notice , int noticeNo) {
+		
+		noticeNo = notice.getNoticeNo();
+		
+		notice = noticeService.view(noticeNo);
+		
+		model.addAttribute("notice" , notice);
+		
+		
 		logger.info("상세보기 폼");
 	}
 	

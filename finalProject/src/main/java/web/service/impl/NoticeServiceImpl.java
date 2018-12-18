@@ -23,9 +23,9 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public Notice view(Notice noticeView) {
+	public Notice view(int noticeNo) {
 		// TODO Auto-generated method stub
-		return null;
+		return noticeDao.selectNotice(noticeNo);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class NoticeServiceImpl implements NoticeService {
 	public Paging getPaging(int curPage, int listCount, int pageCount) {
 		int totalCount = this.selectCountAll();
 		
-		Paging paging = new Paging(curPage , listCount , pageCount);
+		Paging paging = new Paging(totalCount, curPage , listCount , pageCount);
 		
 		return paging;
 	}

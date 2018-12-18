@@ -18,40 +18,25 @@
 
 
 }
-
-#dtnWrite {
-
-	height:50px;
-
-    width:70px;
-
-    background-color: #ECE8E8;
-
-    border: none;
-    
-    border-radius:10px;
-
-    color:black;
-
-    padding: 15px 0;
-
-    text-align: center;
-
-    text-decoration: none;
-
-    display: inline-block;
-
-    font-size: 15px;
-
-    margin: 4px;
-
-    cursor: pointer;
-	
-	float: right;
-	
-	margin-right: 350px;
+#btnWrite{
+	margin-left: 64%;
+	background-color: #848484;
+	color:white;
 }
 
+ 
+
+th {
+
+	text-align: center;
+}
+
+td {
+    
+    background-color: black;
+    
+    
+  }
 
 
 
@@ -74,20 +59,21 @@
 	<th>작성자</th>
 	<th>작성일</th>
 </tr>
+
 <c:forEach items="${list }" var="board">
 <tr >
 	<td>${board.noticeNo }</td>
-	<td>${board.title }</td>
+	<td><a href="/notice/view?noticeNo=${board.noticeNo}">${board.title }</a></td>
 	<td>${board.userId }</td>
-	<td><fmt:formatDate value="${board.writeDate }" pattern="yyyy-MM-dd"/></td>
+	<td><fmt:formatDate value="${board.writtenDate }" pattern="yyyy-MM-dd"/></td>
 </tr>
 </c:forEach>
+
 </table>
 <hr>
-<button id="dtnWrite" onclick="location.href='/notice/write';" style="color:black" >글쓰기</button>
+<button id="btnWrite" onclick="location.href='/notice/write';" >글쓰기</button>
 
 </div>
-
 <jsp:include page="../util/paging.jsp" />
 
 

@@ -20,18 +20,22 @@ SELECT COUNT(*) CNT FROM (
 ) CNT
 </select>
 
-<insert id="insert"  parameterType="web.dto.Notice">
+<insert id="insertNotice"  parameterType="web.dto.Notice">
 	<selectKey keyProperty="noticeNo" resultType="int">
 		SELECT notice_seq.nextval FROM DUAL
 	</selectKey>
-	INSERT INTO board (noticeNo ,
-						TITLE ,
+	INSERT INTO notice (noticeNo ,
+						title ,
 						userId ,
-						CONTENT ,
+						content ,
 						writtenDate
 						)
-		VALUES (#{noticeNo} , #{title} , #{userId} , #{CONTENT} , sysdate)				
+		VALUES (#{noticeNo} , #{title} , #{userId} , #{content} , sysdate)				
 </insert>
+
+<select id="selectNotice" resultType="web.dto.Notice">
+	SELECT * FROM notice WHERE noticeNo = #{noticeNo}
+</select>
 
 </mapper>
 
