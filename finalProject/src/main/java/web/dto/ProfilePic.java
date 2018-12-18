@@ -2,15 +2,20 @@ package web.dto;
 
 public class ProfilePic {
 	
-	private String profileNo;
+	private int profileNo;
 	private String path;
 	private String originName;
 	private String storedName;
 	
-	public String getProfileNo() {
+	@Override
+	public String toString() {
+		return "ProfilePic [profileNo=" + profileNo + ", path=" + path + ", originName=" + originName + ", storedName="
+				+ storedName + "]";
+	}
+	public int getProfileNo() {
 		return profileNo;
 	}
-	public void setProfileNo(String profileNo) {
+	public void setProfileNo(int profileNo) {
 		this.profileNo = profileNo;
 	}
 	public String getPath() {
@@ -30,12 +35,6 @@ public class ProfilePic {
 	}
 	public void setStoredName(String storedName) {
 		this.storedName = storedName;
-	}
-	
-	@Override
-	public String toString() {
-		return "ProfilePic [profileNo=" + profileNo + ", path=" + path + ", originName=" + originName + ", storedName="
-				+ storedName + "]";
 	}
 	
 	

@@ -1,8 +1,10 @@
 package web.dto;
 
 public class Genre {
+  
 	private int genreNo;
 	private String genreName;
+  
 	@Override
 	public String toString() {
 		return "Genre [genreNo=" + genreNo + ", genreName=" + genreName + "]";
@@ -19,7 +21,4 @@ public class Genre {
 	public void setGenreName(String genreName) {
 		this.genreName = genreName;
 	}
-	
-	
-	
 }
