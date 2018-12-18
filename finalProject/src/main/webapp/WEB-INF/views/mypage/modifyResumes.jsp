@@ -208,7 +208,6 @@ td {
 				<th>등록/수정일</th>
 			</tr>
 			<tr>
-				
 				<td>
 				<select class="insertResumesInfo" name="musicNo">
 					<c:forEach items="${musicList }" var="i">
