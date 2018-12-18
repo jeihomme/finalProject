@@ -68,6 +68,7 @@
 	
 	.searchBtn {
 		color: black;
+		float:right;
 	}
 	
 	.searchUserinfo {
@@ -110,21 +111,6 @@
 		<p >이미지 넣어주세요 </p>
 	</div>
 </div>
-<!-- <div class="adminMypageSearchDiv"> -->
-<!-- 	<div class="searchUserinfo"> -->
-<!-- 		<form action="/mypage/userAdmin" method="post"> -->
-<!-- 			검색조건 <select class="searchBtn" name="searchCategory"> -->
-<!-- 				<option class="searchBtn" value="">카테고리</option> -->
-<!-- 			    <option class="searchBtn" value="userId">아이디</option> -->
-<!-- 			    <option class="searchBtn" value="contact">연락처</option> -->
-<!-- 			    <option class="searchBtn" value="userName">이름</option> -->
-<!-- 			</select> -->
-			
-<!-- 			검색어 입력 <input class="searchBtn" type="text" name="searchKeyowrd" /> -->
-<!-- 			<button class="searchBtn"> 검색 </button> -->
-<!-- 		</form> -->
-<!-- 	</div> -->
-<!-- </div> -->
 <style type="text/css">
 /* tr th:not(:nth-child(2)) { */
 tr th {
@@ -176,11 +162,13 @@ $(document).ready(function() {
 		});
 	});
 });
-</script> 
+</script>
+
 <div class="adminMypageSearchRes">
+	<hr>
 	<div>
-		<b class="bandIntroHeader">밴드소개 리스트</b>
-		<button class="bandIntroInsert" onclick="location.href='/mypage/createResumes' ">소개 등록</button>
+		<p class="bandIntroHeader">밴드소개 리스트</p>
+		<button class="bandIntroInsert" onclick="location.href='/mypage/modifyResumes' ">소개 등록</button>
 		<table class="table table-hover table-striped table-condensed">
 			
 			<tr>
@@ -223,14 +211,18 @@ $(document).ready(function() {
 </div>
 
 <div class="adminMypageSearchRes">
+	<hr>
 	<div>
-		<form action="/mypage/deleteUser" method="post">
+		<form action="/mypage/uploadSoundIntro" method="post" enctype="multipart/form-data">
 			<b class="bandIntroHeader">첨부파일 리스트</b>
+			<input type="hidden" name="bandNo" value="${band.bandNo }">
+			<input class="bandIntroInsert" type="file" id="file" name="file"/><br>
 			<button class="bandIntroInsert">파일 첨부</button>
 		</form>
 		<table class="table table-hover table-striped table-condensed">
 			
 			<tr>
+				<th>파일번호</th>
 				<th>파일명</th>
 				<th>등록/수정일</th>
 			</tr>
@@ -241,9 +233,11 @@ $(document).ready(function() {
 		<!-- 			<tr id="memberView"> -->
 		<%-- 				<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
 		<%-- 				<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
+						<td>${i.musicNo }</td>
 						<td><a href="">${i.musicTitle }</a>
 							<form class="bandModifyBtn" action="/mypage/deleteSound" method="post">
 								<input type="hidden" name="musicNo" value="${i.musicNo }">
+								<input type="hidden" name="bandNo" value="${i.musicNo }">
 								<button class="searchBtn">삭제</button>
 							</form>
 						</td>

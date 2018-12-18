@@ -254,7 +254,7 @@
 		resultType="web.dto.History">
 		select h.* from resumes r, history h
 		where
-			r.historyNo = h.historyNo
+			r.resumesNo = h.resumesNo
 			and r.bandName=#{bandName }
 	</select>
 <!-- 	public Music selectMusicByResumesNo(Resumes resumes); -->
@@ -265,4 +265,36 @@
 			r.musicNo = m.musicNo
 			and r.resumesNo=#{resumesNo }
 	</select>
+<!-- 	public void insertSound(Music music); -->
+	<insert id="insertSound" parameterType="web.dto.Music">
+		<selectKey keyProperty="musicNo" resultType="int" order="BEFORE">
+			select * from (
+			select NVL(max(musicNo)+1, 1) from Music
+			)
+		</selectKey>
+		insert into Music(
+				musicNo
+				, bandNo
+				, musicTitle
+				, path
+				, writtenDate
+			)
+			values(
+				#{musicNo }
+				, #{bandNo }
+				, #{musicTitle }
+				, #{path }
+				, sysdate
+			)
+	</insert>
+<!-- 	public void deleteSoundByMusicNo(Music music); -->
+	<delete id="deleteSoundByMusicNo" parameterType="web.dto.Music">
+		delete Music
+		where musicNo=#{musicNo }
+	</delete>
+<!-- 	public void updateResumesByMusicNo(Music music); -->
+	<update id="updateResumesByMusicNo" parameterType="web.dto.Music">
+		update resumes set musicNo=0
+			where musicNo = #{musicNo }
+	</update>
 </mapper>

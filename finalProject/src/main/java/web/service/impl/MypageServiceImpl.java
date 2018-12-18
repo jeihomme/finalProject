@@ -1,19 +1,21 @@
 package web.service.impl;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.face.MypageDao;
 import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
-
 import web.dto.Bar;
-
 import web.dto.Genre;
 import web.dto.History;
 import web.dto.Member;
@@ -92,18 +94,6 @@ public class MypageServiceImpl implements MypageService{
 	public void resumesModify() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void uploadSound() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteSound(Music music) {
-		// TODO Auto-generated method stub
-		mpDao.deleteMusicByMusicNo(music);
 	}
 
 	@Override
@@ -318,5 +308,49 @@ public class MypageServiceImpl implements MypageService{
 	public Music getMusic(Resumes resumes) {
 		// TODO Auto-generated method stub
 		return mpDao.selectMusicByResumesNo(resumes);
+	}
+
+	@Override
+	public void uploadSound(ServletContext context, Music music, MultipartFile file) {
+		// TODO Auto-generated method stub
+//		UUID, 고유 식별자
+//		String uId = UUID.randomUUID().toString().split("-")[0];
+		
+//		파일이 저장될 경로
+		String path = context.getRealPath("resources");
+		
+		System.out.println(path);
+		
+//		저장될 파일의 이름
+		String musicTitle = file.getOriginalFilename();
+		
+//		파일 객체
+		File saveSound = new File(path, musicTitle);
+		
+//		파일 저장 ( 업로드 )
+		try {
+			file.transferTo(saveSound);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		music.setMusicTitle(musicTitle);
+		music.setPath(path);
+		
+		mpDao.insertSound(music);
+	}
+
+	@Override
+	public void deleteSound(Music music) {
+		// TODO Auto-generated method stub
+		mpDao.deleteSoundByMusicNo(music);
+	}
+
+	@Override
+	public void updateSoundBandTable(Music music) {
+		// TODO Auto-generated method stub
+		mpDao.updateResumesByMusicNo(music);
 	}
 }
