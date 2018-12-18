@@ -41,7 +41,7 @@ public class FAQController {
 		logger.info("FQA 리스트");
 	}
 	
-	@RequestMapping(value="/faq/write" , method=RequestMethod.GET)
+	@RequestMapping(value="/faq/view" , method=RequestMethod.GET)
 	public void view(FAQ faq , Model model , int faqNo) {
 		
 		faqNo = faq.getFaqNo();
