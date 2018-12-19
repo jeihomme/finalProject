@@ -37,6 +37,7 @@ public class NoticeController {
 		model.addAttribute("list" , list);
 		
 		logger.info("공지사항 리스트");
+		logger.info("리스트");
 	}
 	
 	@RequestMapping(value="/notice/view" , method=RequestMethod.GET)
