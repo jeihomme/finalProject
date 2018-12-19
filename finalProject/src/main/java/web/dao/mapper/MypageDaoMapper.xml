@@ -29,7 +29,7 @@
 		update bandMember set
 			bandMemName=#{bandMemName }
 			, bandMemInfo=#{bandMemInfo }
-		where bandName = #{bandName } and bandMemberNo = #{bandMemberNo }
+		where bandNo = #{bandNo } and bandMemberNo = #{bandMemberNo }
 	</update>
 
 	<update id="updatePw"
@@ -123,7 +123,7 @@
 		select
 			*
 		from bandMember
-		where bandName = #{bandName }
+		where bandNo = #{bandNo }
 		order by bandMemberNo
 	</select>
 	
@@ -142,7 +142,7 @@
 			values(
 			#{bandMemberNo }
 			, ''
-			, #{bandName }
+			, #{bandNo }
 			, ''
 			)
 	</insert>
@@ -165,7 +165,7 @@
 		select
 			*
 		from Resumes
-		where bandName = #{bandName }
+		where bandNo = #{bandNo }
 	</select>
 <!-- 	public List<Resumes> selectResumesListByBandName(Resumes resumes); -->
 	<select id="selectResumesListByBandName" parameterType="web.dto.Resumes"
@@ -173,7 +173,7 @@
 		select
 			*
 		from Resumes
-		where bandName = #{bandName }
+		where bandNo = #{bandNo }
 		order by ResumesNo
 	</select>
 	
@@ -245,11 +245,11 @@
 		</selectKey>
 		insert into resumes(
 			resumesNo
-			, bandName
+			, bandNo
 			)
 			values(
 			#{resumesNo }
-			, #{bandName }
+			, #{bandNo }
 			)
 	</insert>
 <!-- public List<History> selectHistoryByBandName(Resumes resumes); -->
@@ -258,7 +258,7 @@
 		select h.* from resumes r, history h
 		where
 			r.resumesNo = h.resumesNo
-			and r.bandName=#{bandName }
+			and r.bandNo=#{bandNo }
 	</select>
 <!-- 	public Music selectMusicByResumesNo(Resumes resumes); -->
 	<select id="selectMusicByResumesNo" parameterType="web.dto.Resumes"

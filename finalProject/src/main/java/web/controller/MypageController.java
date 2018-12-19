@@ -40,7 +40,7 @@ public class MypageController {
 	@Autowired MemberService mbService;
 	
 	@RequestMapping(value = "/mypage/info", method=RequestMethod.GET)
-	public void info(
+	public String info(
 			HttpSession session
 			, Model model
 			) {
@@ -54,7 +54,7 @@ public class MypageController {
 			band = mpService.getBand(band);
 			
 			BandMember bandMember = new BandMember();
-			bandMember.setBandName(band.getBandName());
+			bandMember.setBandNo(band.getBandNo());
 			List<BandMember> bandMemberList = mpService.getBandMember(bandMember);
 			
 			logger.info(bandMember.toString());
@@ -63,6 +63,7 @@ public class MypageController {
 			model.addAttribute("bandMemberList", bandMemberList);
 		}
 		model.addAttribute("member", member);
+		return "mypage/info";
 	}
 	
 	@RequestMapping(value = "/mypage/modifyInfo", method=RequestMethod.GET)
@@ -82,7 +83,7 @@ public class MypageController {
 			band = mpService.getBand(band);
 			
 			BandMember bandMember = new BandMember();
-			bandMember.setBandName(band.getBandName());
+			bandMember.setBandNo(band.getBandNo());
 			List<BandMember> bandMemberList = mpService.getBandMember(bandMember);
 			
 			logger.info(bandMemberList.toString());
@@ -118,7 +119,7 @@ public class MypageController {
 			band = mpService.getBand(band);
 			
 			BandMember bandMember = new BandMember();
-			bandMember.setBandName(band.getBandName());
+			bandMember.setBandNo(band.getBandNo());
 			List<BandMember> bandMemberList = mpService.getBandMember(bandMember);
 			
 			int i = 1;
@@ -153,7 +154,7 @@ public class MypageController {
 			band = mpService.getBand(band);
 			
 			BandMember bandMember = new BandMember();
-			bandMember.setBandName(band.getBandName());
+			bandMember.setBandNo(band.getBandNo());
 			mpService.addMemberList(bandMember);
 		
 		return "redirect:/mypage/modifyInfo";
@@ -173,7 +174,7 @@ public class MypageController {
 			band = mpService.getBand(band);
 			
 			BandMember bandMember = new BandMember();
-			bandMember.setBandName(band.getBandName());
+			bandMember.setBandNo(band.getBandNo());
 			
 			mpService.minMemberList(bandMember);
 		
@@ -210,7 +211,7 @@ public class MypageController {
 		logger.info(band.toString());
 		
 		Resumes resumes = new Resumes();
-		resumes.setBandName(band.getBandName());
+		resumes.setBandNo(band.getBandNo());
 //		logger.info(resumes.toString());
 		List<Resumes> resumesList = mpService.getResumesList(resumes);
 		logger.info(resumesList.toString());
@@ -295,7 +296,7 @@ public class MypageController {
 		logger.info(band.toString());
 		
 		Resumes resumes = new Resumes();
-		resumes.setBandName(band.getBandName());
+		resumes.setBandNo(band.getBandNo());
 		logger.info(resumes.toString());
 		
 		List<Resumes> resumesList = mpService.getResumesList(resumes);
@@ -363,8 +364,8 @@ public class MypageController {
 			model.addAttribute("historyList", historyList);
 		} else {
 //			resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
-			resumes.setBandName(band.getBandName());
-			mpService.createResumes(resumes);
+			resumes.setBandNo(band.getBandNo());
+//			
 			logger.info(resumes.toString());
 		}
 		model.addAttribute("band", band);
@@ -411,8 +412,20 @@ public class MypageController {
 	
 	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.POST)
 	public void modifyResumesProc() {
-		logger.info("---createResumes---");
-
+		logger.info("---modifyResumesProc---");
+//		사진 저장
+//		
+//		장르저장
+//		
+//		밴드소개 제목 저장
+//		
+//		첨부파일 저장
+//		
+//		히스토리 저장
+//		
+//		밴드 소개란 저장
+		
+//		mpService.createResumes(resumes);
 //		resumeView
 	}
 	
