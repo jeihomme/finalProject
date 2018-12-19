@@ -4,9 +4,10 @@ public class Resumes {
 	private int resumesNo;
 	private int publicResumes;
 	private String resumesTitle;
-	private String bandNo;
+	private int bandNo;
 	private String bandInfo;
 	private int musicNo;
+	
 	@Override
 	public String toString() {
 		return "Resumes [resumesNo=" + resumesNo + ", publicResumes=" + publicResumes + ", resumesTitle=" + resumesTitle
@@ -30,16 +31,16 @@ public class Resumes {
 	public void setResumesTitle(String resumesTitle) {
 		this.resumesTitle = resumesTitle;
 	}
-	public String getbandNo() {
+	public int getBandNo() {
 		return bandNo;
 	}
-	public void setbandNo(String bandNo) {
+	public void setBandNo(int bandNo) {
 		this.bandNo = bandNo;
 	}
-	public String getbandInfo() {
+	public String getBandInfo() {
 		return bandInfo;
 	}
-	public void setbandInfo(String bandInfo) {
+	public void setBandInfo(String bandInfo) {
 		this.bandInfo = bandInfo;
 	}
 	public int getMusicNo() {
@@ -48,6 +49,4 @@ public class Resumes {
 	public void setMusicNo(int musicNo) {
 		this.musicNo = musicNo;
 	}
-	
-	
 }

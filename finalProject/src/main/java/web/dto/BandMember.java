@@ -3,8 +3,9 @@ package web.dto;
 public class BandMember {
 	private int bandMemberNo;
 	private String bandMemName;
-	private String bandNo;
+	private int bandNo;
 	private String mPosition;
+	
 	@Override
 	public String toString() {
 		return "BandMember [bandMemberNo=" + bandMemberNo + ", bandMemName=" + bandMemName + ", bandNo=" + bandNo
@@ -22,10 +23,10 @@ public class BandMember {
 	public void setBandMemName(String bandMemName) {
 		this.bandMemName = bandMemName;
 	}
-	public String getbandNo() {
+	public int getBandNo() {
 		return bandNo;
 	}
-	public void setbandNo(String bandNo) {
+	public void setBandNo(int bandNo) {
 		this.bandNo = bandNo;
 	}
 	public String getmPosition() {
@@ -34,6 +35,5 @@ public class BandMember {
 	public void setmPosition(String mPosition) {
 		this.mPosition = mPosition;
 	}
-	
 	
 }
