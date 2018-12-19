@@ -27,6 +27,7 @@
 	<dependencies>
 	
 	<!-- 	사용자 라이브러리!! -->
+
 	<dependency>
 		<groupId>javax.mail</groupId>
 		<artifactId>mail</artifactId>

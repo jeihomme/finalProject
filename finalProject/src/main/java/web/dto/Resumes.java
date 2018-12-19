@@ -4,13 +4,13 @@ public class Resumes {
 	private int resumesNo;
 	private int publicResumes;
 	private String resumesTitle;
-	private String bandName;
-	private String BandInfo;
+	private String bandNo;
+	private String bandInfo;
 	private int musicNo;
 	@Override
 	public String toString() {
 		return "Resumes [resumesNo=" + resumesNo + ", publicResumes=" + publicResumes + ", resumesTitle=" + resumesTitle
-				+ ", bandName=" + bandName + ", BandInfo=" + BandInfo + ", musicNo=" + musicNo + "]";
+				+ ", bandNo=" + bandNo + ", bandInfo=" + bandInfo + ", musicNo=" + musicNo + "]";
 	}
 	public int getResumesNo() {
 		return resumesNo;
@@ -30,17 +30,17 @@ public class Resumes {
 	public void setResumesTitle(String resumesTitle) {
 		this.resumesTitle = resumesTitle;
 	}
-	public String getBandName() {
-		return bandName;
+	public String getbandNo() {
+		return bandNo;
 	}
-	public void setBandName(String bandName) {
-		this.bandName = bandName;
+	public void setbandNo(String bandNo) {
+		this.bandNo = bandNo;
 	}
-	public String getBandInfo() {
-		return BandInfo;
+	public String getbandInfo() {
+		return bandInfo;
 	}
-	public void setBandInfo(String bandInfo) {
-		BandInfo = bandInfo;
+	public void setbandInfo(String bandInfo) {
+		this.bandInfo = bandInfo;
 	}
 	public int getMusicNo() {
 		return musicNo;

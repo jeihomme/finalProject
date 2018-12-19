@@ -8,7 +8,7 @@
 <mapper namespace="web.dao.face.GenreDao">
 
 	<select id="getGenre" resultType="web.dto.Genre">
-		SELECT GenreNo, GenreName genreTitle
+		SELECT GenreNo, GenreName
 		FROM Genre
 		ORDER BY GenreNo
 	</select>
