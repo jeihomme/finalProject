@@ -226,14 +226,6 @@ public class MypageController {
 		model.addAttribute("musicList", musicList);
 	}
 	
-//	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.GET)
-//	public void createResumes(
-//			HttpSession session
-//			, Model model
-//			) {
-//		logger.info("---createResumes---");
-//	}
-	
 	@RequestMapping(value = "/mypage/resumes", method=RequestMethod.GET)
 	public void resumes(
 			HttpSession session
@@ -356,31 +348,24 @@ public class MypageController {
 		
 		Music music = new Music();
 		music.setBandNo(band.getBandNo());
-//		logger.info(music.toString());
+		
 		List<Music> musicList = mpService.getMusicList(music);
 		logger.info(musicList.toString());
 		
 		Resumes resumes = new Resumes();
-		if ( req.getParameter("resumesNo") != null && !"".equals(req.getParameter("resumesNo"))) {
+		if ( req.getParameter("resumesNo") != null && !"".equals(req.getParameter("resumesNo")) ) {
 			resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
-			resumes = mpService.getResumes(resumes);
+			resumes = mpService.getResumes(resumes);	
 			logger.info(resumes.toString());
 			
 			List<History> historyList = mpService.getHistoryList(resumes);
-			
-//			model.addAttribute("member", member);
-//			model.addAttribute("band", band);
-//			model.addAttribute("genre", genre);
-			
-//			model.addAttribute("resumes", resumes);
 			model.addAttribute("music", music);
 			model.addAttribute("historyList", historyList);
 		} else {
+//			resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
 			resumes.setBandName(band.getBandName());
-			
 			mpService.createResumes(resumes);
 			logger.info(resumes.toString());
-			
 		}
 		model.addAttribute("band", band);
 		model.addAttribute("genre", genre);
@@ -388,6 +373,40 @@ public class MypageController {
 		model.addAttribute("member", member);
 		model.addAttribute("resumes", resumes);
 		model.addAttribute("musicList", musicList);
+	}
+	
+	@RequestMapping(value = "/mypage/addHistorylist", method=RequestMethod.POST)
+	public String addHistorylistProc(
+			HttpSession session
+			, HttpServletRequest req
+			) {
+			logger.info("---addHistorylistProc---");
+			
+			Member member = (Member) session.getAttribute("loginInfo");
+			logger.info(member.toString());
+			
+			History history = new History();
+			history.setResumesNo(Integer.parseInt( req.getParameter("resumesNo") ));
+			mpService.addHistoryList(history);
+		
+		return "redirect:/mypage/modifyResumes";
+	}
+	
+	@RequestMapping(value = "/mypage/minHistorylist", method=RequestMethod.POST)
+	public String minHistorylistProc(
+			HttpSession session
+			, HttpServletRequest req
+			) {
+			logger.info("---minHistorylistProc---");
+			
+			Member member = (Member) session.getAttribute("loginInfo");
+			logger.info(member.toString());
+			
+			History history = new History();
+			history.setResumesNo(Integer.parseInt( req.getParameter("resumesNo") ));
+			mpService.minHistoryList(history);
+		
+		return "redirect:/mypage/modifyResumes";
 	}
 	
 	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.POST)

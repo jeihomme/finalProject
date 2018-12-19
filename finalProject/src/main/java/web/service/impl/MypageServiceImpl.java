@@ -353,4 +353,16 @@ public class MypageServiceImpl implements MypageService{
 		// TODO Auto-generated method stub
 		mpDao.updateResumesByMusicNo(music);
 	}
+
+	@Override
+	public void addHistoryList(History history) {
+		// TODO Auto-generated method stub
+		mpDao.insertHistoryList(history);
+	}
+
+	@Override
+	public void minHistoryList(History history) {
+		// TODO Auto-generated method stub
+		mpDao.deleteHistoryList(history);
+	}
 }
