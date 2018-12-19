@@ -4,6 +4,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<script type="text/javascript">
+function view(indez){
+
+	  $("td[id=a1]").eq(indez).toggle():
+
+	}
+	 
+
+
+</script>
+
 <style type="text/css">
 
 #noticeTable{
@@ -49,7 +60,7 @@ td {
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 
-<div class="container">
+<div id="faq" class="container">
 
 <h1>FAQ - LIST</h1>
 <hr>
@@ -64,7 +75,7 @@ td {
 
 <c:forEach items="${list }" var="faq">
 <tr >
-	<td>${faq.faqNo }</td>
+	<td id="No">${faq.faqNo }</td>
 	<td><a href="/notice/view?noticeNo=${faq.faqNo}">${board.question }</a></td>
 	<td>${faq.userId }</td>
 	<td><fmt:formatDate value="${faq.writtenDate }" pattern="yyyy-MM-dd"/></td>
