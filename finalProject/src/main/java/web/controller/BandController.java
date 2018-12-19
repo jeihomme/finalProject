@@ -1,6 +1,7 @@
 package web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import web.dto.Band;
 import web.service.face.BandService;
@@ -28,6 +30,8 @@ public class BandController {
 		List genre = bandService.genreList();
 		List profile = bandService.getProPic();
 		
+		logger.info("bandNo : " + band.get(0));
+		
 		model.addAttribute("band", band);
 		model.addAttribute("genre", genre);
 		model.addAttribute("profile", profile);
@@ -42,9 +46,16 @@ public class BandController {
 	}
 	
 	// 밴드 소개 보기
-	public String bandView(String bandName) {
+	@RequestMapping(value="/band/bandView", method=RequestMethod.GET)
+	public void bandView(
+			int bandNo,
+			Model model) {
 		
-		return null;
+		logger.info("bandNo : " + bandNo);
+		
+		Map band = bandService.bandView(bandNo);
+		
+		model.addAttribute("band", band);
 		
 	}
 	

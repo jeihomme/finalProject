@@ -2,8 +2,7 @@ package web.dao.face;
 
 import java.util.List;
 
-import web.dto.Band;
-import web.dto.Music;
+import web.dto.Resumes;
 
 public interface BandDao {
 
@@ -17,8 +16,10 @@ public interface BandDao {
 	public List getByCate(String cate);
 	
 	// 밴드 소개
-	public Band viewBand(String bandName);
-	public Music getMusic(String bandName);
+	public Resumes getInfo(int bandNo);
+	public List getMember(int bandNo);
+//	public 프로필사진 get프로필(int bandNo);
+//	public Music getMusic(String bandName);
 	
 	// 밴드 일정표
 	public List getSchedule(String bandName);

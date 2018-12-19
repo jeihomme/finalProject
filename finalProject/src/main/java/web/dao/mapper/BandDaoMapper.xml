@@ -6,9 +6,11 @@
   
 <!--  매퍼 설정 -->
 <mapper namespace="web.dao.face.BandDao">
+
 	<select id="getList" resultType="web.dto.Band">
-		SELECT bandNo, bandName, userId, profileNo
-		FROM band
+		SELECT bandNo, bandName, b.userId, profileNo
+		FROM band b, (SELECT userID FROM member WHERE roleId=2) m
+		WHERE b.userId = m.userId
 	</select>
 	
 	<sql id="getBandNo">
@@ -28,5 +30,19 @@
 		SELECT ProfileNo, path, OriginName, StoredName
 		FROM profilePic
 		ORDER BY profileNo
+	</select>
+	
+	<select id="getInfo" parameterType="int" resultType="web.dto.Resumes">
+		SELECT BandInfo, bandNo, musicNo, publicResumes, resumesNo, resumesTitle
+		FROM Resumes
+		WHERE bandNo = #{bandNo } AND 
+				publicResumes = 1
+	</select>
+	
+	<select id="getMember" parameterType="int" resultType="web.dto.BandMember">
+		SELECT bandMemberNo, mPosition, bandMemName, bandNo
+		FROM bandMember
+		WHERE bandNo = #{bandNo }
+		ORDER BY bandMemberNo
 	</select>
 </mapper>

@@ -1,6 +1,7 @@
 package web.service.face;
 
 import java.util.List;
+import java.util.Map;
 
 import web.dto.Band;
 
@@ -19,7 +20,7 @@ public interface BandService {
 	public List bandCate(String cate);
 	
 	// 밴드 소개 보기
-	public Band bandView(String bandName);
+	public Map bandView(int bandNo);
 	
 	// 밴드 소개 수정
 	public void bandEdit(Band band);
