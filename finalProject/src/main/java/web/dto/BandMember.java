@@ -3,12 +3,12 @@ package web.dto;
 public class BandMember {
 	private int bandMemberNo;
 	private String bandMemName;
-	private String bandName;
-	private String bandMemInfo;
+	private int bandNo;
+	private String mPosition;
 	@Override
 	public String toString() {
-		return "BandMember [bandMemberNo=" + bandMemberNo + ", bandMemName=" + bandMemName + ", bandName=" + bandName
-				+ ", bandMemInfo=" + bandMemInfo + "]";
+		return "BandMember [bandMemberNo=" + bandMemberNo + ", bandMemName=" + bandMemName + ", bandNo=" + bandNo
+				+ ", bandMemInfo=" + mPosition + "]";
 	}
 	public int getBandMemberNo() {
 		return bandMemberNo;
@@ -22,18 +22,16 @@ public class BandMember {
 	public void setBandMemName(String bandMemName) {
 		this.bandMemName = bandMemName;
 	}
-	public String getBandName() {
-		return bandName;
+	public int getBandNo() {
+		return bandNo;
 	}
-	public void setBandName(String bandName) {
-		this.bandName = bandName;
+	public void setBandNo(int bandNo) {
+		this.bandNo = bandNo;
 	}
 	public String getBandMemInfo() {
-		return bandMemInfo;
+		return mPosition;
 	}
-	public void setBandMemInfo(String bandMemInfo) {
-		this.bandMemInfo = bandMemInfo;
+	public void setBandMemInfo(String mPosition) {
+		this.mPosition = mPosition;
 	}
-	
-	
 }
