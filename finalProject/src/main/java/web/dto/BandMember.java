@@ -5,11 +5,12 @@ public class BandMember {
 	private String bandMemName;
 	private int bandNo;
 	private String mPosition;
-	
+
 	@Override
 	public String toString() {
 		return "BandMember [bandMemberNo=" + bandMemberNo + ", bandMemName=" + bandMemName + ", bandNo=" + bandNo
-				+ ", mPosition=" + mPosition + "]";
+				+ ", bandMemInfo=" + mPosition + "]";
+
 	}
 	public int getBandMemberNo() {
 		return bandMemberNo;

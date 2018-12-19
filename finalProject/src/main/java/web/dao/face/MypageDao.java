@@ -91,8 +91,12 @@ public interface MypageDao {
 	public void deleteSoundByMusicNo(Music music);
 	public void updateResumesByMusicNo(Music music);
 	
+	public void insertHistoryList(History history);
+	public void deleteHistoryList(History history);
+	
   //bar 소개
 	public void barInfoD();
+	
 	
 	
 	

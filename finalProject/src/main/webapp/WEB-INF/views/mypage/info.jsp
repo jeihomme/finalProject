@@ -67,7 +67,7 @@
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
 			<p class="adminDetailInfo">이메일 : ${member.email }</p>
-			<p class="adminDetailInfo">번호 : ${member.email }</p>
+			<p class="adminDetailInfo">연락처 : ${member.contact }</p>
 		</div>
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>
@@ -92,7 +92,7 @@
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
 			<p class="adminDetailInfo">이메일 : ${member.email }</p>
-			<p class="adminDetailInfo">번호 : ${member.email }</p>
+			<p class="adminDetailInfo">연락처 : ${member.contact }</p>
 		</div>
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>
@@ -117,7 +117,7 @@
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
 			<p class="adminDetailInfo">이메일 : ${member.email }</p>
-			<p class="adminDetailInfo">연락처 : ${member.email }</p><br>
+			<p class="adminDetailInfo">연락처 : ${member.contact }</p><br>
 			<p class="adminDetailInfo">밴드 : ${band.bandName }</p>
 			<p class="adminDetailInfo">멤버</p>
 			

@@ -84,8 +84,12 @@ public interface MypageService {
 	public void deleteSound(Music music);
 	public void updateSoundBandTable(Music music);
 	
+	public void addHistoryList(History history);
+	public void minHistoryList(History history);
+	
 	//bar 소개
 	public Bar barInfo(Bar bar);
+	
 	
 	
 	

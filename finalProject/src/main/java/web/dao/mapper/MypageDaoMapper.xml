@@ -29,7 +29,7 @@
 		update bandMember set
 			bandMemName=#{bandMemName }
 			, bandMemInfo=#{bandMemInfo }
-		where bandName = #{bandName } and bandMemberNo = #{bandMemberNo }
+		where bandNo = #{bandNo } and bandMemberNo = #{bandMemberNo }
 	</update>
 
 	<update id="updatePw"
@@ -123,7 +123,7 @@
 		select
 			*
 		from bandMember
-		where bandName = #{bandName }
+		where bandNo = #{bandNo }
 		order by bandMemberNo
 	</select>
 	
@@ -142,24 +142,22 @@
 			values(
 			#{bandMemberNo }
 			, ''
-			, #{bandName }
+			, #{bandNo }
 			, ''
 			)
 	</insert>
 	
 <!-- 	public void deleteBandMemberList(BandMember bandMember); -->
-	<insert id="deleteBandMemberList" parameterType="web.dto.BandMember">
-		<selectKey keyProperty="bandMemberNo" resultType="int" order="BEFORE">
-<!-- 			select dept_seq.nextval from dual -->
-			select * from (
+	<delete id="deleteBandMemberList" parameterType="web.dto.BandMember">
+		delete BandMember
+		where bandMemberNo = (
+		select * from (
 			select bandMemberNo from bandMember
 			order by bandMemberNo desc
 			)
 			where rownum = 1
-<!-- 			select max(no)+1 no from test_member -->
-		</selectKey>
-		delete BandMember where bandMemberNo = #{bandMemberNo }
-	</insert>
+		)
+	</delete>
 	
 <!-- 	public Resumes selectResumesByBandName(Resumes resumes); -->
 	<select id="selectResumesByBandName" parameterType="web.dto.Resumes"
@@ -167,7 +165,7 @@
 		select
 			*
 		from Resumes
-		where bandName = #{bandName }
+		where bandNo = #{bandNo }
 	</select>
 <!-- 	public List<Resumes> selectResumesListByBandName(Resumes resumes); -->
 	<select id="selectResumesListByBandName" parameterType="web.dto.Resumes"
@@ -175,7 +173,7 @@
 		select
 			*
 		from Resumes
-		where bandName = #{bandName }
+		where bandNo = #{bandNo }
 		order by ResumesNo
 	</select>
 	
@@ -211,7 +209,7 @@
 		select
 			*
 		from Resumes
-		where resumesNo = #{resumesNo }
+		where resumesNo = NVL( #{resumesNo }, 0 )
 	</select>
 
 <!-- public BandGenre selectBandGenreByBandNo(BandGenre bandGenre); -->
@@ -240,13 +238,18 @@
 	
 <!-- 	public Resumes insertResumesByBandName(Resumes resumes); -->
 	<insert id="insertResumesByBandName" parameterType="web.dto.Resumes">
+		<selectKey keyProperty="resumesNo" resultType="int" order="BEFORE">
+			select * from (
+        		select NVL(max(resumesNo)+1, 1) from resumes
+                )
+		</selectKey>
 		insert into resumes(
 			resumesNo
-			, bandName
+			, bandNo
 			)
 			values(
-			(select max(#{resumesNo })+1 from resumes)
-			,#{bandName }
+			#{resumesNo }
+			, #{bandNo }
 			)
 	</insert>
 <!-- public List<History> selectHistoryByBandName(Resumes resumes); -->
@@ -255,7 +258,7 @@
 		select h.* from resumes r, history h
 		where
 			r.resumesNo = h.resumesNo
-			and r.bandName=#{bandName }
+			and r.bandNo=#{bandNo }
 	</select>
 <!-- 	public Music selectMusicByResumesNo(Resumes resumes); -->
 	<select id="selectMusicByResumesNo" parameterType="web.dto.Resumes"
@@ -297,4 +300,35 @@
 		update resumes set musicNo=0
 			where musicNo = #{musicNo }
 	</update>
+	
+<!-- 	public void insertHistoryList(History history); -->
+	<insert id="insertHistoryList" parameterType="web.dto.History">
+		<selectKey keyProperty="historyNo" resultType="int" order="BEFORE">
+<!-- 			select dept_seq.nextval from dual -->
+			select * from (
+			select NVL(max(historyNo)+1, 1) from History
+			order by historyNo desc
+			)
+			where rownum = 1
+<!-- 			select max(no)+1 no from test_member -->
+		</selectKey>
+		insert into History
+			values(
+			#{historyNo }
+			, #{resumesNo }
+			, 0
+			, ''
+			)
+	</insert>
+<!-- 	public void deleteHistoryList(History history); -->
+	<delete id="deleteHistoryList" parameterType="web.dto.History">
+		delete History
+		where resumesNo = (
+		select * from (
+			select resumesNo from History
+			order by resumesNo desc
+			)
+			where rownum = 1
+		)
+	</delete>
 </mapper>

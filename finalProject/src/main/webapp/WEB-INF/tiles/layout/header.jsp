@@ -47,16 +47,6 @@ $(document).ready(function() {
 		document.getElementById("joinForm1").reset();
 	});
 	
-	$(".modal-backdrop").click(function() {
-		$("#loginModal").hide();
-		$("#joinAgreeModal").hide();
-		$("#joinModal1").hide();
-	});
-
-	$("#joinProcPrev").click(function() {
-		$("joinAgreeModal").hide();
-		$("loginModal").show();
-	});
 	
 	// 약관 동의 모달을 켰을 경우
 	$("#joinProcBtn").click(function() {
@@ -64,11 +54,13 @@ $(document).ready(function() {
 		if(document.joinAgreePost1.joinAgree1.value=="disagree") {
 			alert("약관에 모두 동의하셔야 합니다");
 			joinAgreePost1.joinAgree1.focus();
+			return;
 		}
 		
 		if(document.joinAgreePost2.joinAgree2.value=="disagree") {
 			alert("약관에 모두 동의하셔야 합니다");
 			joinAgreePost2.joinAgree2.focus();
+			return;
 		}
 			
 		// 약관에 모두 동의했을 경우 joinModal을 보여줌
@@ -77,8 +69,26 @@ $(document).ready(function() {
 		// 로그인 모달과 가입 모달 숨기기
 		$("#loginModal").hide();
 		$("#joinAgreeModal").hide();
+
+	});
+	
+	// 일반 회원 가입 진행 버튼 눌렀을 때
+	$("#joinProcBtn2").click(function() {
+		var emailCheck = $("#joinEmail").val();
 		
-		console.log("로그인 모달 숨김");
+		// 이메일 형식이 잘못된 경우
+		if(emailCheck.indexOf("@")<0 || emailCheck.indexOf(".")<0) {
+			alert("올바른 이메일 형식이 아닙니다.");
+			$("input[name=joinEmail]").val("");
+			joinPost.joinEmail.focus();
+			return;
+		}
+		
+		// 가입 형식에 다 맞을 경우 joinModal2 보여 줌
+		$("#joinModal2").show();
+		
+		// joinModal1 숨기기
+		$("#joinModal1").hide();
 	});
 	
 	// 약관 동의 모달을 띄웠을 경우
@@ -164,9 +174,20 @@ $(document).ready(function() {
 
 <style type="text/css">
 	
-table, .modal-footer, .joinAgree {
+.modal-footer, .joinAgree {
 	text-align: center;
 	margin: auto;
+}
+
+table {
+	text-align: left;
+	margin: auto;
+}
+
+input {
+	border: none;
+	border-bottom: 2px solid gold;
+	color: black;
 }
 
 .modal {
@@ -356,10 +377,10 @@ table, .modal-footer, .joinAgree {
 		        <table style="border: none; line-height: 180%;">
 				<tr>
 				<td>ID:&nbsp;&nbsp;</td>
-				<td><input type="text" style="border: none; color: black; width: 120%; border-bottom: 2px solid gold;" id="userId" name="userId" placeholder=" 아이디를 입력해 주세요"/><br></td></tr>
+				<td><input type="text" style="width: 120%;" id="userId" name="userId" placeholder=" 아이디를 입력해 주세요"/><br></td></tr>
 				<tr style="padding-bottom: 3px;">
 				<td>PW:&nbsp;&nbsp;</td>
-				<td><input type="password" style="border: none; color: black; width: 120%; border-bottom: 2px solid gold;" id="password" name="password" placeholder=" 비밀번호를 입력해 주세요"/></td></tr>
+				<td><input type="password" style="width: 120%;" id="password" name="password" placeholder=" 비밀번호를 입력해 주세요"/></td></tr>
 				</table>
 				<br>
 			</form>
@@ -379,8 +400,11 @@ table, .modal-footer, .joinAgree {
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" style="color: white"><b>&times;</b></button>
         <h3 class="modal-title text-center"><b>Sign Up</b></h3>
+        	<div class="joinInfo text-right"><br>
+      			<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
+    	  	</div>
       </div> 
-      <div class="modal-body text-center" style="height: 500px;">
+      <div class="modal-body text-center" style="height: 450px;">
      	 <div class="agreeDiv text-center" style="margin-right: 100px; margin-left: 100px;"><br>
 	     	 <div class="text-left" style="padding-bottom: 12px;"><b>ㆍ 서비스 약관 동의&nbsp;<font color="red">*</font></b></div>
 	      	<div class="joinAgree text-right" style="overflow-y: scroll; height: 100px; width: 100%; border:2px solid gold;">
@@ -433,7 +457,7 @@ table, .modal-footer, .joinAgree {
 			      	<input type="radio" name="joinAgree2" value="agree">동의합니다
 			      	</form>
 		      	</div>
-         </div><br><br>
+         </div><br>
 			<button type="button" style="color: black;" id="joinProcPrev"> &#60; Prev</button>
  			<button type="button" style="color: black;" id="joinProcBtn">Next &#62;</button>
       		<br>
@@ -449,42 +473,51 @@ table, .modal-footer, .joinAgree {
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" style="color: white">&times;</button>
         <h3 class="modal-title text-center"><b>Sign Up</b></h3>
+	      	<div class="joinInfo text-right"><br>
+      			<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
+    	  	</div>
       </div> 
-      <div class="modal-body text-center"  style="height: 500px;">
+      <div class="modal-body text-center"  style="height: 450px;">
             <form id="joinForm1" action="/member/join" method="post" name="joinPost">
 		        <br>
-		        <table style="border: none;">
-				<tr>
-				<td>ID:&nbsp;</td>
-				<td><input type="text" style="color: black" id="joinUserId" name="joinuserId" /></td>
-				<td>Email:&nbsp;</td>
-				<td><input type="text" style="color: black" id="joinEmail" name="joinEmail"/></td>
+		        <table style="border: none; height: 300px; width: 100%;" >
+				<tr style="line-height: 140%;">
+				<td class="text-center"><font color="red">*</font>&nbsp;ID:&nbsp;
+				<input type="text" id="joinUserId" name="joinuserId" /></td>
+				<td><font color="red">*</font>&nbsp;Nickname:&nbsp;<input type="text" id="joinUserName" name="joinUserName" style="width: 205px;"/></td>
 				</tr>
 				<tr>
-				<td>PW:&nbsp;</td>
-				<td><input type="password" style="color: black" id="joinPassword" name="joinPassword" /></td>
-				<td>Name:&nbsp;</td>
-				<td><input type="text" style="color: black" id="joinUserName" name="joinUserName"/></td>
-				</tr>
-				<tr>
-				<td>PW Check:&nbsp;</td>
-				<td><input type="password" style="color: black" id="passwordChk" name="passwordChk" /></td>
-				<td>Phone:&nbsp;</td>
-				<td>
-					<select id="joinTelcom" name="joinTelcom" style="color: black">
-						<option value="" selected>통신사 선택</option>
-						<option value="1">KT</option>
-						<option value="2">SK</option>
-						<option value="3">LG</option>
+				<td class="text-center"><font color="red">*</font>&nbsp;PW:&nbsp;<input type="password" id="joinPassword" name="joinPassword" /></td>
+				<td><font color="red">*</font>&nbsp;Phone:&nbsp;
+					<select id="joinTelcom" name="joinTelcom" style="color: black; width: 15%; height: 23px">
+						<option value="SK" selected>SKT</option>
+						<option value="KT">KT</option>
+						<option value="LG">LGT</option>
 					</select>&nbsp;
-					<input type="text" style="color: black" name="joinContact" id="joinContact"  placeholder="숫자만 입력해 주세요"  onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/></td>
+						<input type="text" style="width: 40px" name="joinContact1" id="joinContact1" onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/> -
+						<input type="text" style="width: 50px" name="joinContact2" id="joinContact2" onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/> -
+						<input type="text" style="width: 50px" name="joinContact3" id="joinContact3" onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/></td>
+				</tr>
+				<tr>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">*</font>&nbsp;PW Check:&nbsp;<input type="password" id="passwordChk" name="passwordChk" /></td>
+				<td><font color="red">*</font>&nbsp;Email:&nbsp;
+						<input type="text" id="joinEmail1" name="joinEmail1" style="width: 100px;"/> @ 
+						<input type="text" name="joinEmail2" id="joinEmail2" style="color: black; width: 100px" disabled value=""/>
+							<select name="joinEmailCheck" style="color: black; width: 100px; height: 24px; padding-top: 1px;">
+								<option value="0" class="text-center" selected>::: 선택 :::</option>
+								<option value="9">직접 입력</option>
+								<option value="naver.com">naver.com</option>
+								<option value="daum.net">daum.net</option>
+								<option value="gmail.com">gmail.com</option>
+							</select>
+				</td>
 				</tr>
 				</table>
 				<br>
 			</form>
             
 			<button type="button" data-toggle="modal" data-target="#joinAgreeModal" style="color: black;"> &#60; Prev</button>
- 			<button type="button" data-toggle="modal" data-target="#joinModal2" style="color: black;">Next &#62;</button>
+ 			<button type="button" id="joinProcBtn2" style="color: black;">Next &#62;</button>
       		<br>
       </div>
     </div>

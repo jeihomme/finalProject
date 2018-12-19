@@ -4,11 +4,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<script type="text/javascript">
+function view(indez){
+
+	  $("td[id=a1]").eq(indez).toggle():
+
+	}
+	 
+
+
+</script>
+
 <style type="text/css">
 
 #noticeTable{
 	max-width: 70%;
 	margin-left: -15px;
+	border-bottom: 1px solid white;
 
 }
 
@@ -48,21 +60,22 @@ td {
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 
-<div class="container">
+<div id="faq" class="container">
 
 <h1>FAQ - LIST</h1>
 <hr>
 <table id="noticeTable" class="table table-striped table-hover">
 <tr style="color:black">
-	<th>번호</th>
-	<th>제목</th>
-	<th>작성자</th>
-	<th>작성일</th>
+	<th style="	text-align: center;" >번호</th>
+	<th style="	text-align: center;">제목</th>
+	<th style="	text-align: center;">작성자</th>
+	<th style="	text-align: center;">작성일</th>
 </tr>
+
 
 <c:forEach items="${list }" var="faq">
 <tr >
-	<td>${faq.faqNo }</td>
+	<td id="No">${faq.faqNo }</td>
 	<td><a href="/notice/view?noticeNo=${faq.faqNo}">${board.question }</a></td>
 	<td>${faq.userId }</td>
 	<td><fmt:formatDate value="${faq.writtenDate }" pattern="yyyy-MM-dd"/></td>
@@ -70,9 +83,8 @@ td {
 </c:forEach>
 
 </table>
-<hr>
 <button id="btnWrite" onclick="location.href='/faq/write';" >글쓰기</button>
-
+<hr>
 </div>
 <jsp:include page="../util/paging.jsp" />
 
