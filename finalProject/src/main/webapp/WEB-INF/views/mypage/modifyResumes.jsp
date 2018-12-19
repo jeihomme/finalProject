@@ -104,6 +104,10 @@
 		color:#000;
 		width:600px;
 	}
+	
+	.modifyBtn {
+		color:#000;
+	}
 </style>
 
 <style type="text/css">
@@ -178,9 +182,8 @@ td {
 	</div>
 </div>
 
-
-<hr>
 <div class="adminMypageSearchRes">
+	<hr>
 	<div>
 		<b class="bandIntroHeader">밴드소개 제목</b>
 		<table class="table table-hover table-striped table-condensed">
@@ -197,8 +200,8 @@ td {
 	</div>
 </div>
 
-<hr>
 <div class="adminMypageSearchRes">
+	<hr>
 	<div>
 		<b class="bandIntroHeader">첨부파일</b>
 		
@@ -221,10 +224,20 @@ td {
 	</div>
 </div>
 
-<hr>
 <div class="adminMypageSearchRes">
+	<hr>
 	<div>
-		<b class="bandIntroHeader">History</b>
+		<form class="modifyInfoDone" action="/mypage/addHistorylist" method="post">
+			<p class="bandIntroHeader">History</p>
+			<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
+			<button class="modifyBtn">+</button>
+		</form>
+		<c:if test="${historyList[0].historyNo > 0}">
+			<form class="modifyInfoDone" action="/mypage/minHistorylist" method="post">
+				<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
+				<button class="modifyBtn">-</button>
+			</form>
+		</c:if>
 		<table class="table table-hover table-striped table-condensed">
 			
 			<tr>
@@ -241,16 +254,18 @@ td {
 	</div>
 </div>
 
-<hr>
+
 <div class="adminMypageMain">
+	<hr>
 	<div class="adminMypageMainInfo">
 		<p class="adminDetailTitle">밴드 소개 </p>
 		밴드 소개
 	</div>
 </div>
 
-<hr>
+
 <div class="resumesViewDiv">
+	<hr>
 	<c:if test="${bandInfo eq null}">
 		<button class="searchBtn" onclick="location.href='/mypage/intro' ">취소</button>
 		<button class="searchBtn" onclick="location.href='/mypage/modifyResumes' ">완료</button>
