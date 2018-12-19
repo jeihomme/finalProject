@@ -70,4 +70,5 @@ public class FAQController {
 		
 		return "redirect:/faq/list";
 	}
+	
 }

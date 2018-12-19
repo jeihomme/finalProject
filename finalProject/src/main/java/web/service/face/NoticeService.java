@@ -24,5 +24,7 @@ public interface NoticeService {
 			public void delete(Notice notice);
 			
 			// 글수정
-			public void modify();
+			public void modify(Notice notice);
+
+		
 }

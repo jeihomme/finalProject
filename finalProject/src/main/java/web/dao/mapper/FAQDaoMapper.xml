@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.dao.face.FAQDao">
+
+<sql id="selectFAQ">
+SELECT faqNo, userId, question, answer, writtenDate FROM faq
+</sql>
+<select id="selectPagingList" resultType="web.dto.FAQ" parameterType="web.utils.Paging">
+SELECT * FROM ( SELECT rownum rnum, B.* FROM (
+<include refid="selectFAQ"/>
+) B ORDER BY faqNo DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum
+</select>
+<select id="selectFAQCntAll" resultType="int">
+SELECT COUNT(*) CNT FROM (
+<include refid="selectFAQ"/>
+) CNT
+</select>
+
+<insert id="insertFAQ"  parameterType="web.dto.FAQ">
+	<selectKey keyProperty="faqNo" resultType="int">
+		SELECT faq_seq.nextval FROM DUAL
+	</selectKey>
+	INSERT INTO faq (faqNo ,
+						userId ,
+						question ,
+						answer ,
+						writtenDate
+						)
+		VALUES (#{faqNo} , #{userId} , #{question} , #{answer} , sysdate)				
+</insert>
+
+<select id="selectNotice" resultType="web.dto.Notice">
+	SELECT * FROM faq WHERE faqNo = #{faqNo}
+</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

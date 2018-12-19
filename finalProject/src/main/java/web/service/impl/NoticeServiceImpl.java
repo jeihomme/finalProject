@@ -35,8 +35,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void modify() {
-		// TODO Auto-generated method stub
+	public void modify(Notice notice) {
+		noticeDao.updateNotice(notice);
 		
 	}
 
