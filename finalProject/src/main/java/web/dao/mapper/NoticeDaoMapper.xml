@@ -37,6 +37,12 @@ SELECT COUNT(*) CNT FROM (
 	SELECT * FROM notice WHERE noticeNo = #{noticeNo}
 </select>
 
+<update id="updateNotice" parameterType="web.dto.Notice">
+	UPDATE notice SET title=#{title} ,content=#{content}
+	WHERE noticeNo=#{noticeNo} AND userId=#{userId}
+
+</update>
+
 </mapper>
 
 

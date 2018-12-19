@@ -37,6 +37,7 @@ public class NoticeController {
 		model.addAttribute("list" , list);
 		
 		logger.info("공지사항 리스트");
+		logger.info("리스트");
 	}
 	
 	@RequestMapping(value="/notice/view" , method=RequestMethod.GET)
@@ -66,6 +67,24 @@ public class NoticeController {
 		noticeService.write(notice);
 		
 		logger.info("글쓰기 처리");
+		return "redirect:/notice/list";
+	}
+	@RequestMapping(value="/notice/update" , method=RequestMethod.GET)
+	public String update() {
+		
+		logger.info("수정하기 페이지");
+		
+		return "/notice/update";
+	}
+	
+	@RequestMapping(value="/notice/update" , method=RequestMethod.POST)
+	public String updateProc(Notice notice, Model model , int noticeNo) {
+		
+		noticeNo = notice.getNoticeNo();
+		notice = noticeService.view(noticeNo);
+		
+		model.addAttribute("notice" ,notice);
+		
 		return "redirect:/notice/list";
 	}
 }
