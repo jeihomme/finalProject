@@ -126,7 +126,6 @@ public class MypageController {
 			for(BandMember bM : bandMemberList) {
 				bM.setBandMemberNo(i);
 				bM.setBandMemName(req.getParameter("bandMemName"+i));
-//				bM.setBandMemInfo(req.getParameter("bandMemInfo"+i));
 				bM.setmPosition(req.getParameter("mPosition"+i));
 				
 				i++;
@@ -325,7 +324,7 @@ public class MypageController {
 			HttpSession session
 			, Model model
 			, HttpServletRequest req
-			, @RequestParam(required=false , defaultValue="0") int cutPage
+//			, @RequestParam(required=false , defaultValue="0") int cutPage
 			) {
 		logger.info("---resumes---");
 		
@@ -366,7 +365,7 @@ public class MypageController {
 		} else {
 //			resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
 			resumes.setBandNo(band.getBandNo());
-//			
+			resumes = mpService.getResumes(resumes);
 			logger.info(resumes.toString());
 		}
 		model.addAttribute("band", band);
@@ -391,7 +390,7 @@ public class MypageController {
 			history.setResumesNo(Integer.parseInt( req.getParameter("resumesNo") ));
 			mpService.addHistoryList(history);
 		
-		return "redirect:/mypage/modifyResumes";
+		return "redirect:/mypage/modifyResumes?resumesNo="+history.getResumesNo();
 	}
 	
 	@RequestMapping(value = "/mypage/minHistorylist", method=RequestMethod.POST)
@@ -408,12 +407,27 @@ public class MypageController {
 			history.setResumesNo(Integer.parseInt( req.getParameter("resumesNo") ));
 			mpService.minHistoryList(history);
 		
-		return "redirect:/mypage/modifyResumes";
+			return "redirect:/mypage/modifyResumes?resumesNo="+history.getResumesNo();
 	}
 	
 	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.POST)
-	public void modifyResumesProc() {
+	public String modifyResumesProc(
+			HttpSession session
+			, HttpServletRequest req
+			) {
 		logger.info("---modifyResumesProc---");
+		
+		try {
+			logger.info("---setCharacterEncoding---");
+			req.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		Resumes resumes = new Resumes();
+		logger.info("---setResumesInfo---");
+		mpService.setResumesInfo(req);
 //		사진 저장
 //		
 //		장르저장
@@ -428,6 +442,7 @@ public class MypageController {
 		
 //		mpService.createResumes(resumes);
 //		resumeView
+		return "redirect:/mypage/resumes?resumesNo=";
 	}
 	
 	@RequestMapping(value = "/mypage/deleteResumes", method=RequestMethod.POST)
@@ -459,13 +474,9 @@ public class MypageController {
 //		createHistory
 	}
 	
-//	@RequestMapping(value = "/mypage/intro", method=RequestMethod.POST)
-//	public void uploadCreateIntro() {
-//		logger.info("---uploadCreateIntro---");
-////		createIntro
-//	}
-	
 	@Autowired ServletContext context;
+
+	private Object barMemberList;
 	@RequestMapping(value = "/mypage/uploadSoundIntro", method=RequestMethod.POST)
 	public String uploadSoundIntro(
 		@RequestParam(value="file") MultipartFile file
@@ -745,16 +756,29 @@ public class MypageController {
 	
 	//bar 소개
 	@RequestMapping(value = "/mypage/barInfo", method=RequestMethod.GET)
-	public void barInfo(Bar bar,
-			HttpServletRequest req,
-			Model model) {
-		logger.info("---barInfo---");
-		mpService.barInfo(bar);
-		System.out.println(mpService.barInfo(bar));
+	public void barInfo(Bar bar, //bar dto
+			HttpSession session, //세션
+			HttpServletRequest req, // 요청
+			Model model) { //jsp로 보냄
+		Member member = (Member) session.getAttribute("loginInfo"); //
+		logger.info(member.toString());
 		
-		model.addAttribute("barno",	mpService.barInfo(bar));
+		if( member.getRoleId() == 1) {
+			bar.setUserId(member.getUserId());
+			bar.setBarNo(bar.getBarNo());
+			bar = mpService.getBar(bar);
+			logger.info(bar.toString());
+			
+//			BandMember bandMember = new BandMember();
+//			List<BandMember> bandMemberList = mpService.getBandMember(bandMember);
+			
+			model.addAttribute("bar", bar);
+//			model.addAttribute("barMemberList", barMemberList);
+		}
+		model.addAttribute("member", member);
+//		return;
 	
 	}
-//	return "/mypage/barInfo";
+	
 }
 

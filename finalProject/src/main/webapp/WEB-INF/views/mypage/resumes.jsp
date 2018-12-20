@@ -140,6 +140,7 @@ td {
 	<p onclick="location.href='/mypage/calendar' ">일정표</p>
 </div><br><br>
 <hr>
+
 <div class="adminMypageMain">
 	<div class="adminMypageMainInfo">
 		<p class="adminDetailTitle">기본정보 </p>
@@ -173,9 +174,8 @@ td {
 	</div>
 </div>
 
-
-<hr>
 <div class="adminMypageSearchRes">
+	<hr>
 	<div>
 		<b class="bandIntroHeader">밴드소개 제목</b>
 		<table class="table table-hover table-striped table-condensed">
@@ -192,8 +192,8 @@ td {
 	</div>
 </div>
 
-<hr>
 <div class="adminMypageSearchRes">
+	<hr>
 	<div>
 		<b class="bandIntroHeader">첨부파일</b>
 		<table class="table table-hover table-striped table-condensed">
@@ -211,8 +211,8 @@ td {
 	</div>
 </div>
 
-<hr>
 <div class="adminMypageSearchRes">
+	<hr>
 	<div>
 		<b class="bandIntroHeader">History</b>
 		<table class="table table-hover table-striped table-condensed">
@@ -231,11 +231,18 @@ td {
 	</div>
 </div>
 
-<hr>
-<div class="adminMypageMain">
-	<div class="adminMypageMainInfo">
+<div class="adminMypageSearchRes">
+	<hr>
+	<div >
 		<p class="adminDetailTitle">밴드 소개 </p>
-		밴드 소개
+		<table class="table table-hover table-striped table-condensed">
+			<tr>
+				<th>소개</th>
+			</tr>
+			<tr>
+				<td>${resumes.bandInfo }</td>
+			</tr>
+		</table>
 	</div>
 </div>
 
@@ -243,7 +250,7 @@ td {
 <div class="resumesViewDiv">
 	<button class="resumesBtn" onclick="location.href='/mypage/intro' ">뒤로가기</button>
 	<form action="/mypage/modifyResumes" method="get">
-	<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
+		<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
 		<button class="resumesBtn" >수정</button>
 	</form>
 </div>

@@ -310,7 +310,7 @@ $(document).ready(function() {
 					<c:forEach
 					items="${bandMemberList }" var="i" varStatus="status">
 					<li>
-					<input class="modifyBandValue" name="bandMemName${status.count }" value="${i.bandMemName }"/> - <input class="modifyBandValue" name="bandMemInfo${status.count }" value="${i.bandMemInfo }"/>
+					<input class="modifyBandValue" name="bandMemName${status.count }" value="${i.bandMemName }"/> - <input class="modifyBandValue" name="mPosition${status.count }" value="${i.mPosition }"/>
 					</li>
 					</c:forEach>
 				</ul>

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js" ></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
@@ -47,6 +47,22 @@ $(document).ready(function() {
 		document.getElementById("joinForm1").reset();
 	});
 	
+	// 일반 회원가입 당시 이메일 뒷부분 처리
+	$("#joinEmailCheck").change(function() {
+		$("#joinEmailCheck option:selected").each(function() {
+			if($(this).val() == '0') { // 아무것도 선택 안 되어 있을 경우
+				$("#joinEmail2").val(''); // 값 초기화
+				$("#joinEmail2").attr("disabled", true); // 비활성화
+			} else if($(this).val() == '9') { // 직접 입력일 경우
+				$("#joinEmail2").val(''); // 값 초기화
+				$("#joinEmail2").attr("disabled", false); // 활성화
+			} else {
+				$("#joinEmail2").val($(this).text()); // 선택값 입력
+				$("#joinEmail2").attr("disabled", true) // 비활성화
+			}
+		});
+	});
+	
 	
 	// 약관 동의 모달을 켰을 경우
 	$("#joinProcBtn").click(function() {
@@ -69,21 +85,170 @@ $(document).ready(function() {
 		// 로그인 모달과 가입 모달 숨기기
 		$("#loginModal").hide();
 		$("#joinAgreeModal").hide();
-
 	});
 	
+		
 	// 일반 회원 가입 진행 버튼 눌렀을 때
 	$("#joinProcBtn2").click(function() {
-		var emailCheck = $("#joinEmail").val();
 		
-		// 이메일 형식이 잘못된 경우
-		if(emailCheck.indexOf("@")<0 || emailCheck.indexOf(".")<0) {
-			alert("올바른 이메일 형식이 아닙니다.");
-			$("input[name=joinEmail]").val("");
-			joinPost.joinEmail.focus();
+		var emailCheck = $("#joinEmail2").val();
+		var joinId = $("#joinUserId").val();
+		var joinPw = $("#joinPassword").val();
+		var joinPwChk = $("#passwordChk").val();
+		var joinName= $("#joinUserName").val();
+		var joinTelcom = $("#joinTelcom").val();
+		var joinContact = $("#joinContact1").val()+$("#joinContact2").val()+$("#joinContact3").val();
+		var joinEmail = $("#joinEmail1").val()+$("#joinEmail2").val();
+		
+		// 공란 있는지 확인
+		if(joinId.length==0) {
+			alert("아이디를 입력해 주세요.");
+			joinForm1.joinUserId.focus();
 			return;
 		}
 		
+		if(joinName.length==0) {
+			alert("닉네임을 입력해 주세요.");
+			joinForm1.joinUserName.focus();
+			return;
+		}
+		
+		if(joinPw.length==0) {
+			alert("비밀번호를 입력해 주세요.");
+			joinForm1.joinPassword.focus();
+			return;
+		}
+		
+		if(joinForm1.joinContact1.value.length==0) {
+			alert("전화번호를 입력해 주세요.");
+			joinForm1.joinContact1.focus();
+			return;
+		} else if(joinForm1.joinContact2.value.length==0) {
+			alert("전화번호를 입력해 주세요.");
+			joinForm1.joinContact2.focus();
+			return;
+		} else if(joinForm1.joinContact3.value.length==0) {
+			alert("전화번호를 입력해 주세요.");
+			joinForm1.joinContact3.focus();
+			return;
+		}
+
+		if(joinForm1.joinEmail1.value.length==0) {
+			alert("이메일을 입력해 주세요.");
+			joinForm1.joinEmail1.focus();
+			return;
+		} else if (joinForm1.joinEmail2.value.length==0) {
+			alert("이메일을 입력해 주세요.");
+			joinForm1.joinEmail2.focus();
+			return;
+		}
+		
+		// 전화번호 형식이 제대로 되지 않았을 때
+		if(joinForm1.joinContact1.value.length<3) {
+			alert("전화번호가 너무 짧습니다.");
+			joinForm1.joinContact1.focus();
+			return;
+		} else if(joinForm1.joinContact1.value.length>=5) {
+			alert("전화번호가 너무 깁니다.");
+			joinForm1.joinContact1.focus();
+			return;
+		} else if(joinForm1.joinContact2.value.length<3) {
+			alert("전화번호가 너무 짧습니다.");
+			joinForm1.joinContact2.focus();
+			return;
+		} else if(joinForm1.joinContact2.value.length>=5) {
+			alert("전화번호가 너무 깁니다.");
+			joinForm1.joinContact2.focus();
+			return;
+		} else if(joinForm1.joinContact3.value.length<4) {
+			alert("전화번호가 너무 짧습니다.");
+			joinForm1.joinContact3.focus();
+			return;
+		} else if(joinForm1.joinContact3.value.length>=5) {
+			alert("전화번호가 너무 깁니다.");
+			joinForm1.joinContact3.focus();
+			return;
+		}
+		
+		// 이메일 형식이 잘못된 경우
+		if(emailCheck.indexOf(".")<0) {
+			alert("올바른 이메일 형식이 아닙니다.");
+			$("input[name=joinEmail2]").val("");
+			joinForm1.joinEmail2.focus();
+			return;
+		}
+		
+		if(joinForm1.joinEmail1.value.length<3) {
+			alert("이메일 길이가 너무 짧습니다.");
+			$("input[name=joinEmail1]").val("");
+			joinForm1.joinEmail1.focus();
+			return;
+		}
+		
+		// 가입하고자 하는 아이디와 닉네임이 일치하는지 검사
+		if(joinId==joinName) {
+			alert("아이디와 닉네임이 일치하면 안 됩니다.");
+			$("input[name=joinUserId]").val("");
+			$("input[name=joinUserName]").val("");
+			joinForm1.joinUserId.focus();
+			return;
+		}
+		
+		if(joinId==joinPw) {
+			alert("아이디와 비밀번호가 일치하면 안 됩니다.");
+			$("input[name=joinUserId]").val("");
+			$("input[name=joinPassword]").val("");
+			joinForm1.joinUserId.focus();
+			return;
+		}
+		
+		if(joinName==joinPw) {
+			alert("닉네임과 비밀번호가 일치하면 안 됩니다.");
+			$("input[name=joinUserName]").val("");
+			$("input[name=joinPassword]").val("");
+			joinForm1.joinUserName.focus();
+			return;
+		}
+		
+		// 비밀번호 일치 확인
+		if(joinPw!=joinPwChk) {
+			alert("비밀번호가 일치하지 않습니다.");
+			$("input[name=joinPassword]").val("");
+			$("input[name=passwordChk]").val("");
+			joinForm1.joinPassword.focus();
+			return;
+		}
+		
+		// 공백 검사
+		if(joinId.indexOf(" ")>=0) {
+			alert("아이디에 공백이 들어가면 안 됩니다.");
+			$("input[name=joinUserId]").val("");
+			joinForm1.joinUserId.focus();
+			return;
+		}
+		
+		if(joinName.indexOf(" ")>=0) {
+			alert("닉네임에 공백이 들어가면 안 됩니다.");
+			$("input[name=joinUserName]").val("");
+			joinForm1.joinUserName.focus();
+			return;
+		}
+		
+		if(joinPw.indexOf(" ")>=0) {
+			alert("비밀번호에 공백이 들어가면 안 됩니다.");
+			$("input[name=joinPassword]").val("");
+			joinForm1.joinPassword.focus();
+			return;
+		}
+		
+		if(joinContact.indexOf(" ")>=0) {
+			alert("전화번호에 공백이 들어가면 안 됩니다.");
+			$("input[name=joinContact1]").val("");
+			$("input[name=joinContact2]").val("");
+			joinForm1.joinContact1.focus();
+			return;
+		}
+
 		// 가입 형식에 다 맞을 경우 joinModal2 보여 줌
 		$("#joinModal2").show();
 		
@@ -223,6 +388,18 @@ input {
 
 .modal-content {
 	background-color: #181818;
+}
+
+.barBandJoinTable {
+	vertical-align: middle;
+	text-align: center;
+	margin: auto;
+}
+
+.barJoinImg, .bandJoinImg {
+	width: 200px;
+	height: 200px;
+	border-radius: 20px;
 }
 
 .loginBtn {
@@ -374,8 +551,8 @@ input {
       <div class="modal-body text-center" style="height: 230px;">
             <form id="loginForm" action="/member/login" method="post" name="loginPost">
 		        <br>
-		        <table style="border: none; line-height: 180%;">
-				<tr>
+		        <table style="border: none; height: 60px;">
+				<tr style="line-height: 140%;">
 				<td>ID:&nbsp;&nbsp;</td>
 				<td><input type="text" style="width: 120%;" id="userId" name="userId" placeholder=" 아이디를 입력해 주세요"/><br></td></tr>
 				<tr style="padding-bottom: 3px;">
@@ -399,7 +576,7 @@ input {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" style="color: white"><b>&times;</b></button>
-        <h3 class="modal-title text-center"><b>Sign Up</b></h3>
+        <h3 class="modal-title text-center"><b>Join</b></h3>
         	<div class="joinInfo text-right"><br>
       			<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
     	  	</div>
@@ -467,23 +644,23 @@ input {
 </div>
 
 <!-- 회원가입 모달 1 -->
+<form id="joinForm1" action="/member/join" method="post" name="joinPost">
 <div class="modal" id="joinModal1" aria-hidden="true" style="display: none" >
   <div class="modal-dialog modal-lg" style="width: 55%;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" style="color: white">&times;</button>
-        <h3 class="modal-title text-center"><b>Sign Up</b></h3>
+        <h3 class="modal-title text-center"><b>Join</b></h3>
 	      	<div class="joinInfo text-right"><br>
       			<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
     	  	</div>
       </div> 
       <div class="modal-body text-center"  style="height: 450px;">
-            <form id="joinForm1" action="/member/join" method="post" name="joinPost">
 		        <br>
 		        <table style="border: none; height: 300px; width: 100%;" >
 				<tr style="line-height: 140%;">
 				<td class="text-center"><font color="red">*</font>&nbsp;ID:&nbsp;
-				<input type="text" id="joinUserId" name="joinuserId" /></td>
+				<input type="text" id="joinUserId" name="joinUserId" /></td>
 				<td><font color="red">*</font>&nbsp;Nickname:&nbsp;<input type="text" id="joinUserName" name="joinUserName" style="width: 205px;"/></td>
 				</tr>
 				<tr>
@@ -501,20 +678,19 @@ input {
 				<tr>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">*</font>&nbsp;PW Check:&nbsp;<input type="password" id="passwordChk" name="passwordChk" /></td>
 				<td><font color="red">*</font>&nbsp;Email:&nbsp;
-						<input type="text" id="joinEmail1" name="joinEmail1" style="width: 100px;"/> @ 
-						<input type="text" name="joinEmail2" id="joinEmail2" style="color: black; width: 100px" disabled value=""/>
-							<select name="joinEmailCheck" style="color: black; width: 100px; height: 24px; padding-top: 1px;">
-								<option value="0" class="text-center" selected>::: 선택 :::</option>
-								<option value="9">직접 입력</option>
+						<input type="text" id="joinEmail1" name="joinEmail1" style="width: 120px;"/> @ 
+						<input type="text" name="joinEmail2" id="joinEmail2" style="color: black; width: 90px" disabled value=""/>
+							<select name="joinEmailCheck" id="joinEmailCheck" style="color: black; width: 90px; height: 24px; ">
+								<option value="0" selected> ::: 선택 :::</option>
 								<option value="naver.com">naver.com</option>
 								<option value="daum.net">daum.net</option>
 								<option value="gmail.com">gmail.com</option>
+								<option value="9">직접 입력</option>
 							</select>
 				</td>
 				</tr>
 				</table>
 				<br>
-			</form>
             
 			<button type="button" data-toggle="modal" data-target="#joinAgreeModal" style="color: black;"> &#60; Prev</button>
  			<button type="button" id="joinProcBtn2" style="color: black;">Next &#62;</button>
@@ -530,21 +706,50 @@ input {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" style="color: white">&times;</button>
-        <h3 class="modal-title text-center"><b>Sign Up</b></h3>
+        <h3 class="modal-title text-center"><b>Join As</b></h3>
       </div> 
       <div class="modal-body text-center"  style="height: 500px;">
-            <form id="joinForm2" action="/member/join" method="post" name="joinPost">
 		        <br>
-		        <table style="border: none;">
-				<tr>
-				<td></td>
+		        <div>
+			        <table style="border: none;" class="barBandJoinTable">
+					<tr>
+					<td>
+						<a data-toggle="modal" href="#barJoinModal"><img class="barJoinImg" src="${pageContext.request.contextPath}/resources/joinImg/barJoin.JPG"></a>
+					</td>
+					<td>
+						<a data-toggle="modal" href="#bandJoinModal"><img class="bandJoinImg" src="${pageContext.request.contextPath}/resources/joinImg/bandJoin.JPG"></a>
+					</td>
+					</tr>
+					</table>
+				</div>
+				<br>
+      		<br>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<!-- 회원가입 모달 3, bar join -->
+<div class="modal" id="barJoinModal" aria-hidden="true" style="display: none" >
+  <div class="modal-dialog modal-lg" style="width: 55%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" style="color: white">&times;</button>
+        <h3 class="modal-title text-center"><b>Join As</b></h3>
+      </div> 
+      <div class="modal-body text-center"  style="height: 500px;">
+            <form id="barJoinForm" action="/member/barjoin" method="post" name="barJoinForm">
+		        <br>
+		        <table style="border: none; height: 300px; width: 100%;" >
+				<tr style="line-height: 140%;">
+				<td class="text-center"><font color="red">*</font>&nbsp;ID:&nbsp;
+
+				</td>
 				</tr>
 				</table>
 				<br>
 			</form>
-            
-			<button type="button" data-toggle="modal" data-target="#loginModal" style="color: black;"> &#60; Prev</button>
- 			<button type="button" data-toggle="modal" data-target="#joinModal1" style="color: black;">Next &#62;</button>
       		<br>
       </div>
     </div>
