@@ -339,7 +339,9 @@ public class MypageServiceImpl implements MypageService{
 		music.setMusicTitle(musicTitle);
 		music.setPath(path);
 		
-		mpDao.insertSound(music);
+//		if( musicTitle != null ) {
+			mpDao.insertSound(music);
+//		}
 	}
 
 	@Override
@@ -364,5 +366,31 @@ public class MypageServiceImpl implements MypageService{
 	public void minHistoryList(History history) {
 		// TODO Auto-generated method stub
 		mpDao.deleteHistoryList(history);
+	}
+
+	@Override
+	public void setResumesInfo(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		
+		System.out.println(req.getParameter("resumes"));
+		
+		System.out.println(req.getParameter("resumesNo"));
+		System.out.println(req.getParameter("resumes.publicResumes"));
+		System.out.println(req.getParameter("resumes.resumesTitle"));
+		System.out.println(req.getParameter("resumes.bandNo"));
+		System.out.println(req.getParameter("resumes.bandInfo"));
+		System.out.println(req.getParameter("resumes.musicNo"));
+		
+		Resumes resumes = new Resumes();
+		
+		resumes.setResumesNo(Integer.parseInt(req.getParameter("resumes.resumesNo")) );
+//		resumes.setPublicResumes(Integer.parseInt(req.getParameter("resumes.publicResumes")) );
+		resumes.setResumesTitle(req.getParameter("resumes.resumesTitle"));
+//		resumes.setBandNo(Integer.parseInt(req.getParameter("resumes.bandNo")) );
+		resumes.setBandInfo(req.getParameter("resumes.bandInfo"));
+		resumes.setMusicNo(Integer.parseInt(req.getParameter("resumes.musicNo")) );
+		
+		resumes.toString();
+		mpDao.updateResume(resumes);
 	}
 }

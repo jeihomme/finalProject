@@ -87,8 +87,11 @@ public interface MypageService {
 	public void addHistoryList(History history);
 	public void minHistoryList(History history);
 	
+	public void setResumesInfo(HttpServletRequest req);
+	
 	//bar 소개
 	public Bar barInfo(Bar bar);
+	
 	
 	
 	

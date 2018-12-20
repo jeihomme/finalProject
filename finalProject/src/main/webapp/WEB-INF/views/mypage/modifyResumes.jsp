@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
-   
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <style type="text/css">
@@ -103,6 +102,22 @@
 	.insertResumesInfo {
 		color:#000;
 		width:600px;
+	}
+	
+	.insertResumesHistory {
+		color:#000;
+		width:300px;
+	}
+	
+	.insertResumesBandInfo {
+		resize: none; /* 사용자 임의 변경 불가 */
+		color:#000;
+		height:300px;
+		width:100%;
+		
+/* 		스크롤 */
+		overflow-x:hidden;
+		overflow-y:auto;
 	}
 	
 	.modifyBtn {
@@ -247,7 +262,10 @@ td {
 			<c:forEach items="${historyList }" var="i">
 	<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
 					<tr>
-						<td>${i.year }년, ${i.historyInfo }</td>
+						<td>
+						<input type="text" class="insertResumesHistory" name="year" value="${i.year }"/>년, 
+						<input type="text" class="insertResumesHistory" name="historyInfo" value="${i.historyInfo }"/>
+						</td>
 					</tr>
 			</c:forEach>
 		</table>
@@ -255,20 +273,32 @@ td {
 </div>
 
 
-<div class="adminMypageMain">
+<div class="adminMypageSearchRes">
 	<hr>
-	<div class="adminMypageMainInfo">
+	<div >
 		<p class="adminDetailTitle">밴드 소개 </p>
-		밴드 소개
+		<table class="table table-hover table-striped table-condensed">
+			<tr>
+				<th>소개</th>
+			</tr>
+			<tr>
+				<td>
+				<textArea class="insertResumesBandInfo" name="bandInfo" >${resumes.bandInfo }</textArea>
+				</td>
+			</tr>
+		</table>
 	</div>
 </div>
-
 
 <div class="resumesViewDiv">
 	<hr>
 	<c:if test="${bandInfo eq null}">
 		<button class="searchBtn" onclick="location.href='/mypage/intro' ">취소</button>
-		<button class="searchBtn" onclick="location.href='/mypage/modifyResumes' ">완료</button>
+		<form action="/mypage/modifyResumes" method="post">
+			<input type="hidden" name="resumes" value="${resumes}"/>
+			<button class="searchBtn">완료</button>
+		</form>
+		
 	</c:if>
 	
 	<c:if test="${bandInfo ne null}">

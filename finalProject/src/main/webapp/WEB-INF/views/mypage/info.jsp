@@ -123,7 +123,7 @@
 			
 			<ul>
 				<c:forEach items="${bandMemberList }" var="i">
-				<li>${i.bandMemName } - ${i.bandMemInfo }</li>
+				<li>${i.bandMemName } - ${i.mPosition }</li>
 				</c:forEach>
 			</ul>
 			
