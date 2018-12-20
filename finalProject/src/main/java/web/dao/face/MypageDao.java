@@ -37,7 +37,7 @@ public interface MypageDao {
 	public void updateIntro();
 	
 	public void insertResume();
-	public void updateResume();
+	public void updateResume(Resumes resumes);
 	
 	public void selectVolunteerListByUserId();
 	public void selectVolunteerToBarListByVolunteerId();

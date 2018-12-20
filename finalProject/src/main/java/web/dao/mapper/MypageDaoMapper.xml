@@ -28,7 +28,7 @@
 	parameterType="web.dto.BandMember">
 		update bandMember set
 			bandMemName=#{bandMemName }
-			, bandMemInfo=#{bandMemInfo }
+			, mPosition=#{mPosition }
 		where bandNo = #{bandNo } and bandMemberNo = #{bandMemberNo }
 	</update>
 
@@ -259,6 +259,7 @@
 		where
 			r.resumesNo = h.resumesNo
 			and r.bandNo=#{bandNo }
+			and r.resumesNo=#{resumesNo }
 	</select>
 <!-- 	public Music selectMusicByResumesNo(Resumes resumes); -->
 	<select id="selectMusicByResumesNo" parameterType="web.dto.Resumes"
@@ -332,10 +333,20 @@
 		)
 	</delete>
 	
+<!-- 	public void updateResume(Resumes resumes); -->
+	<update id="updateResume"
+		parameterType="web.dto.Resumes">
+			update member set
+				resumesTitle=#{resumesTitle }
+				, bandInfo=#{bandInfo }
+				, musicNo=#{musicNo }
+			where resumesNo = #{resumesNo }
+		</update>
+  
 	<select id="barInfo" parameterType="web.dto.Bar" resultType="web.dto.Bar">
 			select *
 			from bar 
 			where barno = #{barNo}
 	</select>
-	
+  
 </mapper>

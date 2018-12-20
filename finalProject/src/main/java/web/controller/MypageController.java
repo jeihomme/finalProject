@@ -324,7 +324,7 @@ public class MypageController {
 			HttpSession session
 			, Model model
 			, HttpServletRequest req
-			, @RequestParam(required=false , defaultValue="0") int cutPage
+//			, @RequestParam(required=false , defaultValue="0") int cutPage
 			) {
 		logger.info("---resumes---");
 		
@@ -365,7 +365,7 @@ public class MypageController {
 		} else {
 //			resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
 			resumes.setBandNo(band.getBandNo());
-//			
+			resumes = mpService.getResumes(resumes);
 			logger.info(resumes.toString());
 		}
 		model.addAttribute("band", band);
@@ -390,7 +390,7 @@ public class MypageController {
 			history.setResumesNo(Integer.parseInt( req.getParameter("resumesNo") ));
 			mpService.addHistoryList(history);
 		
-		return "redirect:/mypage/modifyResumes";
+		return "redirect:/mypage/modifyResumes?resumesNo="+history.getResumesNo();
 	}
 	
 	@RequestMapping(value = "/mypage/minHistorylist", method=RequestMethod.POST)
@@ -407,12 +407,27 @@ public class MypageController {
 			history.setResumesNo(Integer.parseInt( req.getParameter("resumesNo") ));
 			mpService.minHistoryList(history);
 		
-		return "redirect:/mypage/modifyResumes";
+			return "redirect:/mypage/modifyResumes?resumesNo="+history.getResumesNo();
 	}
 	
 	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.POST)
-	public void modifyResumesProc() {
+	public String modifyResumesProc(
+			HttpSession session
+			, HttpServletRequest req
+			) {
 		logger.info("---modifyResumesProc---");
+		
+		try {
+			logger.info("---setCharacterEncoding---");
+			req.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		Resumes resumes = new Resumes();
+		logger.info("---setResumesInfo---");
+		mpService.setResumesInfo(req);
 //		사진 저장
 //		
 //		장르저장
@@ -427,6 +442,7 @@ public class MypageController {
 		
 //		mpService.createResumes(resumes);
 //		resumeView
+		return "redirect:/mypage/resumes?resumesNo=";
 	}
 	
 	@RequestMapping(value = "/mypage/deleteResumes", method=RequestMethod.POST)
@@ -457,12 +473,6 @@ public class MypageController {
 		logger.info("---uploadCreateHistory---");
 //		createHistory
 	}
-	
-//	@RequestMapping(value = "/mypage/intro", method=RequestMethod.POST)
-//	public void uploadCreateIntro() {
-//		logger.info("---uploadCreateIntro---");
-////		createIntro
-//	}
 	
 	@Autowired ServletContext context;
 

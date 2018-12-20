@@ -332,7 +332,9 @@ public class MypageServiceImpl implements MypageService{
 		music.setMusicTitle(musicTitle);
 		music.setPath(path);
 		
-		mpDao.insertSound(music);
+//		if( musicTitle != null ) {
+			mpDao.insertSound(music);
+//		}
 	}
 
 	@Override
@@ -360,6 +362,32 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
+	public void setResumesInfo(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		
+		System.out.println(req.getParameter("resumes"));
+		
+		System.out.println(req.getParameter("resumesNo"));
+		System.out.println(req.getParameter("resumes.publicResumes"));
+		System.out.println(req.getParameter("resumes.resumesTitle"));
+		System.out.println(req.getParameter("resumes.bandNo"));
+		System.out.println(req.getParameter("resumes.bandInfo"));
+		System.out.println(req.getParameter("resumes.musicNo"));
+		
+		Resumes resumes = new Resumes();
+		
+		resumes.setResumesNo(Integer.parseInt(req.getParameter("resumes.resumesNo")) );
+//		resumes.setPublicResumes(Integer.parseInt(req.getParameter("resumes.publicResumes")) );
+		resumes.setResumesTitle(req.getParameter("resumes.resumesTitle"));
+//		resumes.setBandNo(Integer.parseInt(req.getParameter("resumes.bandNo")) );
+		resumes.setBandInfo(req.getParameter("resumes.bandInfo"));
+		resumes.setMusicNo(Integer.parseInt(req.getParameter("resumes.musicNo")) );
+		
+		resumes.toString();
+		mpDao.updateResume(resumes);
+	}
+  
+  @Override
 	public Bar getBar(Bar bar) {
 		return mpDao.barInfo(bar);
 	}
@@ -368,9 +396,4 @@ public class MypageServiceImpl implements MypageService{
 	public Bar barInfoList(Bar bar) {
 		return mpDao.barInfo(bar);
 	}
-
-
-
-	
-	
 }
