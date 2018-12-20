@@ -7,8 +7,8 @@
 
 
 $(document).ready(function(){
-	$("#faq  p").hide();
-	$("#faq table").click(function() {
+	$("#notice  p").hide();
+	$("#notice table").click(function() {
 		$(this).next("p").slideToggle("fast")
 				.siblings("p:visible").slideUp("fast");
 		$(this).toggleClass("active")
@@ -83,7 +83,7 @@ cursor:pointer;
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 
-<div id="faq" class="container">
+<div id="notice" class="container">
 	<table id="noticeTable" class="table table-striped table-hover">
 	<tr class="pointer" style="color:black">
 					<th style="width: 10%; text-align: center;">번호</th>
@@ -104,8 +104,9 @@ cursor:pointer;
 	
 	
 	</table>
+
+	<p style="color: black; margin-left: -15px;">${board.content }<button>수정</button></p>
 	
-	<p style="color: black; margin-left: -15px;">${board.content }</p>
 </c:forEach>
 	
 </div>
