@@ -7,13 +7,47 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$(".cGenre").click(function(){
+		
+		var genreN = $(this).attr("id");
+		
+		console.log(genreN);
+		
+		$.ajax({
+			type: "get",
+			url: "/band/bandByGenre",
+			data: genreN,
+			dataType: "json",
+			success: function(data) {
+				
+				var parent = document.getElementById("Context");
+				
+				// 새로운 <p> 요소를 생성함.
+				var newNode = document.createElement("p");
+			    newNode.innerHTML = "새로운 단락입니다.";
+			    
+			    parent.appendChild(newNode);
+				
+			}
+			, error: function() {
+				alert("망함");
+			}
+		});
+	});
+});
+
+</script>
+
 <h1>Band</h1>
 <!-- 밴드 장르 -->
 <div style="background-color:gray; border-radius:20px;">
-	<table>
+	<table id="genre">
 		<tr>
 			<c:forEach items="${genre }" var="g">
-				<th style="border: 1px solid red;"><a style="font-size:25px;">${g.genreName }</a></th>
+				<th style="border: 1px solid red;"><a class="cGenre" id="${g.genreNo }" style="font-size:25px;" onclick="sendAjax()">${g.genreName }</a></th>
 			</c:forEach>
 		</tr>
 	</table>
@@ -47,3 +81,5 @@
 	</table>
 </div>
 <button style="background-color:black; border:0px; align:right;">+ 더보기</button>
+
+<div id="Context"></div>

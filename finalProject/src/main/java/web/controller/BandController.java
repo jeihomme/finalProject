@@ -1,5 +1,6 @@
 package web.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Band;
 import web.service.face.BandService;
@@ -39,9 +41,27 @@ public class BandController {
 	}
 	
 	// 카테고리로 조회
-	public String bandCategory(String cate) {
+	@RequestMapping(value="/band/bandByGenre", method=RequestMethod.GET)
+	public ModelAndView bandCategory(
+			String cate,
+			Model model) {
 		
-		return null;
+		logger.info("ajax 요청 옴");
+		logger.info(cate);
+		
+		List band = bandService.bandList();
+		List profile = bandService.getProPic();
+		
+		Map map = new HashMap();
+		
+		map.put("band", band);
+		map.put("profile", profile);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("jsonView");
+		mav.addObject(map);
+		
+		return mav;
 		
 	}
 	
