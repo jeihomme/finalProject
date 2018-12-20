@@ -30,9 +30,14 @@
 <div class="container1">
 	<div class="back topleft" onclick="location.href= '/bar/barlist' ">뒤로가기</div>
 	<div class="barName topleft"> ${view.barName }</div>
+</div>
+
+<form action="/bar/updatebarinfo" method="get">
 	<div class="update">
-		<p onclick="location.href='/bar/barupdate'">수정하기</p>
+		<p onclick="location.href='/bar/updatebarinfo?barNo=${view.barNo}'">수정하기</p>
 	</div>
+</form>
+<div>
 	<div class="calendar">
 		<p onclick="location.href='/bar/calendar'">스케줄보기</p>
 	</div>

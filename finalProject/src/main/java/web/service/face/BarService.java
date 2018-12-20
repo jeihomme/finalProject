@@ -29,7 +29,7 @@ public interface BarService {
 	public void RequestShow(Bar bar, Band band);
 	
 	// 바 정보 수정
-	public void barUpdate(Bar bar, Location locationName);
+	public void barUpdate(Bar bar, Location location);
 	
 
 }

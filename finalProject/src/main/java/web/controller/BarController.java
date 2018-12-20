@@ -52,26 +52,42 @@ public class BarController {
 		Location location = new Location();
 		logger.info(">> viewBar");
 		
-		logger.info(bar.toString());
+		logger.info("-----------------------------");
+		model.addAttribute("view", barService.barView(bar, profilePic, location)); 
 		
-		model.addAttribute("view", barService.barView(bar, profilePic, location));
-
-		
-		logger.info(model.toString());
+		logger.info(bar.toString()); 
+		logger.info(model.toString()); 
 	}
 
 	
 	// 소개 수정 폼
 	@RequestMapping(value="/bar/updatebarinfo", method=RequestMethod.GET)
-	public void updateBarInfo() {
+	public void updateBarInfo(Bar bar, Model model) {
+		
+		logger.info(">>updateBar");
+		
+		Location location = new Location();
+		ProfilePic profilePic = new ProfilePic();
+		
+		model.addAttribute("info", barService.barView(bar, profilePic, location));
 		
 	}
 	
 	// 수정 진행
 	@RequestMapping(value="/bar/updatebarinfo", method=RequestMethod.POST)
-	public String updateInfoProc() {
+	public String updateInfoProc(Bar bar, Model model) {
 		
-		return null;
+		
+		bar.setBarInfo(bar.getBarInfo());
+		bar.setManager(bar.getManager());
+		bar.setContact(bar.getContact());
+		
+		logger.info("updateProc");
+		
+		logger.info(bar.toString());
+		model.addAttribute("update", bar); 
+		
+		return "redirect:/bar/viewbar";
 		
 	}
 
