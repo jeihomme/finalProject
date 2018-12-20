@@ -37,8 +37,9 @@ public class BarServiceImpl implements BarService{
 	}
 
 	@Override
-	public void barUpdate(Bar Info, Location locationName) {
-		// TODO Auto-generated method stub
+	public void barUpdate(Bar bar, Location location) {
+		
+		barDao.updateBarInfo(bar);
 		
 	}
 

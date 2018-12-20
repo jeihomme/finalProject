@@ -45,7 +45,8 @@
 	</insert>
 	
 	<update id="updateBarInfo" parameterType="web.dto.Bar">
-	
+		UPDATE BAR SET BARINFO=#{barInfo }, manager=#{manager }, contact=#{contact }
+		WHERE BARNO=#{barNo }
 	</update>
 	
 
