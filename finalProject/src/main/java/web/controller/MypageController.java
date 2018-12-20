@@ -126,7 +126,8 @@ public class MypageController {
 			for(BandMember bM : bandMemberList) {
 				bM.setBandMemberNo(i);
 				bM.setBandMemName(req.getParameter("bandMemName"+i));
-				bM.setBandMemInfo(req.getParameter("bandMemInfo"+i));
+//				bM.setBandMemInfo(req.getParameter("bandMemInfo"+i));
+				bM.setmPosition(req.getParameter("mPosition"+i));
 				
 				i++;
 				mpService.infoBandMemberModify(bM);
