@@ -73,7 +73,7 @@ public interface MypageDao {
 	
 
 	//bar 소개
-	public Bar barInfoBarno(Bar bar);
+	public Bar barInfo(Bar bar);
 
 	public void deleteResumesByResumesNo(Resumes resumes);
 	public void deleteMusicByMusicNo(Music music);
@@ -94,8 +94,6 @@ public interface MypageDao {
 	public void insertHistoryList(History history);
 	public void deleteHistoryList(History history);
 	
-  //bar 소개
-	public void barInfoD();
 	
 	
 	
