@@ -88,7 +88,8 @@ public interface MypageService {
 	public void minHistoryList(History history);
 	
 	//bar 소개
-	public Bar barInfo(Bar bar);
+	public Bar barInfoList(Bar bar);
+	public Bar getBar(Bar bar);
 	
 	
 	

@@ -54,11 +54,13 @@
 
 	<div><br>
 	<b>Information</b> 
-	<input type="text" name="barinfo" style="color:black">${barno.barinfo }<br><br><br>
+	:${bar.barInfo }<br><br><br>
 	<b>담당자</b>
-	<input type="text" name="barinfo" style="color:black"><br><br><br>
+	:${bar.manager }
+	<br><br><br>
 	<b>연락처</b>
-	<input type="text" name="barinfo" style="color:black"><br><br><br>
+	:${bar.contact }
+	<br><br><br>
 	</div>
 </div><br>
 

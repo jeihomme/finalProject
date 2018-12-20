@@ -331,4 +331,11 @@
 			where rownum = 1
 		)
 	</delete>
+	
+	<select id="barInfo" parameterType="web.dto.Bar" resultType="web.dto.Bar">
+			select *
+			from bar 
+			where barno = #{barNo}
+	</select>
+	
 </mapper>
