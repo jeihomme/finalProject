@@ -261,13 +261,6 @@ public class MypageServiceImpl implements MypageService{
 		return mpDao.selectMusicListByBandName(music);
 	}
 
-
-	@Override
-	public Bar barInfo(Bar bar) {
-		
-		return mpDao.barInfoBarno(bar);
-	}
-
 	@Override
 	public void deleteResumes(Resumes resumes) {
 		// TODO Auto-generated method stub
@@ -392,5 +385,15 @@ public class MypageServiceImpl implements MypageService{
 		
 		resumes.toString();
 		mpDao.updateResume(resumes);
+	}
+  
+  @Override
+	public Bar getBar(Bar bar) {
+		return mpDao.barInfo(bar);
+	}
+
+	@Override
+	public Bar barInfoList(Bar bar) {
+		return mpDao.barInfo(bar);
 	}
 }

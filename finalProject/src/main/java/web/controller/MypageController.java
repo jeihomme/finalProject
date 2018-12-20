@@ -475,6 +475,8 @@ public class MypageController {
 	}
 	
 	@Autowired ServletContext context;
+
+	private Object barMemberList;
 	@RequestMapping(value = "/mypage/uploadSoundIntro", method=RequestMethod.POST)
 	public String uploadSoundIntro(
 		@RequestParam(value="file") MultipartFile file
@@ -754,16 +756,29 @@ public class MypageController {
 	
 	//bar 소개
 	@RequestMapping(value = "/mypage/barInfo", method=RequestMethod.GET)
-	public void barInfo(Bar bar,
-			HttpServletRequest req,
-			Model model) {
-		logger.info("---barInfo---");
-		mpService.barInfo(bar);
-		System.out.println(mpService.barInfo(bar));
+	public void barInfo(Bar bar, //bar dto
+			HttpSession session, //세션
+			HttpServletRequest req, // 요청
+			Model model) { //jsp로 보냄
+		Member member = (Member) session.getAttribute("loginInfo"); //
+		logger.info(member.toString());
 		
-		model.addAttribute("barno",	mpService.barInfo(bar));
+		if( member.getRoleId() == 1) {
+			bar.setUserId(member.getUserId());
+			bar.setBarNo(bar.getBarNo());
+			bar = mpService.getBar(bar);
+			logger.info(bar.toString());
+			
+//			BandMember bandMember = new BandMember();
+//			List<BandMember> bandMemberList = mpService.getBandMember(bandMember);
+			
+			model.addAttribute("bar", bar);
+//			model.addAttribute("barMemberList", barMemberList);
+		}
+		model.addAttribute("member", member);
+//		return;
 	
 	}
-//	return "/mypage/barInfo";
+	
 }
 

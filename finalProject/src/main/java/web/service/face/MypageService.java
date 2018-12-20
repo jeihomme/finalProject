@@ -90,7 +90,8 @@ public interface MypageService {
 	public void setResumesInfo(HttpServletRequest req);
 	
 	//bar 소개
-	public Bar barInfo(Bar bar);
+	public Bar barInfoList(Bar bar);
+	public Bar getBar(Bar bar);
 	
 	
 	
