@@ -117,7 +117,7 @@
 		select * from band
 		where userId = #{userId }
 	</select>
-	
+<!-- 	public List<BandMember>  selectBandMemberByBandName(BandMember bandMember); -->
 	<select id="selectBandMemberByBandName" parameterType="web.dto.BandMember"
 		resultType="web.dto.BandMember">
 		select
@@ -218,7 +218,7 @@
 		select
 			*
 		from BandGenre
-		where bandNo = #{bandNo }
+		where bandNo = #{bandNo } and resumesNo = #{resumesNo }
 	</select>
 <!-- 	public Genre selectGenreByGenreNo(Genre genre); -->
 	<select id="selectGenreByGenreNo" parameterType="web.dto.Genre"
@@ -260,6 +260,7 @@
 			r.resumesNo = h.resumesNo
 			and r.bandNo=#{bandNo }
 			and r.resumesNo=#{resumesNo }
+		order by year
 	</select>
 <!-- 	public Music selectMusicByResumesNo(Resumes resumes); -->
 	<select id="selectMusicByResumesNo" parameterType="web.dto.Resumes"
@@ -324,19 +325,20 @@
 <!-- 	public void deleteHistoryList(History history); -->
 	<delete id="deleteHistoryList" parameterType="web.dto.History">
 		delete History
-		where resumesNo = (
-		select * from (
-			select resumesNo from History
-			order by resumesNo desc
-			)
+		where historyNo = (
+			select * from (
+				select historyNo from History
+	            where resumesNo = #{resumesNo }
+				order by historyNo desc
+				)
 			where rownum = 1
-		)
+			)
 	</delete>
 	
 <!-- 	public void updateResume(Resumes resumes); -->
 	<update id="updateResume"
 		parameterType="web.dto.Resumes">
-			update member set
+			update resumes set
 				resumesTitle=#{resumesTitle }
 				, bandInfo=#{bandInfo }
 				, musicNo=#{musicNo }
@@ -348,5 +350,39 @@
 			from bar 
 			where barno = #{barNo}
 	</select>
-  
+<!-- 	public void updateHisotry(History history); -->
+	<insert id="updateHisotry"
+	parameterType="web.dto.History">
+<!-- 		update history set -->
+<!-- 			year=#{year } -->
+<!-- 			, historyInfo=#{historyInfo } -->
+<!-- 		where historyNo = #{historyNo } and resumesNo = #{resumesNo } -->
+
+		<selectKey keyProperty="historyNoNo" resultType="int" order="BEFORE">
+<!-- 			select dept_seq.nextval from dual -->
+			select * from (
+			select NVL(max(historyNo)+1, 1) from History
+			order by historyNo desc
+			)
+			where rownum = 1
+<!-- 			select max(no)+1 no from test_member -->
+		</selectKey>
+		
+	merge into history
+    using dual
+        on ( historyNo = #{historyNo } )
+            when matched then
+                update set year=#{year }, historyInfo=#{historyInfo }
+            when not matched then
+                insert (historyNo, resumesNo, year, historyInfo)
+                    values (#{historyNoNo }, #{resumesNo }, #{year }, #{historyInfo })
+	</insert>
+	
+<!-- 	public void updateBandGenre(BandGenre bandGenre); -->
+<update id="updateBandGenre"
+	parameterType="web.dto.BandGenre">
+		update bandGenre set
+			genreNo=#{genreNo }
+		where bandNo = #{bandNo } and resumesNo = #{resumesNo }
+	</update>
 </mapper>

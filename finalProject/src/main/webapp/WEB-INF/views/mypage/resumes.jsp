@@ -160,8 +160,8 @@ td {
 			<b class="adminDetailInfo">이메일 </b><p class="adminDetailMust">(필수) </p><br>
 <!-- 			<input type="text" name="email"/><br> -->
 			${member.email }<br><br>
-			<b class="adminDetailInfo">장르 </b><p class="adminDetailMust">(필수) </p>
-			${bandGenre.genreTitle }<br>
+			<b class="adminDetailInfo">장르 </b><p class="adminDetailMust">(필수) </p><br>
+			${genre.genreName }<br>
 <!-- 			<input type="text" name="genreNo"/><br> -->
 <!-- 			<select name="genre"> -->
 <!-- 				<option value=""></option> -->
@@ -249,7 +249,7 @@ td {
 <hr>
 <div class="resumesViewDiv">
 	<button class="resumesBtn" onclick="location.href='/mypage/intro' ">뒤로가기</button>
-	<form action="/mypage/modifyResumes" method="get">
+	<form action="/mypage/modifyResumes" method="post">
 		<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
 		<button class="resumesBtn" >수정</button>
 	</form>

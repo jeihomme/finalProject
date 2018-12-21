@@ -3,39 +3,78 @@
 <%@page import="web.dto.Notice"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script type="text/javascript" src = "http://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#btnList").click(function() {
+		$(location).attr("href", "/notice/list");
+	});
+	
+	$("#btnCancel").click(function() {
+		history.go(-1);
+	})
+	
+
+});
+
+
+</script>
+
+
 <style type="text/css">
 
 .btn{
 	margin-left: 69%;
 }
 
+
+
+
+
+
 </style>
-<div>
-<h2 style="margin-right: 290px"> ------글작성------ </h2>
+	<div class="text-center">
 
-<form action ="/notice/update" method ="post" enctype="multipart/form-data">
 
-	<label style="margin-right: 265px"> 작성자 : <%=request.getSession().getAttribute("userId")%></label><br>
-	<label style="margin-right: 265px">제목 : <input type ="text" name ="title" value="${notice.title }"/></label><br>
-	<p style="margin-right: 454px"> 글 내용 </p>
-	<textarea  id="content" name = "content" rows="20" cols="60" style="resize:none; ">
-		${notice.content }
-	</textarea><br><br>
+
+
+		<h1>공지사항 수정</h1>
+		<hr>
+
+
+		<form action="/notice/update" method="post" >
+			<table class="update">
+				<tr>
+					<td><input type="hidden" name="noticeNo" value="${notice.noticeNo }">
+				
+				</tr>
+				
+			
+				<tr>
+					<th>아이디</th>
+					<td><input style="color: black" name="userId" value="${notice.userId }"
+						readonly="readonly"  /></td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td><input style="color: black" type="text" name="title"
+						value="${notice.title}" /></td>
+				</tr>
+
+				<tr><td class="info">내용</td></tr>
+ 				<tr><td colspan="2"><textarea  id="content" name="content" style="color: black"  >${notice.content}</textarea></td></tr>
+ 
+
+			
+			</table>
+		
+			<button id="btnList">목록</button>
+			<button type="submit" id="btnUpdate" >수정하기</button>
+			<button type="button" id="btnCancel" >취소</button>
 	
-	<div class="btn">
-		<button id="btnUpdate" class="btn btn-warning">수정하기</button>
-	
-		<a href ="/notice/list"><button  type="button" class="btn btn-warning" style="margin-left: 0px" >취소</button></a>
+		</form>
+		
+			
 	</div>
-</form>
 
-</div>
-
-<script>
-$(document).ready(function() {
-	$("#btnUpdate").click(function(){
-		submitContents($(this));
-	});
-});
-
-</script>
+	<div></div>

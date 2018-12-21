@@ -365,23 +365,20 @@ public class MypageServiceImpl implements MypageService{
 	public void setResumesInfo(HttpServletRequest req) {
 		// TODO Auto-generated method stub
 		
-		System.out.println(req.getParameter("resumes"));
-		
 		System.out.println(req.getParameter("resumesNo"));
-		System.out.println(req.getParameter("resumes.publicResumes"));
-		System.out.println(req.getParameter("resumes.resumesTitle"));
-		System.out.println(req.getParameter("resumes.bandNo"));
-		System.out.println(req.getParameter("resumes.bandInfo"));
-		System.out.println(req.getParameter("resumes.musicNo"));
+		System.out.println(req.getParameter("resumesTitle"));
+		System.out.println(req.getParameter("bandNo"));
+		System.out.println(req.getParameter("bandInfo"));
+		System.out.println(req.getParameter("musicNo"));
 		
 		Resumes resumes = new Resumes();
 		
-		resumes.setResumesNo(Integer.parseInt(req.getParameter("resumes.resumesNo")) );
+		resumes.setResumesNo(Integer.parseInt(req.getParameter("resumesNo")) );
 //		resumes.setPublicResumes(Integer.parseInt(req.getParameter("resumes.publicResumes")) );
-		resumes.setResumesTitle(req.getParameter("resumes.resumesTitle"));
+		resumes.setResumesTitle(req.getParameter("resumesTitle"));
 //		resumes.setBandNo(Integer.parseInt(req.getParameter("resumes.bandNo")) );
-		resumes.setBandInfo(req.getParameter("resumes.bandInfo"));
-		resumes.setMusicNo(Integer.parseInt(req.getParameter("resumes.musicNo")) );
+		resumes.setBandInfo(req.getParameter("bandInfo"));
+		resumes.setMusicNo(Integer.parseInt(req.getParameter("musicNo")) );
 		
 		resumes.toString();
 		mpDao.updateResume(resumes);
@@ -395,5 +392,17 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public Bar barInfoList(Bar bar) {
 		return mpDao.barInfo(bar);
+	}
+
+	@Override
+	public void modifyHistoryInfo(History history) {
+		// TODO Auto-generated method stub
+		mpDao.updateHisotry(history);
+	}
+
+	@Override
+	public void updateBandGenre(BandGenre bandGenre) {
+		// TODO Auto-generated method stub
+		mpDao.updateBandGenre(bandGenre);
 	}
 }

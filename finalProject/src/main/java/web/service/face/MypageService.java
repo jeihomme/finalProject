@@ -1,5 +1,6 @@
 package web.service.face;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -88,10 +89,14 @@ public interface MypageService {
 	public void minHistoryList(History history);
 	
 	public void setResumesInfo(HttpServletRequest req);
+	public void modifyHistoryInfo(History history);
+	public void updateBandGenre(BandGenre bandGenre);
 	
 	//bar 소개
 	public Bar barInfoList(Bar bar);
 	public Bar getBar(Bar bar);
+	
+	
 	
 	
 	

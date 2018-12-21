@@ -3,7 +3,7 @@ package web.dto;
 public class History {
 	private int historyNo;
 	private int resumesNo;
-	private int year;
+	private String year;
 	private String historyInfo;
 	@Override
 	public String toString() {
@@ -22,10 +22,10 @@ public class History {
 	public void setResumesNo(int resumesNo) {
 		this.resumesNo = resumesNo;
 	}
-	public int getYear() {
+	public String getYear() {
 		return year;
 	}
-	public void setYear(int year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
 	public String getHistoryInfo() {
@@ -34,4 +34,5 @@ public class History {
 	public void setHistoryInfo(String historyInfo) {
 		this.historyInfo = historyInfo;
 	}
+	
 }
