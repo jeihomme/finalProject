@@ -40,19 +40,7 @@ public class NoticeController {
 		logger.info("리스트");
 	}
 	
-	@RequestMapping(value="/notice/view" , method=RequestMethod.GET)
-	public void view(Model model , Notice notice , int noticeNo) {
-		
-		noticeNo = notice.getNoticeNo();
-		
-		notice = noticeService.view(noticeNo);
-		
-		model.addAttribute("notice" , notice);
-		
-		
-		logger.info("상세보기 폼");
-	}
-	
+
 	@RequestMapping(value="/notice/write" , method=RequestMethod.GET)
 	public String write() {
 		
@@ -70,20 +58,25 @@ public class NoticeController {
 		return "redirect:/notice/list";
 	}
 	@RequestMapping(value="/notice/update" , method=RequestMethod.GET)
-	public String update() {
+	public void update(Notice notice, Model model , int noticeNo) {
+		noticeNo = notice.getNoticeNo();
+		notice = noticeService.view(noticeNo);
+		
+		model.addAttribute("notice" ,notice);
+		
 		
 		logger.info("수정하기 페이지");
-		
-		return "/notice/update";
+	
 	}
 	
 	@RequestMapping(value="/notice/update" , method=RequestMethod.POST)
 	public String updateProc(Notice notice, Model model , int noticeNo) {
 		
-		noticeNo = notice.getNoticeNo();
-		notice = noticeService.view(noticeNo);
 		
-		model.addAttribute("notice" ,notice);
+		
+		noticeService.modify(notice);
+		
+		logger.info("수정하기 처리");
 		
 		return "redirect:/notice/list";
 	}

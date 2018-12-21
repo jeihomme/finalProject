@@ -38,7 +38,7 @@ public class FAQServiceImpl  implements FAQService{
 
 	@Override
 	public void write(FAQ faq) {
-		// TODO Auto-generated method stub
+		faqDao.insertFAQ(faq);
 		
 	}
 

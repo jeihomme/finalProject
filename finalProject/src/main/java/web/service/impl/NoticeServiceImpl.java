@@ -24,7 +24,6 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public Notice view(int noticeNo) {
-		// TODO Auto-generated method stub
 		return noticeDao.selectNotice(noticeNo);
 	}
 

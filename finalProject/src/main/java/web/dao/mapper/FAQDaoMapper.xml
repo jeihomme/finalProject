@@ -12,7 +12,7 @@ SELECT faqNo, userId, question, answer, writtenDate FROM faq
 <select id="selectPagingList" resultType="web.dto.FAQ" parameterType="web.utils.Paging">
 SELECT * FROM ( SELECT rownum rnum, B.* FROM (
 <include refid="selectFAQ"/>
-) B ORDER BY faqNo DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum
+) B ORDER BY faqNo DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum DESC
 </select>
 <select id="selectFAQCntAll" resultType="int">
 SELECT COUNT(*) CNT FROM (
@@ -21,7 +21,7 @@ SELECT COUNT(*) CNT FROM (
 </select>
 
 <insert id="insertFAQ"  parameterType="web.dto.FAQ">
-	<selectKey keyProperty="faqNo" resultType="int">
+	<selectKey keyProperty="faqNo" resultType="int" order="BEFORE">
 		SELECT faq_seq.nextval FROM DUAL
 	</selectKey>
 	INSERT INTO faq (faqNo ,
