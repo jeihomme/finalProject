@@ -7,29 +7,54 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<style type="text/css">
+
+.img-rounded{
+	border-radius:10px;
+	width:76px;
+	height:76px;
+}
+
+th, td{
+	padding:5px;
+}
+
+a:link{
+	color: red;
+}
+a:hover{
+	color: blue;
+}
+a:active{
+	color: green;
+}
+
+</style>
+
 <script type="text/javascript">
 
 $(document).ready(function(){
 	$(".cGenre").click(function(){
 		
-		var genreN = $(this).attr("id");
+		// 넘겨줄 값
+		var genreN = {
+		    	genreN: $(this).attr("id")
+		    };
 		
 		console.log(genreN);
 		
 		$.ajax({
 			type: "get",
 			url: "/band/bandByGenre",
-			data: genreN,
+			data: genreN ,
 			dataType: "json",
-			success: function(data) {
+			success: function(jsonView) {
 				
-				var parent = document.getElementById("Context");
+				var genre = $('jsonView');
 				
-				// 새로운 <p> 요소를 생성함.
-				var newNode = document.createElement("p");
-			    newNode.innerHTML = "새로운 단락입니다.";
-			    
-			    parent.appendChild(newNode);
+				console.log("성공");
+				
+				console.log(genre);
 				
 			}
 			, error: function() {
@@ -47,7 +72,7 @@ $(document).ready(function(){
 	<table id="genre">
 		<tr>
 			<c:forEach items="${genre }" var="g">
-				<th style="border: 1px solid red;"><a class="cGenre" id="${g.genreNo }" style="font-size:25px;" onclick="sendAjax()">${g.genreName }</a></th>
+				<th style="border: 1px solid red;"><a class="cGenre" id="${g.genreNo }" style="font-size:25px;">${g.genreName }</a></th>
 			</c:forEach>
 		</tr>
 	</table>
@@ -62,12 +87,10 @@ $(document).ready(function(){
 			<c:forEach items="${profile }" var="p">
 				<c:if test="${b.profileNo eq p.profileNo }">
 					<td>
-					band: ${b }
 						<table>
 							<tr>
 								<td>
-									<img class="img-rounded" src="sftp://root@${p.path }/${p.originName}" />
-									<img class="img-rounded" src="https://${p.path }/${p.originName}" />
+									<img class="img-rounded" src="http://${p.path }/${p.originName}" />
 								</td>
 							</tr>
 							<tr>

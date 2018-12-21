@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Band;
@@ -32,7 +33,7 @@ public class BandController {
 		List genre = bandService.genreList();
 		List profile = bandService.getProPic();
 		
-		logger.info("bandNo : " + band.get(0));
+//		logger.info("bandNo : " + band.get(0));
 		
 		model.addAttribute("band", band);
 		model.addAttribute("genre", genre);
@@ -43,13 +44,15 @@ public class BandController {
 	// 카테고리로 조회
 	@RequestMapping(value="/band/bandByGenre", method=RequestMethod.GET)
 	public ModelAndView bandCategory(
-			String cate,
+			@RequestParam Map<String, String> genreN,
 			Model model) {
 		
 		logger.info("ajax 요청 옴");
-		logger.info(cate);
+		logger.info(genreN.toString());
 		
-		List band = bandService.bandList();
+		String genreNo = genreN.get("genreN");
+		
+		List band = bandService.bandCate(genreNo);
 		List profile = bandService.getProPic();
 		
 		Map map = new HashMap();
@@ -74,8 +77,10 @@ public class BandController {
 		logger.info("bandNo : " + bandNo);
 		
 		Map band = bandService.bandView(bandNo);
+		List profile = bandService.getProPic();
 		
 		model.addAttribute("band", band);
+		model.addAttribute("profile", profile);
 		
 	}
 	
