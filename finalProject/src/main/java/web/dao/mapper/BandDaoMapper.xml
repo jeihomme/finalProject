@@ -20,10 +20,9 @@
 	</sql>
 	
 	<select id="getByCate" parameterType="String" resultType="web.dto.Band">
-		SELECT bandNo, bandName, userId, profileNo
-		FROM band
-		WHERE bandNo = 
-			<include refid="getBandNo" />
+		SELECT b.bandNo, bandName, userId, profileNo
+		FROM band b, (<include refid="getBandNo" />) bn
+		WHERE b.bandNo = bn.bandNo
 	</select>
 	
 	<select id="getProPic" resultType="web.dto.ProfilePic">
