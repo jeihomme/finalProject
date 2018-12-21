@@ -69,13 +69,11 @@ $(document).ready(function() {
 		// 약관 동의를 안 했을 경우
 		if(document.joinAgreePost1.joinAgree1.value=="disagree") {
 			alert("약관에 모두 동의하셔야 합니다");
-			joinAgreePost1.joinAgree1.focus();
 			return;
 		}
 		
 		if(document.joinAgreePost2.joinAgree2.value=="disagree") {
 			alert("약관에 모두 동의하셔야 합니다");
-			joinAgreePost2.joinAgree2.focus();
 			return;
 		}
 			
@@ -728,7 +726,6 @@ input {
     </div>
   </div>
 </div>
-</form>
 
 <!-- 회원가입 모달 3, bar join -->
 <div class="modal" id="barJoinModal" aria-hidden="true" style="display: none" >
@@ -739,21 +736,19 @@ input {
         <h3 class="modal-title text-center"><b>Join As</b></h3>
       </div> 
       <div class="modal-body text-center"  style="height: 500px;">
-            <form id="barJoinForm" action="/member/barjoin" method="post" name="barJoinForm">
 		        <br>
 		        <table style="border: none; height: 300px; width: 100%;" >
 				<tr style="line-height: 140%;">
 				<td class="text-center"><font color="red">*</font>&nbsp;ID:&nbsp;
-
 				</td>
 				</tr>
 				</table>
 				<br>
-			</form>
       		<br>
       </div>
     </div>
   </div>
 </div>
+</form>
 
 <hr>
