@@ -20,7 +20,7 @@ public interface BarService {
 	public List<Bar> barListMore();
 	
 	// 바 소개
-	public Bar barView(Bar bar, ProfilePic profilePic, Location location);
+	public Bar barView(Bar bar);
 	
 	// 일정 보기 (calendar)
 	public List<Calendar> barCalendar(Bar bar);
@@ -29,7 +29,7 @@ public interface BarService {
 	public void RequestShow(Bar bar, Band band);
 	
 	// 바 정보 수정
-	public void barUpdate(Bar bar, Location location);
+	public void barUpdate(Bar bar);
 	
 
 }

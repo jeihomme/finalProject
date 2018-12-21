@@ -28,7 +28,7 @@ public interface BarDao {
 	public void barRequest(String barName, String bandName);
 	
 	// 바 정보 수정
-	public Bar updateBarInfo(Bar bar);
+	public void updateBarInfo(Bar bar);
 	 
 
 }

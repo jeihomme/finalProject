@@ -18,6 +18,7 @@
 </div>
 
 <form action="/bar/updatebarinfo" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="barNo" value="${info.barNo }"/>
 	<img src="https://${info.path }/${info.originName }">
 	Informaiton <textarea id="barInfo" name="barInfo" rows="20" cols="40" >${info.barInfo }</textarea><br>
 	담당자 <input type="text" name="manager" value="${info.manager }"/><br><br>
