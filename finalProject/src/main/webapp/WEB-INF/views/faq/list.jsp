@@ -96,8 +96,8 @@ cursor:pointer;
 <%-- 	<h3 style="color: black; text-align:center; font-size:medium;margin-top: 0px; margin-bottom: 0px; ">${board.noticeNo } ,&emsp;&emsp;&emsp;&emsp; ${board.title },&emsp;&emsp;&emsp;&emsp; ${board.userId } &emsp;&emsp;&emsp;&emsp;<fmt:formatDate value="${board.writtenDate }" pattern="yyyy-MM-dd"/></h3> --%> 
 	<table id="sumTable" class="table table-striped table-hover">
 	<tr>
-		<td style="	text-align: center; width: 10%;">${faq.noticeNo }</td>
-		<td style="	text-align: center; width: 45%;" >${faq.title }</td>
+		<td style="	text-align: center; width: 10%;">${faq.faqNo }</td>
+		<td style="	text-align: center; width: 45%;" >${faq.question }</td>
 		<td style="	text-align: center; width: 20%;">${faq.userId }</td>
 		<td style="	text-align: center; width: 20%;"><fmt:formatDate value="${faq.writtenDate }" pattern="yyyy-MM-dd"/></td>
 	</tr>
@@ -105,11 +105,12 @@ cursor:pointer;
 	
 	</table>
 
-	<p style="color: black; margin-left: -15px;">${faq.content }
-	<button onclick="location.href='/notice/update?noticeNo=${faq.noticeNo}';">수정</button></p>
+	<p style="color: black; margin-left: -15px;">${faq.answer }
+	<button onclick="location.href='/faq/update?faqNo=${faq.faqNo}';">수정</button></p>
 	
 </c:forEach>
-	<button onclick="location.href='/notice/write';" style="color: black">글쓰기</button>
+<hr>
+	<button onclick="location.href='/faq/write';" style="color: black">글쓰기</button>
 </div>
 <jsp:include page="../util/paging.jsp" />
 
