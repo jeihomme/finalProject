@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <style type="text/css">
@@ -185,124 +186,161 @@ td {
 			${member.email }<br><br>
 			<b class="adminDetailInfo">장르 </b><p class="adminDetailMust">(필수) </p>
 			${bandGenre.genreTitle }<br>
-<!-- 			<input type="text" name="genreNo"/><br> -->
-<!-- 			<select name="genre"> -->
-<!-- 				<option value=""></option> -->
-<!-- 				<option value="비밥"></option><option value="스윙"></option> -->
-<!-- 				<option value="펑크"></option><option value="모던"></option> -->
-<!-- 				<option value="보사노바"></option><option value="부기우기"></option> -->
-<!-- 			</select> -->
+			
+			<form action="/mypage/modifyResumesProc" method="post">
+				<select class="modifyBtn" name="genreNo" >
+					<c:if test="${genre.genreNo eq 0}">
+						<option value="0">선택</option>
+					</c:if>
+					
+					<c:if test="${genre.genreNo ne 0}">
+						<option value="${genre.genreNo }" selected="selected">${genre.genreName }</option>
+					</c:if>
+					
+					<option value="1">비밥</option><option value="2">스윙</option>
+					<option value="3">펑크</option><option value="4">모던</option>
+					<option value="5">보사노바</option><option value="6">부기우기</option>
+					
+				</select>
+					<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
+					<button class="searchBtn">선택</button>
+			</form>
 		</div>
 		
 	</div>
 </div>
 
-<div class="adminMypageSearchRes">
-	<hr>
-	<div>
-		<b class="bandIntroHeader">밴드소개 제목</b>
-		<table class="table table-hover table-striped table-condensed">
-			
-			<tr>
-				<th>제목</th>
-			</tr>
-		
-			<tr>
-				<td><input type="text" class="insertResumesInfo" name="resumesTitle" value="${resumes.resumesTitle }"/></td>
-			</tr>
-			
-		</table>
-	</div>
-</div>
+<form class="modifyInfoDone" action="/mypage/addHistorylist" method="post">
+	<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
+	<button type="button" id="historyAdd" class="modifyBtn">+</button>
+</form>
+<c:if test="${historyList[0].historyNo > 0}">
+	<form class="modifyInfoDone" action="/mypage/minHistorylist" method="post">
+		<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
+		<button type="button" id="historyDel" class="modifyBtn">-</button>
+	</form>
+</c:if>
+<script type="text/javascript">
 
-<div class="adminMypageSearchRes">
-	<hr>
-	<div>
-		<b class="bandIntroHeader">첨부파일</b>
-		
-		<table class="table table-hover table-striped table-condensed">
-			<tr>
-				<th>파일명</th>
-				<th>등록/수정일</th>
-			</tr>
-			<tr>
-				<td>
-				<select class="insertResumesInfo" name="musicNo">
-					<c:forEach items="${musicList }" var="i">
-						<option value=${i } >${i.musicTitle }</option>
-					</c:forEach>
-				</select>
-				${music.writtenDate }
-				</td>
-			</tr>
-		</table>
-	</div>
-</div>
+$(document).ready(function() {
+	//	모달
+	$("#historyAdd").click(function() {
+		$('#table > tbody:last').append(
+			" <input type='hidden' class='insertResumesHistory' name='historyNo' value='${i.historyNo }'/>"
+			+"	<input type='month' class='insertResumesHistory' name='year' value='${i.year }'/>년, "
+			+"	<input type='text' class='insertResumesHistory' name='historyInfo' value='${i.historyInfo }'/>"
+			);
+	});
 
-<div class="adminMypageSearchRes">
-	<hr>
-	<div>
-		<form class="modifyInfoDone" action="/mypage/addHistorylist" method="post">
+});
+</script>
+
+<form action="/mypage/modifyResumesProc" method="post">
+	<input type="hidden" name="genreNo"/>
+	<div class="adminMypageSearchRes">
+		<hr>
+		<div>
 			<p class="bandIntroHeader">History</p>
-			<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
-			<button class="modifyBtn">+</button>
-		</form>
-		<c:if test="${historyList[0].historyNo > 0}">
-			<form class="modifyInfoDone" action="/mypage/minHistorylist" method="post">
-				<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
-				<button class="modifyBtn">-</button>
-			</form>
-		</c:if>
-		<table class="table table-hover table-striped table-condensed">
-			
-			<tr>
-				<th>이력</th>
-			</tr>
-		
-			<c:forEach items="${historyList }" var="i">
-	<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
-					<tr>
-						<td>
-						<input type="text" class="insertResumesHistory" name="year" value="${i.year }"/>년, 
-						<input type="text" class="insertResumesHistory" name="historyInfo" value="${i.historyInfo }"/>
-						</td>
-					</tr>
-			</c:forEach>
-		</table>
+			<table id="table" class="table table-hover table-striped table-condensed">
+				
+				<tr>
+					<th>이력</th>
+				</tr>
+			<tbody>
+				<c:forEach items="${historyList }" var="i" varStatus="status">
+		<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
+						
+						<tr>
+							<td>
+							<input type="hidden" class="insertResumesHistory" name="history[0]." value="${i.historyNo }"/>
+							<input type="month" class="insertResumesHistory" name="year" value="${i.year }"/>년, 
+							<input type="text" class="insertResumesHistory" name="historyInfo" value="${i.historyInfo }"/>
+							</td>
+						</tr>
+						
+				</c:forEach>
+				</tbody>
+			</table>
+		</div>
 	</div>
-</div>
-
-
-<div class="adminMypageSearchRes">
-	<hr>
-	<div >
-		<p class="adminDetailTitle">밴드 소개 </p>
-		<table class="table table-hover table-striped table-condensed">
-			<tr>
-				<th>소개</th>
-			</tr>
-			<tr>
-				<td>
-				<textArea class="insertResumesBandInfo" name="bandInfo" >${resumes.bandInfo }</textArea>
-				</td>
-			</tr>
-		</table>
-	</div>
-</div>
-
-<div class="resumesViewDiv">
-	<hr>
-	<c:if test="${bandInfo eq null}">
-		<button class="searchBtn" onclick="location.href='/mypage/intro' ">취소</button>
-		<form action="/mypage/modifyResumes" method="post">
-			<input type="hidden" name="resumes" value="${resumes}"/>
-			<button class="searchBtn">완료</button>
-		</form>
-		
-	</c:if>
 	
-	<c:if test="${bandInfo ne null}">
-		<button class="searchBtn" onclick="location.href='/mypage/intro' ">뒤로가기</button>
-		<button class="searchBtn" onclick="location.href='/mypage/modifyResumes' ">수정</button>
-	</c:if>
-</div>
+	<div class="adminMypageSearchRes">
+		<hr>
+		<div>
+			<b class="bandIntroHeader">첨부파일</b>
+			
+			<table class="table table-hover table-striped table-condensed">
+				<tr>
+					<th>파일명</th>
+				</tr>
+				<tr>
+					<td>
+					<select class="insertResumesInfo" name="musicNo">
+						<c:forEach items="${musicList }" var="i">
+							<c:if test="${resumes.musicNo eq i.musicNo }">
+								<option value=${i.musicNo } selected="selected">${i.musicTitle }</option>
+							</c:if>
+							<c:if test="${resumes.musicNo ne i.musicNo }">
+								<option value=${i.musicNo } >${i.musicTitle }</option>
+							</c:if>
+						</c:forEach>
+					</select>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="adminMypageSearchRes">
+		<hr>
+		<div>
+			<b class="bandIntroHeader">밴드소개 제목</b>
+			<table class="table table-hover table-striped table-condensed">
+				
+				<tr>
+					<th>제목</th>
+				</tr>
+			
+				<tr>
+					<td><input id="resumesTitle" type="text" class="insertResumesInfo" name="resumesTitle" value="${resumes.resumesTitle }"/></td>
+				</tr>
+				
+			</table>
+		</div>
+	</div>
+	
+	<div class="adminMypageSearchRes">
+		<hr>
+		<div >
+			<p class="adminDetailTitle">밴드 소개 </p>
+			<table class="table table-hover table-striped table-condensed">
+				<tr>
+					<th>소개</th>
+				</tr>
+				<tr>
+					<td>
+					<textArea class="insertResumesBandInfo" name="bandInfo" >${resumes.bandInfo }</textArea>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	<div class="resumesViewDiv">
+		<hr>
+<%-- 		<c:if test="${bandInfo eq null}"> --%>
+			<button class="searchBtn" onclick="location.href='/mypage/intro' ">취소</button>
+			<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
+			<input type="hidden" name="bandNo" value="${resumes.bandNo }"/>
+			<input type="hidden" name="musicNo" value="${resumes.musicNo }"/>
+				<button class="searchBtn">완료</button>
+			
+			
+<%-- 		</c:if> --%>
+		
+<%-- 		<c:if test="${bandInfo ne null}"> --%>
+<!-- 			<button class="searchBtn" onclick="location.href='/mypage/intro' ">뒤로가기</button> -->
+<!-- 			<button class="searchBtn" onclick="location.href='/mypage/modifyResumes' ">수정</button> -->
+<%-- 		</c:if> --%>
+	</div>
+</form>

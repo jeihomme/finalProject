@@ -4,7 +4,10 @@ public class BarGenre {
 	
 	private String barName;
 	private String genreNo;
-	
+	@Override
+	public String toString() {
+		return "BarGenre [barName=" + barName + ", genreNo=" + genreNo + "]";
+	}
 	public String getBarName() {
 		return barName;
 	}
@@ -17,12 +20,6 @@ public class BarGenre {
 	public void setGenreNo(String genreNo) {
 		this.genreNo = genreNo;
 	}
-
-	@Override
-	public String toString() {
-		return "BarGenre [barName=" + barName + ", genreNo=" + genreNo + "]";
-	}
-
 	
 
 }

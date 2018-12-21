@@ -93,15 +93,7 @@ public interface MypageDao {
 	
 	public void insertHistoryList(History history);
 	public void deleteHistoryList(History history);
+	public void updateHisotry(History history);
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public void updateBandGenre(BandGenre bandGenre);
 }
