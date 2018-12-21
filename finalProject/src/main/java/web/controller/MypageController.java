@@ -251,6 +251,7 @@ public class MypageController {
 		
 		BandGenre bandGenre = new BandGenre();
 		bandGenre.setBandNo(band.getBandNo());
+		bandGenre.setResumesNo(resumes.getResumesNo());
 		bandGenre = mpService.getBandGenre(bandGenre);
 		logger.info(bandGenre.toString());
 		
@@ -319,14 +320,14 @@ public class MypageController {
 		return "redirect:/mypage/intro";
 	}
 	
-	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.GET)
+	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.POST)
 	public void modifyResumes(
 			HttpSession session
 			, Model model
 			, HttpServletRequest req
 //			, @RequestParam(required=false , defaultValue="0") int cutPage
 			) {
-		logger.info("---resumes---");
+		logger.info("---modifyResumes---");
 		
 		Member member = (Member) session.getAttribute("loginInfo");
 		member = mbService.loginInfo(member);
@@ -337,21 +338,8 @@ public class MypageController {
 		band = mpService.getBand(band);
 		logger.info(band.toString());
 		
-		BandGenre bandGenre = new BandGenre();
-		bandGenre.setBandNo(band.getBandNo());
-		bandGenre = mpService.getBandGenre(bandGenre);
-		logger.info(bandGenre.toString());
-		
-		Genre genre = new Genre();
-		genre.setGenreNo(bandGenre.getGenreNo());
-		genre = mpService.getGenre(genre);
-		logger.info(genre.toString());
-		
 		Music music = new Music();
 		music.setBandNo(band.getBandNo());
-		
-		List<Music> musicList = mpService.getMusicList(music);
-		logger.info(musicList.toString());
 		
 		Resumes resumes = new Resumes();
 		if ( req.getParameter("resumesNo") != null && !"".equals(req.getParameter("resumesNo")) ) {
@@ -368,9 +356,23 @@ public class MypageController {
 			resumes = mpService.getResumes(resumes);
 			logger.info(resumes.toString());
 		}
+		
+		BandGenre bandGenre = new BandGenre();
+		bandGenre.setBandNo(band.getBandNo());
+		bandGenre.setResumesNo(resumes.getResumesNo());
+		bandGenre = mpService.getBandGenre(bandGenre);
+		logger.info(bandGenre.toString());
+		
+		Genre genre = new Genre();
+		genre.setGenreNo(bandGenre.getGenreNo());
+		genre = mpService.getGenre(genre);
+		logger.info(genre.toString());
+		
+		List<Music> musicList = mpService.getMusicList(music);
+		logger.info(musicList.toString());
+		
 		model.addAttribute("band", band);
 		model.addAttribute("genre", genre);
-		
 		model.addAttribute("member", member);
 		model.addAttribute("resumes", resumes);
 		model.addAttribute("musicList", musicList);
@@ -390,7 +392,7 @@ public class MypageController {
 			history.setResumesNo(Integer.parseInt( req.getParameter("resumesNo") ));
 			mpService.addHistoryList(history);
 		
-		return "redirect:/mypage/modifyResumes?resumesNo="+history.getResumesNo();
+			return "redirect:/mypage/modifyResumes";
 	}
 	
 	@RequestMapping(value = "/mypage/minHistorylist", method=RequestMethod.POST)
@@ -407,42 +409,66 @@ public class MypageController {
 			history.setResumesNo(Integer.parseInt( req.getParameter("resumesNo") ));
 			mpService.minHistoryList(history);
 		
-			return "redirect:/mypage/modifyResumes?resumesNo="+history.getResumesNo();
+			return "redirect:/mypage/modifyResumes";
 	}
 	
-	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.POST)
+	@RequestMapping(value = "/mypage/modifyResumesProc", method=RequestMethod.POST)
 	public String modifyResumesProc(
-			HttpSession session
+			@RequestParam(value="history[]") List<History> history
+			, HttpSession session
 			, HttpServletRequest req
-			) {
+			){
 		logger.info("---modifyResumesProc---");
-		
-		try {
-			logger.info("---setCharacterEncoding---");
-			req.setCharacterEncoding("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-			
+//		밴드소개 제목 저장
+//		밴드 소개란 저장
+//		첨부파일 선택 저장
 		Resumes resumes = new Resumes();
-		logger.info("---setResumesInfo---");
-		mpService.setResumesInfo(req);
+		resumes.setResumesNo(Integer.parseInt(req.getParameter("resumesNo")) );
+		resumes = mpService.getResumes(resumes);
+		
+		logger.info(history.toString());
+		
+//		String[] historyNo = req.getParameterValues("historyNo");
+//		String[] year = req.getParameterValues("year");
+//		String[] historyInfo = req.getParameterValues("historyInfo");
+		
+		if ( req.getParameter("resumesTitle") != null && !"".equals(req.getParameter("resumesTitle"))) {
+			logger.info("---setResumesInfo---");
+			mpService.setResumesInfo(req);
+		
+			//		히스토리 저장
+//			History history = new History();
+//			history.setResumesNo(resumes.getResumesNo());
+				
+			List<History> historyList = mpService.getHistoryList(resumes);
+	
+			int i = 1;
+			for(History his : historyList) {
+				his.setHistoryNo(Integer.parseInt( req.getParameter("historyNo")) );
+				his.setYear(req.getParameter("year") );
+				his.setHistoryInfo(req.getParameter("historyInfo"));
+				
+				i++;
+				mpService.modifyHistoryInfo(his);
+				
+				logger.info(historyList.toString());
+			}
+		}
+		
+		if ( req.getParameter("genreNo") != null && !"".equals(req.getParameter("genreNo"))) {
+			BandGenre bandGenre = new BandGenre();
+			bandGenre.setBandNo(resumes.getBandNo());
+			bandGenre.setGenreNo(Integer.parseInt(req.getParameter("genreNo")) );
+			bandGenre.setResumesNo(Integer.parseInt(req.getParameter("resumesNo")) );
+			mpService.updateBandGenre(bandGenre);
+		}
+		
 //		사진 저장
 //		
 //		장르저장
-//		
-//		밴드소개 제목 저장
-//		
-//		첨부파일 저장
-//		
-//		히스토리 저장
-//		
-//		밴드 소개란 저장
-		
 //		mpService.createResumes(resumes);
 //		resumeView
-		return "redirect:/mypage/resumes?resumesNo=";
+		return "redirect:/mypage/resumes?resumesNo="+resumes.getResumesNo();
 	}
 	
 	@RequestMapping(value = "/mypage/deleteResumes", method=RequestMethod.POST)
@@ -741,16 +767,11 @@ public class MypageController {
 			) {
 			logger.info("---deleteBoardAdmin---");
 			Resumes resumes = new Resumes();
-			resumes.setResumesNo(Integer.parseInt(req.getParameter("resumeNo") ));
+			resumes.setResumesNo(Integer.parseInt(req.getParameter("resumesNo") ));
 			
 			logger.info(resumes.toString());
 			mpService.boardDelete(resumes);
 			
-			int[] a = { 1, 2, 3};
-			
-			for(int i =0; i < a.length; i++) {
-				
-			}
 			return "redirect:/mypage/boardAdmin";
 	}
 	

@@ -109,7 +109,7 @@
 		<form action="/mypage/boardAdmin" method="post">
 			검색조건 <select class="searchBtn" name="searchCategory">
 				<option class="searchBtn" value="">카테고리</option>
-			    <option class="searchBtn" value="resumeNo">밴드이름</option>
+			    <option class="searchBtn" value="resumesNo">밴드이름</option>
 			    <option class="searchBtn" value="bandInfo">밴드 정보</option>
 			</select>
 			
@@ -358,9 +358,8 @@ $(document).ready(function() {
 		
 	<tr>
 		<th>이력서 번호</th>
-		<th>밴드 이름</th>
-		<th>경력 번호</th>
-		<th>밴드 소개</th>
+		<th>밴드 이름-나중에추가해라</th>
+		<th>이력서 이름</th>	
 		<th>사운드 번호</th>
 		<th>정의구현</th>
 	</tr>
@@ -371,14 +370,13 @@ $(document).ready(function() {
 	<!-- 			<tr id="memberView"> -->
 	<%-- 				<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
 	<%-- 				<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
-					<td>${i.resumeNo }</td>
-					<td>${i.bandName }</td>
-					<td>${i.historyNo }</td>
+					<td>${i.resumesNo }</td>
+					<td>${i.bandNo }</td>
 					<td>${i.bandInfo }</td>
 					<td>${i.musicNo }</td>
 					<td>
 					<form action="/mypage/deleteBoard" method="post">
-						<input type="hidden" name="resumeNo" value="${i.resumeNo }">
+						<input type="hidden" name="resumesNo" value="${i.resumesNo }">
 						<button class="searchBtn">게시글삭제</button>
 					</form></td>
 				</tr>
