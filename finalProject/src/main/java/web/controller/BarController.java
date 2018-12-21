@@ -41,19 +41,18 @@ public class BarController {
 		
 		logger.info(list.toString());
 		
-		
 	}
 	
 	// 바 소개보기
 	@RequestMapping(value="/bar/viewbar", method=RequestMethod.GET)
 	public void viewBar(Bar bar, Model model) {
 		
-		ProfilePic profilePic = new ProfilePic();
-		Location location = new Location();
 		logger.info(">> viewBar");
 		
 		logger.info("-----------------------------");
-		model.addAttribute("view", barService.barView(bar, profilePic, location)); 
+		model.addAttribute("view", barService.barView(bar));
+		
+		bar = barService.barView(bar);
 		
 		logger.info(bar.toString()); 
 		logger.info(model.toString()); 
@@ -66,10 +65,7 @@ public class BarController {
 		
 		logger.info(">>updateBar");
 		
-		Location location = new Location();
-		ProfilePic profilePic = new ProfilePic();
-		
-		model.addAttribute("info", barService.barView(bar, profilePic, location));
+		model.addAttribute("info", barService.barView(bar));
 		
 	}
 	
@@ -77,17 +73,23 @@ public class BarController {
 	@RequestMapping(value="/bar/updatebarinfo", method=RequestMethod.POST)
 	public String updateInfoProc(Bar bar, Model model) {
 		
+		/*
+		 * bar.setBarInfo(bar.getBarInfo()); bar.setManager(bar.getManager());
+		 * bar.setContact(bar.getContact());
+		 */
 		
-		bar.setBarInfo(bar.getBarInfo());
-		bar.setManager(bar.getManager());
-		bar.setContact(bar.getContact());
+		logger.info(">>>>> bar : " + bar.toString());
+		int b = bar.getBarNo();
+		logger.info("updateProc //" + b);
 		
-		logger.info("updateProc");
+		try {
+			barService.barUpdate(bar);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
 		
-		logger.info(bar.toString());
-		model.addAttribute("update", bar); 
 		
-		return "redirect:/bar/viewbar";
+		return "redirect:/bar/viewbar?barNo=" + bar.getBarNo();
 		
 	}
 
