@@ -105,10 +105,11 @@ cursor:pointer;
 	
 	</table>
 
-	<p style="color: black; margin-left: -15px;">${board.content }<button>수정</button></p>
+	<p style="color: black; margin-left: -15px;">${board.content }
+	<button onclick="location.href='/notice/update?noticeNo=${board.noticeNo}';">수정</button></p>
 	
 </c:forEach>
-	
+	<button onclick="location.href='/notice/write';" style="color: black">글쓰기</button>
 </div>
 <jsp:include page="../util/paging.jsp" />
 
