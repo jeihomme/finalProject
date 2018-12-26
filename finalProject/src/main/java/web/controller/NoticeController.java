@@ -1,7 +1,10 @@
 package web.controller;
 
-import java.lang.ProcessBuilder.Redirect;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,17 +27,33 @@ public class NoticeController {
 	private Logger logger = LoggerFactory.getLogger(NoticeController.class);
 	
 	@RequestMapping(value="/notice/list" , method=RequestMethod.GET)
-	public void list(
+	public void list(HttpServletRequest req ,String searchVal  , String search,
 			@RequestParam(required=false , defaultValue="0") int curPage,
 			@RequestParam(required=false , defaultValue="10") int listCount,
 			@RequestParam(required=false , defaultValue="10") int pageCount,
 			Model model
 			) {
-		Paging paging = noticeService.getPaging(curPage, listCount, pageCount);
+		
+		searchVal = (req.getParameter("searchVal")==null)?"":req.getParameter("searchVal");
+		String searchTxt = req.getParameter("searchTxt");
+		 search = "";
+		
+		if(searchVal.equals("title")) {
+			search = searchTxt;
+		}else if (searchVal.equals("content")) {
+			search = searchTxt;
+		}else if (searchVal.equals("userId")) {
+			search = searchTxt;
+		}
+		Paging paging = noticeService.getPaging( curPage, listCount, pageCount ,searchVal  ,search);
+		paging.setSearch(search);
+		
 		model.addAttribute("paging" , paging);
 		
 		List<Notice> list = noticeService.getList(paging);
 		model.addAttribute("list" , list);
+		
+	
 		
 		logger.info("공지사항 리스트");
 		logger.info("리스트");

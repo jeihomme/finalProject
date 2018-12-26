@@ -3,9 +3,24 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <script type="text/javascript">
+function noticeNo(notice) {
 
+	location.href = "/notice/list?noticeNo=" + noticeNo;
+}
 
+function search(frm) {
+	if (frm.keyWord.value == "") {
+		alert("검색 단어를 입력하세요");
+		frm.keyWord.focus();
+		return;
+	}
+	frm.sumbit();
+}
+
+</script>
+<script type="text/javascript">
 $(document).ready(function(){
 	$("#notice  p").hide();
 	$("#notice table").click(function() {
@@ -14,9 +29,43 @@ $(document).ready(function(){
 		$(this).toggleClass("active")
 				.siblings("tr").removeClass("active");
 		});
+	
+	var result = '${result}';
+	var successMsg = '${successMsg}';
+	var failMsg = '${failMsg}';
+
+	if (result == 'success') {
+		alert(successMsg);
+	} else if (result == 'fali') {
+		alert(failMsg);
+	}
+
+	$("table").on(
+			"click",
+			"tr",
+			function() {
+				//클릭이벤트가 발생한 <tr>의 첫번째 <td>자식의 텍스트
+				var boardno = $(this).children("td").eq(0).text();
+
+				$(location).attr("href",
+						"/notice/list?noticeNo=" + noticeNo);
+			});
+
+	$("#btnSearch").click(
+			function() {
+
+				var searchVal = $("#searchVal").val();
+				var searchTxt = $("searchTxt").val();
+
+				$(location).attr(
+						"href",
+						"/notice/list?searchVal="
+								+ searchVal + "searchTxt="
+								+ searchTxt);
+
+			});
+
 });
-
-
 </script>
 
 
@@ -106,11 +155,27 @@ cursor:pointer;
 	</table>
 
 	<p style="color: black; margin-left: -15px;">${board.content }
-	<button onclick="location.href='/notice/update?noticeNo=${board.noticeNo}';">수정</button></p>
+	<button name="updateBtn" onclick="location.href='/notice/update?noticeNo=${board.noticeNo}';">수정</button></p>
 	
 </c:forEach>
-	<button onclick="location.href='/notice/write';" style="color: black">글쓰기</button>
+	<button type = "button" onclick="location.href='/notice/write';" style="color: black">글쓰기</button>
 </div>
+<div id="searchBox" class="text-center">
+	
+			<tr style="color: black;">
+				<td><select id="searchVal" name="searchVal">
+						<option value="title" selected="selected">제목</option>
+						<option value="content">내용</option>
+						<option value="userid">작성자</option>
+				</select></td>
+				</tr>
+			<input type="text" id="searchTxt" name="searchTxt" />
+			<button id="btnSearch">검색</button>
+		
+		</div>
+
+
+
 <jsp:include page="../util/paging.jsp" />
 
 

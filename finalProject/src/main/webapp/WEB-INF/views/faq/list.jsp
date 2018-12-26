@@ -29,7 +29,7 @@ max-width: 70%;
 
 }
 
-#noticeTable{
+#faqTable{
 	max-width: 70%;
 	margin-left: -15px;
 /*  	border-bottom: 1px solid white;  */
@@ -84,7 +84,7 @@ cursor:pointer;
 
 
 <div id="faq" class="container">
-	<table id="noticeTable" class="table table-striped table-hover">
+	<table id="faqTable" class="table table-striped table-hover">
 	<tr class="pointer" style="color:black">
 					<th style="width: 10%; text-align: center;">번호</th>
 					<th style="width: 45%; text-align: center;">제목</th>

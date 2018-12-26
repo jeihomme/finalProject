@@ -12,7 +12,8 @@ public interface NoticeService {
 			public List getList(Paging paging);
 			
 			// 페이징 정보 만들기
-			public Paging getPaging(int curPage , int listCount , int pageCount);
+			public Paging getPaging(int curPage , int listCount , int pageCount
+					,String searchVal  , String search);
 			
 			// 글쓰기
 			public void write(Notice notice);

@@ -24,18 +24,18 @@ public class AdvertiseController {
 	
 	@RequestMapping(value="/advertise/list", method=RequestMethod.GET)
 	public void list(
-//				Model model,
-//				@RequestParam(required=false , defaultValue="0") int curPage,
-//				@RequestParam(required=false , defaultValue="10") int listCount,
-//				@RequestParam(required=false , defaultValue="10") int pageCount	
-//			
+				Model model,
+				@RequestParam(required=false , defaultValue="0") int curPage,
+				@RequestParam(required=false , defaultValue="10") int listCount,
+				@RequestParam(required=false , defaultValue="10") int pageCount	
+			
 			) {
 		
-//		Paging paging = advertiseService.getPaging(curPage, listCount, pageCount);
-//		model.addAttribute("paging" , paging);
-//		
-//		List<Advertise> list = advertiseService.getList(paging);
-//		model.addAttribute("list" ,list);
+		Paging paging = advertiseService.getPaging(curPage, listCount, pageCount);
+		model.addAttribute("paging" , paging);
+		
+		List<Advertise> list = advertiseService.getList(paging);
+		model.addAttribute("list" ,list);
 		
 		logger.info("구인구직 리스트");
 		logger.info("구인구직 리스트");
