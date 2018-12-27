@@ -15,8 +15,8 @@
 	</properties>
 	
 	<!-- 	새로운 repository 설정할거임 -->
-<!-- 	ojdbc6.jar를 위한 repository -->
-<!-- properties 밑, dependencies 아래 -->
+	<!-- 	ojdbc6.jar를 위한 repository -->
+	<!-- properties 밑, dependencies 아래 -->
 	<repositories>
 		<repository>
 			<id>oracle</id>
@@ -42,7 +42,7 @@
 	</dependency>
 
 	
-<!-- 	Jackson-databind 2.9.7 -->
+		<!-- Jackson-databind 2.9.7 -->
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
@@ -50,7 +50,7 @@
 		    <version>2.9.7</version>
 		</dependency>
 	
-<!-- 		아파치 Tiles 3.0.8 extras -->
+		<!-- 아파치 Tiles 3.0.8 extras -->
 		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-jsp -->
 		<dependency>
 		    <groupId>org.apache.tiles</groupId>

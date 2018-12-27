@@ -44,25 +44,34 @@ public class BandController {
 	// 카테고리로 조회
 	@RequestMapping(value="/band/bandByGenre", method=RequestMethod.GET)
 	public ModelAndView bandCategory(
-			@RequestParam Map<String, String> genreN,
-			Model model) {
+			String genre) {
 		
 		logger.info("ajax 요청 옴");
-		logger.info(genreN.toString());
+		logger.info(genre);
 		
-		String genreNo = genreN.get("genreN");
+		// ModelAndView 생성 후 ViewName 설정
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("jsonView");
 		
-		List band = bandService.bandCate(genreNo);
-		List profile = bandService.getProPic();
-		
+		// 밴드, 프로파일사진 리스트 만들기
+		List band = bandService.bandCate(genre);
+		List profile = bandService.ProPicByCate(genre);
+				
+		// map 생성
 		Map map = new HashMap();
 		
+		// map에 입력
 		map.put("band", band);
 		map.put("profile", profile);
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("jsonView");
+		// mav에 입력
 		mav.addObject(map);
+		
+//		logger.info("---- mav 출력 ----");
+//		logger.info(mav.getModel().toString());
+//		
+//		logger.info("---- map 출력 ----");
+////		logger.info(map.toString());
 		
 		return mav;
 		

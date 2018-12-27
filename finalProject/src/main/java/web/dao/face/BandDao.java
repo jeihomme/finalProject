@@ -14,6 +14,7 @@ public interface BandDao {
 	
 	// 카테고리로 조회
 	public List getByCate(String cate);
+	public List getProPicByCate(String cate);
 	
 	// 밴드 소개
 	public Resumes getInfo(int bandNo);

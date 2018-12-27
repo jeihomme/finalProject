@@ -13,22 +13,36 @@
 		WHERE b.userId = m.userId
 	</select>
 	
-	<sql id="getBandNo">
+	<select id="getProPic" resultType="web.dto.ProfilePic">
+		SELECT p.ProfileNo, path, OriginName, StoredName
+		FROM profilePic p, band b
+		WHERE p.profileNo = b.profileNo
+		ORDER BY profileNo
+	</select>
+	
+	<sql id="getbandNo">
 		SELECT bandNo
 		FROM bandGenre
 		WHERE GenreNo = #{genre }
+		GROUP BY bandNo
 	</sql>
 	
 	<select id="getByCate" parameterType="String" resultType="web.dto.Band">
 		SELECT b.bandNo, bandName, userId, profileNo
-		FROM band b, (<include refid="getBandNo" />) bn
+		FROM band b, (<include refid="getbandNo" />) bn
 		WHERE b.bandNo = bn.bandNo
 	</select>
 	
-	<select id="getProPic" resultType="web.dto.ProfilePic">
-		SELECT ProfileNo, path, OriginName, StoredName
-		FROM profilePic
-		ORDER BY profileNo
+	<sql id="getProPic">
+		SELECT b. bandNo, b. profileNo
+		FROM band b, (<include refid="getbandNo" />) bn
+		WHERE b.bandNo = bn.bandNo
+	</sql>
+	
+	<select id="getProPicByCate" parameterType="String" resultType="web.dto.ProfilePic">
+		SELECT p.ProfileNo, path, OriginName, StoredName
+		FROM profilePic p, (<include refid="getProPic" />) bn
+		WHERE p.profileNo = bn.profileNo
 	</select>
 	
 	<select id="getInfo" parameterType="int" resultType="web.dto.Resumes">
@@ -44,4 +58,6 @@
 		WHERE bandNo = #{bandNo }
 		ORDER BY bandMemberNo
 	</select>
+	
+	
 </mapper>

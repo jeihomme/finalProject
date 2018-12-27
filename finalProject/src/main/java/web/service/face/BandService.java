@@ -18,6 +18,7 @@ public interface BandService {
 	
 	// 카테고리로 조회
 	public List bandCate(String cate);
+	public List ProPicByCate(String cate);
 	
 	// 밴드 소개 보기
 	public Map bandView(int bandNo);
