@@ -483,6 +483,7 @@ input {
 
 #headerMenu ul ul li {
 	float:none;
+	text-align:left; /* 글 왼쪽 정렬 */
 }
 </style>
 <!-- 헤더 타이틀 -->
@@ -495,11 +496,14 @@ input {
 	<ul>
 	<li><a href="/bar/barlist">Bar</a></li>
 	
-	<li><a>Band</a>
+	<li><a href="/band/bandList">Band</a>
 		<ul>
-			<li><a href="#">Sub Menu 1</a></li>
-			<li><a href="#">Sub Menu 2</a></li>
-			<li><a href="#">Sub Menu 3</a></li>
+			<li><a href="/band/bandByGenre?genreN=1">Bebob</a></li>
+			<li><a href="/band/bandByGenre">Swing</a></li>
+			<li><a href="/band/bandByGenre">Punk</a></li>
+			<li><a href="/band/bandByGenre">Modern</a></li>
+			<li><a href="/band/bandByGenre">Bosa Nova</a></li>
+			<li><a href="/band/bandByGenre">Boogie Woogie</a></li>
 		</ul>
 	</li>
 	

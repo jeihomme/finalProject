@@ -33,8 +33,6 @@ public class BandController {
 		List genre = bandService.genreList();
 		List profile = bandService.getProPic();
 		
-//		logger.info("bandNo : " + band.get(0));
-		
 		model.addAttribute("band", band);
 		model.addAttribute("genre", genre);
 		model.addAttribute("profile", profile);
@@ -66,12 +64,6 @@ public class BandController {
 		
 		// mav에 입력
 		mav.addObject(map);
-		
-//		logger.info("---- mav 출력 ----");
-//		logger.info(mav.getModel().toString());
-//		
-//		logger.info("---- map 출력 ----");
-////		logger.info(map.toString());
 		
 		return mav;
 		
