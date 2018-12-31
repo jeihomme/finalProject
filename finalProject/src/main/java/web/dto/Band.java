@@ -1,16 +1,23 @@
 package web.dto;
 
 public class Band {
+	private int rnum;
 	private int bandNo;
 	private String bandName;
 	private String userId;
 	private int profileNo;
 	private int calendarNo;
-	
+
 	@Override
 	public String toString() {
-		return "Band [bandNo=" + bandNo + ", bandName=" + bandName + ", userId=" + userId + ", profileNo=" + profileNo
-				+ ", calendarNo=" + calendarNo + "]";
+		return "Band [rnum=" + rnum + ", bandNo=" + bandNo + ", bandName=" + bandName + ", userId=" + userId
+				+ ", profileNo=" + profileNo + ", calendarNo=" + calendarNo + "]";
+	}
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 	public int getBandNo() {
 		return bandNo;
@@ -42,6 +49,5 @@ public class Band {
 	public void setCalendarNo(int calendarNo) {
 		this.calendarNo = calendarNo;
 	}
-
-
+	
 }

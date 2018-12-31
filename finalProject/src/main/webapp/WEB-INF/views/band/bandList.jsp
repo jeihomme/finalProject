@@ -21,35 +21,39 @@ th, td{
 }
 
 a:link{
-	color: red;
-}
-a:hover{
 	color: blue;
 }
-a:active{
-	color: green;
-}
+a:hover{ 
+	color: blue; 
+} 
+/* a:active{ */
+/* 	color: green; */
+/* } */
 
 </style>
 
 <script type="text/javascript">
-
-var genreN = 0;
-var clicked = 0;
-
-console.log(genreN);
-
 $(document).ready(function(){
+
+	var genreN = 0;
+	var clicked = 0;
+	var pageCount = 1;
+	var counter = 0;
+
+// 	console.log("genreNo : " + genreN);
 	
+	// get List By Genre
 	$(".cGenre").click(function(){
 		var genreN = $(this).attr("id");
+		counter = 0;
 		
 		$.recall(genreN);
 	});
 	
 	$.recall = function(genreN){
 		
-// 		console.log(genreN);
+// 		console.log("genre");
+// 		console.log("genreN = " + genreN);
 		
 		// 리스트 비우기
 		$("#lists").empty();
@@ -61,10 +65,13 @@ $(document).ready(function(){
 			dataType: "json",
 			success: function(data) {
 				
-				var all = data.hashMap;
-				var band = all.band;
-				var profile = all.profile;
-
+				var band = data.band;
+				var profile = data.profile;
+// 				var genreN = data.genre;
+				
+// 				console.log("ajax 통신 후");
+// 				console.log(genreN);
+				
 				$counter = 0;
 				
 				$.each(band, function(index1, bands){
@@ -111,6 +118,71 @@ $(document).ready(function(){
 			}
 		}); // end of $.ajax
 	}; // end of $.recall;
+	
+	
+	// ---------------------------------
+	// 더보기 버튼 (add items)
+		
+	$("#plus").click(function(){
+		
+// 		console.log("plus");
+// 		console.log("genreN = " + genreN);
+		
+		pageCount++;
+		
+// 		console.log(pageCount);
+		
+		$.ajax({
+			type: "get",
+			url: "/band/addBand",
+			data: { curPage : pageCount,
+					genre : genreN} ,
+			dataType: "json",
+			success: function(data) {
+				
+// 				console.log("plus Button 성공");
+				
+				var band = data.band;
+				var profile = data.profile;
+			
+				$.each(band, function(index1, bands){
+										
+					counter = counter + 1;
+// 					console.log("counter = " + counter);
+					
+					$.each(profile, function(index2, profiles){
+						if(bands.profileNo == profiles.profileNo){
+									
+							$tr = document.createElement("TR");
+							
+							$newList = $("<td>" + "<table>" + "<tr>" + "<td>" +
+												"<img class='img-rounded' src='http://" + profiles.path + "/" + profiles.originName + "' />" +
+										"</td>" + "</tr>" +
+										"<tr>" + "<td>" +
+												"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
+										"</td>" + "</tr>" + "</table>" + "</td>");
+							
+						
+							$("#lists").append($newList);
+							
+							if(counter == 8) {
+								// new tr every 8 items
+								document.getElementById("lists").appendChild($tr);
+								counter = 0;
+							}
+							
+							
+						} // end of if
+					}); // end of $.each(profile)
+				}); // end of $.each(band)
+				
+			}, error: function() {
+				alert("Add Items Fail");
+			}
+		});
+		
+	});
+	
 }); // end of document.ready
 </script>
 
@@ -120,7 +192,7 @@ $(document).ready(function(){
 	<table id="genre">
 		<tr>
 			<c:forEach items="${genre }" var="g">
-				<th style="border: 1px solid red;"><a class="cGenre" id="${g.genreNo }" style="font-size:25px;">${g.genreName }</a></th>
+				<th style="border: 1px solid black;"><a class="cGenre" id="${g.genreNo }" style="font-size:25px;">${g.genreName }</a></th>
 			</c:forEach>
 		</tr>
 	</table>
@@ -160,6 +232,4 @@ $(document).ready(function(){
 	</tr>
 	</table>
 </div>
-<div>
-<button id="plus" style="background-color:black; border:0px; float:right;">+ 더보기</button>
-</div>
+<button id="plus" style="background-color:black; border:0px;">+ 더보기</button>

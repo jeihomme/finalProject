@@ -12,6 +12,7 @@ import web.dao.face.GenreDao;
 import web.dao.face.MusicDao;
 import web.dto.Band;
 import web.service.face.BandService;
+import web.utils.AddItems;
 
 @Service
 public class BandServiceImpl implements BandService {
@@ -21,15 +22,17 @@ public class BandServiceImpl implements BandService {
 	@Autowired GenreDao genreDao;
 	
 	@Override
-	public List bandList() {
+	public List bandList(AddItems addItems, String genre) {
 
-		return bandDao.getList();
-	}
-
-	@Override
-	public List bandCate(String cate) {
-		
-		return bandDao.getByCate(cate);
+		if(genre != null && !"0".equals(genre)) {
+			
+			return bandDao.getByCate(addItems, genre);
+			
+		} else {
+			
+			return bandDao.getList(addItems);
+			
+		}
 	}
 
 	@Override
@@ -39,18 +42,51 @@ public class BandServiceImpl implements BandService {
 	}
 	
 	@Override
-	public List getProPic() {
-		List list = bandDao.getProPic();
+	public List getProPic(AddItems addItems, String genre) {
+
+		if(genre != null && !"0".equals(genre)) {
+
+			return bandDao.getProPicByCate(addItems, genre);
+
+		} else {
+
+			return bandDao.getProPic(addItems);
+
+		}
+	}
+	
+	
+	// List By Category
+	@Override
+	public List bandCate(AddItems addItems, String genre) {
 		
-		return list;
+		return bandDao.getByCate(addItems, genre);
 	}
 	
 	@Override
-	public List ProPicByCate(String cate) {
+	public List ProPicByCate(AddItems addItems, String genre) {
 
-		List list = bandDao.getProPicByCate(cate);
+		return bandDao.getProPicByCate(addItems, genre);
+	}
+	
+	@Override
+	public Map getPrep(String curPage) {
 		
-		return list;
+		// map 생성
+		Map map = new HashMap();
+		
+		// curPage 셋팅
+		if(curPage != null && !"".equals(curPage)) {
+			map.put("curPage", Integer.parseInt(curPage));
+		} else {
+			map.put("curPage", 0);
+		}
+		
+		// total count 셋팅
+		int counts = bandDao.getCount();
+		map.put("totalCount", counts);
+		
+		return map;
 	}
 	
 	@Override
@@ -75,4 +111,5 @@ public class BandServiceImpl implements BandService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }
