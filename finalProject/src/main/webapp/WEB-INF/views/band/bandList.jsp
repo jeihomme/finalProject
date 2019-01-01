@@ -35,10 +35,16 @@ a:hover{
 <script type="text/javascript">
 $(document).ready(function(){
 
+	// 장르 번호
 	var genreN = 0;
-	var clicked = 0;
+	// 페이징 처리
 	var pageCount = 1;
+	
+	// 각 밴드 출력 카운터
 	var counter = 0;
+	
+	// 로딩 시 더보기 버튼 유무 확인
+	var viewPlus = 1;
 
 // 	console.log("genreNo : " + genreN);
 	
@@ -46,6 +52,7 @@ $(document).ready(function(){
 	$(".cGenre").click(function(){
 		var genreN = $(this).attr("id");
 		counter = 0;
+		pageCount = 1;
 		
 		$.recall(genreN);
 	});
@@ -72,11 +79,19 @@ $(document).ready(function(){
 // 				console.log("ajax 통신 후");
 // 				console.log(genreN);
 				
-				$counter = 0;
+				// 장르 선택시 초기화
+				counter = 0;
+				viewPlus = 1;
 				
 				$.each(band, function(index1, bands){
 										
-					$counter = $counter + 1;
+					counter = counter + 1;
+					
+					// 더보기 버튼 체크
+					viewPlus = viewPlus + 1;
+					
+					console.log("viewPlus: " + viewPlus);
+					
 					
 					$.each(profile, function(index2, profiles){
 						if(bands.profileNo == profiles.profileNo){
@@ -90,7 +105,7 @@ $(document).ready(function(){
 							
 							$("#lists").append($newList);
 							
-							if($counter == 8){
+							if(counter == 8){
 								$newLine = $("</tr><tr>");
 								$("#lists").append($newLine);
 							}
@@ -100,6 +115,12 @@ $(document).ready(function(){
 					}); // end of $.each
 				}); // end of $.each
 
+				if(viewPlus < 17) {
+					$("#plus").hide();
+				} else {
+					$("#plus").show();
+				}
+				
 				// 주희센세 힌트
 // 				var div1 = $('<div class="" style="height: 100%;" id ="position_'+selectedId+'">');
 // 				var div2 = $('<div class="thumbnail">');
@@ -145,15 +166,21 @@ $(document).ready(function(){
 				var band = data.band;
 				var profile = data.profile;
 			
+				viewPlus = 1;
+				counter = 0;
+				
 				$.each(band, function(index1, bands){
 										
 					counter = counter + 1;
 // 					console.log("counter = " + counter);
 					
+					// 더보기 버튼 체크
+					viewPlus = viewPlus + 1;
+					
 					$.each(profile, function(index2, profiles){
 						if(bands.profileNo == profiles.profileNo){
-									
-							$tr = document.createElement("TR");
+										
+							$newTR = document.createElement("TR");
 							
 							$newList = $("<td>" + "<table>" + "<tr>" + "<td>" +
 												"<img class='img-rounded' src='http://" + profiles.path + "/" + profiles.originName + "' />" +
@@ -162,11 +189,19 @@ $(document).ready(function(){
 												"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
 										"</td>" + "</tr>" + "</table>" + "</td>");
 							
-						
-							$("#lists").append($newList);
+							if(counter == 1) {
+								$("#lists").append($newTR);
+								$("#lists").append($newList);
+// 								document.getElementById("lists").append($newTR);
+// 								document.getElementById("lists").append($newList);
+								
+							} else {
+								$("#lists").append($newList);
+							}
 							
 							if(counter == 8) {
 								// new tr every 8 items
+								$tr.appendChild($newList);
 								document.getElementById("lists").appendChild($tr);
 								counter = 0;
 							}
@@ -175,6 +210,12 @@ $(document).ready(function(){
 						} // end of if
 					}); // end of $.each(profile)
 				}); // end of $.each(band)
+				
+				if(viewPlus < 17) {
+					$("#plus").hide();
+				} else {
+					$("#plus").show();
+				}
 				
 			}, error: function() {
 				alert("Add Items Fail");
@@ -204,6 +245,7 @@ $(document).ready(function(){
 <div style="background-color:gray; border-radius:20px; align:left;">
 	<table id="lists">
 	<tr>
+	<c:set var="plus" value="0" />
 	<c:set var="counter" value="0" />
 		<c:forEach items="${band }" var="b">
 		<c:set var="counter" value="${counter + 1 }" />
@@ -232,4 +274,12 @@ $(document).ready(function(){
 	</tr>
 	</table>
 </div>
-<button id="plus" style="background-color:black; border:0px;">+ 더보기</button>
+<c:choose>
+	<c:when test="${plus < 16 }">
+		<button id="plus" style="display:block; background-color:black; border:0px;">+ 더보기</button>
+	</c:when>
+	<c:otherwise>
+		<button id="plus" style="display:none; background-color:black; border:0px;">+ 더보기</button>
+	</c:otherwise>
+</c:choose>
+
