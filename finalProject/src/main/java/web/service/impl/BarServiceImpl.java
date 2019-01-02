@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.dao.face.BarDao;
+import web.dao.face.LocationDao;
 import web.dto.Band;
 import web.dto.Bar;
 import web.dto.Calendar;
@@ -17,6 +18,7 @@ import web.service.face.BarService;
 public class BarServiceImpl implements BarService{
 	
 	@Autowired BarDao barDao;
+	@Autowired LocationDao locationDao;
 
 	@Override
 	public List<Bar> barList(Bar bar, ProfilePic profilePic) {
@@ -25,9 +27,9 @@ public class BarServiceImpl implements BarService{
 	}
 
 	@Override
-	public List<Bar> barLocation(int locationNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Bar> barLocation(List<String> location) {
+		
+		return barDao.getByLocation(location);
 	}
 
 	@Override
@@ -59,6 +61,20 @@ public class BarServiceImpl implements BarService{
 	public void RequestShow(Bar bar, Band band) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Location> locationList() {
+
+		return locationDao.getLocation();
+	}
+
+	@Override
+	public List<Bar> getProfilePic() {
+		
+		List<Bar> list = barDao.getProfilePic();
+		
+		return list;
 	}
 
 }

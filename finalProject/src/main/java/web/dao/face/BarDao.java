@@ -13,7 +13,7 @@ public interface BarDao {
 	public List<Bar> getBarList(Bar bar, ProfilePic profilePic);
 	
 	// 지역 번호로 검색 (location Check)
-	public List<Bar> getByLocation(int locationNo);
+	public List<Bar> getByLocation(List<String> location);
 	
 	// 리스트 더보기
 	public List<Bar> getBarListMore();
@@ -29,6 +29,9 @@ public interface BarDao {
 	
 	// 바 정보 수정
 	public void updateBarInfo(Bar bar);
+	
+	// 프로파일 사진 가져오기
+	public List<Bar> getProfilePic();
 	 
 
 }

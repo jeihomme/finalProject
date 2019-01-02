@@ -1,6 +1,8 @@
 package web.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Bar;
 import web.dto.Location;
@@ -34,10 +39,12 @@ public class BarController {
 		logger.info(">> barList");
 		
 		List<Bar> list = barService.barList(bar, profilePic);
+		List<Location> location = barService.locationList();
 		
 		logger.info("list size : " + list.size());
 		
 		model.addAttribute("list", list);
+		model.addAttribute("location", location);
 		
 		logger.info(list.toString());
 		
@@ -93,5 +100,29 @@ public class BarController {
 		
 	}
 
+	// 지역번호(이름)으로 검색
+
+	@RequestMapping(value="/bar/barlocation", method=RequestMethod.POST)
+	public ModelAndView barlocation(
+			@RequestParam(value = "paramMap[]")List<String> paramMap
+			) {
+		
+		logger.info(">>>>>>> 지역번호 검색!!");
+		
+		logger.info("받아온 지역 배열 : " + paramMap.toString());
+		
+//		Map<String, Object> map = new HashMap<String, Object>();
+		
+		List<Bar> resultList = barService.barLocation(paramMap);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("jsonView");
+		mav.addObject(resultList);
+		mav.addObject("result", "true");
+		
+		return mav;
+		
+	}
 	
 }
