@@ -113,7 +113,7 @@ public class MypageController {
 		Member member = (Member) session.getAttribute("loginInfo");
 		member.setEmail(req.getParameter("email"));
 		member.setTelcom(req.getParameter("telcom"));
-		member.setContact( Integer.parseInt(req.getParameter("contact")) );
+		member.setContact(req.getParameter("contact") );
 		
 		if( member.getRoleId() == 2) {
 			Band band = new Band();
