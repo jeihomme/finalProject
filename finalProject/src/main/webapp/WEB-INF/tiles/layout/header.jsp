@@ -73,12 +73,7 @@ function execDaumPostcode() { // (post)
 $(document).ready(function() {
 	
 	$('.modal-content:not(:eq('+idx+'))').hide();
-	console.log("hide modal");
-	
-	$("#loginModal").on("hide.bs.modal", function() {
-		idx=0;
-		console.log("loginModal hidden");
-	});
+	console.log("hide modal");		
 	
 	$(".modal").on("hide.bs.modal", function() {
 		idx=0;
@@ -97,6 +92,41 @@ $(document).ready(function() {
 		$("#joinForm1").get(0).reset();
 		
 	});
+	var memberCheck = {
+			id: $("#joinUserId").val(),
+			userName: $("#joinUserName").val(),
+			password: $("#joinPassword").val(),
+			passwordChk: $("#passwordChk").val()
+	};
+	
+	$.ajax ({
+		url: "/member/check",
+		dataType: "json",
+		data: memberCheck,
+		success: function(res) {
+			
+			// 공란 있는지 확인
+			if(joinId.length==0) {
+				$("#joinIdCheck").css("color", "#DF0101");
+			}
+			
+			if(joinName.length==0) {
+				$("#joinUserNameCheck").css("color", "#DF0101");
+			}
+			
+			if(joinPw.length==0) {
+				$("#joinPwCheck").css("color", "#DF0101");
+			}
+			
+			$("#joinIdCheck").css("color", "#088A4B");
+
+			
+		},
+		error: function() {
+			alert("error");
+		}
+	});
+	
 	
 	$(".nextBtn").click(function() {
 		console.log("다음 버튼 클릭 "+idx);
@@ -128,12 +158,12 @@ $(document).ready(function() {
 			var joinTelcom = $("#joinTelcom").val();
 			var joinContact = $("#joinContact1").val()+$("#joinContact2").val()+$("#joinContact3").val();
 			var joinEmail = $("#joinEmail1").val()+"@"+$("#joinEmail2").val();
-				
+					
 			var memberCheck = {
-					id: joinId,
-					userName: joinName,
-					password: joinPw,
-					passwordChk: joinPwChk
+					id: $("#joinUserId").val(),
+					userName: $("#joinUserName").val(),
+					password: $("#joinPassword").val(),
+					passwordChk: $("#passwordChk").val()
 			};
 			
 			$.ajax ({
@@ -142,30 +172,22 @@ $(document).ready(function() {
 				data: memberCheck,
 				success: function(res) {
 					
-					if((joinId<0||joinId>9) && (joinId<"A"||joinId>"Z") && (joinId<"a"||joinId>"z")) {
-						alert("아이디에 한글 및 특수문자를 사용하시면 안 됩니다.");
-						return;
-					}
-					
 					// 공란 있는지 확인
 					if(joinId.length==0) {
-						alert("아이디를 입력해 주세요.");
-						joinForm1.joinUserId.focus();
-						return;
+						$("#joinIdCheck").css("color", "#DF0101");
 					}
 					
 					if(joinName.length==0) {
-						alert("닉네임을 입력해 주세요.");
-						joinForm1.joinUserName.focus();
-						return;
+						$("#joinUserNameCheck").css("color", "#DF0101");
 					}
 					
 					if(joinPw.length==0) {
-						alert("비밀번호를 입력해 주세요.");
-						joinForm1.joinPassword.focus();
-						return;
+						$("#joinPwCheck").css("color", "#DF0101");
 					}
 					
+					$("#joinIdCheck").css("color", "#088A4B");
+
+					console.log(res);
 				},
 				error: function() {
 					alert("error");
@@ -173,6 +195,24 @@ $(document).ready(function() {
 			});
 			
 			// 공란 있는지 확인
+			if(joinId.length==0) {
+				alert("아이디를 입력해 주세요.");
+				joinForm1.joinUserId.focus();
+				return;
+			}
+			
+			if(joinName.length==0) {
+				alert("닉네임을 입력해 주세요.");
+				joinForm1.joinUserName.focus();
+				return;
+			}
+			
+			if(joinPw.length==0) {
+				alert("비밀번호를 입력해 주세요.");
+				joinForm1.joinPassword.focus();
+				return;
+			}
+			
 			if(joinForm1.joinContact1.value.length==0) {
 				alert("전화번호를 입력해 주세요.");
 				joinForm1.joinContact1.focus();
@@ -341,7 +381,7 @@ $(document).ready(function() {
 			document.getElementById("loginForm").reset();
 			document.getElementById("joinAgreePost1").reset();
 			document.getElementById("joinAgreePost2").reset();
-// 			document.getElementById("joinForm1").reset();
+			document.getElementById("joinForm1").reset();
 			
 			$(".modal-content:eq("+idx+")").hide();
 			$(".modal-content:eq("+Number(idx-1)+")").show();
@@ -945,16 +985,16 @@ input {
     	  	</div>
 		        <table style="border: none; height: 300px; width: 120%; color: black">
 				<tr>
-				<td><font color="red">*</font>&nbsp;<input type="text" id="joinUserId" name="joinUserId" placeholder=" 아이디" />&nbsp;&nbsp;<span class="glyphicon glyphicon-ok-circle" id="joinIdCheck" style="color: red; width: 10px; height: 10px;" aria-hidden="true"></span></td>
+				<td><font color="red">*</font>&nbsp;<input type="text" id="joinUserId" name="joinUserId" placeholder=" 아이디" />&nbsp;&nbsp;<span class="glyphicon glyphicon-ok-circle" id="joinIdCheck" style="width: 15px; height: 15px;" aria-hidden="true"></span></td>
 				</tr>
 				<tr>
-				<td><font color="red">*</font>&nbsp;<input type="text" id="joinUserName" name="joinUserName" placeholder=" 닉네임"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-ok-circle" id="joinUserNameCheck" style="color: red; width: 10px; height: 10px;" aria-hidden="true"></span></td>
+				<td><font color="red">*</font>&nbsp;<input type="text" id="joinUserName" name="joinUserName" placeholder=" 닉네임"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-ok-circle" id="joinUserNameCheck" style="width: 10px; height: 10px;" aria-hidden="true"></span></td>
 				</tr>
 				<tr>
 				<td><font color="red">*</font>&nbsp;<input type="password" id="joinPassword" name="joinPassword" placeholder=" 비밀번호"/></td>
 				</tr>
 				<tr>
-				<td><font color="red">*</font>&nbsp;<input type="password" id="passwordChk" name="passwordChk" placeholder=" 비밀번호 확인"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-ok-circle" id="joinPwCheck" style="color: red; width: 10px; height: 10px;" aria-hidden="true"></span></td>
+				<td><font color="red">*</font>&nbsp;<input type="password" id="passwordChk" name="passwordChk" placeholder=" 비밀번호 확인"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-ok-circle" id="joinPwCheck" style="width: 10px; height: 10px;" aria-hidden="true"></span></td>
 				</tr>
 				<tr>
 				<td><font color="red">*</font>
@@ -1041,7 +1081,7 @@ input {
 				</td></tr>
 				<tr>
 				<td><font color="red">*</font>
-						<input type="text" id="addr1" name="addr1" placeholder=" bar 주소" style="width: 230px;"/>
+						<input type="text" id="addr1" name="addr1" placeholder=" bar 주소" style="width: 225px;"/>
 						<input type="button" onclick="execDaumPostcode()" value="주소 찾기" class="btn btn-xs"/>
 				</td></tr>
 				<tr><td><textarea rows="4" cols="40" style="resize: none; margin-left: 10px;" id="barInfo" name="barInfo" placeholder=" bar 소개"></textarea>
