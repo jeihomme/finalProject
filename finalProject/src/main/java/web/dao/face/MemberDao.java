@@ -18,6 +18,9 @@ public interface MemberDao {
 	// 가입 - 아이디 중복 확인
 	public int checkJoinId(Member member);
 	
+	// 가입 - 닉네임 중복 확인
+	public int checkJoinUserName(Member member);
+	
 	// 로그인 성공 유무 확인
 	public int selectCntLogin(Member member);
 	

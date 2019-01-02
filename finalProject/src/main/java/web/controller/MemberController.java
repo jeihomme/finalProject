@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import web.dto.Band;
 import web.dto.Bar;
@@ -38,9 +39,53 @@ public class MemberController {
 	
 	@Transactional
 	@RequestMapping(value="/member/join", method=RequestMethod.POST)
-	public void joinProc(Member member) {
-		// 가입
-		memberService.join(member);
+	public void joinProc(Member member,
+							Bar bar,
+							Band band,
+							@RequestParam(required=false, value="roleId") int roleId,
+							Writer out) {
+		
+		
+		logger.info(bar.toString());
+		
+		// bar 가입일 때
+		if(roleId==1) {	
+			memberService.join(member);
+			memberService.barJoin(bar);
+			
+			logger.info(member.toString());
+			logger.info(bar.toString());
+			
+			// bar와 member 가입 정보가 제대로 넘겨졌는지 확인
+			if(memberService.login(member)) {
+				
+				try {
+					out.write("{\"res\": true}" );				
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} 
+			
+		} else if(roleId==2) {
+			memberService.join(member);
+			memberService.bandJoin(band);
+			
+			logger.info(member.toString());
+			logger.info(band.toString());
+			
+			// bar와 member 가입 정보가 제대로 넘겨졌는지 확인
+			if(memberService.login(member)) {
+				
+				try {
+					out.write("{\"res\": true}" );				
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
 		
 //		// 인증키 생성
 //		String key = memberService.getKey(50, false);
@@ -53,32 +98,6 @@ public class MemberController {
 //		sendMail.setSubject("[JazzBar] 서비스 이메일 인증");
 //		sendMail.setText(new StringBuffer().append("<h1>메일 인증</h1>").append("<a href=)");
 		
-	}
-	
-	@RequestMapping(value="/member/barjoin", method=RequestMethod.GET)
-	public void barJoin() {
-		
-	}
-	
-	@RequestMapping(value="/member/barjoin", method=RequestMethod.POST)
-	public String barJoinProc(Bar bar) {
-		// bar 가입
-		memberService.barJoin(bar);
-		
-		return "redirect:/main";
-	}
-	
-	@RequestMapping(value="/member/bandjoin", method=RequestMethod.GET)
-	public void bandJoin() {
-		
-	}
-	
-	@RequestMapping(value="/member/bandjoin", method=RequestMethod.POST)
-	public String bandJoinProc(Band band) {
-		// band 가입
-		memberService.bandJoin(band);
-		
-		return "redirect:/main";
 	}
 	
 	@RequestMapping(value="/member/idcheck", method=RequestMethod.GET)
@@ -162,7 +181,39 @@ public class MemberController {
 		
 		return "redirect:/main";
 	}
-
-
 	
+	@RequestMapping(value="/member/check", method=RequestMethod.GET)
+	public void joinCheckIdPw(Member member,
+			@RequestParam(required=false, value="passwordChk") String passChk,
+			Writer out) {
+		
+		// id가 유효한지 확인
+		if(memberService.checkId(member)) {
+			
+			try {
+				out.write("{\"res\": true}" );				
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		// userName이 유효한지 확인	
+		} else if(memberService.checkPassword(member)) {
+			try {
+				out.write("{\"res\": true}" );				
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		} else if(member.getPassword()==passChk) {
+			try {
+				out.write("{\"res\": true}" );				
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 }
