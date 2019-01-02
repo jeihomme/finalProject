@@ -7,7 +7,6 @@
 <!--  매퍼 설정 -->
 <mapper namespace="web.dao.face.BandDao">
 
-
 	<!-- 밴드 전체목록 -->
 	
 	<sql id="getBands">
