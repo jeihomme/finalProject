@@ -9,13 +9,25 @@
 
 
 	<!-- 밴드 전체목록 -->
+	
+	<sql id="getBands">
+		(SELECT bandNo, bandName, b.userId, profileNo
+    	FROM band b, ( SELECT userId from member WHERE roleId = 2 ) m
+    	WHERE b.userId = m.userId
+    	ORDER BY profileNo) c
+	</sql>
+	
+	<sql id="chkResumes">
+		SELECT c.bandNo, bandName, userId, profileNo
+		FROM resumes r, <include refid="getBands" />
+		WHERE publicresumes = 1 AND
+        r.bandNo = c.bandNo
+	</sql>
+	
 	<select id="getList" parameterType="web.utils.AddItems" resultType="web.dto.Band">
 		SELECT * FROM (
 	    	SELECT rownum rnum, A.* FROM (
-        		SELECT bandNo, bandName, b.userId, profileNo
-        		FROM band b, (SELECT userId from member WHERE roleId = 2) m
-        		WHERE b.userId = m.userId
-        		ORDER BY profileNo
+        		<include refid="chkResumes" />
         	) A
     		ORDER BY rnum
     	)
@@ -26,8 +38,8 @@
 		SELECT * FROM (
     		SELECT rownum rnum, A.* FROM (	
         		SELECT p.ProfileNo, path, OriginName, StoredName
-        		FROM profilePic p, band b
-        		WHERE p.profileNo = b.profileNo
+        		FROM profilePic p, (<include refid="chkResumes" />) d
+        		WHERE p.profileNo = d.profileNo
         	) A
     		ORDER BY rnum
     	)
@@ -44,16 +56,14 @@
 		ORDER BY bandNo
 	</sql>
 	
-	<select id="getByCate" resultType="web.dto.Band">
-		SELECT * FROM (
-	    	SELECT rownum rnum, A.* FROM (
-        		SELECT b.bandNo, bandName, userId, profileNo
-        		FROM band b, (<include refid="getbandNo" />) bn
-        		WHERE b.bandNo = bn.bandNo
-        	) A
-    		ORDER BY rnum
-    	)
-		WHERE rnum between #{addItems.startNo } AND #{addItems.endNo }
+	<select id="getByCate" resultType="web.dto.Band">		
+		SELECT d.bandNo, bandName, userId, profileNo
+		FROM (
+			SELECT c.bandNo, bandName, userId, profileNo
+			FROM resumes r, <include refid="getBands" />
+        	WHERE publicresumes = 1 AND
+        	r.bandNo = c.bandNo) d, (<include refid="getbandNo" />) e
+		WHERE d.bandNo = e.bandNo
 	</select>
 	
 	<sql id="getProPic">
@@ -61,6 +71,10 @@
 		FROM band b, (<include refid="getbandNo" />) bn
 		WHERE b.bandNo = bn.bandNo
 	</sql>
+	
+	
+	
+	<!-- 장르로 보는 리스트의 사진 쿼리 수정해야함... -->
 	
 	<select id="getProPicByCate" resultType="web.dto.ProfilePic">
 		SELECT * FROM (
