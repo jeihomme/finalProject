@@ -12,7 +12,15 @@ SELECT noticeNo, title, userId, content, writtenDate FROM notice
 <select id="selectPagingList" resultType="web.dto.Notice" parameterType="web.utils.Paging">
 SELECT * FROM ( SELECT rownum rnum, B.* FROM (
 <include refid="selectNotice"/>
-)
+)<if test="search != null and search != '' and searchVal == ('title')"> 
+	AND title LIKE #{search}
+</if>
+<if test="search != null and search != '' and searchVal == ('content')">
+	AND content LIKE #{search}
+</if>
+<if test="search != null and search != '' and searchVal == ('userId')">
+	AND userId LIKE #{search}
+</if>
 B ORDER BY noticeNo DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum
 </select>
 <select id="selectNoticeCntAll" resultType="int">

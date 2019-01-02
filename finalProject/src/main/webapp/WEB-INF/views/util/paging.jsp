@@ -23,7 +23,7 @@
   	<li>
   	  <fmt:parseNumber var="p" integerOnly="true" value="${(paging.curPage/paging.pageCount)}"/>
   	  <fmt:parseNumber var="prevPage" integerOnly="true" value="${(p-1)*paging.pageCount+1 }"/>
-      <a href="/notice/list?curPage=${prevPage }"
+      <a href="/notice/list?search=${paging.search }"
        aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
@@ -41,13 +41,13 @@
     	
     	<c:if test="${paging.curPage eq page }">
 	   	<li class="active">
-	   		<a href="/notice/list?curPage=${page }">${page }</a>
+	   		<a href="/notice/list?curPage=${page }&search=${paging.search}">${page }</a>
 	   	</li>
 	   	</c:if>
 	
 	   	<c:if test="${paging.curPage ne page }">
 	   	<li>
-		   	<a href="/notice/list?curPage=${page }">${page }</a>
+		   	<a href="/notice/list?curPage=${page }&search=${paging.search}">${page }</a>
 	   	</li>
 	   	</c:if>
     </c:forEach>
@@ -73,7 +73,7 @@
   	<fmt:parseNumber var="nextPage" integerOnly="true" value="${(p+1)*paging.pageCount+1 }"/>
 
   	<li>
-      <a href="/notice/list?curPage=${nextPage }"
+      <a href="/notice/list?curPage=${nextPage }&search=${paging.search}"
        aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
