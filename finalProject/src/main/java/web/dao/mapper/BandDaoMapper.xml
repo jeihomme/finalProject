@@ -7,28 +7,91 @@
 <!--  매퍼 설정 -->
 <mapper namespace="web.dao.face.BandDao">
 
-	<select id="getList" resultType="web.dto.Band">
-		SELECT bandNo, bandName, b.userId, profileNo
-		FROM band b, (SELECT userID FROM member WHERE roleId=2) m
-		WHERE b.userId = m.userId
+
+	<!-- 밴드 전체목록 -->
+	<select id="getList" parameterType="web.utils.AddItems" resultType="web.dto.Band">
+		SELECT * FROM (
+	    	SELECT rownum rnum, A.* FROM (
+        		SELECT bandNo, bandName, b.userId, profileNo
+        		FROM band b, (SELECT userId from member WHERE roleId = 2) m
+        		WHERE b.userId = m.userId
+        		ORDER BY profileNo
+        	) A
+    		ORDER BY rnum
+    	)
+		WHERE rnum between #{startNo } AND #{endNo }
 	</select>
 	
-	<sql id="getBandNo">
+	<select id="getProPic" parameterType="web.utils.AddItems" resultType="web.dto.ProfilePic">
+		SELECT * FROM (
+    		SELECT rownum rnum, A.* FROM (	
+        		SELECT p.ProfileNo, path, OriginName, StoredName
+        		FROM profilePic p, band b
+        		WHERE p.profileNo = b.profileNo
+        	) A
+    		ORDER BY rnum
+    	)
+		WHERE rnum between #{startNo } AND #{endNo }
+	</select>
+	
+	
+	<!-- 카테고리로 조회하기 -->
+	<sql id="getbandNo">
 		SELECT bandNo
 		FROM bandGenre
 		WHERE GenreNo = #{genre }
+		GROUP BY bandNo
+		ORDER BY bandNo
 	</sql>
 	
-	<select id="getByCate" parameterType="String" resultType="web.dto.Band">
-		SELECT b.bandNo, bandName, userId, profileNo
-		FROM band b, (<include refid="getBandNo" />) bn
-		WHERE b.bandNo = bn.bandNo
+	<select id="getByCate" resultType="web.dto.Band">
+		SELECT * FROM (
+	    	SELECT rownum rnum, A.* FROM (
+        		SELECT b.bandNo, bandName, userId, profileNo
+        		FROM band b, (<include refid="getbandNo" />) bn
+        		WHERE b.bandNo = bn.bandNo
+        	) A
+    		ORDER BY rnum
+    	)
+		WHERE rnum between #{addItems.startNo } AND #{addItems.endNo }
 	</select>
 	
-	<select id="getProPic" resultType="web.dto.ProfilePic">
-		SELECT ProfileNo, path, OriginName, StoredName
+	<sql id="getProPic">
+		SELECT b. bandNo, b. profileNo
+		FROM band b, (<include refid="getbandNo" />) bn
+		WHERE b.bandNo = bn.bandNo
+	</sql>
+	
+	<select id="getProPicByCate" resultType="web.dto.ProfilePic">
+		SELECT * FROM (
+    		SELECT rownum rnum, A.* FROM (	
+        		SELECT p.ProfileNo, path, OriginName, StoredName
+        		FROM profilePic p, (<include refid="getProPic" />) b
+        		WHERE p.profileNo = b.profileNo
+        	) A
+    		ORDER BY rnum
+    	)
+		WHERE rnum between #{addItems.startNo } AND #{addItems.endNo }
+	</select>
+	
+	
+	<!-- 더보기 -->
+	<select id="getCount" resultType="int">
+		SELECT COUNT(*) FROM band
+	</select>
+	
+	
+	<!-- view Page -->
+	<select id="getBand" parameterType="int" resultType="web.dto.Band">
+		SELECT bandNo, bandName, profileNo
+		FROM band
+		WHERE bandNo = #{bandNo }
+	</select>
+	
+	<select id="getPic" parameterType="int" resultType="web.dto.ProfilePic">
+		SELECT profileNo, path, originName, storedName
 		FROM profilePic
-		ORDER BY profileNo
+		WHERE profileNo = #{proNo }
 	</select>
 	
 	<select id="getInfo" parameterType="int" resultType="web.dto.Resumes">
@@ -38,10 +101,17 @@
 				publicResumes = 1
 	</select>
 	
+	<select id="getMusic" >
+		SELECT musicNo, musicTitle, path
+		FROM music
+		WHERE musicNo = #{musicNo } 
+	</select>
+	
 	<select id="getMember" parameterType="int" resultType="web.dto.BandMember">
 		SELECT bandMemberNo, mPosition, bandMemName, bandNo
 		FROM bandMember
 		WHERE bandNo = #{bandNo }
 		ORDER BY bandMemberNo
 	</select>
+	
 </mapper>

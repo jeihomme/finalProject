@@ -53,7 +53,7 @@
 	
 	<h3>밴드맴버</h3>
 	
-	<c:forEach items="${band.member }" var="bm">
-		${bm.bandMemName } : ${bm.mPosition }<br>
-	</c:forEach>
+<%-- 	<c:forEach items="${band.member }" var="bm"> --%>
+<%-- 		${bm.bandMemName } : ${bm.mPosition }<br> --%>
+<%-- 	</c:forEach> --%>
 </div>
