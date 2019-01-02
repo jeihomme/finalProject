@@ -1,9 +1,11 @@
 package web.dao.face;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import web.dto.Application;
 import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
@@ -60,7 +62,7 @@ public interface MypageDao {
 	public void deleteUser(Member member);
 	
 	public List<Resumes> selectBoardList(Paging paging);
-	public List<Resumes> selectBoardByResumeNo(Paging paging);
+	public List<Resumes> selectBoardByResumesNo(Paging paging);
 	public void deleteBoard(Resumes resumes);
 	
 	public Band selectBandByUserId(Band band);
@@ -99,4 +101,8 @@ public interface MypageDao {
 	public void updateBandGenre(BandGenre bandGenre);
 	public int selectBarListCnt();
 	public List<Bar> selectBarList(@Param("bandGenre") BandGenre bandGenre);
+	public List<Application> selectApplicationList(Paging paging);
+	public int selectAppDateSearch(@Param("startDate")String startDate, @Param("endDate")String endDate);
+	public List<Application> selectApplicationSearchList(@Param("paging")Paging paging, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	public void deleteAppByAppNo(Application app);
 }

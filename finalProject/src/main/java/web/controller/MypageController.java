@@ -1,6 +1,9 @@
 package web.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import web.dto.Application;
 import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
@@ -26,7 +30,6 @@ import web.dto.History;
 import web.dto.HistoryList;
 import web.dto.Member;
 import web.dto.Music;
-import web.dto.ProfilePic;
 import web.dto.Resumes;
 import web.service.face.MemberService;
 import web.service.face.MypageService;
@@ -537,34 +540,105 @@ public class MypageController {
 		return "redirect:/mypage/intro";
 	}
 //	--------------------------------------------------------------------
-	@RequestMapping(value = "/mypage/volunteer", method=RequestMethod.GET)
-	public void searchVolunteer() {
-		logger.info("---searchVolunteer---");
-//		searchVolunteerUser
+	@RequestMapping(value = "/mypage/applicationToBar", method=RequestMethod.GET)
+	public void applicationToBarView(
+			HttpServletRequest req
+			, Model model
+			) {
+		logger.info("---applicationView---");
+//		searchApplicationUser
+		
+		int CurPage = mpService.getCurPage(req);
+		
+		logger.info("---getTotalCount---");
+		int totalCount = mpService.getTotalCount();
+		
+		logger.info("---Paging---");
+		Paging paging = new Paging(totalCount, CurPage);
+		
+		logger.info("---appView---");
+		List<Application> aList = mpService.appView(paging);
+		
+		logger.info("---addAttribute---");
+		model.addAttribute("aList", aList);
+		model.addAttribute("paging", paging);
 	}
 	
-	@RequestMapping(value = "/mypage/volunteerToBar", method=RequestMethod.GET)
-	public void volunteerToBar() {
-		logger.info("---volunteerToBar---");
-//		volunteerToBarViewList
+	@RequestMapping(value = "/mypage/applicationToBar", method=RequestMethod.POST)
+	public void applicationToBarSearch(
+			HttpServletRequest req
+			, Model model
+			) throws ParseException {
+		logger.info("---applicationSearch---");
+//		searchApplicationUser
+		
+		String startDate = req.getParameter("appStartDate");
+		String endDate = req.getParameter("appEndDate");
+		
+		System.out.println(startDate + " ~ " + endDate);
+		
+		int CurPage = mpService.getCurPage(req);
+		
+		Paging paging;
+		
+//		검색어가 있다면
+		if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
+			logger.info("---getAppTotalCount---");
+			int totalCount = mpService.getAppTotalCount(startDate, endDate);
+			logger.info("---totalCount String : "+totalCount);
+			
+			logger.info("---Paging---");
+			paging = new Paging(totalCount, CurPage);
+			
+			logger.info("---appView---");
+			List<Application> aList = mpService.appView(paging, startDate, endDate);
+			
+			logger.info("---addAttribute---");
+			model.addAttribute("aList", aList);
+			model.addAttribute("paging", paging);
+		}
+//		검색어가 없다면,
+		else {
+			logger.info("---getTotalCount---");
+			int totalCount = mpService.getTotalCount();
+			
+			logger.info("---Paging---");
+			paging = new Paging(totalCount, CurPage);
+			
+			logger.info("---appView---");
+			List<Application> aList = mpService.appView(paging);
+			
+			logger.info("---addAttribute---");
+			model.addAttribute("aList", aList);
+			model.addAttribute("paging", paging);
+		}
 	}
 	
-	@RequestMapping(value = "/mypage/volunteerToBar", method=RequestMethod.POST)
-	public void volunteerToBarCancel() {
-		logger.info("---volunteerToBarCancel---");
-//		deleteVolunteerToBarView
+	
+	@RequestMapping(value = "/mypage/applicationToBarCancel", method=RequestMethod.POST)
+	public String applicationToBarCancel(
+			HttpServletRequest req
+			) {
+		logger.info("---applicationToBarCancel---");
+		Application app = new Application();
+		app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
+		
+		logger.info(app.toString());
+		mpService.appDelete(app);
+		
+		return "redirect:/mypage/applicationToBar";
 	}
 	
-	@RequestMapping(value = "/mypage/volunteerToBand", method=RequestMethod.GET)
-	public void volunteerToBand() {
-		logger.info("---volunteerToBand---");
-//		volunteerToBandViewList
+	@RequestMapping(value = "/mypage/applicationToBand", method=RequestMethod.GET)
+	public void applicationToBand() {
+		logger.info("---applicationToBand---");
+//		applicationToBandViewList
 	}
 	
-	@RequestMapping(value = "/mypage/volunteerToBand", method=RequestMethod.POST)
-	public void volunteerToBandCancel() {
-		logger.info("---volunteerToBandCancel---");
-//		deleteVolunteerToBandView
+	@RequestMapping(value = "/mypage/applicationToBand", method=RequestMethod.POST)
+	public void applicationToBandCancel() {
+		logger.info("---applicationToBandCancel---");
+//		deleteapplicationToBandView
 	}
 //	-------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/recommand", method=RequestMethod.GET)
@@ -634,7 +708,7 @@ public class MypageController {
 		int CurPage = mpService.getCurPage(req);
 		
 		logger.info("---getTotalCount---");
-		int totalCount = mpService.getUserTotalCount();
+		int totalCount = mpService.getTotalCount();
 		
 		logger.info("---Paging---");
 		Paging paging = new Paging(totalCount, CurPage);
@@ -687,7 +761,7 @@ public class MypageController {
 //		검색어가 없다면,
 		else {
 			logger.info("---getTotalCount---");
-			int totalCount = mpService.getUserTotalCount();
+			int totalCount = mpService.getTotalCount();
 			
 			logger.info("---Paging---");
 			paging = new Paging(totalCount, CurPage);
@@ -726,7 +800,7 @@ public class MypageController {
 			int CurPage = mpService.getCurPage(req);
 			
 			logger.info("---getTotalCount---");
-			int totalCount = mpService.getUserTotalCount();
+			int totalCount = mpService.getTotalCount();
 			
 			logger.info("---Paging---");
 			Paging paging = new Paging(totalCount, CurPage);
@@ -779,7 +853,7 @@ public class MypageController {
 	//		검색어가 없다면,
 			else {
 				logger.info("---getTotalCount---");
-				int totalCount = mpService.getUserTotalCount();
+				int totalCount = mpService.getTotalCount();
 				
 				logger.info("---Paging---");
 				paging = new Paging(totalCount, CurPage);

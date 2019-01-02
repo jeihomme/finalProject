@@ -1,6 +1,7 @@
 package web.service.impl;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.face.MypageDao;
+import web.dto.Application;
 import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
@@ -151,7 +153,7 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public int getUserTotalCount() {
+	public int getTotalCount() {
 		return mpDao.selectUserListCnt();
 	}
 	
@@ -210,7 +212,7 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public List<Resumes> boardSearch(Paging paging) {
 		// TODO Auto-generated method stub
-		return mpDao.selectBoardByResumeNo(paging);
+		return mpDao.selectBoardByResumesNo(paging);
 	}
 
 	@Override
@@ -405,12 +407,6 @@ public class MypageServiceImpl implements MypageService{
 		// TODO Auto-generated method stub
 		mpDao.updateBandGenre(bandGenre);
 	}
-	
-	//추천 Bar 총 갯수
-	@Override
-	public int getBarTotalCount() {
-		return mpDao.selectBarListCnt();
-	}
 
 	@Override
 	public List<Bar> barView(BandGenre bandGenre) {
@@ -422,5 +418,29 @@ public class MypageServiceImpl implements MypageService{
 	public Resumes getResumesByBandNo(Resumes resumes) {
 		// TODO Auto-generated method stub
 		return mpDao.selectResumesByBandNo(resumes);
+	}
+
+	@Override
+	public List<Application> appView(Paging paging) {
+		// TODO Auto-generated method stub
+		return mpDao.selectApplicationList(paging);
+	}
+
+	@Override
+	public int getAppTotalCount(String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return mpDao.selectAppDateSearch(startDate, endDate);
+	}
+
+	@Override
+	public List<Application> appView(Paging paging, String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return mpDao.selectApplicationSearchList(paging, startDate, endDate);
+	}
+
+	@Override
+	public void appDelete(Application app) {
+		// TODO Auto-generated method stub
+		mpDao.deleteAppByAppNo(app);
 	}
 }

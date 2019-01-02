@@ -408,4 +408,48 @@
 		
 	</select>
 
+<!-- public List<Application> selectApplicationList(Paging paging); -->
+	<select id="selectApplicationList" parameterType="web.utils.Paging"
+		resultType="web.dto.Application">
+		SELECT * FROM (
+		SELECT rownum rnum, B.* FROM (
+		SELECT * FROM Application
+		ORDER BY appno DESC
+		) B
+		ORDER BY rnum
+		)
+		WHERE rnum between #{startNo } AND
+		#{endNo }
+	</select>
+<!-- 	public int selectBarDateSearch(Date startDate, Date endDate); -->
+	<select id="selectAppDateSearch"
+		resultType="int">
+<!-- 		parameterType="String" -->
+		select count(*) from Application
+		WHERE appDate between 
+						#{startDate } 
+						and
+						#{endDate }
+	</select>
+<!-- 	public List<Application> selectApplicationList(Paging paging, @Param("startDate")Date startDate, @Param("endDate")Date endDate); -->
+	<select id="selectApplicationSearchList" 
+		resultType="web.dto.Application">
+<!-- 		parameterType="web.utils.Paging" -->
+		SELECT * FROM (
+		SELECT rownum rnum, B.* FROM (
+		SELECT * FROM Application
+			where
+				appDate between #{startDate } and #{endDate }
+		ORDER BY appno DESC
+		) B
+		ORDER BY appno
+		)
+		WHERE
+			rnum between #{paging.startNo } AND #{paging.endNo }
+	</select>
+<!-- 	public void deleteAppByAppNo(Application app); -->
+	<delete id="deleteAppByAppNo" parameterType="web.dto.Application">
+		delete Application
+		where appNo = #{appNo }
+	</delete>
 </mapper>
