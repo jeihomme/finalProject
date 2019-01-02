@@ -1,9 +1,8 @@
 package web.dao.face;
 
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.ui.Model;
+import org.apache.ibatis.annotations.Param;
 
 import web.dto.FindMember;
 import web.utils.Paging;;
@@ -28,7 +27,7 @@ public interface AdvertiseDao {
 	// 게시판 총 글수 출력
 	public int selectAdvertiseCntAll();
 
-	public List getList(FindMember findMember);
+	public List getList(@Param("findMember")FindMember findMember);
 	
 	
 	

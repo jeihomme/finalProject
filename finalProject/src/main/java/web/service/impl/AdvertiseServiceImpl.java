@@ -78,7 +78,8 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	}
 	@Override
 	public List getList(FindMember findMember) {
-		// TODO Auto-generated method stub
+
+
 		return advertiseDao.getList(findMember);
 	}
 

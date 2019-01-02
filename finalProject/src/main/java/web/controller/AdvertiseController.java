@@ -39,19 +39,21 @@ public class AdvertiseController {
 		
 		String adsNo = req.getParameter("adsNo");
 		
+		logger.info(""+adsNo);
+		
 		int totalCount = advertiseService.selectAdvertiseCntAll();
 		
 		FindMember findMember = new FindMember();
 		
-		/*if(adsNo != null){
+		if(adsNo != null){
 			findMember.setAdsNo(adsNo);
 		}else {
 			findMember.setAdsNo("");
-		}*/
+		}
 	
 		List<FindMember> list = advertiseService.getList(findMember);
-		/*model.addAttribute("list" ,list);*/
-		req.setAttribute("list", list);
+		model.addAttribute("list" ,list);
+//		req.setAttribute("list", list);
 		
 		logger.info("구인구직 리스트");
 		logger.info("구인구직 리스트");

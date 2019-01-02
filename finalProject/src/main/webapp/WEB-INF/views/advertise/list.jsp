@@ -9,13 +9,13 @@ $(document).ready(function(){
 	 
 		$("#memberCk").click(function(){
 			
-			var adsNo = $("member").val();
+			var adsNo = $("#member").val();
 			
 			$.ajax({ 
 				type: 'GET' 
 				, url: '/advertise/list'
 				, dataType : "json" 
-				, date : adsNo
+				, data : {adsNo : adsNo}
 				, success: function(data){
 					
 					alert(data); 
@@ -97,7 +97,7 @@ cursor:pointer;
 
 <div style="margin-left: 30%; margin-bottom: 5%;">
 <form>
-<h4><a href="#" id="memberCk"><input type="hidden" id="member" value="1">맴버</a>   /   <a href="#" id="collaboration">콜라보</a></h4>
+<h4><a href="#" id="memberCk" href="adsNo"><input type="hidden" id="member" value="1">맴버</a>   /   <a href="#" id="collaboration">콜라보</a></h4>
 
 </form>
 </div>

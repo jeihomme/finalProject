@@ -52,11 +52,11 @@ SELECT COUNT(*) CNT FROM (
 	         END ads
 	FROM BAND A , FINDMEMBER B 
 	WHERE a.bandNo = b.bandNo
-	  /*AND b.adsNo = '1'*/
+<!-- 	  AND b.adsNo = '1' -->
 ) CNT
 </select>
 
-<select id="getList" resultType="web.dto.FindMember">
+<select id="getList"  resultType="web.dto.FindMember">
 	SELECT *
 	FROM
 	(
@@ -80,7 +80,7 @@ SELECT COUNT(*) CNT FROM (
 	         END ads
 	FROM BAND A , FINDMEMBER B 
 	WHERE a.bandNo = b.bandNo
-	--  AND b.adsNo = '1'
+	 AND b.adsNo = #{findMember.adsNo}
 	)D
 	ORDER BY FINDNO DESC
 	)E
