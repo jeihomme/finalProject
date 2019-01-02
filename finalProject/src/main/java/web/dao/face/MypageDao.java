@@ -5,15 +5,14 @@ import java.util.List;
 import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
-
 import web.dto.Bar;
-
 import web.dto.Genre;
 import web.dto.History;
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
 import web.utils.Paging;
+import web.utils.PagingRecomm;
 
 public interface MypageDao {
 //	회원정보
@@ -96,4 +95,6 @@ public interface MypageDao {
 	public void updateHisotry(History history);
 	
 	public void updateBandGenre(BandGenre bandGenre);
+	public int selectBarListCnt();
+	public List<Bar> selectBarList(PagingRecomm paging);
 }

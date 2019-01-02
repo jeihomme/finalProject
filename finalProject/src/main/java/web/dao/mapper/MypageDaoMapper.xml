@@ -357,8 +357,15 @@
 <!-- 			year=#{year } -->
 <!-- 			, historyInfo=#{historyInfo } -->
 <!-- 		where historyNo = #{historyNo } and resumesNo = #{resumesNo } -->
-
-		<selectKey keyProperty="historyNoNo" resultType="int" order="BEFORE">
+		
+	merge into history
+    using dual
+        on ( historyNo = #{historyNo } )
+            when matched then
+                update set year=#{year }, historyInfo=#{historyInfo }
+            when not matched then
+            
+        <selectKey keyProperty="historyNo" resultType="int" order="BEFORE">
 <!-- 			select dept_seq.nextval from dual -->
 			select * from (
 			select NVL(max(historyNo)+1, 1) from History
@@ -368,21 +375,34 @@
 <!-- 			select max(no)+1 no from test_member -->
 		</selectKey>
 		
-	merge into history
-    using dual
-        on ( historyNo = #{historyNo } )
-            when matched then
-                update set year=#{year }, historyInfo=#{historyInfo }
-            when not matched then
                 insert (historyNo, resumesNo, year, historyInfo)
-                    values (#{historyNoNo }, #{resumesNo }, #{year }, #{historyInfo })
+                    values (#{historyNo }, #{resumesNo }, #{year }, #{historyInfo })
 	</insert>
 	
 <!-- 	public void updateBandGenre(BandGenre bandGenre); -->
-<update id="updateBandGenre"
-	parameterType="web.dto.BandGenre">
-		update bandGenre set
-			genreNo=#{genreNo }
-		where bandNo = #{bandNo } and resumesNo = #{resumesNo }
-	</update>
+	<update id="updateBandGenre"
+		parameterType="web.dto.BandGenre">
+			update bandGenre set
+				genreNo=#{genreNo }
+			where bandNo = #{bandNo } and resumesNo = #{resumesNo }
+		</update>
+		
+<!-- 		public int selectBarListCnt(); -->
+		<select id="selectBarListCnt" resultType="int">
+		select count(*) from bar
+		order by barno
+	</select>
+<!-- 	public List<Member> selectBarList(Paging paging); -->
+	<select id="selectBarList" parameterType="web.utils.PagingRecomm"
+		resultType="web.dto.Bar">
+		SELECT * FROM (
+		SELECT rownum rnum, B.* FROM (
+		SELECT * FROM Bar
+		ORDER BY userId DESC
+		) B
+		ORDER BY rnum
+		)
+		WHERE rnum between #{startNo } AND
+		#{endNo }
+	</select>
 </mapper>

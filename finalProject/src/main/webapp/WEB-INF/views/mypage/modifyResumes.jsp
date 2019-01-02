@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"
     %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 <style type="text/css">
 	.adminMenu p{
@@ -214,24 +215,46 @@ td {
 	<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
 	<button type="button" id="historyAdd" class="modifyBtn">+</button>
 </form>
-<c:if test="${historyList[0].historyNo > 0}">
+
+<c:if test="${history.historyNo > 0}">
 	<form class="modifyInfoDone" action="/mypage/minHistorylist" method="post">
 		<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
 		<button type="button" id="historyDel" class="modifyBtn">-</button>
 	</form>
 </c:if>
+
+
 <script type="text/javascript">
+// $("input[name='list[${fn:length(historyList) }].historyNo']").val();
 
 $(document).ready(function() {
-	//	모달
+	
 	$("#historyAdd").click(function() {
 		$('#table > tbody:last').append(
-			" <input type='hidden' class='insertResumesHistory' name='historyNo' value='${i.historyNo }'/>"
-			+"	<input type='month' class='insertResumesHistory' name='year' value='${i.year }'/>년, "
-			+"	<input type='text' class='insertResumesHistory' name='historyInfo' value='${i.historyInfo }'/>"
-			);
+			"<tr>"+
+				"<td>"+
+// 					" <input type='hidden' class='insertResumesHistory' name='list[${fn:length(historyList) }].historyNo' value='"+ j +"'/>"+
+					" <input type='hidden' class='insertResumesHistory' name='list[${fn:length(historyList) }].resumesNo' value='${resumes.resumesNo }'/>"+
+					" <input type='month' class='insertResumesHistory' name='list[${fn:length(historyList) }].year' value='${i.year }'/>년, "+
+					" <input type='text' class='insertResumesHistory' name='list[${fn:length(historyList) }].historyInfo' value='${i.historyInfo }'/>"+
+				"</td>"+
+			"</tr>"
+		);
 	});
-
+	
+	
+// 	$(function(){ 
+// 		  $('.bt_up').click(function(){ 
+// 		    var n = $('.bt_up').index(this);
+// 		    var num = $(".num:eq("+n+")").val();
+// 		    num = $(".num:eq("+n+")").val(num*1+1); 
+// 		  });
+// 		  $('.bt_down').click(function(){ 
+// 		    var n = $('.bt_down').index(this);
+// 		    var num = $(".num:eq("+n+")").val();
+// 		    num = $(".num:eq("+n+")").val(num*1-1); 
+// 		  });
+// 		});
 });
 </script>
 
@@ -246,19 +269,18 @@ $(document).ready(function() {
 				<tr>
 					<th>이력</th>
 				</tr>
-			<tbody>
-				<c:forEach items="${historyList }" var="i" varStatus="status">
-		<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
-						
-						<tr>
-							<td>
-							<input type="hidden" class="insertResumesHistory" name="history[0]." value="${i.historyNo }"/>
-							<input type="month" class="insertResumesHistory" name="year" value="${i.year }"/>년, 
-							<input type="text" class="insertResumesHistory" name="historyInfo" value="${i.historyInfo }"/>
-							</td>
-						</tr>
-						
-				</c:forEach>
+				<tbody>
+					<c:forEach items="${historyList }" var="i" varStatus="status">
+							<tr>
+								<td>
+<%-- 									<input type="hidden" class="insertResumesHistory" name="list[${status.count-1 }].historyNo" value="${i.historyNo }"/> --%>
+									<input type="hidden" class="insertResumesHistory" name="list[${status.count-1 }].resumesNo" value="${resumes.resumesNo }"/>
+									<input type="month" class="insertResumesHistory" name="list[${status.count-1 }].year" value="${i.year }"/>년, 
+									<input type="text" class="insertResumesHistory" name="list[${status.count-1 }].historyInfo" value="${i.historyInfo }"/>
+								</td>
+							</tr>
+							
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>

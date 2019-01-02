@@ -23,12 +23,14 @@ import web.dto.BandMember;
 import web.dto.Bar;
 import web.dto.Genre;
 import web.dto.History;
+import web.dto.HistoryList;
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
 import web.service.face.MemberService;
 import web.service.face.MypageService;
 import web.utils.Paging;
+import web.utils.PagingRecomm;
 
 @Controller
 public class MypageController {
@@ -414,7 +416,7 @@ public class MypageController {
 	
 	@RequestMapping(value = "/mypage/modifyResumesProc", method=RequestMethod.POST)
 	public String modifyResumesProc(
-			@RequestParam(value="history[]") List<History> history
+			HistoryList hList
 			, HttpSession session
 			, HttpServletRequest req
 			){
@@ -426,7 +428,10 @@ public class MypageController {
 		resumes.setResumesNo(Integer.parseInt(req.getParameter("resumesNo")) );
 		resumes = mpService.getResumes(resumes);
 		
-		logger.info(history.toString());
+		System.out.println(hList);
+		
+		logger.info(hList.toString());
+		
 		
 //		String[] historyNo = req.getParameterValues("historyNo");
 //		String[] year = req.getParameterValues("year");
@@ -436,25 +441,26 @@ public class MypageController {
 			logger.info("---setResumesInfo---");
 			mpService.setResumesInfo(req);
 		
-			//		히스토리 저장
+//		히스토리 저장
 //			History history = new History();
 //			history.setResumesNo(resumes.getResumesNo());
 				
-			List<History> historyList = mpService.getHistoryList(resumes);
-	
-			int i = 1;
-			for(History his : historyList) {
-				his.setHistoryNo(Integer.parseInt( req.getParameter("historyNo")) );
-				his.setYear(req.getParameter("year") );
-				his.setHistoryInfo(req.getParameter("historyInfo"));
-				
-				i++;
-				mpService.modifyHistoryInfo(his);
-				
-				logger.info(historyList.toString());
-			}
+//			List<History> historyList = (List<History>) hList;
+//	
+//			for(History his : historyList) {
+//				if ( req.getParameter("historyNo") != null && !"".equals(req.getParameter("historyNo"))) {
+//					his.setHistoryNo(Integer.parseInt( req.getParameter("historyNo")) );
+//				}
+//				his.setYear(req.getParameter("year") );
+//				his.setHistoryInfo(req.getParameter("historyInfo"));
+//				
+//				mpService.modifyHistoryInfo(his);
+//				
+//				logger.info(hList.toString());
+//			}
 		}
 		
+//		장르 저장
 		if ( req.getParameter("genreNo") != null && !"".equals(req.getParameter("genreNo"))) {
 			BandGenre bandGenre = new BandGenre();
 			bandGenre.setBandNo(resumes.getBandNo());
@@ -562,9 +568,24 @@ public class MypageController {
 	}
 //	-------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/recommand", method=RequestMethod.GET)
-	public void recommandBar() {
+	public void recommandBar(
+			Model model
+			, HttpServletRequest req
+			) {
 		logger.info("---recommandBar---");
-//		recommandBarViewList
+		
+		logger.info("---getTotalCount---");
+		int totalCount = mpService.getBarTotalCount();
+		
+		logger.info("---Paging---");
+		PagingRecomm paging = new PagingRecomm(totalCount);
+		
+		logger.info("---getPagingList---");
+		List<Bar> barList = mpService.barView(paging);
+		
+		logger.info("---addAttribute---");
+		model.addAttribute("barList", barList);
+		model.addAttribute("paging", paging);
 	}
 //	-------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/calendar", method=RequestMethod.GET)
@@ -601,7 +622,7 @@ public class MypageController {
 		int CurPage = mpService.getCurPage(req);
 		
 		logger.info("---getTotalCount---");
-		int totalCount = mpService.getTotalCount();
+		int totalCount = mpService.getUserTotalCount();
 		
 		logger.info("---Paging---");
 		Paging paging = new Paging(totalCount, CurPage);
@@ -654,7 +675,7 @@ public class MypageController {
 //		검색어가 없다면,
 		else {
 			logger.info("---getTotalCount---");
-			int totalCount = mpService.getTotalCount();
+			int totalCount = mpService.getUserTotalCount();
 			
 			logger.info("---Paging---");
 			paging = new Paging(totalCount, CurPage);
@@ -693,7 +714,7 @@ public class MypageController {
 			int CurPage = mpService.getCurPage(req);
 			
 			logger.info("---getTotalCount---");
-			int totalCount = mpService.getTotalCount();
+			int totalCount = mpService.getUserTotalCount();
 			
 			logger.info("---Paging---");
 			Paging paging = new Paging(totalCount, CurPage);
@@ -746,7 +767,7 @@ public class MypageController {
 	//		검색어가 없다면,
 			else {
 				logger.info("---getTotalCount---");
-				int totalCount = mpService.getTotalCount();
+				int totalCount = mpService.getUserTotalCount();
 				
 				logger.info("---Paging---");
 				paging = new Paging(totalCount, CurPage);

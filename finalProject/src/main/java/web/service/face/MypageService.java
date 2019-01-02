@@ -1,6 +1,5 @@
 package web.service.face;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -11,15 +10,14 @@ import org.springframework.web.multipart.MultipartFile;
 import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
-
 import web.dto.Bar;
-
 import web.dto.Genre;
 import web.dto.History;
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.Resumes;
 import web.utils.Paging;
+import web.utils.PagingRecomm;
 
 public interface MypageService {
 //	회원정보
@@ -56,7 +54,7 @@ public interface MypageService {
 	public int getCurPage(HttpServletRequest req);
 	public String getSearch(HttpServletRequest req);
 	public int getTotalCount(String search);
-	public int getTotalCount();
+	public int getUserTotalCount();
 	public List<Member> userView(Paging paging);
 	public List<Member> userSearch(Paging paging);
 	public void userDelete(Member member);
@@ -96,6 +94,8 @@ public interface MypageService {
 	public Bar barInfoList(Bar bar);
 	public Bar getBar(Bar bar);
 	
+	public int getBarTotalCount();
+	public List<Bar> barView(PagingRecomm paging);
 	
 	
 	
