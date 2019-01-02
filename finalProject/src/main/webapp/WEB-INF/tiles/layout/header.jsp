@@ -92,40 +92,40 @@ $(document).ready(function() {
 		$("#joinForm1").get(0).reset();
 		
 	});
-	var memberCheck = {
-			id: $("#joinUserId").val(),
-			userName: $("#joinUserName").val(),
-			password: $("#joinPassword").val(),
-			passwordChk: $("#passwordChk").val()
-	};
+// 	var memberCheck = {
+// 			id: $("#joinUserId").val(),
+// 			userName: $("#joinUserName").val(),
+// 			password: $("#joinPassword").val(),
+// 			passwordChk: $("#passwordChk").val()
+// 	};
 	
-	$.ajax ({
-		url: "/member/check",
-		dataType: "json",
-		data: memberCheck,
-		success: function(res) {
+// 	$.ajax ({
+// 		url: "/member/check",
+// 		dataType: "json",
+// 		data: memberCheck,
+// 		success: function(res) {
 			
-			// 공란 있는지 확인
-			if(joinId.length==0) {
-				$("#joinIdCheck").css("color", "#DF0101");
-			}
+// 			// 공란 있는지 확인
+// 			if(joinId.length==0) {
+// 				$("#joinIdCheck").css("color", "#DF0101");
+// 			}
 			
-			if(joinName.length==0) {
-				$("#joinUserNameCheck").css("color", "#DF0101");
-			}
+// 			if(joinName.length==0) {
+// 				$("#joinUserNameCheck").css("color", "#DF0101");
+// 			}
 			
-			if(joinPw.length==0) {
-				$("#joinPwCheck").css("color", "#DF0101");
-			}
+// 			if(joinPw.length==0) {
+// 				$("#joinPwCheck").css("color", "#DF0101");
+// 			}
 			
-			$("#joinIdCheck").css("color", "#088A4B");
+// 			$("#joinIdCheck").css("color", "#088A4B");
 
 			
-		},
-		error: function() {
-			alert("error");
-		}
-	});
+// 		},
+// 		error: function() {
+// 			alert("error");
+// 		}
+// 	});
 	
 	
 	$(".nextBtn").click(function() {
