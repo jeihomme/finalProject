@@ -174,7 +174,7 @@ $(document).ready(function() {
 			<tr>
 				<th>공개</th>
 				<th>밴드소개 제목</th>
-				<th>첨부파일</th>
+				<th>첨부파일번호</th>
 			</tr>
 			<c:forEach
 			items="${resumesList }" var="i"

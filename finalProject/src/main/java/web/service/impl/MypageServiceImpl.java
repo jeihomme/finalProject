@@ -2,7 +2,6 @@ package web.service.impl;
 
 import java.io.File;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +22,7 @@ import web.dto.Music;
 import web.dto.Resumes;
 import web.service.face.MypageService;
 import web.utils.Paging;
+import web.utils.PagingRecomm;
 
 @Service
 public class MypageServiceImpl implements MypageService{
@@ -151,7 +151,7 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public int getTotalCount() {
+	public int getUserTotalCount() {
 		return mpDao.selectUserListCnt();
 	}
 	
@@ -384,7 +384,7 @@ public class MypageServiceImpl implements MypageService{
 		mpDao.updateResume(resumes);
 	}
   
-  @Override
+	@Override
 	public Bar getBar(Bar bar) {
 		return mpDao.barInfo(bar);
 	}
@@ -404,5 +404,17 @@ public class MypageServiceImpl implements MypageService{
 	public void updateBandGenre(BandGenre bandGenre) {
 		// TODO Auto-generated method stub
 		mpDao.updateBandGenre(bandGenre);
+	}
+	
+	//추천 Bar 총 갯수
+	@Override
+	public int getBarTotalCount() {
+		return mpDao.selectBarListCnt();
+	}
+
+	@Override
+	public List<Bar> barView(PagingRecomm paging) {
+		// TODO Auto-generated method stub
+		return mpDao.selectBarList(paging);
 	}
 }
