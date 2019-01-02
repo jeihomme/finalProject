@@ -15,8 +15,16 @@
 		ORDER BY BARNO
 	</select>
 	
-	<select id="getByLocation" parameterType="web.dto.Bar" resultType="web.dto.Bar">
-	
+	<select id="getByLocation" parameterType="java.util.List" resultType="web.dto.Bar">
+		SELECT L.LOCATIONNO, L.LOCATIONNAME, B.BARNO, B.BARNAME, B.USERID, B.PROFILENO, B.LOCATIONNO, B.BARINFO, B.MANAGER, B.CONTACT, B.BARADDRESS, B.GENRENO, P.PATH, P.ORIGINNAME, P.STOREDNAME, G.GENRENAME
+		FROM LOCATION L
+		LEFT OUTER JOIN BAR B ON B.LOCATIONNO = L.LOCATIONNO
+        LEFT OUTER JOIN PROFILEPIC P ON P.PROFILENO = B.PROFILENO
+        LEFT OUTER JOIN GENRE G ON G.GENRENO = B.GENRENO
+        WHERE L.LOCATIONNO IN
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+        	#{item }
+        </foreach>
 	</select>
 	
 	<select id="getBarListMore" parameterType="web.dto.Bar" resultType="web.dto.Bar">
@@ -32,10 +40,6 @@
 	        AND B.BARNO = #{barNo }
 	</select>
 	
-	<select id="getLocation" parameterType="web.dto.Location" resultType="web.dto.Location">
-	
-	</select>
-	
 	<select id="getBarCalendar" parameterType="web.dto.Calendar" resultType="web.dto.Calendar">
 	
 	</select>
@@ -48,6 +52,12 @@
 		UPDATE BAR SET BARINFO=#{barInfo }, manager=#{manager }, contact=#{contact }
 		WHERE BARNO=#{barNo }
 	</update>
+	
+	<select id="getProPic" resultType="web.dto.ProfilePic">
+		SELECT ProfileNo, path, OriginName, StoredName
+		FROM profilePic
+		ORDER BY profileNo
+	</select>
 	
 
 </mapper>

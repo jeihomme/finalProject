@@ -13,8 +13,11 @@ public interface BarService {
 	// 바 전체 리스트
 	public List<Bar> barList(Bar bar, ProfilePic profilePic);
 	
+	// 바 지역 리스트
+	public List<Location> locationList();
+	
 	// 지역번호로 검색 (location Check)
-	public List<Bar> barLocation(int locationNo);
+	public List<Bar> barLocation(List<String> locationN);
 	
 	// 리스트 더보기
 	public List<Bar> barListMore();
@@ -30,6 +33,9 @@ public interface BarService {
 	
 	// 바 정보 수정
 	public void barUpdate(Bar bar);
+	
+	// 프로파일 사진
+	public List<Bar> getProfilePic();
 	
 
 }
