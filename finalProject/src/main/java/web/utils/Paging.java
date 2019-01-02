@@ -14,7 +14,10 @@ public class Paging {
 	private int startNo;	//게시물리스트 첫 번호
 	private int endNo;	//게시물리스트 마지막 번호
 	
+	private String searchType;//카테고리
 	private String search; //검색어
+	
+	private String adsNo;
 	
 	public String getSearch() {
 		return search;
@@ -129,6 +132,14 @@ public class Paging {
 		this.listCount = listCount;
 	}
 
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
 	public int getTotalPage() {
 		return totalPage;
 	}
@@ -177,6 +188,16 @@ public class Paging {
 		this.endNo = endNo;
 	}
 
+	public String getAdsNo() {
+		return adsNo;
+	}
+
+	public void setAdsNo(String adsNo) {
+		this.adsNo = adsNo;
+	}
+
+	
+	
 }
 
 

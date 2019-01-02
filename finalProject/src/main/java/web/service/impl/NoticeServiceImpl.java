@@ -46,17 +46,24 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public Paging getPaging(int curPage, int listCount, int pageCount) {
-		int totalCount = this.selectCountAll();
+	public Paging getPaging(int curPage, int listCount, int pageCount ) {
+		int totalCount = this.selectCountAll() ;
 		
 		Paging paging = new Paging(totalCount, curPage , listCount , pageCount);
 		
 		return paging;
 	}
 
-	private int selectCountAll() {
+	public int selectCountAll() {
 	
 		return noticeDao.selectNoticeCntAll();
 	}
+
+	public int getTotalCount() {
+		return noticeDao.selectNoticeCntAll();
+	}
+
+
+
 	
 }

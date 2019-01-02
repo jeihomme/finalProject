@@ -26,5 +26,6 @@ public interface NoticeService {
 			// 글수정
 			public void modify(Notice notice);
 
+			public int getTotalCount();
 		
 }

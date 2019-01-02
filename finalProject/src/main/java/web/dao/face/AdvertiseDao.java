@@ -2,7 +2,9 @@ package web.dao.face;
 
 import java.util.List;
 
-import web.dto.Advertise;
+import org.apache.ibatis.annotations.Param;
+
+import web.dto.FindMember;
 import web.utils.Paging;;
 
 public interface AdvertiseDao {
@@ -20,10 +22,12 @@ public interface AdvertiseDao {
 	public void deleteAdvertise();
 	
 	// 구인구직 상세보기
-	public Advertise selectAdvertise(int answerNo);
+	public FindMember selectAdvertise(int findNo);
 	
 	// 게시판 총 글수 출력
 	public int selectAdvertiseCntAll();
+
+	public List getList(@Param("findMember")FindMember findMember);
 	
 	
 	

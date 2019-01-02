@@ -1,7 +1,8 @@
 package web.controller;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,19 @@ public class NoticeController {
 		logger.info("리스트");
 	}
 	
+	@RequestMapping(value="/notice/view" , method=RequestMethod.GET)
+	public void view (Notice notice , Model model , int noticeNo) {
+		
+		noticeNo = notice.getNoticeNo();
+		
+		notice = noticeService.view(noticeNo);
+		
+		model.addAttribute("notice",notice);
+		
+		logger.info("상세보기");
+		
+	}
+	
 
 	@RequestMapping(value="/notice/write" , method=RequestMethod.GET)
 	public String write() {
@@ -59,6 +73,8 @@ public class NoticeController {
 	}
 	@RequestMapping(value="/notice/update" , method=RequestMethod.GET)
 	public void update(Notice notice, Model model , int noticeNo) {
+		
+		
 		noticeNo = notice.getNoticeNo();
 		notice = noticeService.view(noticeNo);
 		

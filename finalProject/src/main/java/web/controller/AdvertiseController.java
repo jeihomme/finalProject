@@ -2,6 +2,9 @@ package web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import web.dto.Advertise;
+import web.dto.FindMember;
 import web.service.face.AdvertiseService;
-import web.utils.Paging;
 
 @Controller
 public class AdvertiseController {
@@ -22,25 +25,77 @@ public class AdvertiseController {
 
 	@Autowired AdvertiseService advertiseService;
 	
-	@RequestMapping(value="/advertise/list", method=RequestMethod.GET)
-	public void list(
+	@RequestMapping(value="/advertise/list" , method=RequestMethod.GET)
+	public String list(
+				Model model,
+				@RequestParam(required=false , defaultValue="0") int curPage,
+				@RequestParam(required=false , defaultValue="10") int listCount,
+				@RequestParam(required=false , defaultValue="10") int pageCount,
+				HttpServletResponse response , HttpServletRequest req
+			) {
+
+		/*Paging paging = advertiseService.getPaging(curPage, listCount, pageCount);
+		model.addAttribute("paging" , paging);*/
+		
+		String adsNo = req.getParameter("adsNo");
+		
+		logger.info(""+adsNo);
+		
+		int totalCount = advertiseService.selectAdvertiseCntAll();
+		
+		FindMember findMember = new FindMember();
+		
+		if(adsNo != null){
+			findMember.setAdsNo(adsNo);
+		}else {
+			findMember.setAdsNo("");
+		}
+	
+		List<FindMember> list = advertiseService.getList(findMember);
+		model.addAttribute("list" ,list);
+//		req.setAttribute("list", list);
+		
+		logger.info("구인구직 리스트");
+		logger.info("구인구직 리스트");
+		
+		return "/advertise/list";
+		
+	}
+	
+//	@RequestMapping(value="/advertise/listMember" , produces="text/json; charset=utf-8", method=RequestMethod.GET)
+//	public @ResponseBody String listMeber(
 //				Model model,
 //				@RequestParam(required=false , defaultValue="0") int curPage,
 //				@RequestParam(required=false , defaultValue="10") int listCount,
-//				@RequestParam(required=false , defaultValue="10") int pageCount	
+//				@RequestParam(required=false , defaultValue="10") int pageCount,
+//				HttpServletResponse response , HttpServletRequest req
 //			
-			) {
-		
-//		Paging paging = advertiseService.getPaging(curPage, listCount, pageCount);
-//		model.addAttribute("paging" , paging);
+//			
+//			) {
+//		String adsNo = req.getParameter("adsNo");
+//		/*Paging paging = advertiseService.getPaging(curPage, listCount, pageCount);
+//		model.addAttribute("paging" , paging);*/
 //		
-//		List<Advertise> list = advertiseService.getList(paging);
-//		model.addAttribute("list" ,list);
-		
-		logger.info("구인구직 리스트");
-		logger.info("구인구직 리스트");
-		
-	}
+//		int totalCount = advertiseService.selectAdvertiseCntAll();
+//		
+//		FindMember findMember = new FindMember();
+//		
+//		if(adsNo != null){
+//			findMember.setAdsNo(adsNo);
+//		}else {
+//			findMember.setAdsNo("");
+//		}
+//	
+//		List<FindMember> list = advertiseService.getList(findMember);
+//		/*model.addAttribute("list" ,list);*/
+//		req.setAttribute("list", list);
+//		
+//		logger.info("구인구직 리스트");
+//		logger.info("구인구직 리스트");
+//		
+//		return "/advertise/list";
+//		
+//	}
 	
 	public void write() {
 		logger.info("글쓰기 폼");
