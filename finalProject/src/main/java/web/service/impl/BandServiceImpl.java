@@ -11,6 +11,8 @@ import web.dao.face.BandDao;
 import web.dao.face.GenreDao;
 import web.dao.face.MusicDao;
 import web.dto.Band;
+import web.dto.Music;
+import web.dto.Resumes;
 import web.service.face.BandService;
 import web.utils.AddItems;
 
@@ -94,8 +96,51 @@ public class BandServiceImpl implements BandService {
 
 		Map map = new HashMap();
 		
-		map.put("info", bandDao.getInfo(bandNo));
-		map.put("member", bandDao.getMember(bandNo));
+		// 밴드 기본정보
+		// bandNo, bandName, ProfileNo
+		Band band = bandDao.getBand(bandNo);
+//		System.out.println(band.toString());
+		map.put("band", band);
+		
+		// 밴드 사진 존재유무 확인 후 map에 추가
+		if(band.getProfileNo() != 0) {
+			map.put("proPic", bandDao.getPic(band.getProfileNo()));
+		} else {
+			// 프로필사진이 없을 경우
+			System.out.println("프로필 사진 없음");
+		}
+		
+		// 밴드 대표이력서 정보 
+		// resumesNo, bandInfo, musicNo
+		Resumes resumes = bandDao.getInfo(bandNo);
+		
+		// 대표이력서 있는지 확인
+		if(resumes != null) {
+			System.out.println(resumes.getClass());
+			System.out.println(resumes.toString());
+			map.put("resumes", resumes);
+			
+			// 밴드 대표이력서의 음악파일 존재 유무 확인 후 map조회
+			if(resumes.getMusicNo() != 0) {
+				Music music = bandDao.getMusic(resumes.getMusicNo());
+				System.out.println(music.getClass());
+				System.out.println(music.toString());
+			} else {
+				// 음악파일이 없을 경우
+				System.out.println("음악파일 없음");
+			}
+			
+		} else {
+			// 대표 이력서가 없을 경우
+			System.out.println("대표이력서 없음");
+		}
+		
+		List list = bandDao.getMember(bandNo);
+		
+		
+		
+		
+		
 		
 		return map;
 	}

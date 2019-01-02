@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import web.dto.Band;
+import web.dto.ProfilePic;
 import web.utils.AddItems;
 
 public interface BandService {
@@ -21,10 +22,8 @@ public interface BandService {
 	public List bandCate(AddItems addItems, String genre);
 	public List ProPicByCate(AddItems addItems, String genre);
 	
-	// 더보기 버튼
+	// 페이징 처리
 	public Map getPrep(String curPage);
-	
-	
 	
 	// 밴드 소개 보기
 	public Map bandView(int bandNo);

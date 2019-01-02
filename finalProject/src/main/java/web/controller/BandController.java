@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Band;
+import web.dto.ProfilePic;
 import web.service.face.BandService;
 import web.utils.AddItems;
 
@@ -109,21 +110,19 @@ public class BandController {
 		return mav;
 	}
 	
-//	// 밴드 소개 보기
-//	@RequestMapping(value="/band/bandView", method=RequestMethod.GET)
-//	public void bandView(
-//			int bandNo,
-//			Model model) {
-//		
-//		logger.info("bandNo : " + bandNo);
-//		
-//		Map band = bandService.bandView(bandNo);
-//		List profile = bandService.getProPic();
-//		
-//		model.addAttribute("band", band);
-//		model.addAttribute("profile", profile);
-//		
-//	}
+	// 밴드 소개 보기
+	@RequestMapping(value="/band/bandView", method=RequestMethod.GET)
+	public void bandView(
+			int bandNo,
+			Model model) {
+		
+		logger.info("bandNo : " + bandNo);
+		
+		Map band = bandService.bandView(bandNo);
+		
+		model.addAttribute("band", band);
+		
+	}
 	
 	// 밴드 소개 수정 폼
 	public void bandEdit() {

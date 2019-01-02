@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import web.dto.Band;
+import web.dto.Music;
+import web.dto.ProfilePic;
 import web.dto.Resumes;
 import web.utils.AddItems;
 
@@ -22,15 +25,21 @@ public interface BandDao {
 	// 더보기 버튼
 	public int getCount();
 	
-	// 밴드 소개
+	////////////
+	// 밴드 소개 //
+	////////////
+	
+	// 기본 정보
+	public Band getBand(int bandNo);
+	// 프로필 사진
+	public ProfilePic getPic(int proNo);
+	
 	public Resumes getInfo(int bandNo);
 	public List getMember(int bandNo);
-//	public 프로필사진 get프로필(int bandNo);
-//	public Music getMusic(String bandName);
+	
+	public Music getMusic(int musicNo);
 	
 	// 밴드 일정표
 	public List getSchedule(String bandName);
-	
-	
 	
 }

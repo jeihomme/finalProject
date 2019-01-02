@@ -192,8 +192,6 @@ $(document).ready(function(){
 							if(counter == 1) {
 								$("#lists").append($newTR);
 								$("#lists").append($newList);
-// 								document.getElementById("lists").append($newTR);
-// 								document.getElementById("lists").append($newList);
 								
 							} else {
 								$("#lists").append($newList);

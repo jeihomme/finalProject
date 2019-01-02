@@ -82,11 +82,29 @@
 	
 	
 	<!-- view Page -->
+	<select id="getBand" parameterType="int" resultType="web.dto.Band">
+		SELECT bandNo, bandName, profileNo
+		FROM band
+		WHERE bandNo = #{bandNo }
+	</select>
+	
+	<select id="getPic" parameterType="int" resultType="web.dto.ProfilePic">
+		SELECT profileNo, path, originName, storedName
+		FROM profilePic
+		WHERE profileNo = #{proNo }
+	</select>
+	
 	<select id="getInfo" parameterType="int" resultType="web.dto.Resumes">
 		SELECT BandInfo, bandNo, musicNo, publicResumes, resumesNo, resumesTitle
 		FROM Resumes
 		WHERE bandNo = #{bandNo } AND 
 				publicResumes = 1
+	</select>
+	
+	<select id="getMusic" >
+		SELECT musicNo, musicTitle, path
+		FROM music
+		WHERE musicNo = #{musicNo } 
 	</select>
 	
 	<select id="getMember" parameterType="int" resultType="web.dto.BandMember">
@@ -95,6 +113,5 @@
 		WHERE bandNo = #{bandNo }
 		ORDER BY bandMemberNo
 	</select>
-	
 	
 </mapper>
