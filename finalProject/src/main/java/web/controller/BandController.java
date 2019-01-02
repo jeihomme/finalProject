@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Band;
-import web.dto.ProfilePic;
 import web.service.face.BandService;
 import web.utils.AddItems;
 
