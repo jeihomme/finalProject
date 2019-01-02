@@ -401,7 +401,7 @@ $(document).ready(function() {
 				console.log("실패");
 			}
 		});
-	});
+	}); 
 	
 	$("#memberView").click( function() {
 		
