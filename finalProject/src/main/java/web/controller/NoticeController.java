@@ -29,9 +29,32 @@ public class NoticeController {
 			@RequestParam(required=false , defaultValue="0") int curPage,
 			@RequestParam(required=false , defaultValue="10") int listCount,
 			@RequestParam(required=false , defaultValue="10") int pageCount,
-			Model model
+			Model model,HttpServletRequest req,
+			String searchVal , String search ,	String searchTxt
 			) {
-		Paging paging = noticeService.getPaging(curPage, listCount, pageCount);
+		
+		searchVal =(req.getParameter("searchVal") == null ) ? "": req.getParameter("searchVal");
+		
+		searchTxt = req.getParameter("searchTxt");
+		search = "";
+		
+		if(searchVal.equals("title")) {
+			search = searchTxt;
+			
+		}
+	
+		else if (searchVal.equals("content")) {
+			search = searchTxt;
+		}
+		else if(searchVal.equals("userId")) {
+			search = searchTxt;
+		}
+		int totalCount = noticeService.getTotalCount(searchVal , search);
+		
+		
+		
+		Paging paging = noticeService.getPaging(curPage, listCount, pageCount ,searchVal ,search);
+		paging.setSearch(searchTxt);
 		model.addAttribute("paging" , paging);
 		
 		List<Notice> list = noticeService.getList(paging);
@@ -96,4 +119,5 @@ public class NoticeController {
 		
 		return "redirect:/notice/list";
 	}
+
 }

@@ -28,7 +28,7 @@
 
 <script type="text/javascript">
 	$(document).ready(
-			function() {
+			function() { 
 
 				var result = '${result}';
 				var successMsg = '${successMsg}';
@@ -45,7 +45,7 @@
 						"tr",
 						function() {
 							//클릭이벤트가 발생한 <tr>의 첫번째 <td>자식의 텍스트
-							var boardno = $(this).children("td").eq(0).text();
+							var noticeNo = $(this).children("td").eq(0).text();
 
 							$(location).attr("href",
 									"/notice/view?noticeNo=" + noticeNo);
@@ -73,7 +73,7 @@
 
 
 
-#noticeTable{
+#notice{
 	max-width: 70%;
 	margin-left: -15px;
 	border-bottom: 1px solid white;
@@ -126,7 +126,7 @@ cursor:pointer;
 
 <h1>게시판 - LIST</h1>
 <hr>
-<table id="noticeTable" class="table table-striped table-hover">
+<table id="notice" class="table table-striped table-hover">
 <tr>
 	<th>번호</th>
 	<th>제목</th>
@@ -160,6 +160,7 @@ cursor:pointer;
 
 
 </div>
+
 
 <jsp:include page="../util/paging.jsp" />
 
