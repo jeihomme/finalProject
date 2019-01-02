@@ -1,8 +1,6 @@
 package web.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,36 +25,33 @@ public class NoticeController {
 	private Logger logger = LoggerFactory.getLogger(NoticeController.class);
 	
 	@RequestMapping(value="/notice/list" , method=RequestMethod.GET)
-	public void list(HttpServletRequest req ,String searchVal  , String search,
+	public void list(
 			@RequestParam(required=false , defaultValue="0") int curPage,
 			@RequestParam(required=false , defaultValue="10") int listCount,
 			@RequestParam(required=false , defaultValue="10") int pageCount,
 			Model model
 			) {
-		
-		searchVal = (req.getParameter("searchVal")==null)?"":req.getParameter("searchVal");
-		String searchTxt = req.getParameter("searchTxt");
-		 search = "";
-		
-		if(searchVal.equals("title")) {
-			search = searchTxt;
-		}else if (searchVal.equals("content")) {
-			search = searchTxt;
-		}else if (searchVal.equals("userId")) {
-			search = searchTxt;
-		}
-		Paging paging = noticeService.getPaging( curPage, listCount, pageCount ,searchVal  ,search);
-		paging.setSearch(search);
-		
+		Paging paging = noticeService.getPaging(curPage, listCount, pageCount);
 		model.addAttribute("paging" , paging);
 		
 		List<Notice> list = noticeService.getList(paging);
 		model.addAttribute("list" , list);
 		
-	
-		
 		logger.info("공지사항 리스트");
 		logger.info("리스트");
+	}
+	
+	@RequestMapping(value="/notice/view" , method=RequestMethod.GET)
+	public void view (Notice notice , Model model , int noticeNo) {
+		
+		noticeNo = notice.getNoticeNo();
+		
+		notice = noticeService.view(noticeNo);
+		
+		model.addAttribute("notice",notice);
+		
+		logger.info("상세보기");
+		
 	}
 	
 
@@ -78,6 +73,8 @@ public class NoticeController {
 	}
 	@RequestMapping(value="/notice/update" , method=RequestMethod.GET)
 	public void update(Notice notice, Model model , int noticeNo) {
+		
+		
 		noticeNo = notice.getNoticeNo();
 		notice = noticeService.view(noticeNo);
 		

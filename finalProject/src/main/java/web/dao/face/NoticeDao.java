@@ -23,7 +23,7 @@ public interface NoticeDao {
 	public Notice selectNotice(int noticeNo);
 	
 	// 공지사항  총 글수 출력
-	public int selectNoticeCntAll(String searchVal, String search);
+	public int selectNoticeCntAll();
 	
 
 }

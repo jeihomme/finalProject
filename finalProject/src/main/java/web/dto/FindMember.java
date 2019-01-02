@@ -6,13 +6,16 @@ public class FindMember {
 	
 	private int findNo;
 	private String bandName;
-	private int position;
+	private String bandNo;
+	private String position;
+	private String positionNo;
 	private String title;
 	private String content;
 	private Date writtenDate;
 	private String genre;
 	private int musicNo;
-	private int adsNo;
+	private String adsNo;
+	private String ads;
 	
 	
 	@Override
@@ -41,14 +44,14 @@ public class FindMember {
 	public void setBandName(String bandName) {
 		this.bandName = bandName;
 	}
-
-
-	public int getPosition() {
+	
+	
+	public String getPosition() {
 		return position;
 	}
 
 
-	public void setPosition(int position) {
+	public void setPosition(String position) {
 		this.position = position;
 	}
 
@@ -102,15 +105,45 @@ public class FindMember {
 		this.musicNo = musicNo;
 	}
 
-
-	public int getAdsNo() {
+	public String getAdsNo() {
 		return adsNo;
 	}
 
 
-	public void setAdsNo(int adsNo) {
+	public void setAdsNo(String adsNo) {
 		this.adsNo = adsNo;
 	}
+
+
+	public String getBandNo() {
+		return bandNo;
+	}
+
+
+	public void setBandNo(String bandNo) {
+		this.bandNo = bandNo;
+	}
+
+
+	public String getAds() {
+		return ads;
+	}
+
+
+	public void setAds(String ads) {
+		this.ads = ads;
+	}
+
+
+	public String getPositionNo() {
+		return positionNo;
+	}
+
+
+	public void setPositionNo(String positionNo) {
+		this.positionNo = positionNo;
+	}
+	
 	
 	
 	

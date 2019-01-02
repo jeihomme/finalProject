@@ -12,8 +12,8 @@ SELECT noticeNo, title, userId, content, writtenDate FROM notice
 <select id="selectPagingList" resultType="web.dto.Notice" parameterType="web.utils.Paging">
 SELECT * FROM ( SELECT rownum rnum, B.* FROM (
 <include refid="selectNotice"/>
-
-) B ORDER BY noticeNo DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum
+)
+B ORDER BY noticeNo DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum
 </select>
 <select id="selectNoticeCntAll" resultType="int">
 SELECT COUNT(*) CNT FROM (

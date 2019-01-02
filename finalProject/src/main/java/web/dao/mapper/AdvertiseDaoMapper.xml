@@ -6,9 +6,85 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <!--  매퍼 설정 -->
-<mapper namespace="web.dao.face.Advertise">
-	<select id="selectPagingList" resultType="web.dto.Advertise">
-		SELECT * FROM findmember UNION SELECT * FROM collaboration
-	
-	</select>
+<mapper namespace="web.dao.face.AdvertiseDao">
+<!-- <sql id="selectAdvertise">
+SELECT b.findNo 
+     , a.bandName
+     , b.title
+     , b.content
+     , b.writtendate
+     , B.positionNo
+     , CASE WHEN b.positionNo = '1' THEN '보컬'
+             WHEN B.positionNo = '2' THEN '기타'
+             WHEN B.positionNo = '3' THEN '드러머'
+            ELSE '콜라보'
+             END position
+     , b.adsno
+     , CASE WHEN B.adsNo = '1' THEN '맴버'
+         ELSE '콜라보'
+         END ADS
+FROM BAND A , FINDMEMBER B 
+WHERE a.bandNo = b.bandNo
+  AND b.adsNo = #{adsNo}
+</sql>
+<select id="selectPagingList" resultType="web.dto.FindMember" parameterType="web.utils.Paging">
+SELECT * FROM ( SELECT rownum rnum, B.* FROM (
+<include refid="selectAdvertise"/>
+)
+B ORDER BY findNo DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum
+</select> -->
+<select id="selectAdvertiseCntAll" resultType="int">
+SELECT COUNT(*) CNT FROM (
+	SELECT b.findNo 
+	     , a.bandName
+	     , b.title
+	     , b.content
+	     , b.writtendate
+	     , B.positionNo
+	     , CASE WHEN b.positionNo = '1' THEN '보컬'
+	             WHEN B.positionNo = '2' THEN '기타'
+	             WHEN B.positionNo = '3' THEN '드러머'
+	            ELSE '콜라보'
+	             END position
+	     , b.adsno
+	     , CASE WHEN B.adsNo = '1' THEN '맴버'
+	         ELSE '콜라보'
+	         END ads
+	FROM BAND A , FINDMEMBER B 
+	WHERE a.bandNo = b.bandNo
+	  /*AND b.adsNo = '1'*/
+) CNT
+</select>
+
+<select id="getList" resultType="web.dto.FindMember">
+	SELECT *
+	FROM
+	(
+	SELECT ROWNUM RNUM  ,D.*
+	FROM
+	(
+	SELECT b.findNo 
+	     , a.bandName
+	     , b.title
+	     , b.content
+	     , b.writtendate
+	     , B.positionNo
+	     , CASE WHEN b.positionNo = '1' THEN '보컬'
+	             WHEN B.positionNo = '2' THEN '기타'
+	             WHEN B.positionNo = '3' THEN '드러머'
+	            ELSE '콜라보'
+	             END position
+	     , b.adsno
+	     , CASE WHEN B.adsNo = '1' THEN '맴버'
+	         ELSE '콜라보'
+	         END ads
+	FROM BAND A , FINDMEMBER B 
+	WHERE a.bandNo = b.bandNo
+	--  AND b.adsNo = '1'
+	)D
+	ORDER BY FINDNO DESC
+	)E
+	WHERE e.rnum BETWEEN '1' AND '10'
+	ORDER BY E.RNUM
+</select>
 </mapper>
