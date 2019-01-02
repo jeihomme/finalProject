@@ -1,5 +1,7 @@
 package web.utils;
 
+import java.util.Date;
+
 public class Paging {
 	private int curPage;	//현재 페이지 번호 (현재 선택한 페이지)
 
@@ -194,8 +196,6 @@ public class Paging {
 	public void setAdsNo(String adsNo) {
 		this.adsNo = adsNo;
 	}
-
-	
 	
 }
 

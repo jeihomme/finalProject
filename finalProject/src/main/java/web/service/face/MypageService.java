@@ -1,5 +1,6 @@
 package web.service.face;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import web.dto.Application;
 import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
@@ -54,7 +56,7 @@ public interface MypageService {
 	public int getCurPage(HttpServletRequest req);
 	public String getSearch(HttpServletRequest req);
 	public int getTotalCount(String search);
-	public int getUserTotalCount();
+	public int getTotalCount();
 	public List<Member> userView(Paging paging);
 	public List<Member> userSearch(Paging paging);
 	public void userDelete(Member member);
@@ -94,9 +96,12 @@ public interface MypageService {
 	public Bar barInfoList(Bar bar);
 	public Bar getBar(Bar bar);
 	
-	public int getBarTotalCount();
 	public List<Bar> barView(BandGenre bandGenre);
 	public Resumes getResumesByBandNo(Resumes resumes);
+	public List<Application> appView(Paging paging);
+	public int getAppTotalCount(String startDate, String endDate);
+	public List<Application> appView(Paging paging, String startDate, String endDate);
+	public void appDelete(Application app);
 	
 	
 	
