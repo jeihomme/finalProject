@@ -55,7 +55,7 @@ public class MailController {
 		String setFrom = "jazzbar0831@gmail.com";
 		String setTo = member.getEmail();
 		String title = "가입을 축하드립니다!";
-		String content = member.getUserName()+" 님, 가입해 주셔서 감사합니다.";
+		String content = member.getUserName()+" 님, JazzBar에 가입해 주셔서 감사합니다.";
 		
 		try {
 			

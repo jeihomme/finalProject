@@ -12,13 +12,13 @@
  	</insert>
  	
  	<insert id="insertBar" parameterType="web.dto.Bar">
- 		INSERT INTO bar (barName, userId, profileNo, locationNo, barInfo, manager, contact)
- 		VALUES ( #{barName }, #{userId }, #{profileNo }, #{locationNo }, #{barInfo }, #{manager }, #{contact })
+ 		INSERT INTO bar (barNo, barName, userId, profileNo, locationNo, barInfo, manager, contact, barAddress, genreNo)
+ 		VALUES ( barNo_seq.nextval, #{barName }, #{userId }, profileNo_seq.nextval, locationNo_seq.nextval, #{barInfo }, #{manager }, #{contact }, #{barAddress }, #{genreNo })
  	</insert>
  	
  	<insert id="insertBand" parameterType="web.dto.Band">
- 		INSERT INTO band (bandName, userId, profileNo)
- 		VALUES ( #{bandName }, #{userId }, #{profileNo })
+ 		INSERT INTO band (bandNo, bandName, userId, profileNo)
+ 		VALUES ( band_seq.nextval, #{bandName }, #{userId }, profileNo_seq.nextval)
  	</insert>
  	
  	<select id="checkJoinId" parameterType="web.dto.Member" resultType="int">
@@ -26,6 +26,13 @@
  		FROM member
  		WHERE 1=1
  			AND userId=#{userId }
+ 	</select>
+ 	
+ 	<select id="checkJoinUserName" parameterType="web.dto.Member" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM member
+ 		WHERE 1=1
+ 			AND userName=#{userName }
  	</select>
  	
  	<select id="selectCntLogin" parameterType="web.dto.Member" resultType="int">

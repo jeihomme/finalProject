@@ -70,15 +70,27 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public boolean checkId(Member member) {
-		// 아이디 중복 확인 (중복 안 함, 가입 가능)
+		// 아이디 중복 확인 (중복, 가입 안 됨)
 		if(memberDao.checkJoinId(member)==1) {
-			return true;
+			return false;
 		}
 		
-		// 아이디 중복 (가입 X)
-		return false;
+		// 아이디 중복 아님 (가입 O)
+		return true;
 		
 	}	
+	
+	@Override
+	public boolean checkUserName(Member member) {
+		// 닉네임 중복 확인 (중복, 가입 안 됨)
+		if(memberDao.checkJoinUserName(member)==1) {
+			return false;
+		}
+
+		// 닉네임 중복 아님 (가입 O)
+		return true;
+		
+	}
 
 	@Override
 	public boolean login(Member member) {

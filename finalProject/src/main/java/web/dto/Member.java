@@ -11,7 +11,7 @@ public class Member implements Serializable{
 	private String password;
 	private String email;
 	private String telcom;
-	private int contact;
+	private String contact;
 	private String userName;
 	
 	@Override
@@ -60,11 +60,11 @@ public class Member implements Serializable{
 		this.telcom = telcom;
 	}
 
-	public int getContact() {
+	public String getContact() {
 		return contact;
 	}
 
-	public void setContact(int contact) {
+	public void setContact(String contact) {
 		this.contact = contact;
 	}
 
