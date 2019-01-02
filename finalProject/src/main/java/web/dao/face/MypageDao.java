@@ -2,6 +2,8 @@ package web.dao.face;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
@@ -10,9 +12,9 @@ import web.dto.Genre;
 import web.dto.History;
 import web.dto.Member;
 import web.dto.Music;
+import web.dto.ProfilePic;
 import web.dto.Resumes;
 import web.utils.Paging;
-import web.utils.PagingRecomm;
 
 public interface MypageDao {
 //	회원정보
@@ -66,7 +68,7 @@ public interface MypageDao {
 	public void insertBandMemberList(BandMember bandMember);
 	public void deleteBandMemberList(BandMember bandMember);
 	
-	public Resumes selectResumesByBandName(Resumes resumes);
+	public Resumes selectResumesByBandNo(Resumes resumes);
 	public List<Resumes> selectResumesListByBandName(Resumes resumes);
 	public List<Music> selectMusicListByBandName(Music music);
 	
@@ -96,5 +98,5 @@ public interface MypageDao {
 	
 	public void updateBandGenre(BandGenre bandGenre);
 	public int selectBarListCnt();
-	public List<Bar> selectBarList(PagingRecomm paging);
+	public List<Bar> selectBarList(@Param("bandGenre") BandGenre bandGenre);
 }

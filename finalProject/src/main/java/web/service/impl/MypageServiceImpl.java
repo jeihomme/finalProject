@@ -19,10 +19,10 @@ import web.dto.Genre;
 import web.dto.History;
 import web.dto.Member;
 import web.dto.Music;
+import web.dto.ProfilePic;
 import web.dto.Resumes;
 import web.service.face.MypageService;
 import web.utils.Paging;
-import web.utils.PagingRecomm;
 
 @Service
 public class MypageServiceImpl implements MypageService{
@@ -413,8 +413,14 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public List<Bar> barView(PagingRecomm paging) {
+	public List<Bar> barView(BandGenre bandGenre) {
 		// TODO Auto-generated method stub
-		return mpDao.selectBarList(paging);
+		return mpDao.selectBarList(bandGenre);
+	}
+
+	@Override
+	public Resumes getResumesByBandNo(Resumes resumes) {
+		// TODO Auto-generated method stub
+		return mpDao.selectResumesByBandNo(resumes);
 	}
 }

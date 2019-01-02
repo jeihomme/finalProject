@@ -15,9 +15,9 @@ import web.dto.Genre;
 import web.dto.History;
 import web.dto.Member;
 import web.dto.Music;
+import web.dto.ProfilePic;
 import web.dto.Resumes;
 import web.utils.Paging;
-import web.utils.PagingRecomm;
 
 public interface MypageService {
 //	회원정보
@@ -95,7 +95,8 @@ public interface MypageService {
 	public Bar getBar(Bar bar);
 	
 	public int getBarTotalCount();
-	public List<Bar> barView(PagingRecomm paging);
+	public List<Bar> barView(BandGenre bandGenre);
+	public Resumes getResumesByBandNo(Resumes resumes);
 	
 	
 	
