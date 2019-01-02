@@ -160,12 +160,14 @@
 	</delete>
 	
 <!-- 	public Resumes selectResumesByBandName(Resumes resumes); -->
-	<select id="selectResumesByBandName" parameterType="web.dto.Resumes"
+	<select id="selectResumesByBandNo" parameterType="web.dto.Resumes"
 		resultType="web.dto.Resumes">
 		select
 			*
 		from Resumes
-		where bandNo = #{bandNo }
+		where
+			bandNo = #{bandNo }
+			and publicResumes = 1
 	</select>
 <!-- 	public List<Resumes> selectResumesListByBandName(Resumes resumes); -->
 	<select id="selectResumesListByBandName" parameterType="web.dto.Resumes"
@@ -385,24 +387,25 @@
 			update bandGenre set
 				genreNo=#{genreNo }
 			where bandNo = #{bandNo } and resumesNo = #{resumesNo }
-		</update>
+	</update>
 		
 <!-- 		public int selectBarListCnt(); -->
-		<select id="selectBarListCnt" resultType="int">
+	<select id="selectBarListCnt" resultType="int">
 		select count(*) from bar
 		order by barno
 	</select>
-<!-- 	public List<Member> selectBarList(Paging paging); -->
-	<select id="selectBarList" parameterType="web.utils.PagingRecomm"
+<!-- public List<Bar> selectBarList(BandGenre bandGenre, ProfilePic profilePic); -->
+
+	<select id="selectBarList"
 		resultType="web.dto.Bar">
-		SELECT * FROM (
-		SELECT rownum rnum, B.* FROM (
-		SELECT * FROM Bar
-		ORDER BY userId DESC
-		) B
-		ORDER BY rnum
-		)
-		WHERE rnum between #{startNo } AND
-		#{endNo }
+		<!-- 		parameterType="web.dto.BandGenre" -->
+		
+		SELECT B.*, P.PATH, P.ORIGINNAME, P.STOREDNAME
+			FROM BAR B
+			LEFT OUTER JOIN PROFILEPIC P ON B.PROFILENO = P.PROFILENO
+			where B.GENRENO = #{bandGenre.genreNo }
+			ORDER BY DBMS_RANDOM.RANDOM
+		
 	</select>
+
 </mapper>

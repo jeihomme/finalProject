@@ -26,11 +26,11 @@ import web.dto.History;
 import web.dto.HistoryList;
 import web.dto.Member;
 import web.dto.Music;
+import web.dto.ProfilePic;
 import web.dto.Resumes;
 import web.service.face.MemberService;
 import web.service.face.MypageService;
 import web.utils.Paging;
-import web.utils.PagingRecomm;
 
 @Controller
 public class MypageController {
@@ -569,23 +569,35 @@ public class MypageController {
 //	-------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/recommand", method=RequestMethod.GET)
 	public void recommandBar(
-			Model model
+			HttpSession session
+			, Model model
 			, HttpServletRequest req
 			) {
 		logger.info("---recommandBar---");
 		
-		logger.info("---getTotalCount---");
-		int totalCount = mpService.getBarTotalCount();
+		Member member = (Member) session.getAttribute("loginInfo");
+		member = mbService.loginInfo(member);
+		logger.info(member.toString());
 		
-		logger.info("---Paging---");
-		PagingRecomm paging = new PagingRecomm(totalCount);
+		Band band = new Band();
+		band.setUserId(member.getUserId());
+		band = mpService.getBand(band);
 		
-		logger.info("---getPagingList---");
-		List<Bar> barList = mpService.barView(paging);
+		Resumes resumes = new Resumes();
+		resumes.setBandNo(band.getBandNo() );
+		resumes = mpService.getResumesByBandNo(resumes);
+		
+		BandGenre bandGenre = new BandGenre();
+		bandGenre.setBandNo(band.getBandNo());
+		bandGenre.setResumesNo(resumes.getResumesNo());
+		bandGenre = mpService.getBandGenre(bandGenre);
+		logger.info(bandGenre.toString());
+		
+		logger.info("---barView---");
+		List<Bar> barList = mpService.barView(bandGenre);
 		
 		logger.info("---addAttribute---");
 		model.addAttribute("barList", barList);
-		model.addAttribute("paging", paging);
 	}
 //	-------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/calendar", method=RequestMethod.GET)

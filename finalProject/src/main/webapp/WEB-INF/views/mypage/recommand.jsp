@@ -33,7 +33,7 @@
 		text-align:center;
 	}
 	
-	.adminMypageSearchRes {
+	.barRandomListRes {
 		border: 2px solid #fff;
 		width:700px;
 		height: auto;
@@ -85,6 +85,17 @@
 		border-radius: 3px;
 	/* 	background-color:#5c5c5c; */
 	}
+	
+	.profilePicSize {
+		width: 120px;
+		height: 100px;
+	}
+	
+	.backgroundColor {
+		background-color:#000;
+		cursor:pointer;
+		text-align:center;
+	}
 </style>
 
 <div class="adminMenu">
@@ -108,63 +119,28 @@
 	</div>
 </div>
 
-<style type="text/css">
-/* tr th:not(:nth-child(2)) { */
-tr th {
-	text-align: center;
-	color:#000;
-	background-color: gold;
-}
-td {
-	border-left: 1px solid white;
-	border-right: 1px solid white;
-	color:#fff;
-	background-color: black;
-}
-
-#pagingBox {
-	position: relative;
-}
-#btnBox {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	height: 30px;
-	margin: auto;
-}
-#btnWrite {
-	height: 25px;
-}
-
-#memberView{
-	cursor:pointer;
-}
-
-#memberView:hover {
-	background: #dadada;
-}
-
-#listTitle {
-	cursor:pointer;
-}
-</style>
-
-<div class="adminMypageSearchRes">
+<div class="barRandomListRes">
 	<div>
 		<table class="table table-hover table-striped table-condensed">
+			<c:set var="doneLoop" value="false"/>
 			
-			<c:forEach items="${barList }" var="i" varStatus="j">
-<!-- 				<tr> -->
-					<td>
-					${i.barNo }, 
+			<c:forEach items="${barList }" var="i" varStatus="status">
+				<c:if test="${not doneLoop}">
+					<td class="backgroundColor">
+						<p onclick=" location.href='/bar/viewbar?barNo=${i.barNo}' ">
+							<img class="profilePicSize" src="http://${i.path }/${i.originName }">
+						</p>
+						<p onclick=" location.href= '/bar/viewbar?barNo=${i.barNo}' "> ${i.barName } </p>
+						
+						<c:if test="${status.count % 5 eq 0 }">
+							<tr></tr>
+						</c:if>
 					</td>
-<!-- 				</tr> -->
-				<c:if test="${j.count eq 5}">
-					<br>
+					<c:if test="${status.count == 5}">
+						<c:set var="doneLoop" value="true"/>
+					</c:if>
 				</c:if>
 			</c:forEach>
-			
-	</table>
+		</table>
 	</div>
 </div>
