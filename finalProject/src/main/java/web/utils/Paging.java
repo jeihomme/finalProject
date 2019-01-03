@@ -14,9 +14,11 @@ public class Paging {
 	private int startNo;	//게시물리스트 첫 번호
 	private int endNo;	//게시물리스트 마지막 번호
 	
+	private String searchVal;
 	private String searchType;//카테고리
 	private String search; //검색어
 	
+	private String ads;
 	private String adsNo;
 	
 	public String getSearch() {
@@ -193,6 +195,22 @@ public class Paging {
 
 	public void setAdsNo(String adsNo) {
 		this.adsNo = adsNo;
+	}
+
+	public String getAds() {
+		return ads;
+	}
+
+	public void setAds(String ads) {
+		this.ads = ads;
+	}
+
+	public String getSearchVal() {
+		return searchVal;
+	}
+
+	public void setSearchVal(String searchVal) {
+		this.searchVal = searchVal;
 	}
 
 	

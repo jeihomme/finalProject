@@ -7,7 +7,7 @@
   
   <!--  매퍼 설정 -->
 <mapper namespace="web.dao.face.AdvertiseDao">
-<!-- <sql id="selectAdvertise">
+<sql id="selectAdvertise">
 SELECT b.findNo 
      , a.bandName
      , b.title
@@ -25,14 +25,16 @@ SELECT b.findNo
          END ADS
 FROM BAND A , FINDMEMBER B 
 WHERE a.bandNo = b.bandNo
-  AND b.adsNo = #{adsNo}
+  <if test="adsNo != null and adsNo != '' ">
+	 AND b.adsNo = #{adsNo}
+	 </if>
 </sql>
 <select id="selectPagingList" resultType="web.dto.FindMember" parameterType="web.utils.Paging">
 SELECT * FROM ( SELECT rownum rnum, B.* FROM (
 <include refid="selectAdvertise"/>
 )
 B ORDER BY findNo DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum
-</select> -->
+</select>
 <select id="selectAdvertiseCntAll" resultType="int">
 SELECT COUNT(*) CNT FROM (
 	SELECT b.findNo 
@@ -52,11 +54,13 @@ SELECT COUNT(*) CNT FROM (
 	         END ads
 	FROM BAND A , FINDMEMBER B 
 	WHERE a.bandNo = b.bandNo
-<!-- 	  AND b.adsNo = '1' -->
+ 	  <if test="adsNo != null and adsNo != '' "> 
+	 AND b.adsNo = #{adsNo}
+	 </if> 
 ) CNT
 </select>
 
-<select id="getList"  resultType="web.dto.FindMember">
+<!-- <select id="getList"  resultType="web.dto.FindMember">
 	SELECT *
 	FROM
 	(
@@ -80,11 +84,13 @@ SELECT COUNT(*) CNT FROM (
 	         END ads
 	FROM BAND A , FINDMEMBER B 
 	WHERE a.bandNo = b.bandNo
-	 AND b.adsNo = #{findMember.adsNo}
+	<if test="adsNo != null and adsNo != '' ">
+	 AND b.adsNo = #{adsNo}
+	 </if>
 	)D
 	ORDER BY FINDNO DESC
 	)E
 	WHERE e.rnum BETWEEN '1' AND '10'
 	ORDER BY E.RNUM
-</select>
+</select> -->
 </mapper>

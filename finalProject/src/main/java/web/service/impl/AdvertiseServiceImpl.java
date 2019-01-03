@@ -22,12 +22,12 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	@Autowired MusicDao musicDao;
 	@Autowired BandGenreDao bandGenreDao;
 	
-	/*@Override
-	public List getList(Paging paging) {
-		return advertiseDao.selectPagingList(paging);
-	}*/
+	@Override
+	public List getList(Paging paigng) {
+		return advertiseDao.selectPagingList(paigng);
+	}
 	
-	/*@Override
+	@Override
 	public Paging getPaging(int curPage, int listCount, int pageCount) {
 		
 		int totalCount = this.selectCountAll();
@@ -40,7 +40,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	public int selectCountAll() {
 		// TODO Auto-generated method stub
 		return advertiseDao.selectAdvertiseCntAll();
-	}*/
+	}
 	@Override
 	public Advertise view(Advertise advertiseView) {
 		// TODO Auto-generated method stub
@@ -76,12 +76,12 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	public int selectAdvertiseCntAll() {
 		return advertiseDao.selectAdvertiseCntAll();
 	}
-	@Override
+/*	@Override
 	public List getList(FindMember findMember) {
 
 
 		return advertiseDao.getList(findMember);
-	}
+	}*/
 
 	
 	

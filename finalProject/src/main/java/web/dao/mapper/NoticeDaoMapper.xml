@@ -8,26 +8,32 @@
 
 <sql id="selectNotice">
 SELECT noticeNo, title, userId, content, writtenDate FROM notice
+<if test="search != null and search != '' and searchVal == ('title')"> 
+	WHERE title LIKE '%' || #{search} || '%'
+</if>
+<if test="search != null and search != '' and searchVal == ('content')">
+	AND content LIKE '%' || #{search} || '%'
+</if>
+<if test="search != null and search != '' and searchVal == ('userId')">
+	AND userId LIKE '%' || #{search} || '%'
+</if>
 </sql>
 <select id="selectPagingList" resultType="web.dto.Notice" parameterType="web.utils.Paging">
 SELECT * FROM ( SELECT rownum rnum, B.* FROM (
 <include refid="selectNotice"/>
-)<if test="search != null and search != '' and searchVal == ('title')"> 
-	AND title LIKE #{search}
-</if>
-<if test="search != null and search != '' and searchVal == ('content')">
-	AND content LIKE #{search}
-</if>
-<if test="search != null and search != '' and searchVal == ('userId')">
-	AND userId LIKE #{search}
-</if>
+)
 B ORDER BY noticeNo DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum
 </select>
-<select id="selectNoticeCntAll" resultType="int">
+<select id="selectNoticeCntAll" resultType="int" parameterType="web.utils.Paging">
 SELECT COUNT(*) CNT FROM (
 <include refid="selectNotice"/>
+
 ) CNT
-</select>
+</select> 
+
+<!-- <select id="selectNoticeCntAll" resultType="int">
+	SELECT COUNT(*) CNT FROM notice
+</select> -->
 
 <insert id="insertNotice"  parameterType="web.dto.Notice">
 	<selectKey keyProperty="noticeNo" resultType="int" order="BEFORE">

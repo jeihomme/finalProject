@@ -10,7 +10,7 @@ import web.utils.Paging;;
 public interface AdvertiseDao {
 
 	// 전체 조회
-	public List selectPagingList(Paging paging);
+	public List selectPagingList(Paging paigng);
 	
 	// 구인구직 글쓰기
 	public void insertAdvertise();
@@ -27,7 +27,7 @@ public interface AdvertiseDao {
 	// 게시판 총 글수 출력
 	public int selectAdvertiseCntAll();
 
-	public List getList(@Param("findMember")FindMember findMember);
+	/*public List getList(FindMember findMember);*/
 	
 	
 	
