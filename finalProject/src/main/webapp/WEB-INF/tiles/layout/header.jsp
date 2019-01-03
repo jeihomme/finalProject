@@ -63,7 +63,7 @@ function execDaumPostcode() { // (post)
 // 			document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
 			document.getElementById('addr1').value = fullAddr;
 			// 커서를 상세주소 필드로 이동한다.
-// 			document.getElementById('addr2').focus();
+			document.getElementById('addr2').focus();
 // 			$("input[name=addr2]").val("");
 		}
 	}).open();
@@ -80,6 +80,16 @@ $(document).ready(function() {
 		console.log("Modal hidden");
 	});
 	
+	$('.bandPicAdd').on('click', function() {
+		$("#joinBandPic").click();
+		return false;
+	});
+	
+	$('.barPicAdd').on('click', function() {
+		$("#joinBarPic").click();
+		return false;
+	});
+	
 	$(".loginBtn").click(function() {
 		$(".modal-content").hide();
 		$(".modal-content:eq("+idx+")").show();
@@ -92,42 +102,30 @@ $(document).ready(function() {
 		$("#joinForm1").get(0).reset();
 		
 	});
-// 	var memberCheck = {
-// 			id: $("#joinUserId").val(),
-// 			userName: $("#joinUserName").val(),
-// 			password: $("#joinPassword").val(),
-// 			passwordChk: $("#passwordChk").val()
-// 	};
 	
-// 	$.ajax ({
-// 		url: "/member/check",
-// 		dataType: "json",
-// 		data: memberCheck,
-// 		success: function(res) {
-			
-// 			// 공란 있는지 확인
-// 			if(joinId.length==0) {
-// 				$("#joinIdCheck").css("color", "#DF0101");
-// 			}
-			
-// 			if(joinName.length==0) {
-// 				$("#joinUserNameCheck").css("color", "#DF0101");
-// 			}
-			
-// 			if(joinPw.length==0) {
-// 				$("#joinPwCheck").css("color", "#DF0101");
-// 			}
-			
-// 			$("#joinIdCheck").css("color", "#088A4B");
+// 	$("#joinModal1").on(function() {
+// 		var memberCheck = {
+// 				id: $("#joinUserId").val(),
+// 				userName: $("#joinUserName").val(),
+// 				password: $("#joinPassword").val(),
+// 				passwordChk: $("#passwordChk").val()
+// 		};
+		
+// 		$.ajax ({
+// 			url: "/member/check",
+// 			dataType: "json",
+// 			data: memberCheck,
+// 			success: function(res) {
+				
+// 				$("#joinIdCheck").css("color", "#088A4B");
 
-			
-// 		},
-// 		error: function() {
-// 			alert("error");
-// 		}
+// 			},
+// 			error: function() {
+// 				alert("error");
+// 			}
+// 		});	
 // 	});
-	
-	
+		
 	$(".nextBtn").click(function() {
 		console.log("다음 버튼 클릭 "+idx);
 		
@@ -158,41 +156,6 @@ $(document).ready(function() {
 			var joinTelcom = $("#joinTelcom").val();
 			var joinContact = $("#joinContact1").val()+$("#joinContact2").val()+$("#joinContact3").val();
 			var joinEmail = $("#joinEmail1").val()+"@"+$("#joinEmail2").val();
-					
-			var memberCheck = {
-					id: $("#joinUserId").val(),
-					userName: $("#joinUserName").val(),
-					password: $("#joinPassword").val(),
-					passwordChk: $("#passwordChk").val()
-			};
-			
-			$.ajax ({
-				url: "/member/check",
-				dataType: "json",
-				data: memberCheck,
-				success: function(res) {
-					
-					// 공란 있는지 확인
-					if(joinId.length==0) {
-						$("#joinIdCheck").css("color", "#DF0101");
-					}
-					
-					if(joinName.length==0) {
-						$("#joinUserNameCheck").css("color", "#DF0101");
-					}
-					
-					if(joinPw.length==0) {
-						$("#joinPwCheck").css("color", "#DF0101");
-					}
-					
-					$("#joinIdCheck").css("color", "#088A4B");
-
-					console.log(res);
-				},
-				error: function() {
-					alert("error");
-				}
-			});
 			
 			// 공란 있는지 확인
 			if(joinId.length==0) {
@@ -458,7 +421,8 @@ $(document).ready(function() {
 	    	email: $("#joinEmail1").val()+"@"+$("#joinEmail2").val(),
 	    	barName: $("#barName").val(),
 	    	manager: $("#manager").val(),
-	    	barAddress: $("#addr1").val().substring(0,2),
+	    	locationName: $("#addr1").val().substring(0,2),
+	    	barAddress: $("#addr1").val()+" "+$("#addr2").val(),
 	    	barInfo: $("#barInfo").val(),
 	    	genreNo: $("#barGenre").val()
 	    };
@@ -500,7 +464,7 @@ $(document).ready(function() {
 	    	userName: $("#joinUserName").val(),
 	    	password: $("#joinPassword").val(),
 	    	telcom: $("#joinTelcom").val(),
-	    	contact: $("#joinContact1").val()+$("#joinContact2").val()+$("#joinContact3").val()*1,
+	    	contact: $("#joinContact1").val()+$("#joinContact2").val()+$("#joinContact3").val(),
 	    	email: $("#joinEmail1").val()+"@"+$("#joinEmail2").val(),
 	    	bandName: $("#bandName").val(),
 	    	genreNo: $("#bandGenre").val()
@@ -975,7 +939,7 @@ input {
 
 <!-- 회원가입 모달 1 #3 -->
 <form id="joinForm1" action="/member/join" method="post" name="joinPost">
-    <div class="modal-content">
+    <div class="modal-content" id="joinModal1">
         <button class="backBtn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       <div class="modal-body text-center"  style="height: 450px;">
@@ -1056,13 +1020,17 @@ input {
     <div class="modal-content">
         <button class="backBtn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <div class="modal-body text-center"  style="height: 500px;">
+      <div class="modal-body text-center"  style="height: 600px;">
          <h3 class="modal-title text-center" style="color: black; padding-top: 8px;"><b>Bar</b></h3>
          <div class="joinInfo text-right" style="color: black; font-size: 11px;"><br>
       		<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
     	 </div> 
 		        <br>
-		        <table style="border: none; height: 300px; width: 100%; color: black;" >
+		        <table style="border: none; height: 400px; width: 100%; color: black;">
+		        <tr><td>
+<!--       			<button class="barPicAdd" style="border: 1px solid white; background-color: white;"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></button> -->
+<!--       			<input type="file" id="joinBarPic" multiple style="display: none;"> -->
+      			</td></tr>
 				<tr>
 				<td><font color="red">*</font>&nbsp;<input type="text" name="barName" id="barName" placeholder=" bar 이름"/>
 				</td></tr>
@@ -1084,6 +1052,8 @@ input {
 						<input type="text" id="addr1" name="addr1" placeholder=" bar 주소" style="width: 225px;"/>
 						<input type="button" onclick="execDaumPostcode()" value="주소 찾기" class="btn btn-xs"/>
 				</td></tr>
+				<tr><td>
+				<input type="text" id="addr2" name="addr2" placeholder=" 상세 주소" style="width: 250px; margin-left: 10px;"/></td></tr>
 				<tr><td><textarea rows="4" cols="40" style="resize: none; margin-left: 10px;" id="barInfo" name="barInfo" placeholder=" bar 소개"></textarea>
 				</td></tr>
 				</table>
@@ -1104,6 +1074,10 @@ input {
     	 </div> 
       		<br>
       		<table style="border: none; height: 300px; width: 100%; color: black;" >
+      			<tr><td>
+<!--       			<button class="bandPicAdd" style="border: 1px solid white; background-color: white;"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></button> -->
+<!--       			<input type="file" id="joinBandPic" multiple style="display: none;"> -->
+      			</td></tr>
 				<tr>
 				<td><font color="red">*</font>&nbsp;<input type="text" name="bandName" id="bandName" placeholder=" band 이름"/>
 				</td></tr>

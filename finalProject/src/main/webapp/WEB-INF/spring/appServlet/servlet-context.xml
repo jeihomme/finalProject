@@ -86,5 +86,10 @@
 		
 	</beans:bean>
 	
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="http://ec2-52-78-8-12.ap-northeast-2.compute.amazonaws.com/final/img">
+		</beans:constructor-arg>
+	</beans:bean>
+	
 	<context:component-scan base-package="web" />
 </beans:beans>

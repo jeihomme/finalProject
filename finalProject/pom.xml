@@ -27,7 +27,15 @@
 	<dependencies>
 	
 	<!-- 	사용자 라이브러리!! -->
-
+	
+	<!-- 이미지 업로드 -->
+	<dependency>
+		<groupId>org.imgscalr</groupId>
+		<artifactId>imgscalr-lib</artifactId>
+		<version>4.2</version>
+	</dependency>
+	
+	<!-- javax.mail 1.4.7 (메일 전송) -->
 	<dependency>
 		<groupId>javax.mail</groupId>
 		<artifactId>mail</artifactId>
