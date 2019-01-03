@@ -113,13 +113,14 @@ public class BandController {
 	@RequestMapping(value="/band/bandView", method=RequestMethod.GET)
 	public void bandView(
 			int bandNo,
+			String adsNo,
 			Model model) {
 		
 		logger.info("bandNo : " + bandNo);
 		
-		Map band = bandService.bandView(bandNo);
+		Map general = bandService.bandView(bandNo);
 		
-		model.addAttribute("band", band);
+		model.addAttribute("general", general);
 		
 	}
 	

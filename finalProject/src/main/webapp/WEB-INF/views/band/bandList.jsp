@@ -26,9 +26,6 @@ a:link{
 a:hover{ 
 	color: blue; 
 } 
-/* a:active{ */
-/* 	color: green; */
-/* } */
 
 </style>
 
@@ -62,9 +59,6 @@ $(document).ready(function(){
 // 		console.log("genre");
 // 		console.log("genreN = " + genreN);
 		
-		// 리스트 비우기
-		$("#lists").empty();
-		
 		$.ajax({
 			type: "get",
 			url: "/band/bandByGenre",
@@ -72,12 +66,11 @@ $(document).ready(function(){
 			dataType: "json",
 			success: function(data) {
 				
+				// 리스트 비우기
+				$("#lists").empty();
+				
 				var band = data.band;
 				var profile = data.profile;
-// 				var genreN = data.genre;
-				
-// 				console.log("ajax 통신 후");
-// 				console.log(genreN);
 				
 				// 장르 선택시 초기화
 				counter = 0;
@@ -96,12 +89,12 @@ $(document).ready(function(){
 					$.each(profile, function(index2, profiles){
 						if(bands.profileNo == profiles.profileNo){
 														
-							$newList = $("<td>" + "<table>" + "<tr>" + "<td>" +
-												"<img class='img-rounded' src='http://" + profiles.path + "/" + profiles.originName + "' />" +
-										"</td>" + "</tr>" +
-										"<tr>" + "<td>" +
-												"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
-										"</td>" + "</tr>" + "</table>" + "</td>");
+							$newList = $("<td><table><tr><td>" +
+											"<img class='img-rounded' src='http://" + profiles.path + "/" + profiles.originName + "' />" +
+										"</td></tr>" +
+										"<tr><td>" +
+											"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
+										"</td></tr></table></td>");
 							
 							$("#lists").append($newList);
 							
@@ -109,7 +102,6 @@ $(document).ready(function(){
 								$newLine = $("</tr><tr>");
 								$("#lists").append($newLine);
 							}
-							
 							
 						} // end of if
 					}); // end of $.each
@@ -238,22 +230,22 @@ $(document).ready(function(){
 </div>
 
 <br><br>
-
+<c:set var="itemCounts" value="0" />
 <!-- 밴드 갤러리형식의 리스트 -->
 <div style="background-color:gray; border-radius:20px; align:left;">
 	<table id="lists">
 	<tr>
-	<c:set var="plus" value="0" />
 	<c:set var="counter" value="0" />
 		<c:forEach items="${band }" var="b">
 		<c:set var="counter" value="${counter + 1 }" />
+		<c:set var="plus" value="${itemCounts + 1 }" />
 			<c:forEach items="${profile }" var="p">
 				<c:if test="${b.profileNo eq p.profileNo }">
 					<td>
 						<table>
 							<tr>
 								<td>
-									<img class="img-rounded" src="http://${p.path }/${p.originName}" />
+									<img class="img-rounded bandImg" src="http://${p.path }/${p.originName}" />
 								</td>
 							</tr>
 							<tr>
@@ -273,11 +265,11 @@ $(document).ready(function(){
 	</table>
 </div>
 <c:choose>
-	<c:when test="${plus < 16 }">
-		<button id="plus" style="display:block; background-color:black; border:0px;">+ 더보기</button>
+	<c:when test="${itemCounts lt 16 }">
+		<button id="plus" style=" visibility:hidden; display:block; background-color:black; border:0px;">+ 더보기</button>
 	</c:when>
 	<c:otherwise>
-		<button id="plus" style="display:none; background-color:black; border:0px;">+ 더보기</button>
+		<button id="plus" style="visibility:visible; display:none; background-color:black; border:0px;">+ 더보기</button>
 	</c:otherwise>
 </c:choose>
 

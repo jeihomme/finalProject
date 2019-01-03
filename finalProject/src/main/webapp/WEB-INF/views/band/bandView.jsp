@@ -15,29 +15,42 @@
 }
 </style>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	var general = "${general}";
+	console.log(general);
+});
+
+</script>
+
+<c:set var="proPic" value="${general.proPic }" />
+<c:set var="band" value="${general.band }" />
+<c:set var="resumes" value="${general.resumes }" />
+<c:set var="music" value="${general.music }" />
+
 <div style="background-color:gray; border-radius:20px;">
 
 	<!-- 밴드 사진 -->
 	<div style="border: 2px solid yellow;">
-		<img class="img-rounded" src="http://${profile.path }/${profile.originName}" />
+		<img class="img-rounded" src="http://${proPic.path }/${proPic.originName}" />
 	</div>
 	
 	<!-- 밴드 맴버 -->
-	<div style="border: 2px solid yellow;">0
+	<div style="border: 2px solid red;">0
 		<table>
 			
 		</table>
 	</div>
 	
 	<!-- 밴드 History -->
-	<div style="border: 2px solid yellow;">
+	<div style="border: 2px solid blue;">
 		<table>
 		
 		</table>
 	</div>
 	
 	<!-- 밴드 소개 -->
-	<div style="border: 2px solid yellow;">
+	<div style="border: 2px solid green;">
 	
 	</div>
 	
