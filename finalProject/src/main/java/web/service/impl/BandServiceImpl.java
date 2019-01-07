@@ -126,6 +126,11 @@ public class BandServiceImpl implements BandService {
 		}
 		
 		List list = bandDao.getMember(bandNo);
+		if(list.isEmpty()) {
+			System.out.println("밴드 맴버가 없음");
+		} else {
+			map.put("member", list);
+		}
 		
 		return map;
 	}

@@ -111,17 +111,18 @@ public class BandController {
 	
 	// 밴드 소개 보기
 	@RequestMapping(value="/band/bandView", method=RequestMethod.GET)
-	public void bandView(
-			int bandNo,
-			String adsNo,
-			Model model) {
+	public ModelAndView bandView(
+			int bandNo) {
 		
 		logger.info("bandNo : " + bandNo);
 		
+		mav = new ModelAndView();
+		
 		Map general = bandService.bandView(bandNo);
 		
-		model.addAttribute("general", general);
+		mav.addObject("general", general);
 		
+		return mav;
 	}
 	
 	// 밴드 소개 수정 폼

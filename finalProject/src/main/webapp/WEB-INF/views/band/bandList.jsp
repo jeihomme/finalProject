@@ -11,21 +11,48 @@
 
 .img-rounded{
 	border-radius:10px;
-	width:76px;
-	height:76px;
+	width:110px;
+	height:110px;
 }
 
 th, td{
 	padding:5px;
 	text-align:center;
 }
-
-a:link{
-	color: blue;
-}
+/* a{ */
+/* 	color: black; */
+/* } */
+/* a:link{ */
+/* 	color: black; */
+/* } */
 a:hover{ 
-	color: blue; 
+	color: black; 
 } 
+
+/* view 모달 */
+.modal {
+	display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 60%; /* Full width */
+    height: 60%; /* Full height */
+    margin: auto;
+    overflow: auto; /* Enable scroll if needed */
+	background-color:gray;
+    border-radius:20px;
+/*     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */ */
+}
+    
+/* Modal Content/Box */
+.modal-content {
+	background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */                          
+}
 
 </style>
 
@@ -138,12 +165,7 @@ $(document).ready(function(){
 		
 	$("#plus").click(function(){
 		
-// 		console.log("plus");
-// 		console.log("genreN = " + genreN);
-		
-		pageCount++;
-		
-// 		console.log(pageCount);
+		pageCount++; // 되나?
 		
 		$.ajax({
 			type: "get",
@@ -152,8 +174,6 @@ $(document).ready(function(){
 					genre : genreN} ,
 			dataType: "json",
 			success: function(data) {
-				
-// 				console.log("plus Button 성공");
 				
 				var band = data.band;
 				var profile = data.profile;
@@ -164,7 +184,6 @@ $(document).ready(function(){
 				$.each(band, function(index1, bands){
 										
 					counter = counter + 1;
-// 					console.log("counter = " + counter);
 					
 					// 더보기 버튼 체크
 					viewPlus = viewPlus + 1;
@@ -214,14 +233,55 @@ $(document).ready(function(){
 		
 	});
 	
+	
+	// 모달 띄우기
+	var modal = document.getElementById("viewModal");
+	
+	$(".bandView").click(function(){
+		
+// 		bandNo 가져오기
+		var bandNo = $(this).attr("id");
+		console.log("bandNO = " + bandNo);
+		
+// 		모달 보여주기
+		modal.style.display = "block";
+		
+		$.ajax({
+			type: "get",
+			url: "/band/bandView",
+			data: { bandNo : bandNo },
+			dataType: "json",
+			success: function(data) {
+				
+				// 참조
+				// http://carami.tistory.com/61
+				
+				alert("성공은 했는데...");
+				
+			}, error: function() {
+				alert("band View Failed");
+			}
+		});
+		
+	});
+	
+	window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+	
 }); // end of document.ready
 </script>
 
-<h1>Band</h1>
+<div id="backgroundss">
+<h1 style="text-align:center;">Band</h1>
 <!-- 밴드 장르 -->
 <div style="background-color:gray; border-radius:20px;">
 	<table id="genre">
 		<tr>
+			<th style="font-size:25px; color:black;">Genre</th>
 			<c:forEach items="${genre }" var="g">
 				<th style="border: 1px solid black;"><a class="cGenre" id="${g.genreNo }" style="font-size:25px;">${g.genreName }</a></th>
 			</c:forEach>
@@ -245,11 +305,11 @@ $(document).ready(function(){
 						<table>
 							<tr>
 								<td>
-									<img class="img-rounded bandImg" src="http://${p.path }/${p.originName}" />
+									<img class="img-rounded" src="http://${p.path }/${p.originName}" />
 								</td>
 							</tr>
 							<tr>
-								<td><a href="/band/bandView?bandNo=${b.bandNo }">${b.bandName}</a></td>
+								<td><a class="bandView" id="${b.bandNo }">${b.bandName}</a></td>
 							</tr>
 						</table>
 					</td>
@@ -273,3 +333,57 @@ $(document).ready(function(){
 	</c:otherwise>
 </c:choose>
 
+ 
+<!-- 밴드 상세보기 -->
+<!-- 모달 띄우기 -->
+<c:set var="proPic" value="${general.proPic }" />
+<c:set var="band" value="${general.band }" />
+<c:set var="resumes" value="${general.resumes }" />
+<c:set var="music" value="${general.music }" />
+
+<div id="viewModal" class="modal">
+	<div class="modal-content">
+	<!-- 밴드 사진 -->
+	<div style="border: 2px solid yellow;">
+		<img class="img-rounded" src="http://${proPic.path }/${proPic.originName}" />
+	</div>
+	
+	<!-- 밴드 맴버 -->
+	<div style="border: 2px solid red;">0
+		<table>
+			
+		</table>
+	</div>
+	
+	<!-- 밴드 History -->
+	<div style="border: 2px solid blue;">
+		<table>
+			<tr>
+				<td>그냥 History</td>
+			</tr>
+		</table>
+	</div>
+	
+	<!-- 밴드 소개 -->
+	<div style="border: 2px solid green;">
+		band basic Info<br>
+		bandName: ${band.bandName }<br>
+		bandInfo ${resumes.bandInfo }<br><br>
+	</div>
+	
+	<div style="border: 2px solid white;">
+		resumes Info<br>
+		resumesNo: ${resumes.resumesNo }<br>
+		publicResumes ${resumes.publicResumes }<br>
+		Title ${resumes.resumesTitle }<br>
+	</div>
+	
+	<div style="border: 2px solid cyan;">
+		music Info<br>
+		musicNo: ${music.musicNo }<br>
+		musicTitle: ${music.musicTitle }<br>
+		Path: ${music.path }<br>
+	</div>
+	</div>
+</div>
+</div>
