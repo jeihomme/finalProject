@@ -3,6 +3,7 @@ package web.controller;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Iterator;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -15,10 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import web.dto.Band;
 import web.dto.Bar;
@@ -42,28 +46,26 @@ public class MemberController {
 		
 	}
 	
+	@Resource(name="uploadPath")
+	private String uploadPath;
+	
+	@Autowired MappingJackson2JsonView jsonView;
+	
 	@Transactional
 	@RequestMapping(value="/member/join", method=RequestMethod.POST)
 	public void joinProc(Member member,
 							Bar bar,
 							Band band,
-							@RequestParam(required=false, value="roleId") int roleId,
 							@RequestParam(required=false, value="locationName") String locationName,
 //							@RequestParam(value="joinBarPic") MultipartFile barPic, 
 //							@RequestParam(value="joinBandPic") MultipartFile bandPic,
+							Model model,
+							MultipartHttpServletRequest request,
 							Writer out,
 							ProfilePic profilePic) {
-
-//		logger.info("bar originalName: "+barPic.getOriginalFilename());
-//		logger.info("bar fileSize: "+barPic.getSize());
-//		logger.info("bar contentType: "+barPic.getContentType());
-//		
-//		logger.info("band originalName: "+bandPic.getOriginalFilename());
-//		logger.info("band fileSize: "+bandPic.getSize());
-//		logger.info("band contentType: "+bandPic.getContentType());
 		
 		// bar 가입일 때
-		if(roleId==1) {		
+		if(member.getRoleId()==1) {		
 			if(locationName.equals("서울")) {
 				bar.setLocationNo(1);
 			} else if(locationName.equals("경기")) {
@@ -97,8 +99,8 @@ public class MemberController {
 			} else if(locationName.equals("제주")) {
 				bar.setLocationNo(16);
 			}
-			
-//			memberService.profilePicSave(context, barPic, profilePic);
+						
+//			memberService.profilePicSave(context, barPic, profilePic, uploadPath);
 			memberService.join(member);
 			memberService.barJoin(bar);
 			
@@ -113,8 +115,10 @@ public class MemberController {
 				}
 			} 
 			
-		} else if(roleId==2) {
-//			memberService.profilePicSave(context, bandPic, profilePic);
+		} else if(member.getRoleId()==2) {
+			
+			
+//			memberService.profilePicSave(context, bandPic, profilePic, uploadPath);
 			memberService.join(member);
 			memberService.bandJoin(band);
 			
@@ -143,6 +147,7 @@ public class MemberController {
 //		sendMail.setText(new StringBuffer().append("<h1>메일 인증</h1>").append("<a href=)");
 		
 	}
+	
 	
 	@RequestMapping(value="/member/idcheck", method=RequestMethod.GET)
 	public void idCheck(Member member) {
@@ -250,7 +255,7 @@ public class MemberController {
 				e.printStackTrace();
 			}
 			
-		} else if(member.getPassword()==passChk) {
+		} else if(member.getPassword().equals(passChk)) {
 			try {
 				out.write("{\"res\": true}" );				
 				

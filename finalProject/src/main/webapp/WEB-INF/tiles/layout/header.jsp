@@ -354,6 +354,11 @@ $(document).ready(function() {
 		
 		// band 가입 모달일 때
 		} else if(idx==6) {
+			document.getElementById("loginForm").reset();
+			document.getElementById("joinAgreePost1").reset();
+			document.getElementById("joinAgreePost2").reset();
+			document.getElementById("joinForm1").reset();
+			
 			$(".modal-content:eq("+idx+")").hide();
 			$(".modal-content:eq("+Number(idx-2)+")").show();
 			idx=idx-2;
@@ -424,7 +429,8 @@ $(document).ready(function() {
 	    	locationName: $("#addr1").val().substring(0,2),
 	    	barAddress: $("#addr1").val()+" "+$("#addr2").val(),
 	    	barInfo: $("#barInfo").val(),
-	    	genreNo: $("#barGenre").val()
+	    	genreNo: $("#barGenre").val(),
+	    	joinBarPic: $("#joinBarPic")[0].files[0]
 	    };
 	    
 		$.ajax({
@@ -455,43 +461,58 @@ $(document).ready(function() {
 		var roleId = 2;
 		var genreNo = $("#bandGenre").val();
 		
-		console.log(genreNo);
+		console.log(roleId);
 		
 	    // 넘겨 줄 값 설정
-	    var formData = {
-	    	userId: $("#joinUserId").val(),
-	    	roleId: roleId,
-	    	userName: $("#joinUserName").val(),
-	    	password: $("#joinPassword").val(),
-	    	telcom: $("#joinTelcom").val(),
-	    	contact: $("#joinContact1").val()+$("#joinContact2").val()+$("#joinContact3").val(),
-	    	email: $("#joinEmail1").val()+"@"+$("#joinEmail2").val(),
-	    	bandName: $("#bandName").val(),
-	    	genreNo: $("#bandGenre").val()
-	    };
+// 	    var formData = {
+// 	    	userId: $("#joinUserId").val(),
+// 	    	roleId: roleId,
+// 	    	userName: $("#joinUserName").val(),
+// 	    	password: $("#joinPassword").val(),
+// 	    	telcom: $("#joinTelcom").val(),
+// 	    	contact: $("#joinContact1").val()+$("#joinContact2").val()+$("#joinContact3").val(),
+// 	    	email: $("#joinEmail1").val()+"@"+$("#joinEmail2").val(),
+// 	    	bandName: $("#bandName").val(),
+// 	    	genreNo: $("#bandGenre").val()
+// 	    };
 	    
-		$.ajax({
-			type: "POST",
-			url: "/member/join",
-			dataType: "json",
-			data: formData,
-			success: function(res) {
+// 	    if(confirm("이미지 파일을 업로드하시겠습니까?")) {
+// 	    	if($("#joinBandPic").val() == "") {
+// 	    		alert("업로드 X");
+// 	    		$("#joinBandPic").focus();
+// 	    		return;
+// 	    	}
+	    	
+// 	    	var data = new FormData($("#joinForm1")[0]);
+	    	
+// 			$.ajax({
+// 				url: "/member/join",
+// 				type: "POST",
+// 				data: formData,
+// 				dataType: "JSON",
+// 				async: false,
+// 				cache: false,
+// 				processData: false,
+// 				contentType: false,
+// 				success: function(res) {
+					
+// 					// join form submit
+// 					$("joinForm1").submit();
+					
+// 				},
+// 				error: function() {
+// 					alert("회원가입 실패");
+// 				}
 				
-				// join form submit
-				$("joinForm1").submit();
-				
-			},
-			error: function() {
-				alert("회원가입 실패");
-			}
+// 			});
 			
-		});
+			
+			$(".modal-content:eq("+idx+")").hide();
+			$(".modal-content:eq("+Number(idx+1)+")").show();
+			idx++;
+			
+			console.log("인덱스 ++ "+idx);
 		
-		$(".modal-content:eq("+idx+")").hide();
-		$(".modal-content:eq("+Number(idx+1)+")").show();
-		idx++;
-		
-		console.log("인덱스 ++ "+idx);
 	});
 	
 	// x 버튼(닫기 버튼) 클릭시
@@ -696,7 +717,7 @@ input {
 	color: #BDBDBD;
 }
 
-#btnLogin, .btnBarJoin, .findIdBtn, .findPwBtn {
+#btnLogin, .btnBarJoin, .btnBandJoin, .findIdBtn, .findPwBtn {
 	border: none;
 	outline: none;
 	color: gold;
@@ -1028,8 +1049,8 @@ input {
 		        <br>
 		        <table style="border: none; height: 400px; width: 100%; color: black;">
 		        <tr><td>
-<!--       			<button class="barPicAdd" style="border: 1px solid white; background-color: white;"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></button> -->
-<!--       			<input type="file" id="joinBarPic" multiple style="display: none;"> -->
+      			<button class="barPicAdd" style="border: 1px solid white; background-color: white;"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></button>
+      			<input type="file" id="joinBarPic" style="display: none;">
       			</td></tr>
 				<tr>
 				<td><font color="red">*</font>&nbsp;<input type="text" name="barName" id="barName" placeholder=" bar 이름"/>
@@ -1075,8 +1096,8 @@ input {
       		<br>
       		<table style="border: none; height: 300px; width: 100%; color: black;" >
       			<tr><td>
-<!--       			<button class="bandPicAdd" style="border: 1px solid white; background-color: white;"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></button> -->
-<!--       			<input type="file" id="joinBandPic" multiple style="display: none;"> -->
+      			<button class="bandPicAdd" style="border: 1px solid white; background-color: white;"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></button>
+      			<input type="file" id="joinBandPic">
       			</td></tr>
 				<tr>
 				<td><font color="red">*</font>&nbsp;<input type="text" name="bandName" id="bandName" placeholder=" band 이름"/>

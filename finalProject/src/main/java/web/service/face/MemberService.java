@@ -45,5 +45,5 @@ public interface MemberService {
 	public int checkRoleId(Member member);
 	
 	// 프로필 사진 저장
-	public void profilePicSave(ServletContext context, MultipartFile file, ProfilePic profilePic);
+	public void profilePicSave(ServletContext context, MultipartFile file, ProfilePic profilePic, String uploadPath);
 }
