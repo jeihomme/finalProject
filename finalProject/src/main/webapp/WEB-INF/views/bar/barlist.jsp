@@ -5,22 +5,6 @@
 
 <script type="text/javascript">
 
-// function locationArr(){
-// 	var locArr = [];
-// 	$("input[name='location']:checked").each(function(i){
-// 		locArr.push($(this).val());
-// 	});
-	
-// 	$.ajax({
-// 		url: '/bar/barlocation',
-// 		type: 'post',
-// 		dataType: 'text',
-// 		data: {
-// 			locArr : locArr
-// 		}
-// 	});
-// }
-	
 	var locArr = []; // [1,2] 
 	var idx = 0;
 	
@@ -95,6 +79,28 @@
 		 });
 	}
 	
+	$(document).ready(function(){
+		$("#listMore").click(function(){
+			
+			console.log(sum);
+			
+			$.ajax({
+				type: "POST",
+				url: "/bar/barlist",
+				data: {
+					
+				},
+				dataType: "JSON",
+				success: function(res){
+					console.log("성공");
+					$("#body").html(res);
+				},
+				error.function(){
+					console.log("실패");
+				}
+			});
+		});
+	});
 
 </script>
 
@@ -106,6 +112,11 @@
 		width: 130px;
 	}
 	.font {
+		text-align:center;
+	}
+	.backgroundColor {
+		background-color:#000;
+		cursor:pointer;
 		text-align:center;
 	}
 </style>
@@ -133,16 +144,31 @@
 <h2>Bar List</h2>
 <hr>
 
-<div class="barList">
-	<c:forEach var="row" items="${list }">
-		<div class="bar">
-				<p onclick="location.href= '/bar/viewbar?barNo=${row.barNo}' "> <img src="http://${row.path }/${row.originName }"> </p> 
-				<p class="font" onclick="location.href= '/bar/viewbar?barNo=${row.barNo}'"> ${row.barName } </p>
-		</div>
-	</c:forEach>
+<div id="list" class="barList"> 
+	<div class="bar">
+		<table class="table">
+			<c:set var="doneLoop" value="false"/>
+		
+			<c:forEach var="row" varStatus="status" items="${list }">
+				<c:if test="${not doneLoop }">
+					<td class="backgroundColor">
+						<p onclick="location.href= '/bar/viewbar?barNo=${row.barNo}' "> <img src="http://${row.path }/${row.originName }"> </p> 
+						<p class="font" onclick="location.href= '/bar/viewbar?barNo=${row.barNo}'"> ${row.barName } </p>
+						
+						<c:if test="${status.count % 6 eq 0 }">
+						<tr></tr>
+						</c:if>
+					</td>
+					<c:if test="${status.count == 12 }">
+						<c:set var="doneLoop" value="true"/>
+					</c:if>
+				</c:if>
+			</c:forEach>
+		</table>
+	</div>
 </div>
 
 <div>
-	<button class="barMore">+ 더보기</button>
+	<button id="listMore" class="barMore">+ 더보기</button>
 </div>
 

@@ -28,6 +28,7 @@ public class BarController {
 	private static final Logger logger
 		= LoggerFactory.getLogger(BarController.class);
 	
+	int value = 0;
 	
 	// 바 리스트
 	@RequestMapping(value="/bar/barlist", method=RequestMethod.GET)
@@ -35,6 +36,7 @@ public class BarController {
 		
 		Bar bar = new Bar();
 		ProfilePic profilePic = new ProfilePic();
+		value+=12;
 		
 		logger.info(">> barList");
 		
@@ -43,6 +45,7 @@ public class BarController {
 		
 		logger.info("list size : " + list.size());
 		
+		model.addAttribute("value", value);
 		model.addAttribute("list", list);
 		model.addAttribute("location", location);
 		
