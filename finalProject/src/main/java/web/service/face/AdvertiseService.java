@@ -12,7 +12,7 @@ public interface AdvertiseService {
 	public List getList(Paging paigng);
 
 	// 구인구직 상세 보기
-	public Advertise view(Advertise advertiseView);
+	public FindMember view(int findNo);
 	
 	//구인구직 쓰기
 	public void write();

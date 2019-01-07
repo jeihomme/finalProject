@@ -52,7 +52,22 @@ td {
    	color: white;
 }
 
- 
+.modal {
+   display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 60%; /* Full width */
+    height: 60%; /* Full height */
+    margin: auto;
+    overflow: auto; /* Enable scroll if needed */
+   background-color:gray;
+    border-radius:20px;
+/*     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */ 
+
+}
+
 
 
 </style>
@@ -96,7 +111,7 @@ td {
 	<c:if test="${advertise.ads != null}">
 		<td>${advertise.ads }</td>
 	
-	<td>${advertise.title }</td>
+	<td><a href="#" data-toggle="modal" class="view" id="${advertise.findNo }">${advertise.title }</a></td>
 	<td>${advertise.bandName }</td>
 	<td><fmt:formatDate value="${advertise.writtenDate }" pattern="yyyy-MM-dd"/></td>
 	</c:if>
@@ -106,21 +121,66 @@ td {
 
 
 </div>
+
+<div class="modal" id="advertiseView"> 
+</div>
+
+
 <script type="text/javascript">
 $(document).ready(function(){
 // $("#member").click(function() {
+	var modal = document.getElementById("advertiseView");
+	
+
+	$(".view").click(function() {
+	var findNo = $(this).attr("id");
+	
+	
+	
+	console.log("findNo =" + findNo);
+	
+	$.ajax({ 
+		type: 'GET' 
+		, url: '/advertise/view'
+		, dataType : "json" 
+		, data : {findNo : findNo}
+		, success: function(data){
+
+			
+			   modal.style.display = "block";
+				
+// // 			var bandName = data.general.bandName;
+// 			var position = data.general.position;
+// 			var title = data.general.title;
+// 			var content = data.general.content;
+// 			var genre = data.general.genre;
+// 			var ads = data.general.ads;
+			
+			$("#advertiseView").empty();
+			
+			$newadvertiseView = $('<div></div>');
+			
+			
+			$("#advertiseView").append($newadvertiseView);
+			
+		}
+				})
+	})
+
+	
+
 	
 	
 	 $("#memberCk").click(function(){
 		
 		 var date = "<fmt:formatDate value="${advertise.writtenDate }" pattern="yyyy-MM-dd"/>";
-			
+		
 		 var adsNo = $("#member").val();
 			
 			$("#subTable").empty();
 			$.ajax({ 
-				type: 'GET' 
-				, url: '/advertise/view'
+				type: 'POST' 
+				, url: '/advertise/list'
 				, dataType : "json" 
 				, data : {adsNo : adsNo}
 				, success: function(data){
@@ -128,24 +188,29 @@ $(document).ready(function(){
 						
 						var ads = data.list;
 					
+						console.log(data.list);
 						
-	
+					
 // 						$newlist = $("<tr><th>번호</th>"+"<th>분류</th><th>제목</th><th>"
 // 								+"작성자</th><th>작성일</th>");
 // 						$("#advertiseTable").append($newlist);
 				
 						$.each(ads , function(index , advertise){
-							$newAdvertiseTable = $("<tr><td style='width:7%'>"+advertise.findNo+"</td><td style='width:14%'>"+advertise.ads+"</td><td>"+"</td><td style='width:28%'>"+advertise.title+"</td><td>"
+							$newAdvertiseTable = $("<tr><td style='width:7%'>"+advertise.findNo+"</td><td style='width:14%'>"+advertise.ads+"</td><td>"+"</td><td style='width:28%'><a href='#' data-toggle='modal' class='view' id='"+advertise.findNo+"'>"+advertise.title+"</a></td><td>"
 									+"</td><td>"+advertise.bandName+"</td><td>"+advertise.writtenDate+"</td></tr>");
-						
+							 
 									$("#subTable").append($newAdvertiseTable);
+									
+									
 							})
-					
+							 
 					}
 			
 				
 			});	
+			
 		
+			
 		
 			
 		})	
@@ -156,8 +221,8 @@ $("#collaboration").click(function() {
 	
 	$("#subTable").empty();
 	$.ajax({ 
-		type: 'GET' 
-		, url: '/advertise/view'
+		type: 'POST' 
+		, url: '/advertise/list'
 		, dataType : "json" 
 		, data : {adsNo : adsNo}
 		, success: function(data){
@@ -181,11 +246,21 @@ $("#collaboration").click(function() {
 				
 })
 
+
+	
 });
+	
+	window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    } 
 	
 });
 
 </script>
+
+
 
 <jsp:include page="../util/paging.jsp" />
 
