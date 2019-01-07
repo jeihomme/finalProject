@@ -55,5 +55,4 @@ public class Application {
 	public void setDecliend(int decliend) {
 		this.decliend = decliend;
 	}
-	
 }

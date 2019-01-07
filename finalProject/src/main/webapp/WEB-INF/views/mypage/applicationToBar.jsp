@@ -172,7 +172,7 @@
 		<p class="adminDetailTitle">Band to Bar 지원현황</p>
 		<hr>
 		<ul class="adminDetailInfo">
-			<li>이력 현황 검색 페이지입니다.</li>
+			<li>지원 현황 검색 페이지입니다.</li>
 			<li>최근 6개월 간 지원내역에 대해 확인합니다.</li>
 			<li>지원 확정, 취소 등  최근 1년 이내 입니다.</li>
 		</ul>
@@ -181,13 +181,14 @@
 		<p >이미지 넣어주세요 </p>
 	</div>
 </div>
+
 <div class="adminMypageSearchDiv">
 	<div class="searchUserinfo">
 		<form action="/mypage/applicationToBar" method="post">
 			
 			<input type="date" class="insertResumesHistory" name="appStartDate" value=""/> ~ 
 			<input type="date" class="insertResumesHistory" name="appEndDate" value=""/>
-			<button class="searchBtn"> 검색 </button>
+			<button id="searchBtn" class="searchBtn"> 검색 </button>
 		</form>
 	</div>
 </div>
@@ -460,8 +461,25 @@ $(document).ready(function() {
 				<td>${i.appDate }</td>
 				<td>${i.barName }</td>
 				<td>지원날짜 / 시간</td>
-				<td>${i.read }</td>
-				<td>${i.accept }</td>
+				<td>
+					<c:if test="${i.read eq 0}">
+						미열람
+					</c:if>
+					<c:if test="${i.read eq 0}">
+						열람
+					</c:if>
+				</td>
+				<td>
+					<c:if test="${i.accept eq 0}">
+						대기
+					</c:if>
+					<c:if test="${i.accept eq 1}">
+						수락
+					</c:if>
+					<c:if test="${i.accept eq 2}">
+						거절
+					</c:if>
+				</td>
 				<td>
 					<form action="/mypage/applicationToBarCancel" method="post">
 						<input type="hidden" name="appNo" value="${i.appNo }">

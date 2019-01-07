@@ -188,11 +188,10 @@ $(document).ready(function() {
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
 		<p onclick=" location.href='/mypage/info' ">Mypage</p>
-		<p class="selectMenu" onclick="location.href='/mypage/modifyInfo' ">회원
-			정보수정</p>
-		<p onclick="location.href='/mypage/barInfo' ">바 소개</p>
-		<p onclick="location.href='/board/list' ">지원 현황</p>
-		<p onclick="location.href='/board/list' ">일정표</p>
+		<p class="selectMenu" onclick="location.href='/mypage/modifyInfo' ">회원정보수정</p>
+		<p onclick="location.href='/mypage/intro' ">바 소개</p>
+		<p onclick="location.href='/mypage/applicationToBand' ">지원 현황</p>
+		<p onclick="location.href='/mypage/calendar' ">일정표</p>
 	</div>
 	<br>
 	<br>
@@ -203,47 +202,39 @@ $(document).ready(function() {
 			<hr>
 			<p class="adminDetailInfo">아이디 : ${member.userId }</p>
 			<p class="adminDetailInfo">닉네임 : ${member.userName }</p>
-
-			<form class="modifyInfoDone" action="/mypage/modifyInfo"
-				method="post">
-				<b class="adminDetailInfo">전화번호 : </b><input name="email"
-					value="${member.email }" /><br> <b class="adminDetailInfo">음악장르
-					: </b> <select class="barfont" name="music">
-					<option value="">장르1</option>
-					<option value="">장르2</option>
-					<option value="">장르3</option>
-					<option value="">장르4</option>
-				</select>
-				<%-- 				<input name="telcom" value="${member.telcom }"/><br> --%>
-				<%-- 				<b class="adminDetailInfo">연락처 : </b><input name="contact" value="${member.contact }"/><br> --%>
-			</form>
 			
-			<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button>
-			<br>
-
+			<p class="adminDetailInfo">닉네임 : ${member.userName }</p>
+			
+			<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><br>
+			
 			<form class="modifyInfoDone" action="/mypage/modifyPw" method="post">
 				<!-- The Modal -->
-				<div id="myModal" class="modal">
-					<!-- Modal content -->
-					<div id="modal-content" class="modal-content">
-						<p class="close">X</p>
-						<h2>비밀번호 변경</h2>
-
-						<b class="adminDetailInfo">현재 PW : </b><input type="password"
-							 name="password"><br> <b
-							class="adminDetailInfo">새 PW : </b><input type="password"
-							 name="newPassword"><br> <b
-							class="adminDetailInfo">새 PW 확인 : </b><input type="password"
-							 name="newPassword"><br>
-
-						<button class="modifyBtn">수정</button>
-						<br>
-
-					</div>
+				<div id="myModal" class="modal-pw">
+				  <!-- Modal content -->
+				  <div class="modal-content-pw">
+				    <p class="close">X</p>
+				    <h2>비밀번호 변경</h2>
+				    
+					<b class="adminDetailInfo">현재 PW : </b><input type="password"  name="password" ><br>
+					<b class="adminDetailInfo">새 PW : </b><input type="password"  name="newPassword" ><br>
+					<b class="adminDetailInfo">새 PW 확인 : </b><input type="password"  name="newPassword" ><br>
+					
+					<button class="modifyBtn">수정</button><br>
+					
+				  </div>
 				</div>
 			</form>
 			
-			<button class="modifyBtn">수정</button>
+			<form class="modifyInfoDone" action="/mypage/modifyInfo"
+				method="post">
+				<b class="adminDetailInfo">이메일 : </b>
+					<input name="email"value="${member.email }" /><br>
+				<b class="adminDetailInfo">통신사 : </b>
+					<input name="telcom"value="${member.telcom }" /><br>
+				<b class="adminDetailInfo">연락처 : </b>
+					<input name="contact"value="${member.contact }" /><br>
+				<button class="modifyBtn">수정</button>
+			</form>
 
 		</div>
 

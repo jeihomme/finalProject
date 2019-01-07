@@ -41,15 +41,8 @@
 		margin: 10px auto;
 	}
 	
-	.bandIntroInfo {
+	.adminMypageMainInfo {
 		margin: 10px;
-		width:300;
-		float:left;
-	}
-	
-	.barIntroInfo {
-		margin: 10px;
-		width:300;
 		float:left;
 	}
 	
@@ -58,12 +51,16 @@
 		font-weight:bold;
 	}
 	
+	.adminDetailInfo {
+		font-size:13px;
+	}
+	
 	.adminMypageMainImage {
 		border: 1px solid #fff;
 		margin: 10px;
 		width: 290px;
 		height: 280px;
-		float:right;
+		float:left;
 	}
 	
 	.selectMenu {
@@ -91,14 +88,8 @@
 	/* 	background-color:#5c5c5c; */
 	}
 	
-	.bandDetailInfo {
-/*  		width:144px; */
-		font-size:13px;
-		float:right;
-	}
-	
-	.barDetailInfo {
-/*  		width:144px; */
+	.adminDetailInfo {
+		width:144px;
 		font-size:13px;
 		float:right;
 	}
@@ -135,8 +126,63 @@
 		width: 220px;
 		height: 200px;
 	}
+	
+	.insertBarInfo {
+		resize: none; /* 사용자 임의 변경 불가 */
+		color:#000;
+		height:300px;
+		width:100%;
+		
+/* 		스크롤 */
+		overflow-x:hidden;
+		overflow-y:auto;
+	}
+	
+	.modifyBtn {
+		color:#000;
+	}
+	
+	.barAddress {
+		width:300px;
+	}
 </style>
 
+<script type="text/javascript">
+function execDaumPostcode() { // (post)
+	new daum.Postcode({
+		oncomplete: function(data) {
+			// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			var fullAddr = ''; // 최종 주소 변수
+			var extraAddr = ''; // 조합형 주소 변수
+			// 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+				fullAddr = data.roadAddress;
+			} else { // 사용자가 지번 주소를 선택했을 경우(J)
+				fullAddr = data.jibunAddress;
+			}
+			// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+			if(data.userSelectedType === 'R'){
+				if(data.bname !== ''){//법정동명이 있을 경우 추가한다.
+					extraAddr += data.bname;
+				}
+				if(data.buildingName !== ''){ // 건물명이 있을 경우 추가한다.
+					extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				}
+				// 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+				fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+			}
+			// 우편번호와 주소 정보를 해당 필드에 넣는다.
+//  			document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
+			document.getElementById('barAddress').value = fullAddr;
+			// 커서를 상세주소 필드로 이동한다.
+//  			document.getElementById('addr2').focus();
+//  			$("input[name=addr2]").val("");
+		}
+	}).open();
+}
+</script>
+						
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
 		<p onclick=" location.href='/mypage/info' ">Mypage</p>
@@ -146,42 +192,67 @@
 		<p onclick="location.href='/mypage/calendar' ">일정표</p>
 	</div><br><br>
 	<hr>
+	<form action="/mypage/modifyIntro" method="post">
 	<div class="adminMypageMain">
-		<div class=bandIntroInfo>
+		<div class="adminMypageMainInfo">
 			<p class="adminDetailTitle">기본정보 </p>
 			
-			<div class="bandIntroInfo">
+			<div class="adminMypageMainInfo">
 				<img class="profilePicSize" src="http://${pPic.path }/${pPic.originName }">
+				<input type="hidden" name="profileNo" value="${pPic.profileNo }"/>
+				<input type="hidden" name="path" value="${pPic.path }"/>
+				<input type="hidden" name="originName" value="${pPic.originName }"/>
 <!-- 				<input type="file" name="profileNo"/> -->
+<!-- 				<form action="/user/file" method="post" enctype="multipart/form-data" class="uploadForm"> -->
+<!-- 					<input type="file" name="uploadFile" class="fileBtn" style="display: none;"/> -->
+<!-- 					<input type="submit" value="업로드" class="submitBtn" style="display: none;"/> -->
+<!-- 				</form>			 -->
+
+<!-- 				<input id="fileBtn" type="file" name="uploadFile" style="display:none"/> -->
+<!-- 				<span id="fileModify" class = "glyphicon glyphicon-picture" ></span> -->
 			</div>
-			<div class="bandIntroInfo">
-				<b class="barDetailInfo">바명</b><p class="adminDetailMust">(필수) </p><br>
+	
+			<div class="adminMypageMainInfo">
+				<b class="adminDetailInfo">바명</b><p class="adminDetailMust">(필수) </p><br>
 				${bar.barName }<br><br>
 	<!-- 			<input type="text" name="bandName"/><br> -->
-				<b class="barDetailInfo">담당자 </b><p class="adminDetailMust">(필수) </p><br>
+				<b class="adminDetailInfo">담당자 </b><p class="adminDetailMust">(필수) </p><br>
 				${bar.manager }<br><br>
-				<b class="barDetailInfo">연락처 </b><p class="adminDetailMust">(필수) </p><br>
+				<b class="adminDetailInfo">연락처 </b><p class="adminDetailMust">(필수) </p><br>
 				${member.contact }<br><br>
 	<!-- 			<input type="text" name="contact"/><br> -->
 			</div>
-			<div class="bandIntroInfo">
-				<b class="barDetailInfo">이메일 </b><p class="adminDetailMust">(필수) </p><br>
+	
+			<div class="adminMypageMainInfo">
+				<b class="adminDetailInfo">이메일 </b><p class="adminDetailMust">(필수) </p><br>
 	<!-- 			<input type="text" name="email"/><br> -->
 				${member.email }<br><br>
-				<b class="barDetailInfo">장르 </b><p class="adminDetailMust">(필수) </p><br>
-				${genre.genreName }<br><br>
-	<!-- 			<input type="text" name="genreNo"/><br> -->
-	<!-- 			<select name="genre"> -->
-	<!-- 				<option value=""></option> -->
-	<!-- 				<option value="비밥"></option><option value="스윙"></option> -->
-	<!-- 				<option value="펑크"></option><option value="모던"></option> -->
-	<!-- 				<option value="보사노바"></option><option value="부기우기"></option> -->
-	<!-- 			</select> -->
+				<b class="adminDetailInfo">장르 </b><p class="adminDetailMust">(필수) </p><br>
+<%-- 				${genre.genreName }<br><br> --%>
+				
+					<select class="modifyBtn" name="genreNo" >
+						<c:if test="${genre.genreNo eq 0}">
+							<option value="0">선택</option>
+						</c:if>
+						
+						<c:if test="${genre.genreNo ne 0}">
+							<option value="${genre.genreNo }" selected="selected">${genre.genreName }</option>
+						</c:if>
+						
+						<option value="1">비밥</option><option value="2">스윙</option>
+						<option value="3">펑크</option><option value="4">모던</option>
+						<option value="5">보사노바</option><option value="6">부기우기</option>
+						
+					</select>
+						<input type="hidden" name="barNo" value="${bar.barNo }"/>
+						<button class="searchBtn">선택</button>
+<!-- 				</form> -->
 			</div>
 			
 		</div>
 	</div>
 	
+<!-- 	<form action="/mypage/modifyIntro" method="post"> -->
 	<div class="adminMypageSearchRes">
 		<hr>
 		<div>
@@ -193,8 +264,39 @@
 					<th>상세주소</th>
 				</tr>
 				<tr>
-					<td>${location.locationName }</td>
-					<td>${bar.barAddress }</td>
+					<td>
+<!-- 						<form action="/mypage/modifyIntro" method="post"> -->
+							<select class="modifyBtn" name="locationNo" >
+								<c:if test="${location.locationNo eq 0}">
+									<option value="0">선택</option>
+								</c:if>
+								
+								<c:if test="${location.locationNo ne 0}">
+									<option value="${location.locationNo }" selected="selected">${location.locationName }</option>
+								</c:if>
+								
+								<option value="1">서울</option><option value="2">경기</option>
+								<option value="3">인천</option><option value="4">대전</option>
+								<option value="5">세종</option><option value="6">강원</option>
+								
+								<option value="7">충북</option><option value="8">충남</option>
+								<option value="9">부산</option><option value="10">대구</option>
+								<option value="11">울산</option><option value="12">경북</option>
+								
+								<option value="13">경남</option><option value="14">전북</option>
+								<option value="15">전남</option><option value="16">제주</option>
+								
+							</select>
+<%-- 							<input type="hidden" name="barNo" value="${bar.barNo }"/> --%>
+<!-- 							<button class="searchBtn">선택</button> -->
+<!-- 						</form> -->
+					</td>
+					<td>
+						
+						<input type="text" id="barAddress" class="barAddress" name="barAddress" placeholder=" bar 주소" value="${bar.barAddress }" />
+						<input type="button" onclick="execDaumPostcode()" value="주소 찾기" class="btn btn-xs"/>
+						
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -209,18 +311,20 @@
 					<th>소개</th>
 				</tr>
 				<tr>
-					<td>${bar.barInfo }</td>
+					<td><textArea class="insertBarInfo" name="barInfo" >${bar.barInfo }</textArea>
 				</tr>
 			</table>
 		</div>
 	</div>
 	
 	<hr>
-	<div class="resumesViewDiv">
-		<form action="/mypage/modifyIntro" method="get">
-			<button class="resumesBtn" >수정</button>
-		</form>
-	</div>
+<!-- 	<form action="/mypage/modifyIntro" method="post"> -->
+		<div class="resumesViewDiv">
+			<button class="resumesBtn" onclick=" location.href='/mypage/intro' ">취소</button>
+			<input type="hidden" name="barNo" value="${bar.barNo }"/>
+			<button class="resumesBtn" >완료</button>
+		</div>
+	</form>
 </c:if>
 
 <c:if test="${loginInfo.roleId eq 2 }">
@@ -234,10 +338,10 @@
 	</div><br><br>
 	<hr>
 	<div class="adminMypageMain">
-		<div class="barIntroInfo">
+		<div class="adminMypageMainInfo">
 			<p class="adminDetailTitle">밴드 소개 </p>
 			<hr>
-			<ul class="bandDetailInfo">
+			<ul class="adminDetailInfo">
 				<li>이력서는 최대 5개까지 작성 가능합니다.</li>
 				<li>지원하고자 하는 Bar마다 내용을 다르게 할 수 있습니다.</li>
 			</ul>

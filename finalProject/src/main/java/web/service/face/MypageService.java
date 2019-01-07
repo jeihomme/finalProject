@@ -1,6 +1,5 @@
 package web.service.face;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -15,6 +14,7 @@ import web.dto.BandMember;
 import web.dto.Bar;
 import web.dto.Genre;
 import web.dto.History;
+import web.dto.Location;
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.ProfilePic;
@@ -98,10 +98,15 @@ public interface MypageService {
 	
 	public List<Bar> barView(BandGenre bandGenre);
 	public Resumes getResumesByBandNo(Resumes resumes);
-	public List<Application> appView(Paging paging);
+	public List<Application> appView(Paging paging, Member member);
 	public int getAppTotalCount(String startDate, String endDate);
-	public List<Application> appView(Paging paging, String startDate, String endDate);
+	public List<Application> appView(Paging paging, Member member, String startDate, String endDate);
 	public void appDelete(Application app);
+	public Location getLocation(Location location);
+	public ProfilePic getProfilePic(ProfilePic pPic);
+	public void updateBar(Bar bar);
+	public void appReadUpdate(Application app);
+	public void appAcceptUpdate(Application app);
 	
 	
 	

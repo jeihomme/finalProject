@@ -2,8 +2,6 @@ package web.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -28,8 +26,10 @@ import web.dto.Bar;
 import web.dto.Genre;
 import web.dto.History;
 import web.dto.HistoryList;
+import web.dto.Location;
 import web.dto.Member;
 import web.dto.Music;
+import web.dto.ProfilePic;
 import web.dto.Resumes;
 import web.service.face.MemberService;
 import web.service.face.MypageService;
@@ -53,7 +53,14 @@ public class MypageController {
 		Member member = (Member) session.getAttribute("loginInfo");
 		logger.info(member.toString());
 		
-		if( member.getRoleId() == 2) {
+		if( member.getRoleId() == 1) {
+			Bar bar = new Bar();
+			bar.setUserId(member.getUserId());
+			bar = mpService.getBar(bar);
+			
+			model.addAttribute("bar", bar);
+			
+		} else if( member.getRoleId() == 2) {
 			Band band = new Band();
 			band.setUserId(member.getUserId());
 			band = mpService.getBand(band);
@@ -67,22 +74,30 @@ public class MypageController {
 			model.addAttribute("band", band);
 			model.addAttribute("bandMemberList", bandMemberList);
 		}
+		
 		model.addAttribute("member", member);
 		return "mypage/info";
 	}
 	
 	@RequestMapping(value = "/mypage/modifyInfo", method=RequestMethod.GET)
-	public void modify(
+	public void modifyView(
 			HttpSession session
 			, Model model
 			) {
 		
-		logger.info("---modify---");
+		logger.info("---modifyView---");
 		
 		Member member = (Member) session.getAttribute("loginInfo");
 		logger.info(member.toString());
 		
-		if( member.getRoleId() == 2) {
+		if( member.getRoleId() == 1) {
+			Bar bar = new Bar();
+			bar.setUserId(member.getUserId());
+			bar = mpService.getBar(bar);
+			
+			
+			model.addAttribute("bar", bar);
+		} else if( member.getRoleId() == 2) {
 			Band band = new Band();
 			band.setUserId(member.getUserId());
 			band = mpService.getBand(band);
@@ -140,6 +155,7 @@ public class MypageController {
 			}
 			logger.info(bandMemberList.toString());
 		}
+		
 		mpService.infoModify(member);
 		
 		return "redirect:/mypage/modifyInfo";
@@ -210,26 +226,114 @@ public class MypageController {
 		Member member = (Member) session.getAttribute("loginInfo");
 		logger.info(member.toString());
 		
-		Band band = new Band();
-		band.setUserId(member.getUserId());
-		band = mpService.getBand(band);
-		logger.info(band.toString());
+		if( member.getRoleId() == 1) {
+			Bar bar = new Bar();
+			bar.setUserId(member.getUserId());
+			bar = mpService.getBar(bar);
+			logger.info(bar.toString());
+			
+			Genre genre = new Genre();
+			genre.setGenreNo(bar.getGenreNo());
+			genre = mpService.getGenre(genre);
+			logger.info(genre.toString());
+			
+			Location location = new Location();
+			location.setLocationNo(bar.getLocationNo());
+			location = mpService.getLocation(location);
+			
+			ProfilePic pPic = new ProfilePic();
+			pPic.setProfileNo(bar.getProfileNo());
+			pPic = mpService.getProfilePic(pPic);
+			
+			model.addAttribute("bar", bar);
+			model.addAttribute("genre", genre);
+			model.addAttribute("location", location);
+			model.addAttribute("pPic", pPic);
+			
+		} else if( member.getRoleId() == 2) {
+			Band band = new Band();
+			band.setUserId(member.getUserId());
+			band = mpService.getBand(band);
+			logger.info(band.toString());
+			
+			Resumes resumes = new Resumes();
+			resumes.setBandNo(band.getBandNo());
+	//		logger.info(resumes.toString());
+			List<Resumes> resumesList = mpService.getResumesList(resumes);
+			logger.info(resumesList.toString());
+			
+			Music music = new Music();
+			music.setBandNo(band.getBandNo());
+	//		logger.info(music.toString());
+			List<Music> musicList = mpService.getMusicList(music);
+			logger.info(musicList.toString());
+			
+			model.addAttribute("band", band);
+			model.addAttribute("resumesList", resumesList);
+			model.addAttribute("musicList", musicList);
+		}
+
+		model.addAttribute("member", member);
+	}
+	
+	@RequestMapping(value = "/mypage/modifyIntro", method=RequestMethod.GET)
+	public void modifyIntro(
+			HttpSession session
+			, Model model
+			) {
+		logger.info("---intro---");
+		Member member = (Member) session.getAttribute("loginInfo");
+		logger.info(member.toString());
 		
-		Resumes resumes = new Resumes();
-		resumes.setBandNo(band.getBandNo());
-//		logger.info(resumes.toString());
-		List<Resumes> resumesList = mpService.getResumesList(resumes);
-		logger.info(resumesList.toString());
+		Bar bar = new Bar();
+		bar.setUserId(member.getUserId());
+		bar = mpService.getBar(bar);
+		logger.info(bar.toString());
 		
-		Music music = new Music();
-		music.setBandNo(band.getBandNo());
-//		logger.info(music.toString());
-		List<Music> musicList = mpService.getMusicList(music);
-		logger.info(musicList.toString());
+		Genre genre = new Genre();
+		genre.setGenreNo(bar.getGenreNo());
+		genre = mpService.getGenre(genre);
+		logger.info(genre.toString());
 		
-		model.addAttribute("band", band);
-		model.addAttribute("resumesList", resumesList);
-		model.addAttribute("musicList", musicList);
+		Location location = new Location();
+		location.setLocationNo(bar.getLocationNo());
+		location = mpService.getLocation(location);
+		
+		ProfilePic pPic = new ProfilePic();
+		pPic.setProfileNo(bar.getProfileNo());
+		pPic = mpService.getProfilePic(pPic);
+		
+		model.addAttribute("bar", bar);
+		model.addAttribute("genre", genre);
+		model.addAttribute("location", location);
+		model.addAttribute("pPic", pPic);
+			
+
+		model.addAttribute("member", member);
+	}
+	
+	@RequestMapping(value = "/mypage/modifyIntro", method=RequestMethod.POST)
+	public String modifyIntroProc(
+			HttpServletRequest req
+			) {
+		logger.info("---modifyIntroProc---");
+		
+		Bar bar = new Bar();
+		bar.setBarNo(Integer.parseInt(req.getParameter("barNo")));
+		
+		bar.setLocationNo( Integer.parseInt(req.getParameter("locationNo")) );
+		bar.setBarAddress( req.getParameter("barAddress") );
+		bar.setBarInfo( req.getParameter("barInfo") );
+		bar.setGenreNo( Integer.parseInt(req.getParameter("genreNo")) );
+		
+		mpService.updateBar(bar);
+		logger.info(bar.toString());
+		
+//		ProfilePic pPic = new ProfilePic();
+//		pPic.setProfileNo(bar.getProfileNo());
+//		pPic = mpService.getProfilePic(pPic);
+		
+		return "redirect:/mypage/modifyIntro";
 	}
 	
 	@RequestMapping(value = "/mypage/resumes", method=RequestMethod.GET)
@@ -244,18 +348,28 @@ public class MypageController {
 		member = mbService.loginInfo(member);
 		logger.info(member.toString());
 		
-		Band band = new Band();
-		band.setUserId(member.getUserId());
-		band = mpService.getBand(band);
-		logger.info(band.toString());
-		
 		Resumes resumes = new Resumes();
 		resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
 		resumes = mpService.getResumes(resumes);
 		logger.info(resumes.toString());
 		
+		if ( member.getRoleId() == 1 && req.getParameter("appNo") != null && !"".equals(req.getParameter("appNo")) ) {
+			
+			Application app = new Application();
+			app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
+			app.setRead(Integer.parseInt(req.getParameter("read") ));
+			
+			logger.info(app.toString());
+			mpService.appReadUpdate(app);
+		}
+
+		Band band = new Band();
+		band.setBandNo(resumes.getBandNo());
+		band = mpService.getBand(band);
+		logger.info(band.toString());
+		
 		BandGenre bandGenre = new BandGenre();
-		bandGenre.setBandNo(band.getBandNo());
+		bandGenre.setBandNo(resumes.getBandNo());
 		bandGenre.setResumesNo(resumes.getResumesNo());
 		bandGenre = mpService.getBandGenre(bandGenre);
 		logger.info(bandGenre.toString());
@@ -511,7 +625,7 @@ public class MypageController {
 	
 	@Autowired ServletContext context;
 
-	private Object barMemberList;
+//	private Object barMemberList;
 	@RequestMapping(value = "/mypage/uploadSoundIntro", method=RequestMethod.POST)
 	public String uploadSoundIntro(
 		@RequestParam(value="file") MultipartFile file
@@ -544,9 +658,18 @@ public class MypageController {
 	public void applicationToBarView(
 			HttpServletRequest req
 			, Model model
+			, HttpSession session
 			) {
-		logger.info("---applicationView---");
+		logger.info("---applicationToBarView---");
 //		searchApplicationUser
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		member = mbService.loginInfo(member);
+		logger.info(member.toString());
+		
+		Bar bar = new Bar();
+		bar.setUserId(member.getUserId());
+		bar = mpService.getBar(bar);
 		
 		int CurPage = mpService.getCurPage(req);
 		
@@ -557,7 +680,7 @@ public class MypageController {
 		Paging paging = new Paging(totalCount, CurPage);
 		
 		logger.info("---appView---");
-		List<Application> aList = mpService.appView(paging);
+		List<Application> aList = mpService.appView(paging, member);
 		
 		logger.info("---addAttribute---");
 		model.addAttribute("aList", aList);
@@ -568,9 +691,18 @@ public class MypageController {
 	public void applicationToBarSearch(
 			HttpServletRequest req
 			, Model model
-			) throws ParseException {
-		logger.info("---applicationSearch---");
+			, HttpSession session
+			) {
+		logger.info("---applicationToBarSearch---");
 //		searchApplicationUser
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		member = mbService.loginInfo(member);
+		logger.info(member.toString());
+		
+		Bar bar = new Bar();
+		bar.setUserId(member.getUserId());
+		bar = mpService.getBar(bar);
 		
 		String startDate = req.getParameter("appStartDate");
 		String endDate = req.getParameter("appEndDate");
@@ -591,7 +723,7 @@ public class MypageController {
 			paging = new Paging(totalCount, CurPage);
 			
 			logger.info("---appView---");
-			List<Application> aList = mpService.appView(paging, startDate, endDate);
+			List<Application> aList = mpService.appView(paging, member, startDate, endDate);
 			
 			logger.info("---addAttribute---");
 			model.addAttribute("aList", aList);
@@ -606,7 +738,7 @@ public class MypageController {
 			paging = new Paging(totalCount, CurPage);
 			
 			logger.info("---appView---");
-			List<Application> aList = mpService.appView(paging);
+			List<Application> aList = mpService.appView(paging, member);
 			
 			logger.info("---addAttribute---");
 			model.addAttribute("aList", aList);
@@ -630,17 +762,112 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/mypage/applicationToBand", method=RequestMethod.GET)
-	public void applicationToBand() {
-		logger.info("---applicationToBand---");
-//		applicationToBandViewList
+	public void applicationToBandView(
+			HttpServletRequest req
+			, Model model
+			, HttpSession session
+			) {
+		logger.info("---applicationToBandView---");
+//		searchApplicationUser
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		member = mbService.loginInfo(member);
+		logger.info(member.toString());
+		
+		Bar bar = new Bar();
+		bar.setUserId(member.getUserId());
+		bar = mpService.getBar(bar);
+		
+		int CurPage = mpService.getCurPage(req);
+		
+		logger.info("---getTotalCount---");
+		int totalCount = mpService.getTotalCount();
+		
+		logger.info("---Paging---");
+		Paging paging = new Paging(totalCount, CurPage);
+		
+		logger.info("---appView---");
+		List<Application> aList = mpService.appView(paging, member);
+		
+		logger.info("---addAttribute---");
+		model.addAttribute("aList", aList);
+		model.addAttribute("paging", paging);
 	}
 	
 	@RequestMapping(value = "/mypage/applicationToBand", method=RequestMethod.POST)
-	public void applicationToBandCancel() {
-		logger.info("---applicationToBandCancel---");
-//		deleteapplicationToBandView
+	public void applicationToBandSearch(
+			HttpServletRequest req
+			, Model model
+			, HttpSession session
+			) {
+		logger.info("---applicationToBandSearch---");
+//		searchApplicationUser
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		member = mbService.loginInfo(member);
+		logger.info(member.toString());
+		
+		Bar bar = new Bar();
+		bar.setUserId(member.getUserId());
+		bar = mpService.getBar(bar);
+		
+		String startDate = req.getParameter("appStartDate");
+		String endDate = req.getParameter("appEndDate");
+		
+		System.out.println(startDate + " ~ " + endDate);
+		
+		int CurPage = mpService.getCurPage(req);
+		
+		Paging paging;
+		
+//		검색어가 있다면
+		if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
+			logger.info("---getAppTotalCount---");
+			int totalCount = mpService.getAppTotalCount(startDate, endDate);
+			logger.info("---totalCount String : "+totalCount);
+			
+			logger.info("---Paging---");
+			paging = new Paging(totalCount, CurPage);
+			
+			logger.info("---appView---");
+			List<Application> aList = mpService.appView(paging, member, startDate, endDate);
+			
+			logger.info("---addAttribute---");
+			model.addAttribute("aList", aList);
+			model.addAttribute("paging", paging);
+		}
+//		검색어가 없다면,
+		else {
+			logger.info("---getTotalCount---");
+			int totalCount = mpService.getTotalCount();
+			
+			logger.info("---Paging---");
+			paging = new Paging(totalCount, CurPage);
+			
+			logger.info("---appView---");
+			List<Application> aList = mpService.appView(paging, member);
+			
+			logger.info("---addAttribute---");
+			model.addAttribute("aList", aList);
+			model.addAttribute("paging", paging);
+		}
 	}
-//	-------------------------------------------------------------------
+	
+	@RequestMapping(value = "/mypage/applicationToBandAccept", method=RequestMethod.POST)
+	public String applicationToBandAccept(
+			HttpServletRequest req
+			) {
+		logger.info("---applicationToBandCancel---");
+		Application app = new Application();
+		app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
+		app.setAccept(Integer.parseInt(req.getParameter("accept") ));
+		
+		logger.info(app.toString());
+		mpService.appAcceptUpdate(app);
+		
+		return "redirect:/mypage/applicationToBand";
+	}
+//	--------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/recommand", method=RequestMethod.GET)
 	public void recommandBar(
 			HttpSession session
@@ -673,7 +900,7 @@ public class MypageController {
 		logger.info("---addAttribute---");
 		model.addAttribute("barList", barList);
 	}
-//	-------------------------------------------------------------------
+//	--------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/calendar", method=RequestMethod.GET)
 	public void calendar() {
 		logger.info("---calendar---");
@@ -697,7 +924,7 @@ public class MypageController {
 		logger.info("---deleteCalendar---");
 //		calendarView
 	}
-//	-------------------------------------------------------------------
+//	--------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/userAdmin", method=RequestMethod.GET)
 	public void userAdmin(
 			HttpServletRequest req
@@ -882,31 +1109,31 @@ public class MypageController {
 			return "redirect:/mypage/boardAdmin";
 	}
 	
-	//bar 소개
-	@RequestMapping(value = "/mypage/barInfo", method=RequestMethod.GET)
-	public void barInfo(Bar bar, //bar dto
-			HttpSession session, //세션
-			HttpServletRequest req, // 요청
-			Model model) { //jsp로 보냄
-		Member member = (Member) session.getAttribute("loginInfo"); //
-		logger.info(member.toString());
-		
-		if( member.getRoleId() == 1) {
-			bar.setUserId(member.getUserId());
-			bar.setBarNo(bar.getBarNo());
-			bar = mpService.getBar(bar);
-			logger.info(bar.toString());
-			
-//			BandMember bandMember = new BandMember();
-//			List<BandMember> bandMemberList = mpService.getBandMember(bandMember);
-			
-			model.addAttribute("bar", bar);
-//			model.addAttribute("barMemberList", barMemberList);
-		}
-		model.addAttribute("member", member);
-//		return;
-	
-	}
+//	//bar 소개
+//	@RequestMapping(value = "/mypage/barInfo", method=RequestMethod.GET)
+//	public void barInfo(Bar bar, //bar dto
+//			HttpSession session, //세션
+//			HttpServletRequest req, // 요청
+//			Model model) { //jsp로 보냄
+//		Member member = (Member) session.getAttribute("loginInfo"); //
+//		logger.info(member.toString());
+//		
+//		if( member.getRoleId() == 1) {
+//			bar.setUserId(member.getUserId());
+//			bar.setBarNo(bar.getBarNo());
+//			bar = mpService.getBar(bar);
+//			logger.info(bar.toString());
+//			
+////			BandMember bandMember = new BandMember();
+////			List<BandMember> bandMemberList = mpService.getBandMember(bandMember);
+//			
+//			model.addAttribute("bar", bar);
+////			model.addAttribute("barMemberList", barMemberList);
+//		}
+//		model.addAttribute("member", member);
+////		return;
+//	
+//	}
 	
 }
 
