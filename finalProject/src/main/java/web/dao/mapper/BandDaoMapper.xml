@@ -77,13 +77,18 @@
 	
 	<select id="getProPicByCate" resultType="web.dto.ProfilePic">
 		SELECT * FROM (
-    		SELECT rownum rnum, A.* FROM (	
-        		SELECT p.ProfileNo, path, OriginName, StoredName
-        		FROM profilePic p, (<include refid="getProPic" />) b
-        		WHERE p.profileNo = b.profileNo
-        	) A
-    		ORDER BY rnum
-    	)
+	    	SELECT rownum rnum, A.* FROM (	
+	    		SELECT p.ProfileNo, path, OriginName, StoredName
+    			FROM profilePic p, (
+		            SELECT * FROM (
+                		SELECT c.bandNo, bandName, userId, profileNo
+                		FROM resumes r, <include refid="getBands" />
+		            	WHERE publicresumes = 1 AND
+            			r.bandNo = c.bandNo) a, (<include refid="getbandNo" />) b
+            				WHERE a.bandNo = b.bandNo) d
+        			WHERE p.profileNo = d.profileNo) A
+        		ORDER BY rnum
+    		)
 		WHERE rnum between #{addItems.startNo } AND #{addItems.endNo }
 	</select>
 	
@@ -92,7 +97,6 @@
 	<select id="getCount" resultType="int">
 		SELECT COUNT(*) FROM band
 	</select>
-	
 	
 	<!-- view Page -->
 	<select id="getBand" parameterType="int" resultType="web.dto.Band">
@@ -114,7 +118,7 @@
 				publicResumes = 1
 	</select>
 	
-	<select id="getMusic" >
+	<select id="getMusic" parameterType="int" resultType="web.dto.Music">
 		SELECT musicNo, musicTitle, path
 		FROM music
 		WHERE musicNo = #{musicNo } 
