@@ -1,7 +1,6 @@
 package web.service.impl;
 
 import java.io.File;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -19,6 +18,7 @@ import web.dto.BandMember;
 import web.dto.Bar;
 import web.dto.Genre;
 import web.dto.History;
+import web.dto.Location;
 import web.dto.Member;
 import web.dto.Music;
 import web.dto.ProfilePic;
@@ -388,7 +388,7 @@ public class MypageServiceImpl implements MypageService{
   
 	@Override
 	public Bar getBar(Bar bar) {
-		return mpDao.barInfo(bar);
+		return mpDao.selectBarByUserId(bar);
 	}
 
 	@Override
@@ -421,9 +421,9 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public List<Application> appView(Paging paging) {
+	public List<Application> appView(Paging paging, Member member) {
 		// TODO Auto-generated method stub
-		return mpDao.selectApplicationList(paging);
+		return mpDao.selectApplicationList(paging, member);
 	}
 
 	@Override
@@ -433,9 +433,9 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public List<Application> appView(Paging paging, String startDate, String endDate) {
+	public List<Application> appView(Paging paging, Member member, String startDate, String endDate) {
 		// TODO Auto-generated method stub
-		return mpDao.selectApplicationSearchList(paging, startDate, endDate);
+		return mpDao.selectApplicationSearchList(paging, member, startDate, endDate);
 	}
 
 	@Override
@@ -443,4 +443,35 @@ public class MypageServiceImpl implements MypageService{
 		// TODO Auto-generated method stub
 		mpDao.deleteAppByAppNo(app);
 	}
+
+	@Override
+	public Location getLocation(Location location) {
+		// TODO Auto-generated method stub
+		return mpDao.selectLocationByLocationNo(location);
+	}
+
+	@Override
+	public ProfilePic getProfilePic(ProfilePic pPic) {
+		// TODO Auto-generated method stub
+		return mpDao.selectProfilePicByProfilePicNo(pPic);
+	}
+
+	@Override
+	public void updateBar(Bar bar) {
+		// TODO Auto-generated method stub
+		mpDao.updateBar(bar);
+	}
+
+	@Override
+	public void appReadUpdate(Application app) {
+		// TODO Auto-generated method stub
+		mpDao.updateReadByAppNo(app);
+	}
+
+	@Override
+	public void appAcceptUpdate(Application app) {
+		// TODO Auto-generated method stub
+		mpDao.updateAcceptByAppNo(app);
+	}
+
 }

@@ -43,7 +43,7 @@
 		margin: 10px;
 		width: 335px;
 		height: 575px;
-		float:left;
+		float:right;
 	}
 	
 	.selectMenu {
@@ -80,9 +80,9 @@
 	<div class="adminMenu">
 		<p class="selectMenu" onclick=" location.href='/mypage/info' ">Mypage</p>
 		<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-		<p onclick="location.href='/mypage/barInfo' ">바 소개</p>
-		<p onclick="location.href='/board/list' ">지원 현황</p>
-		<p onclick="location.href='/board/list' ">일정표</p>
+		<p onclick="location.href='/mypage/intro' ">바 소개</p>
+		<p onclick="location.href='/mypage/applicationToBand' ">지원 현황</p>
+		<p onclick="location.href='/mypage/calendar' ">일정표</p>
 	</div><br><br>
 	
 	<div class="adminMypageMain">
@@ -93,6 +93,7 @@
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
 			<p class="adminDetailInfo">이메일 : ${member.email }</p>
 			<p class="adminDetailInfo">연락처 : ${member.contact }</p>
+			<p class="adminDetailInfo">바 : ${bar.barName }</p>
 		</div>
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>

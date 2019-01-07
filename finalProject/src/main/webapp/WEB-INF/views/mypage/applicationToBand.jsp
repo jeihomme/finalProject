@@ -97,7 +97,7 @@
 	-khtml-border-radius: 3px;
 	-webkit-border-radius: 3px;
  	border-radius: 3px;
-}
+	}
 	.applicationTab p{
 		float:left;
 		cursor:pointer;
@@ -147,31 +147,17 @@
 <div class="adminMenu">
 	<p onclick=" location.href='/mypage/info' ">Mypage</p>
 	<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-	<p onclick="location.href='/mypage/intro' ">밴드 소개</p>
-</div>
-
-<div class="applicationTab">
-	<ul >
-		<li class="selectMenu">지원 현황
-			<ul >
-				<li><a href="/mypage/applicationToBar">Band to Bar</a></li>
-				<li><a href="/mypage/applicationToBand">Bar to Band</a></li>
-			</ul>
-		</li>
-	</ul>
-</div>
-
-<div class="adminMenu">
-	<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
+	<p onclick="location.href='/mypage/intro' ">바 소개</p>
+	<p class="selectMenu" onclick="location.href='/mypage/applicationToBand' ">지원 현황</p>
 	<p onclick="location.href='/mypage/calendar' ">일정표</p>
-</div><br><br>
+	</div><br><br>
 <hr>
 <div class="adminMypageMain">
 	<div class="adminMypageMainInfo">
-		<p class="adminDetailTitle">Band to Bar 지원현황</p>
+		<p class="adminDetailTitle">Bar to Band 지원현황</p>
 		<hr>
 		<ul class="adminDetailInfo">
-			<li>이력 현황 검색 페이지입니다.</li>
+			<li>지원 현황 검색 페이지입니다.</li>
 			<li>최근 6개월 간 지원내역에 대해 확인합니다.</li>
 			<li>지원 확정, 취소 등  최근 1년 이내 입니다.</li>
 		</ul>
@@ -431,11 +417,8 @@ $(document).ready(function() {
 	<tr>
 		<th>이력서</th>
 		<th>지원일</th>
-		<th>Bar</th>
 		<th>공연 지원 날짜 / 시간</th>
-		<th>열람여부</th>
 		<th>수락 여부</th>
-		<th>지원취소</th>
 	</tr>
 	
 		<c:forEach items="${aList }" var="i">
@@ -454,17 +437,35 @@ $(document).ready(function() {
 	<!-- 							<td>밴드</td> -->
 	<%-- 						</c:when> --%>
 	<%-- 					</c:choose> --%>
-				<td><a href="/mypage/resumes?resumesNo=${i.resumesNo }">이력서 보기</a></td>
-				<td>${i.appDate }</td>
-				<td>${i.barName }</td>
-				<td>지원날짜 / 시간</td>
-				<td>${i.read }</td>
-				<td>${i.accept }</td>
 				<td>
-					<form action="/mypage/applicationToBarCancel" method="post">
-						<input type="hidden" name="appNo" value="${i.appNo }">
-							<button class="searchBtn">지원취소</button>
+					<form action="/mypage/resumes?resumesNo=${i.resumesNo }" method="get">
+								<input type="hidden" name="appNo" value="${i.appNo }">
+								<input type="hidden" name="read" value="1">
+								<button class="searchBtn">이력서 보기</button>
 					</form>
+					
+				</td>
+				<td>${i.appDate }</td>
+				<td>지원날짜 / 시간</td>
+				<td>
+					<c:if test="${i.accept eq 0}">
+						<form action="/mypage/applicationToBandAccept" method="post">
+								<input type="hidden" name="appNo" value="${i.appNo }">
+								<input type="hidden" name="accept" value="1">
+								<button class="searchBtn">수락</button>
+						</form>
+						<form action="/mypage/applicationToBandAccept" method="post">
+								<input type="hidden" name="appNo" value="${i.appNo }">
+								<input type="hidden" name="accept" value="2">
+								<button class="searchBtn">거절</button>
+						</form>
+					</c:if>
+					<c:if test="${i.accept eq 1}">
+						수락됨
+					</c:if>
+					<c:if test="${i.accept eq 2}">
+						거절됨
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>

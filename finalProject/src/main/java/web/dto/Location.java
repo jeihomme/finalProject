@@ -4,16 +4,20 @@ package web.dto;
 public class Location {
 	
 	// 위치 번호
-	private String locationNo;
-	
+	private int locationNo;
 	// 위치 주소
 	private String locationName;
 
-	public String getLocationNo() {
+	@Override
+	public String toString() {
+		return "Location [locationNo=" + locationNo + ", locationName=" + locationName + "]";
+	}
+
+	public int getLocationNo() {
 		return locationNo;
 	}
 
-	public void setLocationNo(String locationNo) {
+	public void setLocationNo(int locationNo) {
 		this.locationNo = locationNo;
 	}
 
@@ -25,11 +29,4 @@ public class Location {
 		this.locationName = locationName;
 	}
 
-	@Override
-	public String toString() {
-		return "Location [locationNo=" + locationNo + ", locationName=" + locationName + "]";
-	}
-
-
-	
 }

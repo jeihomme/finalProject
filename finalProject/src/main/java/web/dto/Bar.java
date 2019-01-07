@@ -1,22 +1,27 @@
 package web.dto;
 
 public class Bar {
-	
 	private int barNo;
 	private String barName;
 	private String userId;
-	private String profileNo;
-	private String contact;
+	private int profileNo;
 	private String barInfo;
 	private String manager;
+	private int locationNo;
+	private String barAddress;
+	private int genreNo;
+	
 	private String path;
 	private String originName;
 	private String storedName;
-	private String locationNo;
-	private String locationName;
-	private String barAddress;
-	private String genreNo;
 	private String genreName;
+	@Override
+	public String toString() {
+		return "Bar [barNo=" + barNo + ", barName=" + barName + ", userId=" + userId + ", profileNo=" + profileNo
+				+ ", barInfo=" + barInfo + ", manager=" + manager + ", locationNo=" + locationNo + ", barAddress="
+				+ barAddress + ", genreNo=" + genreNo + ", path=" + path + ", originName=" + originName
+				+ ", storedName=" + storedName + ", genreName=" + genreName + "]";
+	}
 	public int getBarNo() {
 		return barNo;
 	}
@@ -35,17 +40,11 @@ public class Bar {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getProfileNo() {
+	public int getProfileNo() {
 		return profileNo;
 	}
-	public void setProfileNo(String profileNo) {
+	public void setProfileNo(int profileNo) {
 		this.profileNo = profileNo;
-	}
-	public String getContact() {
-		return contact;
-	}
-	public void setContact(String contact) {
-		this.contact = contact;
 	}
 	public String getBarInfo() {
 		return barInfo;
@@ -58,6 +57,24 @@ public class Bar {
 	}
 	public void setManager(String manager) {
 		this.manager = manager;
+	}
+	public int getLocationNo() {
+		return locationNo;
+	}
+	public void setLocationNo(int locationNo) {
+		this.locationNo = locationNo;
+	}
+	public String getBarAddress() {
+		return barAddress;
+	}
+	public void setBarAddress(String barAddress) {
+		this.barAddress = barAddress;
+	}
+	public int getGenreNo() {
+		return genreNo;
+	}
+	public void setGenreNo(int genreNo) {
+		this.genreNo = genreNo;
 	}
 	public String getPath() {
 		return path;
@@ -77,46 +94,12 @@ public class Bar {
 	public void setStoredName(String storedName) {
 		this.storedName = storedName;
 	}
-	public String getLocationNo() {
-		return locationNo;
-	}
-	public void setLocationNo(String locationNo) {
-		this.locationNo = locationNo;
-	}
-	public String getLocationName() {
-		return locationName;
-	}
-	public void setLocationName(String locationName) {
-		this.locationName = locationName;
-	}
-	public String getBarAddress() {
-		return barAddress;
-	}
-	public void setBarAddress(String barAddress) {
-		this.barAddress = barAddress;
-	}
-	public String getGenreNo() {
-		return genreNo;
-	}
-	public void setGenreNo(String genreNo) {
-		this.genreNo = genreNo;
-	}
 	public String getGenreName() {
 		return genreName;
 	}
 	public void setGenreName(String genreName) {
 		this.genreName = genreName;
 	}
-	@Override
-	public String toString() {
-		return "Bar [barNo=" + barNo + ", barName=" + barName + ", userId=" + userId + ", profileNo=" + profileNo
-				+ ", contact=" + contact + ", barInfo=" + barInfo + ", manager=" + manager + ", path=" + path
-				+ ", originName=" + originName + ", storedName=" + storedName + ", locationNo=" + locationNo
-				+ ", locationName=" + locationName + ", barAddress=" + barAddress + ", genreNo=" + genreNo
-				+ ", genreName=" + genreName + "]";
-	}
-	
-	
 	
 	
 }
