@@ -16,6 +16,7 @@ public class FindMember {
 	private int musicNo;
 	private String adsNo;
 	private String ads;
+	private String rnum;
 	
 	
 	@Override
@@ -142,6 +143,16 @@ public class FindMember {
 
 	public void setPositionNo(String positionNo) {
 		this.positionNo = positionNo;
+	}
+
+
+	public String getRnum() {
+		return rnum;
+	}
+
+
+	public void setRnum(String rnum) {
+		this.rnum = rnum;
 	}
 	
 	

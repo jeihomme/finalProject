@@ -42,21 +42,18 @@ public class NoticeController {
 			search = searchTxt;
 			
 		}
-	
 		else if (searchVal.equals("content")) {
 			search = searchTxt;
 		}
 		else if(searchVal.equals("userId")) {
 			search = searchTxt;
 		}
-		int totalCount = noticeService.getTotalCount(searchVal , search);
-		
-		
-		
-		Paging paging = noticeService.getPaging(curPage, listCount, pageCount ,searchVal ,search);
-		paging.setSearch(searchTxt);
+	
+
+		Paging paging = noticeService.getPaging(curPage, listCount, pageCount);
 		model.addAttribute("paging" , paging);
-		
+		paging.setSearch(search);
+		paging.setSearchVal(searchVal);
 		List<Notice> list = noticeService.getList(paging);
 		model.addAttribute("list" , list);
 		
