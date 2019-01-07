@@ -59,38 +59,7 @@ SELECT COUNT(*) CNT FROM (
 	 </if> 
 ) CNT
 </select>
-
-<!-- <select id="getList"  resultType="web.dto.FindMember">
-	SELECT *
-	FROM
-	(
-	SELECT ROWNUM RNUM  ,D.*
-	FROM
-	(
-	SELECT b.findNo 
-	     , a.bandName
-	     , b.title
-	     , b.content
-	     , b.writtendate
-	     , B.positionNo
-	     , CASE WHEN b.positionNo = '1' THEN '보컬'
-	             WHEN B.positionNo = '2' THEN '기타'
-	             WHEN B.positionNo = '3' THEN '드러머'
-	            ELSE '콜라보'
-	             END position
-	     , b.adsno
-	     , CASE WHEN B.adsNo = '1' THEN '맴버'
-	         ELSE '콜라보'
-	         END ads
-	FROM BAND A , FINDMEMBER B 
-	WHERE a.bandNo = b.bandNo
-	<if test="adsNo != null and adsNo != '' ">
-	 AND b.adsNo = #{adsNo}
-	 </if>
-	)D
-	ORDER BY FINDNO DESC
-	)E
-	WHERE e.rnum BETWEEN '1' AND '10'
-	ORDER BY E.RNUM
-</select> -->
+<select id="selectAdvertise" resultType="web.dto.FindMember">
+	SELECT * FROM FindMember WHERE findNo = #{findNo}
+</select>
 </mapper>

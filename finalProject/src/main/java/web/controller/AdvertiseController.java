@@ -63,42 +63,7 @@ public class AdvertiseController {
 		return "/advertise/list";
 		
 	}
-	
-//	@RequestMapping(value="/advertise/listMember" , produces="text/json; charset=utf-8", method=RequestMethod.GET)
-//	public @ResponseBody String listMeber(
-//				Model model,
-//				@RequestParam(required=false , defaultValue="0") int curPage,
-//				@RequestParam(required=false , defaultValue="10") int listCount,
-//				@RequestParam(required=false , defaultValue="10") int pageCount,
-//				HttpServletResponse response , HttpServletRequest req
-//			
-//			
-//			) {
-//		String adsNo = req.getParameter("adsNo");
-//		/*Paging paging = advertiseService.getPaging(curPage, listCount, pageCount);
-//		model.addAttribute("paging" , paging);*/
-//		
-//		int totalCount = advertiseService.selectAdvertiseCntAll();
-//		
-//		FindMember findMember = new FindMember();
-//		
-//		if(adsNo != null){
-//			findMember.setAdsNo(adsNo);
-//		}else {
-//			findMember.setAdsNo("");
-//		}
-//	
-//		List<FindMember> list = advertiseService.getList(findMember);
-//		/*model.addAttribute("list" ,list);*/
-//		req.setAttribute("list", list);
-//		
-//		logger.info("구인구직 리스트");
-//		logger.info("구인구직 리스트");
-//		
-//		return "/advertise/list";
-//		
-//	}
-	@RequestMapping(value="/advertise/view" , method=RequestMethod.GET)
+	@RequestMapping(value="/advertise/list" , method=RequestMethod.POST)
 	public  ModelAndView listInfo(Model model,
 			@RequestParam(required=false , defaultValue="0") int curPage,
 			@RequestParam(required=false , defaultValue="10") int listCount,
@@ -121,6 +86,8 @@ public class AdvertiseController {
 		}else {
 			paging.setAdsNo("");
 		}
+		
+	
 	
 		List<FindMember> list = advertiseService.getList(paging);
 //		model.addAttribute("list" ,list);
@@ -136,6 +103,21 @@ public class AdvertiseController {
 		
 		return mav;
 		
+	}
+	@RequestMapping(value="/advertise/view" , method=RequestMethod.GET)
+	public ModelAndView view(
+				Model model , int findNo , FindMember findmember
+			) {
+		
+		findNo = findmember.getFindNo();
+		findmember = advertiseService.view(findNo);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("jsonView");
+		mav.addObject("findNo" , findNo);
+		
+		return mav;
 	}
 	
 	public void write() {
@@ -163,7 +145,5 @@ public class AdvertiseController {
 		
 	}
 	
-	public void view() {
-		logger.info("글 상세보기");
-	}
+	
 }

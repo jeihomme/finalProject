@@ -42,9 +42,9 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		return advertiseDao.selectAdvertiseCntAll();
 	}
 	@Override
-	public Advertise view(Advertise advertiseView) {
-		// TODO Auto-generated method stub
-		return null;
+	public FindMember view(int findNo) {
+		
+		return advertiseDao.selectAdvertise(findNo);
 	}
 	@Override
 	public void write() {
