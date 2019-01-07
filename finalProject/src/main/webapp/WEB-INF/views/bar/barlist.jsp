@@ -144,7 +144,7 @@
 <h2>Bar List</h2>
 <hr>
 
-<div id="list" class="barList">
+<div id="list" class="barList"> 
 	<div class="bar">
 		<table class="table">
 			<c:set var="doneLoop" value="false"/>
