@@ -1,6 +1,7 @@
 package web.service.face;
 
 import java.util.List;
+import java.util.Map;
 
 import web.dto.Band;
 import web.dto.Bar;
@@ -12,6 +13,9 @@ public interface BarService {
 	
 	// 바 전체 리스트
 	public List<Bar> barList(Bar bar, ProfilePic profilePic);
+	
+	// 페이징 처리
+	public Map listPaging(String curPage);
 	
 	// 바 지역 리스트
 	public List<Location> locationList();

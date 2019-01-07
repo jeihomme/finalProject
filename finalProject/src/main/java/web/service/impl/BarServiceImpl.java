@@ -1,6 +1,8 @@
 package web.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,6 +77,27 @@ public class BarServiceImpl implements BarService{
 		List<Bar> list = barDao.getProfilePic();
 		
 		return list;
+	}
+
+	@Override
+	public Map listPaging(String curPage) {
+		
+		// map 생성
+		Map map = new HashMap();
+		
+		// curPage 셋팅
+		if(curPage != null && !"".equals(curPage)) {
+			map.put("curPage", Integer.parseInt(curPage));
+		} else {
+			map.put("curPage", 0);
+		}
+		
+		// total count
+		int count = barDao.getBarListMore();
+		
+		map.put("totalCount", count);
+		
+		return map;
 	}
 
 }
