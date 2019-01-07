@@ -9,7 +9,10 @@
 
 <style type="text/css">
 
-.img-rounded{
+.img-view{
+	border-radius:10px;
+}
+.img-thumb{
 	border-radius:10px;
 	width:110px;
 	height:110px;
@@ -19,12 +22,9 @@ th, td{
 	padding:5px;
 	text-align:center;
 }
-/* a{ */
-/* 	color: black; */
-/* } */
-/* a:link{ */
-/* 	color: black; */
-/* } */
+a{
+	cursor: pointer;
+}
 a:hover{ 
 	color: black; 
 } 
@@ -36,13 +36,13 @@ a:hover{
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
-    width: 60%; /* Full width */
-    height: 60%; /* Full height */
+    width: 40%; /* Full width */
+    height: 40%; /* Full height */
     margin: auto;
     overflow: auto; /* Enable scroll if needed */
 	background-color:gray;
     border-radius:20px;
-/*     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */ */
+/*     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
     
 /* Modal Content/Box */
@@ -117,10 +117,11 @@ $(document).ready(function(){
 						if(bands.profileNo == profiles.profileNo){
 														
 							$newList = $("<td><table><tr><td>" +
-											"<img class='img-rounded' src='http://" + profiles.path + "/" + profiles.originName + "' />" +
+											"<img class='img-thumb' src='http://" + profiles.path + "/" + profiles.originName + "' />" +
 										"</td></tr>" +
 										"<tr><td>" +
-											"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
+// 											"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
+										"<a class='bandView' id='" + bands.bandNo + "'>" + bands.bandName + "</a>" +
 										"</td></tr></table></td>");
 							
 							$("#lists").append($newList);
@@ -194,10 +195,11 @@ $(document).ready(function(){
 							$newTR = document.createElement("TR");
 							
 							$newList = $("<td>" + "<table>" + "<tr>" + "<td>" +
-												"<img class='img-rounded' src='http://" + profiles.path + "/" + profiles.originName + "' />" +
+												"<img class='img-thumb' src='http://" + profiles.path + "/" + profiles.originName + "' />" +
 										"</td>" + "</tr>" +
 										"<tr>" + "<td>" +
-												"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
+// 												"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
+										"<a class='bandView' id='" + bands.bandNo + "'>" + bands.bandName + "</a>" +
 										"</td>" + "</tr>" + "</table>" + "</td>");
 							
 							if(counter == 1) {
@@ -239,12 +241,9 @@ $(document).ready(function(){
 	
 	$(".bandView").click(function(){
 		
-// 		bandNo 가져오기
+		// bandNo 가져오기
 		var bandNo = $(this).attr("id");
 		console.log("bandNO = " + bandNo);
-		
-// 		모달 보여주기
-		modal.style.display = "block";
 		
 		$.ajax({
 			type: "get",
@@ -253,10 +252,34 @@ $(document).ready(function(){
 			dataType: "json",
 			success: function(data) {
 				
+				// 숨겨진 모달 보여주기
+				modal.style.display = "block";
+				
 				// 참조
 				// http://carami.tistory.com/61
 				
-				alert("성공은 했는데...");
+				// 데이터 받아오기
+				var band = data.general.band;
+				var music = data.general.music;
+				var proPic = data.general.proPic;
+				var resumes = data.general.resumes;
+				var member = data.general.member;
+				
+				if(member != undefined){
+					console.log(member);
+				}
+				
+				$("#viewModal").empty();
+				
+				// 사진
+				$proPics = $("<div style='float: left; margin: 15px;'>" +
+						"<img class='img-view' src='http://" + proPic.path + "/" + proPic.originName + "' />" +
+						"</div>");
+				
+				$("#viewModal").append($proPics);
+
+				// 음악파일
+				
 				
 			}, error: function() {
 				alert("band View Failed");
@@ -271,7 +294,6 @@ $(document).ready(function(){
         }
     }
 
-	
 }); // end of document.ready
 </script>
 
@@ -305,7 +327,7 @@ $(document).ready(function(){
 						<table>
 							<tr>
 								<td>
-									<img class="img-rounded" src="http://${p.path }/${p.originName}" />
+									<img class="img-thumb" src="http://${p.path }/${p.originName}" />
 								</td>
 							</tr>
 							<tr>
@@ -336,54 +358,6 @@ $(document).ready(function(){
  
 <!-- 밴드 상세보기 -->
 <!-- 모달 띄우기 -->
-<c:set var="proPic" value="${general.proPic }" />
-<c:set var="band" value="${general.band }" />
-<c:set var="resumes" value="${general.resumes }" />
-<c:set var="music" value="${general.music }" />
+<div id="viewModal" class="modal"></div>
 
-<div id="viewModal" class="modal">
-	<div class="modal-content">
-	<!-- 밴드 사진 -->
-	<div style="border: 2px solid yellow;">
-		<img class="img-rounded" src="http://${proPic.path }/${proPic.originName}" />
-	</div>
-	
-	<!-- 밴드 맴버 -->
-	<div style="border: 2px solid red;">0
-		<table>
-			
-		</table>
-	</div>
-	
-	<!-- 밴드 History -->
-	<div style="border: 2px solid blue;">
-		<table>
-			<tr>
-				<td>그냥 History</td>
-			</tr>
-		</table>
-	</div>
-	
-	<!-- 밴드 소개 -->
-	<div style="border: 2px solid green;">
-		band basic Info<br>
-		bandName: ${band.bandName }<br>
-		bandInfo ${resumes.bandInfo }<br><br>
-	</div>
-	
-	<div style="border: 2px solid white;">
-		resumes Info<br>
-		resumesNo: ${resumes.resumesNo }<br>
-		publicResumes ${resumes.publicResumes }<br>
-		Title ${resumes.resumesTitle }<br>
-	</div>
-	
-	<div style="border: 2px solid cyan;">
-		music Info<br>
-		musicNo: ${music.musicNo }<br>
-		musicTitle: ${music.musicTitle }<br>
-		Path: ${music.path }<br>
-	</div>
-	</div>
-</div>
 </div>

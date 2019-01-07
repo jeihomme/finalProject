@@ -116,9 +116,10 @@ public class BandController {
 		
 		logger.info("bandNo : " + bandNo);
 		
-		mav = new ModelAndView();
-		
 		Map general = bandService.bandView(bandNo);
+		
+		mav = new ModelAndView();
+		mav.setViewName("jsonView");
 		
 		mav.addObject("general", general);
 		

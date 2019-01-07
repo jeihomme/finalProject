@@ -807,12 +807,12 @@ input {
 	
 	<li><a href="/band/bandList">Band</a>
 		<ul>
-			<li><a href="/band/bandByGenre?genreN=1">Bebob</a></li>
-			<li><a href="/band/bandByGenre">Swing</a></li>
-			<li><a href="/band/bandByGenre">Punk</a></li>
-			<li><a href="/band/bandByGenre">Modern</a></li>
-			<li><a href="/band/bandByGenre">Bosa Nova</a></li>
-			<li><a href="/band/bandByGenre">Boogie Woogie</a></li>
+			<li><a href="#">Bebob</a></li>
+			<li><a href="#">Swing</a></li>
+			<li><a href="#">Punk</a></li>
+			<li><a href="#">Modern</a></li>
+			<li><a href="#">Bosa Nova</a></li>
+			<li><a href="#">Boogie Woogie</a></li>
 		</ul>
 	</li>
 	
