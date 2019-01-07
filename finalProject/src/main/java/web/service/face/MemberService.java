@@ -1,8 +1,13 @@
 package web.service.face;
 
+import javax.servlet.ServletContext;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import web.dto.Band;
 import web.dto.Bar;
 import web.dto.Member;
+import web.dto.ProfilePic;
 
 public interface MemberService {
 
@@ -38,4 +43,7 @@ public interface MemberService {
 	
 	// 회원 분류 번호(roleId)가 몇 번인지 확인 (bar / band 구분)
 	public int checkRoleId(Member member);
+	
+	// 프로필 사진 저장
+	public void profilePicSave(ServletContext context, MultipartFile file, ProfilePic profilePic, String uploadPath);
 }

@@ -12,9 +12,9 @@
  	</insert>
  	
  	<insert id="insertBar" parameterType="web.dto.Bar">
- 		INSERT INTO bar (barNo, barName, userId, profileNo, locationNo, barInfo, manager, contact, barAddress, genreNo)
- 		VALUES ( barNo_seq.nextval, #{barName }, #{userId }, profileNo_seq.nextval, locationNo_seq.nextval, #{barInfo }, #{manager }, #{contact }, #{barAddress }, #{genreNo })
- 	</insert>
+ 		INSERT INTO bar (barNo, barName, userId, profileNo, locationNo, barInfo, manager, barAddress, genreNo)
+ 		VALUES ( barNo_seq.nextval, #{barName }, #{userId }, profileNo_seq.nextval, #{locationNo }, #{barInfo }, #{manager }, #{barAddress }, #{genreNo })
+ 	</insert> 
  	
  	<insert id="insertBand" parameterType="web.dto.Band">
  		INSERT INTO band (bandNo, bandName, userId, profileNo)
@@ -81,5 +81,12 @@
  		WHERE userId=#{userId }
  			AND password=#{password }
  	</select>
+ 	
+ 	<insert id="insertFile" parameterType="web.dto.ProfilePic">
+ 		INSERT INTO profilePic (profileNo, path, originName, storedName)
+ 		VALUES (profileNo_seq.nextval, 
+				ec2-52-78-8-12.ap-northeast-2.compute.amazonaws.com/final/img,
+				#{originName }, #{storedName }) 
+ 	</insert>
  	
  </mapper>

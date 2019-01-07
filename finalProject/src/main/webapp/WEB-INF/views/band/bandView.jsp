@@ -10,50 +10,65 @@
 <style type="text/css">
 .img-rounded{
 	border-radius: 10px;
-	width: 800;
-	height: 600;
+	width: 250px;
+	height: 250px;
 }
 </style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	var general = "${general}";
+	console.log(general);
+});
+
+</script>
+
+<c:set var="proPic" value="${general.proPic }" />
+<c:set var="band" value="${general.band }" />
+<c:set var="resumes" value="${general.resumes }" />
+<c:set var="music" value="${general.music }" />
 
 <div style="background-color:gray; border-radius:20px;">
 
 	<!-- 밴드 사진 -->
 	<div style="border: 2px solid yellow;">
-		<img class="img-rounded" src="http://${profile.path }/${profile.originName}" />
+		<img class="img-rounded" src="http://${proPic.path }/${proPic.originName}" />
 	</div>
 	
 	<!-- 밴드 맴버 -->
-	<div style="border: 2px solid yellow;">0
+	<div style="border: 2px solid red;">0
 		<table>
 			
 		</table>
 	</div>
 	
 	<!-- 밴드 History -->
-	<div style="border: 2px solid yellow;">
+	<div style="border: 2px solid blue;">
 		<table>
 		
 		</table>
 	</div>
 	
 	<!-- 밴드 소개 -->
-	<div style="border: 2px solid yellow;">
-	
+	<div style="border: 2px solid green;">
+		band basic Info<br>
+		bandName: ${band.bandName }<br>
+		bandInfo ${resumes.bandInfo }<br><br>
 	</div>
 	
-	1. ${band }<br>
-	2. ${band.info }<br><br>
+	<div style="border: 2px solid white;">
+		resumes Info<br>
+		resumesNo: ${resumes.resumesNo }<br>
+		publicResumes ${resumes.publicResumes }<br>
+		Title ${resumes.resumesTitle }<br>
+	</div>
 	
-	3-1. ${band.info.resumesNo }<br>
-	3-2. ${band.info.publicResumes }<br>
-	3-3. ${band.info.resumesTitle }<br>
-	3-4. ${band.info.bandNo }<br>
-	3-5. ${band.info.bandInfo }<br>
-	3-6. ${band.info.musicNo }<br>
+	<div style="border: 2px solid cyan;">
 	
-	<h3>밴드맴버</h3>
 	
-<%-- 	<c:forEach items="${band.member }" var="bm"> --%>
-<%-- 		${bm.bandMemName } : ${bm.mPosition }<br> --%>
-<%-- 	</c:forEach> --%>
+		music Info<br>
+		musicNo: ${music.musicNo }<br>
+		musicTitle: ${music.musicTitle }<br>
+		Path: ${music.path }<br>
+	</div>
 </div>
