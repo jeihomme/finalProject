@@ -3,6 +3,7 @@ package web.dao.face;
 import web.dto.Band;
 import web.dto.Bar;
 import web.dto.Member;
+import web.dto.ProfilePic;
 
 public interface MemberDao {
 	
@@ -35,4 +36,7 @@ public interface MemberDao {
 	
 	// 멤버 유형 확인
 	public int selectRoleId(Member member);
+	
+	// 프로필 사진 업로드
+	public void insertProfilePic(ProfilePic profilePic);
 }

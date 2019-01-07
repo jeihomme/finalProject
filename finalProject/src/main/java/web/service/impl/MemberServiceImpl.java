@@ -1,14 +1,21 @@
 package web.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+import java.util.UUID;
+
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.face.MemberDao;
 import web.dto.Band;
 import web.dto.Bar;
 import web.dto.Member;
+import web.dto.ProfilePic;
 import web.service.face.MemberService;
 
 @Service
@@ -138,6 +145,33 @@ public class MemberServiceImpl implements MemberService {
 		return roleId;
 	}
 
+	@Override
+	public void profilePicSave(ServletContext context, MultipartFile file, ProfilePic profilePic, String uploadPath) {
+		
+		// UUID 고유 식별자
+		String uid = UUID.randomUUID().toString().split("-")[0];
+		
+		// 저장될 파일의 이름
+		String name = uid+"_"+file.getOriginalFilename();
+		
+		// 파일 객체
+		File dest = new File(uploadPath, name);
+		
+		profilePic.setPath(uploadPath);
+		profilePic.setOriginName(file.getOriginalFilename());
+		profilePic.setStoredName(name);
+		
+		memberDao.insertProfilePic(profilePic);
+		
+		// 파일 저장 (업로드)
+		try {
+			file.transferTo(dest);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 
 }
