@@ -235,7 +235,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+selectPage
+			, url: "/mypage/applicationToBand?curPage="+selectPage
 				, data: {
 					curPage : selectPage
 					}
@@ -256,7 +256,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+selectPage
+			, url: "/mypage/applicationToBand?curPage="+selectPage
 				, data: {
 					curPage : selectPage
 					}
@@ -277,7 +277,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+selectPage
+			, url: "/mypage/applicationToBand?curPage="+selectPage
 				, data: {
 					curPage : selectPage
 					}
@@ -300,7 +300,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+selectPage
+			, url: "/mypage/applicationToBand?curPage="+selectPage
 				, data: {
 					curPage : selectPage
 					}
@@ -323,7 +323,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+selectPage
+			, url: "/mypage/applicationToBand?curPage="+selectPage
 				, data: {
 					curPage : selectPage
 					}
@@ -346,7 +346,7 @@ $(document).ready(function() {
 			
 		$.ajax({
 			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+nextStartPage
+			, url: "/mypage/applicationToBand?curPage="+nextStartPage
 				, data: {
 					curPage : nextStartPage
 					}
@@ -372,34 +372,13 @@ $(document).ready(function() {
 			
 		$.ajax({
 			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+prevStartPage
+			, url: "/mypage/applicationToBand?curPage="+prevStartPage
 				, data: {
 					curPage : prevStartPage
 					}
 			, dataType: "html"
 			, success: function(res) {
 				console.log("성공");
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	});
-	
-	$("#memberView").click( function() {
-		
-		selectBoard_no = $("input[name='board_no']").val();
-		console.log(selectBoard_no);
-		$.ajax({
-			type: "get"
-			, url: "/board/view?board_no=" + selectBoard_no
-				, data: {
-					}
-			, dataType: "html"
-			, success: function(res) {
-				console.log("성공");
-	//				console.log(res);
 				$("#body").html(res);
 			}
 			, error: function() {
@@ -438,7 +417,9 @@ $(document).ready(function() {
 	<%-- 						</c:when> --%>
 	<%-- 					</c:choose> --%>
 				<td>
+				
 					<form action="/mypage/resumes?resumesNo=${i.resumesNo }" method="get">
+								<input type="hidden" name="resumesNo" value="${i.resumesNo }">
 								<input type="hidden" name="appNo" value="${i.appNo }">
 								<input type="hidden" name="read" value="1">
 								<button class="searchBtn">이력서 보기</button>
@@ -521,7 +502,7 @@ $(document).ready(function() {
 <%-- 	    	  <a href="/board/list?curPage=${i }">${i }</a> --%>
 <!-- 	    	  </li> -->
 <%-- 	    	</c:if> --%>
-			<button id="ajaxBtn${paging.startPage+i-1 }" class="searchBtn" name="ajaxBtn${paging.startPage+i-1 }" value="${paging.startPage+i-1 }">${paging.startPage+i-1 }</button>
+			<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
 	    </c:forEach>
 		
 		<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>

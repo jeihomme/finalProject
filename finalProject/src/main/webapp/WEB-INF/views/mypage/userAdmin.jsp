@@ -59,7 +59,7 @@
 		margin: 10px;
 		width: 335px;
 		height: 280px;
-		float:left;
+		float:right;
 	}
 	
 	.selectMenu {
@@ -307,7 +307,7 @@ $(document).ready(function() {
 	
 	$("#ajaxBtnPrev").click( function() {
 		
-		var prevStartPage = "${paging.startPage }"-10;
+		var prevStartPage = "${paging.startPage }"-1;
 			if( prevStartPage < 0 ) {
 				prevStartPage = 1;
 			}
@@ -322,27 +322,6 @@ $(document).ready(function() {
 			, dataType: "html"
 			, success: function(res) {
 				console.log("성공");
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	});
-	
-	$("#memberView").click( function() {
-		
-		selectBoard_no = $("input[name='board_no']").val();
-		console.log(selectBoard_no);
-		$.ajax({
-			type: "get"
-			, url: "/board/view?board_no=" + selectBoard_no
-				, data: {
-					}
-			, dataType: "html"
-			, success: function(res) {
-				console.log("성공");
-	//				console.log(res);
 				$("#body").html(res);
 			}
 			, error: function() {
@@ -450,7 +429,7 @@ $(document).ready(function() {
 <%-- 	    	  <a href="/board/list?curPage=${i }">${i }</a> --%>
 <!-- 	    	  </li> -->
 <%-- 	    	</c:if> --%>
-	    	<button id="ajaxBtn${paging.startPage }" class="searchBtn" name="ajaxBtn${paging.startPage }" value="${paging.startPage }">${i }</button>
+	    	<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
 	    </c:forEach>
 		
 		<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>

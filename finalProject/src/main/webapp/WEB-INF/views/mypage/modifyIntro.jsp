@@ -245,7 +245,6 @@ function execDaumPostcode() { // (post)
 						
 					</select>
 						<input type="hidden" name="barNo" value="${bar.barNo }"/>
-						<button class="searchBtn">선택</button>
 <!-- 				</form> -->
 			</div>
 			
@@ -320,7 +319,7 @@ function execDaumPostcode() { // (post)
 	<hr>
 <!-- 	<form action="/mypage/modifyIntro" method="post"> -->
 		<div class="resumesViewDiv">
-			<button class="resumesBtn" onclick=" location.href='/mypage/intro' ">취소</button>
+			<button class="resumesBtn" onclick=" location.href='/mypage/intro' ">뒤로가기</button>
 			<input type="hidden" name="barNo" value="${bar.barNo }"/>
 			<button class="resumesBtn" >완료</button>
 		</div>
