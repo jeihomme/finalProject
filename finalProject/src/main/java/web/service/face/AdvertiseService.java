@@ -1,9 +1,6 @@
 package web.service.face;
 
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.ui.Model;
 
 import web.dto.Advertise;
 import web.dto.FindMember;
@@ -12,7 +9,7 @@ import web.utils.Paging;
 public interface AdvertiseService {
 	
 	// 구인구직 전체 조회
-	public List getList(FindMember findMember);
+	public List getList(Paging paigng);
 
 	// 구인구직 상세 보기
 	public Advertise view(Advertise advertiseView);
@@ -32,7 +29,7 @@ public interface AdvertiseService {
 	public void delete(Advertise advertise);
 	
 	// 페이지 정보 만들기
-	/*public Paging getPaging(int curPage, int listCount, int pageCount);*/
+	public Paging getPaging(int curPage, int listCount, int pageCount);
 
 	public int selectAdvertiseCntAll();
 	

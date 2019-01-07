@@ -3,35 +3,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script type="text/javascript">
-$(document).ready(function(){
-// $("#member").click(function() {
-	 
-		$("#memberCk").click(function(){
-			
-			var adsNo = $("#member").val();
-			
-			$.ajax({ 
-				type: 'GET' 
-				, url: '/advertise/list'
-				, dataType : "json" 
-				, data : {adsNo : adsNo}
-				, success: function(data){
-					
-					alert(data); 
-				} 
-			});	
-		})	
-});
-
-$("#collaboration").click(function() {
-	var adsNo = "2";
-	alert(adsNo);
-});
 
 
-
-</script>
 <style type="text/css">
 
 #advertiseTable{
@@ -41,6 +14,17 @@ $("#collaboration").click(function() {
 	color: black;
 	text-align: center;
 }
+
+#subTable{
+	max-width: 70%;
+	margin-left: -15px;
+	border-bottom: 1px solid white;
+	color: black;
+	text-align: center;
+}
+
+
+
 
 .pointer{ 
 
@@ -59,22 +43,15 @@ cursor:pointer;
 	background-color: #848484;
 	color:white;
 }
+th, td:not(:nth-child(2)) {
+	text-align: center;
+}
+td {
 
-
- 
-
- th {
-
-	text-align: left;
+	background-color: black;
+   	color: white;
 }
 
- td {
-    text-align: left;
-    background-color: black;
-    color: white;
-    
-    
-  }
  
 
 
@@ -95,20 +72,22 @@ cursor:pointer;
 <hr>
 
 
-<div style="margin-left: 30%; margin-bottom: 5%;">
+<div id="list" style="margin-left: 30%; margin-bottom: 5%;">
 <form>
-<h4><a href="#" id="memberCk" href="adsNo"><input type="hidden" id="member" value="1">맴버</a>   /   <a href="#" id="collaboration">콜라보</a></h4>
+<h4><a href="#" id="memberCk" href="adsNo"><input type="hidden" id="member" value="1">맴버</a>   /   <a href="#" id="collaboration" href="adsNo"> <input type="hidden" id="collabo" value="2"/>콜라보</a></h4>
 
 </form>
 </div>
 <table id="advertiseTable" class="table table-striped table-hover">
 <tr>
-	<th>번호</th>
-	<th>분류</th>
-	<th>제목</th>
-	<th>작성자</th>
-	<th>작성일</th>
+	<th style="width: 11%">번호</th>
+	<th style="width: 24%">분류</th>
+	<th style="width: 26%">제목</th>
+	<th style="width: 23%">작성자</th>
+	<th >작성일</th>
 </tr>
+</table>
+<table id="subTable" class="table table-striped table-hover">
 <c:forEach items="${list }" var="advertise">
 <tr>
 	<c:if test="${advertise.findNo != null}">
@@ -125,9 +104,90 @@ cursor:pointer;
 </c:forEach>
 </table>
 
+
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+// $("#member").click(function() {
+	
+	
+	 $("#memberCk").click(function(){
+		
+		 var date = "<fmt:formatDate value="${advertise.writtenDate }" pattern="yyyy-MM-dd"/>";
+			
+		 var adsNo = $("#member").val();
+			
+			$("#subTable").empty();
+			$.ajax({ 
+				type: 'GET' 
+				, url: '/advertise/view'
+				, dataType : "json" 
+				, data : {adsNo : adsNo}
+				, success: function(data){
+						
+						
+						var ads = data.list;
+					
+						
+	
+// 						$newlist = $("<tr><th>번호</th>"+"<th>분류</th><th>제목</th><th>"
+// 								+"작성자</th><th>작성일</th>");
+// 						$("#advertiseTable").append($newlist);
+				
+						$.each(ads , function(index , advertise){
+							$newAdvertiseTable = $("<tr><td style='width:7%'>"+advertise.findNo+"</td><td style='width:14%'>"+advertise.ads+"</td><td>"+"</td><td style='width:28%'>"+advertise.title+"</td><td>"
+									+"</td><td>"+advertise.bandName+"</td><td>"+advertise.writtenDate+"</td></tr>");
+						
+									$("#subTable").append($newAdvertiseTable);
+							})
+					
+					}
+			
+				
+			});	
+		
+		
+			
+		})	
 
 
+$("#collaboration").click(function() {
+	var adsNo = $("#collabo").val();
+	
+	$("#subTable").empty();
+	$.ajax({ 
+		type: 'GET' 
+		, url: '/advertise/view'
+		, dataType : "json" 
+		, data : {adsNo : adsNo}
+		, success: function(data){
+
+			var ads = data.list;
+
+// 			$newlist = $("<tr><th>번호</th>"+"<th>분류</th><th>제목</th><th>"
+// 					+"작성자</th><th>작성일</th>");
+// 			$("#advertiseTable").append($newlist);
+	
+			$.each(ads , function(index , advertise){
+				$newAdvertiseTable = $("<tr><td style='width:7%'>"+advertise.findNo+"</td><td style='width:14%'>"+advertise.ads+"</td><td>"+"</td><td style='width:28%'>"+advertise.title+"</td><td>"
+						+"</td><td>"+advertise.bandName+"</td><td>"+advertise.writtenDate+"</td></tr>");
+			
+						$("#subTable").append($newAdvertiseTable);
+			
+					
+				})
+		
+		}
+				
+})
+
+});
+	
+});
+
+</script>
+
+<jsp:include page="../util/paging.jsp" />
 
 
 
