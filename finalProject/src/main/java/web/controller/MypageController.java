@@ -1,7 +1,6 @@
 package web.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -63,7 +62,7 @@ public class MypageController {
 		} else if( member.getRoleId() == 2) {
 			Band band = new Band();
 			band.setUserId(member.getUserId());
-			band = mpService.getBand(band);
+			band = mpService.getBandByUserId(band);
 			
 			BandMember bandMember = new BandMember();
 			bandMember.setBandNo(band.getBandNo());
@@ -100,7 +99,7 @@ public class MypageController {
 		} else if( member.getRoleId() == 2) {
 			Band band = new Band();
 			band.setUserId(member.getUserId());
-			band = mpService.getBand(band);
+			band = mpService.getBandByUserId(band);
 			
 			BandMember bandMember = new BandMember();
 			bandMember.setBandNo(band.getBandNo());
@@ -136,7 +135,7 @@ public class MypageController {
 		if( member.getRoleId() == 2) {
 			Band band = new Band();
 			band.setUserId(member.getUserId());
-			band = mpService.getBand(band);
+			band = mpService.getBandByUserId(band);
 			
 			BandMember bandMember = new BandMember();
 			bandMember.setBandNo(band.getBandNo());
@@ -172,7 +171,7 @@ public class MypageController {
 			
 			Band band = new Band();
 			band.setUserId(member.getUserId());
-			band = mpService.getBand(band);
+			band = mpService.getBandByUserId(band);
 			
 			BandMember bandMember = new BandMember();
 			bandMember.setBandNo(band.getBandNo());
@@ -192,7 +191,7 @@ public class MypageController {
 			
 			Band band = new Band();
 			band.setUserId(member.getUserId());
-			band = mpService.getBand(band);
+			band = mpService.getBandByUserId(band);
 			
 			BandMember bandMember = new BandMember();
 			bandMember.setBandNo(band.getBandNo());
@@ -253,7 +252,7 @@ public class MypageController {
 		} else if( member.getRoleId() == 2) {
 			Band band = new Band();
 			band.setUserId(member.getUserId());
-			band = mpService.getBand(band);
+			band = mpService.getBandByUserId(band);
 			logger.info(band.toString());
 			
 			Resumes resumes = new Resumes();
@@ -354,7 +353,7 @@ public class MypageController {
 		logger.info(resumes.toString());
 		
 		if ( member.getRoleId() == 1 && req.getParameter("appNo") != null && !"".equals(req.getParameter("appNo")) ) {
-			
+
 			Application app = new Application();
 			app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
 			app.setRead(Integer.parseInt(req.getParameter("read") ));
@@ -362,10 +361,10 @@ public class MypageController {
 			logger.info(app.toString());
 			mpService.appReadUpdate(app);
 		}
-
+		
 		Band band = new Band();
 		band.setBandNo(resumes.getBandNo());
-		band = mpService.getBand(band);
+		band = mpService.getBandByUserId(band);
 		logger.info(band.toString());
 		
 		BandGenre bandGenre = new BandGenre();
@@ -384,7 +383,7 @@ public class MypageController {
 			music = mpService.getMusic(resumes);
 			logger.info(music.toString());
 		}
-		
+		logger.info("7");
 		List<History> historyList = mpService.getHistoryList(resumes);
 		
 		model.addAttribute("member", member);
@@ -412,7 +411,7 @@ public class MypageController {
 		
 		Band band = new Band();
 		band.setUserId(member.getUserId());
-		band = mpService.getBand(band);
+		band = mpService.getBandByUserId(band);
 		logger.info(band.toString());
 		
 		Resumes resumes = new Resumes();
@@ -454,7 +453,7 @@ public class MypageController {
 		
 		Band band = new Band();
 		band.setUserId(member.getUserId());
-		band = mpService.getBand(band);
+		band = mpService.getBandByUserId(band);
 		logger.info(band.toString());
 		
 		Music music = new Music();
@@ -674,7 +673,7 @@ public class MypageController {
 		int CurPage = mpService.getCurPage(req);
 		
 		logger.info("---getTotalCount---");
-		int totalCount = mpService.getTotalCount();
+		int totalCount = mpService.getUserTotalCount();
 		
 		logger.info("---Paging---");
 		Paging paging = new Paging(totalCount, CurPage);
@@ -732,7 +731,7 @@ public class MypageController {
 //		검색어가 없다면,
 		else {
 			logger.info("---getTotalCount---");
-			int totalCount = mpService.getTotalCount();
+			int totalCount = mpService.getUserTotalCount();
 			
 			logger.info("---Paging---");
 			paging = new Paging(totalCount, CurPage);
@@ -781,7 +780,7 @@ public class MypageController {
 		int CurPage = mpService.getCurPage(req);
 		
 		logger.info("---getTotalCount---");
-		int totalCount = mpService.getTotalCount();
+		int totalCount = mpService.getUserTotalCount();
 		
 		logger.info("---Paging---");
 		Paging paging = new Paging(totalCount, CurPage);
@@ -839,7 +838,7 @@ public class MypageController {
 //		검색어가 없다면,
 		else {
 			logger.info("---getTotalCount---");
-			int totalCount = mpService.getTotalCount();
+			int totalCount = mpService.getUserTotalCount();
 			
 			logger.info("---Paging---");
 			paging = new Paging(totalCount, CurPage);
@@ -882,7 +881,7 @@ public class MypageController {
 		
 		Band band = new Band();
 		band.setUserId(member.getUserId());
-		band = mpService.getBand(band);
+		band = mpService.getBandByUserId(band);
 		
 		Resumes resumes = new Resumes();
 		resumes.setBandNo(band.getBandNo() );
@@ -935,7 +934,7 @@ public class MypageController {
 		int CurPage = mpService.getCurPage(req);
 		
 		logger.info("---getTotalCount---");
-		int totalCount = mpService.getTotalCount();
+		int totalCount = mpService.getUserTotalCount();
 		
 		logger.info("---Paging---");
 		Paging paging = new Paging(totalCount, CurPage);
@@ -967,7 +966,7 @@ public class MypageController {
 		if( search!=null && !"".equals(search) ) {
 			logger.info("---getTotalCount---");
 			logger.info("---search String : "+search);
-			int totalCount = mpService.getTotalCount(search);
+			int totalCount = mpService.getUserTotalCount(search);
 			logger.info("---totalCount String : "+totalCount);
 			
 			logger.info("---Paging---");
@@ -988,7 +987,7 @@ public class MypageController {
 //		검색어가 없다면,
 		else {
 			logger.info("---getTotalCount---");
-			int totalCount = mpService.getTotalCount();
+			int totalCount = mpService.getUserTotalCount();
 			
 			logger.info("---Paging---");
 			paging = new Paging(totalCount, CurPage);
@@ -1027,7 +1026,7 @@ public class MypageController {
 			int CurPage = mpService.getCurPage(req);
 			
 			logger.info("---getTotalCount---");
-			int totalCount = mpService.getTotalCount();
+			int totalCount = mpService.getResumesTotalCount();
 			
 			logger.info("---Paging---");
 			Paging paging = new Paging(totalCount, CurPage);
@@ -1059,7 +1058,8 @@ public class MypageController {
 			if( search!=null && !"".equals(search) ) {
 				logger.info("---getTotalCount---");
 				logger.info("---search String : "+search);
-				int totalCount = mpService.getTotalCount(search);
+				
+				int totalCount = mpService.getResumesTotalCount(search);
 				logger.info("---totalCount String : "+totalCount);
 				
 				logger.info("---Paging---");
@@ -1080,7 +1080,7 @@ public class MypageController {
 	//		검색어가 없다면,
 			else {
 				logger.info("---getTotalCount---");
-				int totalCount = mpService.getTotalCount();
+				int totalCount = mpService.getResumesTotalCount();
 				
 				logger.info("---Paging---");
 				paging = new Paging(totalCount, CurPage);

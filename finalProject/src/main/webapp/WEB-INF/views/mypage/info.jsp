@@ -84,6 +84,7 @@
 		<p onclick="location.href='/mypage/applicationToBand' ">지원 현황</p>
 		<p onclick="location.href='/mypage/calendar' ">일정표</p>
 	</div><br><br>
+	<hr>
 	
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">

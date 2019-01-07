@@ -172,7 +172,22 @@ $(document).ready(function() {
 			
 			<form class="modifyInfoDone" action="/mypage/modifyInfo" method="post">
 				<b class="adminDetailInfo">이메일 : </b><input name="email" value="${member.email }"/><br>
-				<b class="adminDetailInfo">통신사 : </b><input name="telcom" value="${member.telcom }"/><br>
+				<b class="adminDetailInfo">통신사 : </b>
+				
+				<select class="modifyBtn" name="telcom" >
+					<c:if test="${member.telcom eq null}">
+						<option value="">선택</option>
+					</c:if>
+					
+					<c:if test="${member.telcom ne null}">
+						<option value="${member.telcom }" selected="selected">${member.telcom }</option>
+					</c:if>
+					
+					<option value="KT">KT</option>
+					<option value="SK">SK</option>
+					<option value="LG">LG</option>
+					
+				</select><br>
 				<b class="adminDetailInfo">연락처 : </b><input name="contact" value="${member.contact }"/><br>
 				<button class="modifyBtn">수정</button>
 			</form>
@@ -192,9 +207,8 @@ $(document).ready(function() {
 		<p onclick="location.href='/mypage/intro' ">바 소개</p>
 		<p onclick="location.href='/mypage/applicationToBand' ">지원 현황</p>
 		<p onclick="location.href='/mypage/calendar' ">일정표</p>
-	</div>
-	<br>
-	<br>
+	</div><br><br>
+	<hr>
 
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">

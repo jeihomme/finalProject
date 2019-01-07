@@ -59,7 +59,7 @@
 		margin: 10px;
 		width: 335px;
 		height: 280px;
-		float:left;
+		float:right;
 	}
 	
 	.selectMenu {
@@ -358,7 +358,7 @@ $(document).ready(function() {
 		
 	<tr>
 		<th>이력서 번호</th>
-		<th>밴드 이름-나중에추가해라</th>
+		<th>밴드 이름</th>
 		<th>이력서 이름</th>	
 		<th>사운드 번호</th>
 		<th>정의구현</th>
@@ -371,7 +371,7 @@ $(document).ready(function() {
 	<%-- 				<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
 	<%-- 				<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
 					<td>${i.resumesNo }</td>
-					<td>${i.bandNo }</td>
+					<td>${i.bandName }</td>
 					<td>${i.bandInfo }</td>
 					<td>${i.musicNo }</td>
 					<td>
@@ -424,16 +424,18 @@ $(document).ready(function() {
 	
 			<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
 <%-- 			<c:if test="${paging.curPage eq i}">           --%>
-<!-- 	    	  <li class="active"> -->
+	    	  
 <%-- 	    	  	<a href="/board/list?curPage=${i }">${i }</a> --%>
-<!-- 	    	  	</li> -->
+	    	  	
 <%-- 	    	</c:if> --%>
 <%-- 			<c:if test="${paging.curPage ne i}">           --%>
 <!-- 	    	  <li> -->
 <%-- 	    	  <a href="/board/list?curPage=${i }">${i }</a> --%>
 <!-- 	    	  </li> -->
 <%-- 	    	</c:if> --%>
-	    	<button id="ajaxBtn${paging.startPage }" class="searchBtn" name="ajaxBtn${paging.startPage }" value="${paging.startPage }">${i }</button>
+		<li class="active">
+	    	<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+	    	</li>
 	    </c:forEach>
 		
 		<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>

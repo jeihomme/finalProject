@@ -56,7 +56,11 @@ public interface MypageDao {
 	public void deleteCalendar();
 	
 	public int selectUserListCnt();
-	public int selectCntAll(String search);
+	public int selectUserCntAll(String search);
+	
+	public int selectResumesListCnt();
+	public int selectResumesCntAll(String search);
+	
 	public List<Member> selectUserList(Paging paging);
 	public List<Member> selectUserByUserId(Paging paging);
 	public void deleteUser(Member member);
@@ -66,6 +70,7 @@ public interface MypageDao {
 	public void deleteBoard(Resumes resumes);
 	
 	public Band selectBandByUserId(Band band);
+	public Band selectBandByBandNo(Band band);
 	public List<BandMember>  selectBandMemberByBandName(BandMember bandMember);
 	public void insertBandMemberList(BandMember bandMember);
 	public void deleteBandMemberList(BandMember bandMember);
@@ -113,4 +118,5 @@ public interface MypageDao {
 	public void updateBar(Bar bar);
 	public void updateReadByAppNo(Application app);
 	public void updateAcceptByAppNo(Application app);
+	
 }

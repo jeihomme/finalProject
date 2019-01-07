@@ -57,84 +57,6 @@ public class MypageServiceImpl implements MypageService{
 	}
 //	----------------------------------------------------------
 	@Override
-	public void introList() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void resumesView() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void createBasicInfo() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void createSoundFile() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void createHistory() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void createIntro() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void resumesModify() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void searchVolunteerUser() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void volunteerToBarViewList() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteVolunteerToBarView() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void volunteerToBandViewList() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteVolunteerToBandView() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void recommandBarViewList() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void calendarView() {
 		// TODO Auto-generated method stub
 		
@@ -153,13 +75,23 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public int getTotalCount() {
+	public int getUserTotalCount() {
 		return mpDao.selectUserListCnt();
 	}
 	
 	@Override
-	public int getTotalCount(String search) {
-		return mpDao.selectCntAll(search);
+	public int getResumesTotalCount() {
+		return mpDao.selectResumesListCnt();
+	}
+	
+	@Override
+	public int getUserTotalCount(String search) {
+		return mpDao.selectUserCntAll(search);
+	}
+	
+	@Override
+	public int getResumesTotalCount(String search) {
+		return mpDao.selectResumesCntAll(search);
 	}
 
 	@Override
@@ -222,9 +154,15 @@ public class MypageServiceImpl implements MypageService{
 	}
 //	-----------------------------------
 	@Override
-	public Band getBand(Band band) {
+	public Band getBandByUserId(Band band) {
 		// TODO Auto-generated method stub
 		return mpDao.selectBandByUserId(band);
+	}
+	
+	@Override
+	public Band getBandByBandNo(Band band) {
+		// TODO Auto-generated method stub
+		return mpDao.selectBandByBandNo(band);
 	}
 	
 	@Override

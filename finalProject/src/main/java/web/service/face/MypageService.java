@@ -30,24 +30,6 @@ public interface MypageService {
 //	회원 비밀번호 수정
 	public void modifyPw(Member member);
 	
-	public void introList();
-	
-	public void resumesView();
-	public void createBasicInfo();
-	public void createSoundFile();
-	public void createHistory();
-	public void createIntro();
-	
-	public void resumesModify();
-	
-	public void searchVolunteerUser();
-	public void volunteerToBarViewList();
-	public void deleteVolunteerToBarView();
-	public void volunteerToBandViewList();
-	public void deleteVolunteerToBandView();
-	
-	public void recommandBarViewList();
-	
 	public void calendarView();
 	public void modifyCalendar();
 	public void deleteCalendar();
@@ -55,8 +37,14 @@ public interface MypageService {
 //	public void userView();
 	public int getCurPage(HttpServletRequest req);
 	public String getSearch(HttpServletRequest req);
-	public int getTotalCount(String search);
-	public int getTotalCount();
+	
+	public int getUserTotalCount(String search);
+	public int getUserTotalCount();
+	
+	public int getResumesTotalCount(String search);
+	public int getResumesTotalCount();
+	
+	
 	public List<Member> userView(Paging paging);
 	public List<Member> userSearch(Paging paging);
 	public void userDelete(Member member);
@@ -65,7 +53,8 @@ public interface MypageService {
 	public List<Resumes> boardSearch(Paging paging);
 	public void boardDelete(Resumes resumes);
 	
-	public Band getBand(Band band);
+	public Band getBandByUserId(Band band);
+	public Band getBandByBandNo(Band band);
 	public List<BandMember>  getBandMember(BandMember bandMember);
 	public void addMemberList(BandMember bandMember);
 	public void minMemberList(BandMember bandMember);

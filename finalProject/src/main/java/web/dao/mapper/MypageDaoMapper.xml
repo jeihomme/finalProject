@@ -40,12 +40,24 @@
 	
 	<select id="selectUserListCnt" resultType="int">
 		select count(*) from member
+		where roleId between 1 and 2
+	</select>
+	
+	<select id="selectResumesListCnt" resultType="int">
+		select count(*) from resumes
 	</select>
 
-	<select id="selectCntAll" parameterType="String"
+	<select id="selectUserCntAll" parameterType="String"
 		resultType="int">
 		select count(*) from member
 		WHERE userId LIKE '%'||#{search }||'%'
+	</select>
+	
+	<select id="selectResumesCntAll" parameterType="String"
+		resultType="int">
+		select count(*) from resumes r
+		left outer join band b on b.bandno = r.bandno
+		WHERE bandName LIKE '%'||#{search }||'%'
 	</select>
 	
 	<select id="selectUserList" parameterType="web.utils.Paging"
@@ -53,6 +65,7 @@
 		SELECT * FROM (
 		SELECT rownum rnum, B.* FROM (
 		SELECT * FROM member
+			where roleId between 1 and 2
 		ORDER BY userId DESC
 		) B
 		ORDER BY rnum
@@ -84,7 +97,8 @@
 		resultType="web.dto.Resumes">
 		SELECT * FROM (
 		SELECT rownum rnum, B.* FROM (
-		SELECT * FROM resumes
+		SELECT * FROM resumes r
+			left outer join band b on b.bandno = r.bandno
 		ORDER BY resumesNo DESC
 		) B
 		ORDER BY rnum
@@ -97,8 +111,9 @@
 		resultType="web.dto.Resumes">
 		SELECT * FROM (
 		 SELECT rownum rnum, B.* FROM (
-		 	SELECT * FROM resumes
-			WHERE resumesNo LIKE '%'||#{search }||'%'
+		 	select * from resumes r
+			left outer join band b on b.bandno = r.bandno
+			WHERE bandName LIKE '%'||#{search }||'%'
 		 	ORDER BY resumesNo DESC
 		 ) B
 		 ORDER BY rnum
@@ -111,6 +126,12 @@
 		delete resumes
 		where resumesNo=#{resumesNo }
 	</delete>
+	
+	<select id="selectBandByBandNo" parameterType="web.dto.Band"
+		resultType="web.dto.Band">
+		select * from band
+		where bandno = #{bandNo }
+	</select>
 	
 	<select id="selectBandByUserId" parameterType="web.dto.Band"
 		resultType="web.dto.Band">

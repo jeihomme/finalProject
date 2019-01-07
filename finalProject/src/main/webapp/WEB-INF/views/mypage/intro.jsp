@@ -91,16 +91,10 @@
 	/* 	background-color:#5c5c5c; */
 	}
 	
-	.bandDetailInfo {
+	.introDetailInfo {
 /*  		width:144px; */
 		font-size:13px;
-		float:right;
-	}
-	
-	.barDetailInfo {
-/*  		width:144px; */
-		font-size:13px;
-		float:right;
+/* 		float:left; */
 	}
 	
 	.adminDetailMust {
@@ -155,20 +149,20 @@
 <!-- 				<input type="file" name="profileNo"/> -->
 			</div>
 			<div class="bandIntroInfo">
-				<b class="barDetailInfo">바명</b><p class="adminDetailMust">(필수) </p><br>
+				<b class="introDetailInfo">바명</b><p class="adminDetailMust">(필수) </p><br>
 				${bar.barName }<br><br>
 	<!-- 			<input type="text" name="bandName"/><br> -->
-				<b class="barDetailInfo">담당자 </b><p class="adminDetailMust">(필수) </p><br>
+				<b class="introDetailInfo">담당자 </b><p class="adminDetailMust">(필수) </p><br>
 				${bar.manager }<br><br>
-				<b class="barDetailInfo">연락처 </b><p class="adminDetailMust">(필수) </p><br>
+				<b class="introDetailInfo">연락처 </b><p class="adminDetailMust">(필수) </p><br>
 				${member.contact }<br><br>
 	<!-- 			<input type="text" name="contact"/><br> -->
 			</div>
 			<div class="bandIntroInfo">
-				<b class="barDetailInfo">이메일 </b><p class="adminDetailMust">(필수) </p><br>
+				<b class="introDetailInfo">이메일 </b><p class="adminDetailMust">(필수) </p><br>
 	<!-- 			<input type="text" name="email"/><br> -->
 				${member.email }<br><br>
-				<b class="barDetailInfo">장르 </b><p class="adminDetailMust">(필수) </p><br>
+				<b class="introDetailInfo">장르 </b><p class="adminDetailMust">(필수) </p><br>
 				${genre.genreName }<br><br>
 	<!-- 			<input type="text" name="genreNo"/><br> -->
 	<!-- 			<select name="genre"> -->
@@ -237,7 +231,7 @@
 		<div class="barIntroInfo">
 			<p class="adminDetailTitle">밴드 소개 </p>
 			<hr>
-			<ul class="bandDetailInfo">
+			<ul class="introDetailInfo">
 				<li>이력서는 최대 5개까지 작성 가능합니다.</li>
 				<li>지원하고자 하는 Bar마다 내용을 다르게 할 수 있습니다.</li>
 			</ul>
