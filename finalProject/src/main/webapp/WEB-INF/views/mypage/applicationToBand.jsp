@@ -54,12 +54,12 @@
 		font-size:13px;
 	}
 	
-	.adminMypageMainImage {
+	.applicationImage {
 		border: 1px solid #fff;
 		margin: 10px;
 		width: 335px;
 		height: 280px;
-		float:left;
+		float:right;
 	}
 	
 	.selectMenu {
@@ -85,38 +85,107 @@
 		border-radius: 3px;
 	/* 	background-color:#5c5c5c; */
 	}
+	
+	.applicationTab {
+	text-align:right;
+ 	margin:0px 5px 3px 5px;
+	box-shadow: 0px 0px 15px rgba(0,0,0,.3);
+	-moz-box-shadow: 0px 0px 15px rgba(0,0,0,.3);
+	-webkit-box-shadow: 0px 0px 15px rgba(0,0,0,.3);
+	-o-box-shadow: 0px 0px 15px rgba(0,0,0,.3);
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+ 	border-radius: 3px;
+}
+	.applicationTab p{
+		float:left;
+		cursor:pointer;
+		padding:10px;
+		margin: 0 auto;
+	}
+	.applicationTab ul li{
+		float:left;
+		cursor:pointer;
+		padding:10px;
+		margin: 0 auto;
+		list-style-type:none;
+	}
+	
+	.applicationTab a {
+		height:16px;
+		color:#f1f1f1;
+		font-family:arial;
+		font-size:20px;
+		padding:0 10px 0 10px;
+		text-decoration:none;
+	}
+	
+	.applicationTab a:hover {
+	/* 	color:#D4F4FA; */
+		color: gold;
+	/* 	메뉴 밑줄 색상 */
+		border-bottom:3px solid #ffffff;
+	}
+	
+	.applicationTab ul ul {
+		display:none;
+		position:absolute;
+		background-color:#000000;
+	}
+	
+	.applicationTab ul li:hover ul {
+		display: block;
+	}
+	
+	.applicationTab ul ul li {
+		float:none;
+		text-align:right; /* 글 왼쪽 정렬 */
+	}
 </style>
 
 <div class="adminMenu">
 	<p onclick=" location.href='/mypage/info' ">Mypage</p>
 	<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
 	<p onclick="location.href='/mypage/intro' ">밴드 소개</p>
-	<p onclick="location.href='/mypage/applicationToBar' ">지원 현황</p>
+</div>
+
+<div class="applicationTab">
+	<ul >
+		<li class="selectMenu">지원 현황
+			<ul >
+				<li><a href="/mypage/applicationToBar">Band to Bar</a></li>
+				<li><a href="/mypage/applicationToBand">Bar to Band</a></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+<div class="adminMenu">
 	<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
-	<p class="selectMenu" onclick="location.href='/mypage/calendar' ">일정표</p>
+	<p onclick="location.href='/mypage/calendar' ">일정표</p>
 </div><br><br>
 <hr>
 <div class="adminMypageMain">
 	<div class="adminMypageMainInfo">
-		<p class="adminDetailTitle">관리자 회원 관리 </p>
+		<p class="adminDetailTitle">Band to Bar 지원현황</p>
 		<hr>
-		<p class="adminDetailInfo">회원을 검색하여 강제 삭제할 수 있는 공간입니다.</p>
+		<ul class="adminDetailInfo">
+			<li>이력 현황 검색 페이지입니다.</li>
+			<li>최근 6개월 간 지원내역에 대해 확인합니다.</li>
+			<li>지원 확정, 취소 등  최근 1년 이내 입니다.</li>
+		</ul>
 	</div>
-	<div class="adminMypageMainImage">
+	<div class="applicationImage">
 		<p >이미지 넣어주세요 </p>
 	</div>
 </div>
 <div class="adminMypageSearchDiv">
 	<div class="searchUserinfo">
-		<form action="/mypage/userAdmin" method="post">
-			검색조건 <select class="searchBtn" name="searchCategory">
-				<option class="searchBtn" value="">카테고리</option>
-			    <option class="searchBtn" value="userId">아이디</option>
-			    <option class="searchBtn" value="contact">연락처</option>
-			    <option class="searchBtn" value="userName">이름</option>
-			</select>
+		<form action="/mypage/applicationToBar" method="post">
 			
-			검색어 입력 <input class="searchBtn" type="text" name="searchKeyowrd" />
+			<input type="date" class="insertResumesHistory" name="appStartDate" value=""/> ~ 
+			<input type="date" class="insertResumesHistory" name="appEndDate" value=""/>
 			<button class="searchBtn"> 검색 </button>
 		</form>
 	</div>
@@ -180,7 +249,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "get"
-			, url: "/mypage/userAdmin?curPage="+selectPage
+			, url: "/mypage/applicationToBar?curPage="+selectPage
 				, data: {
 					curPage : selectPage
 					}
@@ -201,7 +270,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "get"
-			, url: "/mypage/userAdmin?curPage="+selectPage
+			, url: "/mypage/applicationToBar?curPage="+selectPage
 				, data: {
 					curPage : selectPage
 					}
@@ -222,7 +291,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "get"
-			, url: "/mypage/userAdmin?curPage="+selectPage
+			, url: "/mypage/applicationToBar?curPage="+selectPage
 				, data: {
 					curPage : selectPage
 					}
@@ -245,7 +314,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "get"
-			, url: "/mypage/userAdmin?curPage="+selectPage
+			, url: "/mypage/applicationToBar?curPage="+selectPage
 				, data: {
 					curPage : selectPage
 					}
@@ -268,7 +337,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type: "get"
-			, url: "/mypage/userAdmin?curPage="+selectPage
+			, url: "/mypage/applicationToBar?curPage="+selectPage
 				, data: {
 					curPage : selectPage
 					}
@@ -291,7 +360,7 @@ $(document).ready(function() {
 			
 		$.ajax({
 			type: "get"
-			, url: "/mypage/userAdmin?curPage="+nextStartPage
+			, url: "/mypage/applicationToBar?curPage="+nextStartPage
 				, data: {
 					curPage : nextStartPage
 					}
@@ -317,7 +386,7 @@ $(document).ready(function() {
 			
 		$.ajax({
 			type: "get"
-			, url: "/mypage/userAdmin?curPage="+prevStartPage
+			, url: "/mypage/applicationToBar?curPage="+prevStartPage
 				, data: {
 					curPage : prevStartPage
 					}
@@ -360,45 +429,44 @@ $(document).ready(function() {
 		<table class="table table-hover table-striped table-condensed">
 		
 	<tr>
-		<th>아이디</th>
-		<th>유저타입</th>
-		<th>이메일</th>
-		<th>연락처</th>
-		<th>실명</th>
-		<th>정의구현</th>
+		<th>이력서</th>
+		<th>지원일</th>
+		<th>Bar</th>
+		<th>공연 지원 날짜 / 시간</th>
+		<th>열람여부</th>
+		<th>수락 여부</th>
+		<th>지원취소</th>
 	</tr>
 	
-		<c:forEach items="${mbList }" var="i">
-			<c:if test="${i.roleId eq 1 || i.roleId eq 2}">
-<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
-				<tr>
+		<c:forEach items="${aList }" var="i">
+		<%-- 			<c:if test="${i.roleId eq 1 || i.roleId eq 2}"> --%>
+		<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
+			<tr>
 	<!-- 			<tr id="memberView"> -->
-	<%-- 				<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
-	<%-- 				<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
-					<td>${i.userId }</td>
-					<c:choose>
-						<c:when test="${i.roleId eq 1}">
-							<td>바</td>
-						</c:when>
-						<c:when test="${i.roleId eq 2}">
-							<td>밴드</td>
-						</c:when>
-					</c:choose>
-					<td>${i.email }</td>
-					<td>${i.contact }</td>
-<%-- 					<c:if test="${i.userName}"> --%>
-						<td>${i.userName }</td>
-<%-- 					</c:if> --%>
-<%-- 					<c:if test="${not i.userName }"> --%>
-<!-- 						<td>없음</td> -->
-<%-- 					</c:if> --%>
-					<td>
-					<form action="/mypage/deleteUser" method="post">
-						<input type="hidden" name="userId" value="${i.userId }">
-						<button class="searchBtn">회원삭제</button>
-					</form></td>
-				</tr>
-			</c:if>
+	<%-- 					<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
+	<%-- 					<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
+	<%-- 					<td>${i.userId }</td> --%>
+	<%-- 					<c:choose> --%>
+	<%-- 						<c:when test="${i.roleId eq 1}"> --%>
+	<!-- 							<td>바</td> -->
+	<%-- 						</c:when> --%>
+	<%-- 						<c:when test="${i.roleId eq 2}"> --%>
+	<!-- 							<td>밴드</td> -->
+	<%-- 						</c:when> --%>
+	<%-- 					</c:choose> --%>
+				<td><a href="/mypage/resumes?resumesNo=${i.resumesNo }">이력서 보기</a></td>
+				<td>${i.appDate }</td>
+				<td>${i.barName }</td>
+				<td>지원날짜 / 시간</td>
+				<td>${i.read }</td>
+				<td>${i.accept }</td>
+				<td>
+					<form action="/mypage/applicationToBarCancel" method="post">
+						<input type="hidden" name="appNo" value="${i.appNo }">
+							<button class="searchBtn">지원취소</button>
+					</form>
+				</td>
+			</tr>
 		</c:forEach>
 			
 	</table>
@@ -436,12 +504,12 @@ $(document).ready(function() {
     	</c:if>
     	
 	    <!-- 페이징 리스트 -->
+	   
 	    <c:forEach
  	     begin="${paging.startPage }"
  	     end="${paging.endPage }"
  	     var="i">
-	
-			<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
+<!-- 			현재 보고 있는 페이지번호만 강조해주기 -->
 <%-- 			<c:if test="${paging.curPage eq i}">           --%>
 <!-- 	    	  <li class="active"> -->
 <%-- 	    	  	<a href="/board/list?curPage=${i }">${i }</a> --%>
@@ -452,26 +520,11 @@ $(document).ready(function() {
 <%-- 	    	  <a href="/board/list?curPage=${i }">${i }</a> --%>
 <!-- 	    	  </li> -->
 <%-- 	    	</c:if> --%>
-	    	<button id="ajaxBtn${paging.startPage+i-1 }" class="searchBtn" name="ajaxBtn${paging.startPage+i-1 }" value="${paging.startPage+i-1 }">${paging.startPage+i-1 }</button>
+			<button id="ajaxBtn${paging.startPage+i-1 }" class="searchBtn" name="ajaxBtn${paging.startPage+i-1 }" value="${paging.startPage+i-1 }">${paging.startPage+i-1 }</button>
 	    </c:forEach>
 		
 		<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
-			
-	    <!-- 다음 페이지 -->
-	  	<c:if test="${paging.curPage eq paging.totalPage }">
-	    <li class="disabled">
-	    	
-<!-- 	        <span aria-hidden="true">&raquo;</span> -->
-	    </li>
-		</c:if>
 		
-<%-- 	  	<c:if test="${paging.curPage ne paging.totalPage }"> --%>
-<!-- 	    <li> -->
-<%-- 	      <a href="/board/list?curPage=${paging.curPage+1 }" aria-label="Next"> --%>
-<!-- 	        <span aria-hidden="true">&raquo;</span> -->
-<!-- 	      </a> -->
-<!-- 	    </li> -->
-<%-- 	    </c:if> --%>
 	    </ul>
 	</div>
 	</div>

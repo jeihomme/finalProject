@@ -92,7 +92,7 @@
 	<p onclick=" location.href='/mypage/info' ">Mypage</p>
 	<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
 	<p class="selectMenu" onclick="location.href='/mypage/intro' ">밴드 소개</p>
-	<p onclick="location.href='/mypage/volunteer' ">지원 현황</p>
+	<p onclick="location.href='/mypage/applicationToBar' ">지원 현황</p>
 	<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
 	<p onclick="location.href='/mypage/calendar' ">일정표</p>
 </div><br><br>

@@ -450,7 +450,7 @@ $(document).ready(function() {
 <%-- 	    	  <a href="/board/list?curPage=${i }">${i }</a> --%>
 <!-- 	    	  </li> -->
 <%-- 	    	</c:if> --%>
-	    	<button id="ajaxBtn${paging.startPage+i-1 }" class="searchBtn" name="ajaxBtn${paging.startPage+i-1 }" value="${paging.startPage+i-1 }">${paging.startPage+i-1 }</button>
+	    	<button id="ajaxBtn${paging.startPage }" class="searchBtn" name="ajaxBtn${paging.startPage }" value="${paging.startPage }">${i }</button>
 	    </c:forEach>
 		
 		<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
