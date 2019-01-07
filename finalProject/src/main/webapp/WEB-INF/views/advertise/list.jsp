@@ -15,6 +15,17 @@
 	text-align: center;
 }
 
+#subTable{
+	max-width: 70%;
+	margin-left: -15px;
+	border-bottom: 1px solid white;
+	color: black;
+	text-align: center;
+}
+
+
+
+
 .pointer{ 
 
 cursor:pointer; 
@@ -32,22 +43,15 @@ cursor:pointer;
 	background-color: #848484;
 	color:white;
 }
+th, td:not(:nth-child(2)) {
+	text-align: center;
+}
+td {
 
-
- 
-
- th {
-
-	text-align: left;
+	background-color: black;
+   	color: white;
 }
 
- td {
-    text-align: left;
-    background-color: black;
-    color: white;
-    
-    
-  }
  
 
 
@@ -76,12 +80,14 @@ cursor:pointer;
 </div>
 <table id="advertiseTable" class="table table-striped table-hover">
 <tr>
-	<th>번호</th>
-	<th>분류</th>
-	<th>제목</th>
-	<th>작성자</th>
-	<th>작성일</th>
+	<th style="width: 11%">번호</th>
+	<th style="width: 24%">분류</th>
+	<th style="width: 26%">제목</th>
+	<th style="width: 23%">작성자</th>
+	<th >작성일</th>
 </tr>
+</table>
+<table id="subTable" class="table table-striped table-hover">
 <c:forEach items="${list }" var="advertise">
 <tr>
 	<c:if test="${advertise.findNo != null}">
@@ -98,6 +104,7 @@ cursor:pointer;
 </c:forEach>
 </table>
 
+
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -110,7 +117,7 @@ $(document).ready(function(){
 			
 		 var adsNo = $("#member").val();
 			
-			$("#advertiseTable").empty();
+			$("#subTable").empty();
 			$.ajax({ 
 				type: 'GET' 
 				, url: '/advertise/view'
@@ -123,16 +130,15 @@ $(document).ready(function(){
 					
 						
 	
-						$newlist = $("<tr><th>번호</th>"+"<th>분류</th><th>제목</th><th>"
-								+"작성자</th><th>작성일</th>");
-						$("#advertiseTable").append($newlist);
+// 						$newlist = $("<tr><th>번호</th>"+"<th>분류</th><th>제목</th><th>"
+// 								+"작성자</th><th>작성일</th>");
+// 						$("#advertiseTable").append($newlist);
 				
 						$.each(ads , function(index , advertise){
-							$newAdvertiseTable = $("<tr><td>"+advertise.findNo+"</td><td>"+advertise.ads+"</td><td>"+"</td><td>"+advertise.title+"</td><td>"
-									+"</td><td>"+advertise.bandName+"</td><td>"+advertise.ads+"</td>"
-									+"<td>"+date+advertise.writtenDate+"</td></tr>");
+							$newAdvertiseTable = $("<tr><td style='width:7%'>"+advertise.findNo+"</td><td style='width:14%'>"+advertise.ads+"</td><td>"+"</td><td style='width:28%'>"+advertise.title+"</td><td>"
+									+"</td><td>"+advertise.bandName+"</td><td>"+advertise.writtenDate+"</td></tr>");
 						
-									$("#advertiseTable").append($newAdvertiseTable);
+									$("#subTable").append($newAdvertiseTable);
 							})
 					
 					}
@@ -148,7 +154,7 @@ $(document).ready(function(){
 $("#collaboration").click(function() {
 	var adsNo = $("#collabo").val();
 	
-	$("#advertiseTable").empty();
+	$("#subTable").empty();
 	$.ajax({ 
 		type: 'GET' 
 		, url: '/advertise/view'
@@ -158,16 +164,17 @@ $("#collaboration").click(function() {
 
 			var ads = data.list;
 
-			$newlist = $("<tr><th>번호</th>"+"<th>분류</th><th>제목</th><th>"
-					+"작성자</th><th>작성일</th>");
-			$("#advertiseTable").append($newlist);
+// 			$newlist = $("<tr><th>번호</th>"+"<th>분류</th><th>제목</th><th>"
+// 					+"작성자</th><th>작성일</th>");
+// 			$("#advertiseTable").append($newlist);
 	
-			$.each(ads , function(index , collabo){
-				$newAdvertiseTable = $("<tr><td>"+collabo.findNo+"</td><td>"+collabo.ads+"</td><td>"+"</td><td>"+advertise.title+"</td><td>"
-						+"</td><td>"+collabo.bandName+"</td><td>"+collabo.ads+"</td>"
-						+"<td>"+date+collabo.writtenDate+"</td></tr>");
+			$.each(ads , function(index , advertise){
+				$newAdvertiseTable = $("<tr><td style='width:7%'>"+advertise.findNo+"</td><td style='width:14%'>"+advertise.ads+"</td><td>"+"</td><td style='width:28%'>"+advertise.title+"</td><td>"
+						+"</td><td>"+advertise.bandName+"</td><td>"+advertise.writtenDate+"</td></tr>");
 			
-						$("#advertiseTable").append($newAdvertiseTable);
+						$("#subTable").append($newAdvertiseTable);
+			
+					
 				})
 		
 		}
