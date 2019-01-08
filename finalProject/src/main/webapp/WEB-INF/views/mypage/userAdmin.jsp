@@ -87,11 +87,212 @@
 	}
 </style>
 
+<script>
+function viewMypageInfo(){
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "get"
+		, url: "/mypage/info"
+		, data: {
+			
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function viewMypageModifyInfo(){
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "get"
+		, url: "/mypage/modifyInfo"
+		, data: {
+			
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function viewMypageUserAdmin(){
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "get"
+		, url: "/mypage/userAdmin"
+		, data: {
+			
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function viewMypageBoardAdmin(){
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "get"
+		, url: "/mypage/boardAdmin"
+		, data: {
+			
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function searchUserInfo(){
+	var searchCategory = document.getElementById("searchCategory").value;
+	var searchKeyowrd = document.getElementById("searchKeyowrd").value;
+	
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "post"
+		, url: "/mypage/userAdmin"
+		, data: {
+			"searchCategory": searchCategory
+			, "searchKeyowrd": searchKeyowrd
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function deleteUserInfo1(){
+	var selectUserId = document.getElementById("selectUserId1").value;
+	console.log(selectUserId);
+	
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "post"
+		, url: "/mypage/deleteUser"
+		, data: {
+			"userId": selectUserId
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function deleteUserInfo2(){
+	var selectUserId = document.getElementById("selectUserId2").value;
+	console.log(selectUserId);
+	
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "post"
+		, url: "/mypage/deleteUser"
+		, data: {
+			"userId": selectUserId
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function deleteUserInfo3(){
+	var selectUserId = document.getElementById("selectUserId3").value;
+	console.log(selectUserId);
+	
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "post"
+		, url: "/mypage/deleteUser"
+		, data: {
+			"userId": selectUserId
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function deleteUserInfo4(){
+	var selectUserId = document.getElementById("selectUserId4").value;
+	console.log(selectUserId);
+	
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "post"
+		, url: "/mypage/deleteUser"
+		, data: {
+			"userId": selectUserId
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function deleteUserInfo5(){
+	var selectUserId = document.getElementById("selectUserId5").value;
+	console.log(selectUserId);
+	
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "post"
+		, url: "/mypage/deleteUser"
+		, data: {
+			"userId": selectUserId
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+</script>
+
 <div class="adminMenu">
-	<p onclick=" location.href='/mypage/info' ">Mypage</p>
-	<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-	<p class="selectMenu" onclick="location.href='/mypage/userAdmin' ">회원 관리</p>
-	<p onclick="location.href='/mypage/boardAdmin' ">게시글 관리</p>
+	<p onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
+		<p class="selectMenu" onclick="viewMypageUserAdmin() ">회원 관리</p>
+		<p onclick="viewMypageBoardAdmin() ">게시글 관리</p>
 </div><br><br>
 <hr>
 <div class="adminMypageMain">
@@ -106,17 +307,15 @@
 </div>
 <div class="adminMypageSearchDiv">
 	<div class="searchUserinfo">
-		<form action="/mypage/userAdmin" method="post">
-			검색조건 <select class="searchBtn" name="searchCategory">
-				<option class="searchBtn" value="">카테고리</option>
-			    <option class="searchBtn" value="userId">아이디</option>
-			    <option class="searchBtn" value="contact">연락처</option>
-			    <option class="searchBtn" value="userName">이름</option>
-			</select>
-			
-			검색어 입력 <input class="searchBtn" type="text" name="searchKeyowrd" />
-			<button class="searchBtn"> 검색 </button>
-		</form>
+		검색조건 <select class="searchBtn" id="searchCategory" name="searchCategory">
+			<option class="searchBtn" value="">카테고리</option>
+		    <option class="searchBtn" value="1">아이디</option>
+		    <option class="searchBtn" value="2">연락처</option>
+		    <option class="searchBtn" value="3">이름</option>
+		</select>
+		
+		검색어 입력 <input id="searchKeyowrd"class="searchBtn" type="text" name="searchKeyowrd" />
+		<button class="searchBtn" onclick="searchUserInfo()"> 검색 </button>
 	</div>
 </div>
 <style type="text/css">
@@ -330,6 +529,7 @@ $(document).ready(function() {
 		});
 	});
 });
+
 </script>
 
 <div class="adminMypageSearchRes">
@@ -341,17 +541,14 @@ $(document).ready(function() {
 		<th>유저타입</th>
 		<th>이메일</th>
 		<th>연락처</th>
-		<th>실명</th>
-		<th>정의구현</th>
+		<th>이름</th>
+		<th></th>
 	</tr>
 	
-		<c:forEach items="${mbList }" var="i">
+		<c:forEach items="${mbList }" var="i" varStatus="status">
 			<c:if test="${i.roleId eq 1 || i.roleId eq 2}">
 <%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
 				<tr>
-	<!-- 			<tr id="memberView"> -->
-	<%-- 				<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
-	<%-- 				<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
 					<td>${i.userId }</td>
 					<c:choose>
 						<c:when test="${i.roleId eq 1}">
@@ -363,17 +560,11 @@ $(document).ready(function() {
 					</c:choose>
 					<td>${i.email }</td>
 					<td>${i.contact }</td>
-<%-- 					<c:if test="${i.userName}"> --%>
-						<td>${i.userName }</td>
-<%-- 					</c:if> --%>
-<%-- 					<c:if test="${not i.userName }"> --%>
-<!-- 						<td>없음</td> -->
-<%-- 					</c:if> --%>
+					<td>${i.userName }</td>
 					<td>
-					<form action="/mypage/deleteUser" method="post">
-						<input type="hidden" name="userId" value="${i.userId }">
-						<button class="searchBtn">회원삭제</button>
-					</form></td>
+						<input type="hidden" name="userId" id="selectUserId${status.count }" value="${i.userId }">
+						<button class="searchBtn" onclick="deleteUserInfo${status.count }()">회원삭제</button>
+					</td>
 				</tr>
 			</c:if>
 		</c:forEach>

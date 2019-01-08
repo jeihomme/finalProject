@@ -87,11 +87,212 @@
 	}
 </style>
 
+<script>
+function viewMypageInfo(){
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "get"
+		, url: "/mypage/info"
+		, data: {
+			
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function viewMypageModifyInfo(){
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "get"
+		, url: "/mypage/modifyInfo"
+		, data: {
+			
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function viewMypageUserAdmin(){
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "get"
+		, url: "/mypage/userAdmin"
+		, data: {
+			
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function viewMypageBoardAdmin(){
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "get"
+		, url: "/mypage/boardAdmin"
+		, data: {
+			
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function searchBoardInfo(){
+	var searchCategory = document.getElementById("searchCategory").value;
+	var searchKeyowrd = document.getElementById("searchKeyowrd").value;
+	
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "post"
+		, url: "/mypage/boardAdmin"
+		, data: {
+			"searchCategory": searchCategory
+			, "searchKeyowrd": searchKeyowrd
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function deleteBoardInfo1(){
+	var selectResumesNo = document.getElementById("selectResumesNo1").value;
+	console.log(selectResumesNo);
+	
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "post"
+		, url: "/mypage/deleteBoard"
+		, data: {
+			"resumesNo": selectResumesNo
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function deleteBoardInfo2(){
+	var selectResumesNo = document.getElementById("selectResumesNo2").value;
+	console.log(selectResumesNo);
+	
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "post"
+		, url: "/mypage/deleteBoard"
+		, data: {
+			"resumesNo": selectResumesNo
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function deleteBoardInfo3(){
+	var selectResumesNo = document.getElementById("selectResumesNo3").value;
+	console.log(selectResumesNo);
+	
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "post"
+		, url: "/mypage/deleteBoard"
+		, data: {
+			"resumesNo": selectResumesNo
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function deleteBoardInfo4(){
+	var selectResumesNo = document.getElementById("selectResumesNo4").value;
+	console.log(selectResumesNo);
+	
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "post"
+		, url: "/mypage/deleteBoard"
+		, data: {
+			"resumesNo": selectResumesNo
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+
+function deleteBoardInfo5(){
+	var selectResumesNo = document.getElementById("selectResumesNo5").value;
+	console.log(selectResumesNo);
+	
+	//AJAX 처리하기
+	$.ajax({ 	
+		type: "post"
+		, url: "/mypage/deleteBoard"
+		, data: {
+			"resumesNo": selectResumesNo
+		}
+		, dataType: "html"
+		, success: function( res ) {
+			$("#body").html(res);
+		}
+		, error: function() {
+			console.log("실패");
+		}
+	});
+}
+</script>
+
 <div class="adminMenu">
-	<p onclick=" location.href='/mypage/info' ">Mypage</p>
-	<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-	<p onclick="location.href='/mypage/userAdmin' ">회원 관리</p>
-	<p class="selectMenu" onclick="location.href='/mypage/boardAdmin' ">게시글 관리</p>
+	<p onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
+		<p onclick="viewMypageUserAdmin() ">회원 관리</p>
+		<p class="selectMenu" onclick="viewMypageBoardAdmin() ">게시글 관리</p>
 </div><br><br>
 <hr>
 <div class="adminMypageMain">
@@ -106,16 +307,14 @@
 </div>
 <div class="adminMypageSearchDiv">
 	<div class="searchUserinfo">
-		<form action="/mypage/boardAdmin" method="post">
-			검색조건 <select class="searchBtn" name="searchCategory">
+			검색조건 <select class="searchBtn" id = "searchCategory" name="searchCategory">
 				<option class="searchBtn" value="">카테고리</option>
-			    <option class="searchBtn" value="resumesNo">밴드이름</option>
-			    <option class="searchBtn" value="bandInfo">밴드 정보</option>
+			    <option class="searchBtn" value="1">밴드 이름</option>
+			    <option class="searchBtn" value="2">제목</option>
 			</select>
 			
-			검색어 입력 <input class="searchBtn" type="text" name="searchKeyowrd" />
-			<button class="searchBtn"> 검색 </button>
-		</form>
+			검색어 입력 <input class="searchBtn" type="text" id="searchKeyowrd" name="searchKeyowrd" />
+			<button class="searchBtn" onclick="searchBoardInfo()"> 검색 </button>
 	</div>
 </div>
 <style type="text/css">
@@ -359,12 +558,12 @@ $(document).ready(function() {
 	<tr>
 		<th>이력서 번호</th>
 		<th>밴드 이름</th>
-		<th>이력서 이름</th>	
+		<th>제목</th>
 		<th>사운드 번호</th>
 		<th>정의구현</th>
 	</tr>
 	
-		<c:forEach items="${rsList }" var="i">
+		<c:forEach items="${rsList }" var="i" varStatus="status">
 <%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
 				<tr>
 	<!-- 			<tr id="memberView"> -->
@@ -372,13 +571,12 @@ $(document).ready(function() {
 	<%-- 				<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
 					<td>${i.resumesNo }</td>
 					<td>${i.bandName }</td>
-					<td>${i.bandInfo }</td>
+					<td>${i.resumesTitle }</td>
 					<td>${i.musicNo }</td>
 					<td>
-					<form action="/mypage/deleteBoard" method="post">
-						<input type="hidden" name="resumesNo" value="${i.resumesNo }">
-						<button class="searchBtn">게시글삭제</button>
-					</form></td>
+						<input type="hidden" name="resumesNo" id="selectResumesNo${status.count }" value="${i.resumesNo }">
+						<button class="searchBtn" onclick="deleteBoardInfo${status.count }()">게시글삭제</button>
+					</td>
 				</tr>
 		</c:forEach>
 			

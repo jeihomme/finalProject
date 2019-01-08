@@ -56,17 +56,17 @@ public interface MypageDao {
 	public void deleteCalendar();
 	
 	public int selectUserListCnt();
-	public int selectUserCntAll(String search);
+	public int selectUserCntAll(@Param("search")String search, @Param("category")int category);
 	
 	public int selectResumesListCnt();
-	public int selectResumesCntAll(String search);
+	public int selectResumesCntAll(@Param("search")String search, @Param("category")int category);
 	
 	public List<Member> selectUserList(Paging paging);
-	public List<Member> selectUserByUserId(Paging paging);
+	public List<Member> selectUserByUserId(@Param("paging")Paging paging, @Param("category")int category);
 	public void deleteUser(Member member);
 	
 	public List<Resumes> selectBoardList(Paging paging);
-	public List<Resumes> selectBoardByResumesNo(Paging paging);
+	public List<Resumes> selectBoardByResumesNo(@Param("paging")Paging paging, @Param("category")int category);
 	public void deleteBoard(Resumes resumes);
 	
 	public Band selectBandByUserId(Band band);

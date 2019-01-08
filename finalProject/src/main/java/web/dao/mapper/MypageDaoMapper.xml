@@ -50,14 +50,36 @@
 	<select id="selectUserCntAll" parameterType="String"
 		resultType="int">
 		select count(*) from member
-		WHERE userId LIKE '%'||#{search }||'%'
+		WHERE
+		<choose>
+				<when test="category == 1">
+					userId LIKE '%'||#{search }||'%'
+				</when>
+				
+				<when test="category == 2">
+					contact LIKE '%'||#{search }||'%'
+				</when>
+				
+				<when test="category == 3">
+					userName LIKE '%'||#{search }||'%'
+				</when>
+			</choose>
 	</select>
 	
 	<select id="selectResumesCntAll" parameterType="String"
 		resultType="int">
 		select count(*) from resumes r
 		left outer join band b on b.bandno = r.bandno
-		WHERE bandName LIKE '%'||#{search }||'%'
+		WHERE
+			<choose>
+				<when test="category == 1">
+					bandName LIKE '%'||#{search }||'%'
+				</when>
+				
+				<when test="category == 2">
+					resumesTitle LIKE '%'||#{search }||'%'
+				</when>
+			</choose>
 	</select>
 	
 	<select id="selectUserList" parameterType="web.utils.Paging"
@@ -74,18 +96,32 @@
 		#{endNo }
 	</select>
 	
-	<select id="selectUserByUserId" parameterType="web.utils.Paging"
+	<select id="selectUserByUserId"
 		resultType="web.dto.Member">
+<!-- 		parameterType="web.utils.Paging" -->
 		SELECT * FROM (
 		 SELECT rownum rnum, B.* FROM (
 		 	SELECT * FROM member
-			WHERE userId LIKE '%'||#{search }||'%'
+			WHERE
+			<choose>
+				<when test="category == 1">
+					userId LIKE '%'||#{paging.search }||'%'
+				</when>
+				
+				<when test="category == 2">
+					contact LIKE '%'||#{paging.search }||'%'
+				</when>
+				
+				<when test="category == 3">
+					userName LIKE '%'||#{paging.search }||'%'
+				</when>
+			</choose>
 		 	ORDER BY userId DESC
 		 ) B
 		 ORDER BY rnum
 		)
-		WHERE rnum between #{startNo } AND
-		#{endNo }
+		WHERE rnum between #{paging.startNo } AND
+		#{paging.endNo }
 	</select>
 	
 	<delete id="deleteUser" parameterType="web.dto.Member">
@@ -107,19 +143,29 @@
 		#{endNo }
 	</select>
 	
-	<select id="selectBoardByResumesNo" parameterType="web.utils.Paging"
+	<select id="selectBoardByResumesNo"
 		resultType="web.dto.Resumes">
+<!-- 		 parameterType="web.utils.Paging" -->
 		SELECT * FROM (
 		 SELECT rownum rnum, B.* FROM (
 		 	select * from resumes r
 			left outer join band b on b.bandno = r.bandno
-			WHERE bandName LIKE '%'||#{search }||'%'
+			WHERE
+			<choose>
+				<when test="category == 1">
+					bandName LIKE '%'||#{paging.search }||'%'
+				</when>
+				
+				<when test="category == 2">
+					resumesTitle LIKE '%'||#{paging.search }||'%'
+				</when>
+			</choose>
 		 	ORDER BY resumesNo DESC
 		 ) B
 		 ORDER BY rnum
 		)
-		WHERE rnum between #{startNo } AND
-		#{endNo }
+		WHERE rnum between #{paging.startNo } AND
+		#{paging.endNo }
 	</select>
 	
 	<delete id="deleteBoard" parameterType="web.dto.Resumes">
