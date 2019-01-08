@@ -47,6 +47,11 @@
 		select count(*) from resumes
 	</select>
 
+<!-- public int selectAppListCnt(); -->
+	<select id="selectAppListCnt" parameterType="web.dto.Bar" resultType="int">
+		select count(*) from application
+		where barname = #{barName }
+	</select>
 	<select id="selectUserCntAll" parameterType="String"
 		resultType="int">
 		select count(*) from member
@@ -275,9 +280,7 @@
 <!-- 	public Resumes selectResumesByResumesNo(Resumes resumes); -->
 	<select id="selectResumesByResumesNo" parameterType="web.dto.Resumes"
 		resultType="web.dto.Resumes">
-		select
-			*
-		from Resumes
+		select * from Resumes 
 		where resumesNo = NVL( #{resumesNo }, 0 )
 	</select>
 
@@ -495,12 +498,10 @@
 		resultType="int">
 <!-- 		parameterType="String" -->
 		select count(*) from Application
-		WHERE appDate between 
-						#{startDate } 
-						and
-						#{endDate }
+		WHERE barName=#{bar.barName }
+			and appDate between #{startDate } and #{endDate }
 	</select>
-<!-- 	public List<Application> selectApplicationSearchList(Paging paging, @Param("startDate")Date startDate, @Param("endDate")Date endDate); -->
+<!-- public List<Application> selectApplicationSearchList(@Param("paging")Paging paging, @Param("member")Member member, @Param("startDate")String startDate, @Param("endDate")String endDate); -->
 	<select id="selectApplicationSearchList" 
 		resultType="web.dto.Application">
 <!-- 		parameterType="web.utils.Paging" -->

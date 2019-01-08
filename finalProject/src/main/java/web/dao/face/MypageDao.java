@@ -108,8 +108,8 @@ public interface MypageDao {
 	public List<Bar> selectBarList(@Param("bandGenre") BandGenre bandGenre);
 	
 	public List<Application> selectApplicationList(@Param("paging")Paging paging, @Param("member")Member member);
-	public int selectAppDateSearch(@Param("startDate")String startDate, @Param("endDate")String endDate);
-	public List<Application> selectApplicationSearchList(@Param("paging")Paging paging, @Param("member")Member member, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	public int selectAppDateSearch(@Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	public List<Application> selectApplicationSearchList(@Param("paging")Paging paging, @Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
 	public void deleteAppByAppNo(Application app);
 	
 	public Bar selectBarByUserId(Bar bar);
@@ -118,5 +118,6 @@ public interface MypageDao {
 	public void updateBar(Bar bar);
 	public void updateReadByAppNo(Application app);
 	public void updateAcceptByAppNo(Application app);
+	public int selectAppListCnt(Bar bar);
 	
 }

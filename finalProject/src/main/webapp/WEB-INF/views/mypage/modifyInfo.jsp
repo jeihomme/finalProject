@@ -134,154 +134,8 @@ $(document).ready(function() {
 	  }
 	});
 });
-	
-	function viewMypageInfo(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/info"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function viewMypageModifyInfo(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/modifyInfo"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function viewMypageUserAdmin(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/userAdmin"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function viewMypageBoardAdmin(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/boardAdmin"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-
-	function modifyMypageInfo(){
-		//AJAX 처리하기
-		var email = document.getElementById("email").value;
-		var telcom = document.getElementById("telcom").value;
-		var contact = document.getElementById("contact").value;
-		
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/modifyInfo"
-			, data: {
-				"email": email
-				, "telcom": telcom
-				, "contact": contact
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	
-	
-	function modifyPw(){
-		
-		var passwordData = {
-				currPassword: $("#currPassword").val()
-				, newPasswordFisrt: $("#newPasswordFisrt").val()
-				, newPasswordSecond: $("#newPasswordSecond").val()
-		    };
-// 		console.log("1, " + res);
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/modifyPw"
-			, dataType: "json"
-			, data: passwordData
-			, success: function( res ) {
-				console.log("2, " + res);
-// 				$("#body").html(res);
-			}
-			, error: function(res) {
-				console.log("3, " + res);
-				alert("현재 비밀번호 혹은 새로운 비밀번호가 틀렸습니다.");
-			}
-		});
-	}
-	
-// 	function modifyPw(){
-// 		var currPassword = document.getElementById("currPassword").value;
-// 		var newPasswordFisrt = document.getElementById("newPasswordFisrt").value;
-// 		var newPasswordSecond = document.getElementById("newPasswordSecond").value;
-		
-// 		//AJAX 처리하기
-// 		$.ajax({ 	
-// 			type: "post"
-// 			, url: "/mypage/modifyPw"
-// 			, data: {
-// 				"currPassword": currPassword
-// 				, "newPasswordFisrt": newPasswordFisrt
-// 				, "newPasswordSecond": newPasswordSecond
-// 			}
-// 			, dataType: "html"
-// 			, success: function( res ) {
-// 				$("#body").html(res);
-// 			}
-// 			, error: function() {
-// 				alert("현재 비밀번호 혹은 새로운 비밀번호가 틀렸습니다.");
-// 			}
-// 		});
-// 	}
 </script>
+
 <c:if test="${loginInfo.roleId eq 0 }">
 	<div class="adminMenu">
 		<p onclick="viewMypageInfo() ">Mypage</p>
@@ -415,12 +269,12 @@ $(document).ready(function() {
 
 <c:if test="${loginInfo.roleId eq 2 }">
 	<div class="adminMenu">
-		<p onclick=" location.href='/mypage/info' ">Mypage</p>
-		<p class="selectMenu" onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-		<p onclick="location.href='/mypage/intro' ">밴드 소개</p>
-		<p onclick="location.href='/mypage/applicationToBar' ">지원 현황</p>
-		<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
-		<p onclick="location.href='/mypage/calendar' ">일정표</p>
+		<p onclick="viewMypageInfo() ">Mypage</p>
+		<p class="selectMenu" onclick="viewMypageModifyInfo() ">회원 정보수정</p>
+		<p onclick="viewMypageIntro() ">밴드 소개</p>
+		<p onclick="viewMypageAppToBar() ">지원 현황</p>
+		<p onclick="viewMypageRecommand() ">추천 Bar</p>
+		<p onclick="viewMypageCalendar() ">일정표</p>
 	</div><br><br>
 	<hr>
 	<div class="adminMypageMain">

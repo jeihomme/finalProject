@@ -3,6 +3,8 @@
    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<jsp:include page="ajax.jsp" />
+
 <style type="text/css">
 	.adminMenu p{
 		float:left;
@@ -168,12 +170,12 @@
 </div>
 <div class="adminMypageSearchDiv">
 	<div class="searchUserinfo">
-		<form action="/mypage/applicationToBar" method="post">
+<!-- 		<form action="/mypage/applicationToBar" method="post"> -->
 			
-			<input type="date" class="insertResumesHistory" name="appStartDate" value=""/> ~ 
-			<input type="date" class="insertResumesHistory" name="appEndDate" value=""/>
-			<button class="searchBtn"> 검색 </button>
-		</form>
+			<input type="date" class="insertResumesHistory" id="appStartDate" name="appStartDate" value=""/> ~ 
+			<input type="date" class="insertResumesHistory" id="appEndDate" name="appEndDate" value=""/>
+			<button class="searchBtn" onclick="searchAppFromBand() "> 검색 </button>
+<!-- 		</form> -->
 	</div>
 </div>
 <style type="text/css">
@@ -364,7 +366,7 @@ $(document).ready(function() {
 	
 	$("#ajaxBtnPrev").click( function() {
 		
-		var prevStartPage = "${paging.startPage }"-10;
+		var prevStartPage = "${paging.startPage }"-1;
 			if( prevStartPage < 0 ) {
 				prevStartPage = 1;
 			}
@@ -387,6 +389,7 @@ $(document).ready(function() {
 		});
 	});
 });
+
 </script>
 
 <div class="adminMypageSearchRes">
@@ -418,28 +421,28 @@ $(document).ready(function() {
 	<%-- 					</c:choose> --%>
 				<td>
 				
-					<form action="/mypage/resumes?resumesNo=${i.resumesNo }" method="get">
-								<input type="hidden" name="resumesNo" value="${i.resumesNo }">
-								<input type="hidden" name="appNo" value="${i.appNo }">
-								<input type="hidden" name="read" value="1">
-								<button class="searchBtn">이력서 보기</button>
-					</form>
+<%-- 					<form action="/mypage/resumes?resumesNo=${i.resumesNo }" method="get"> --%>
+								<input type="hidden" id="resumesNo" name="resumesNo" value="${i.resumesNo }">
+								<input type="hidden" id="appNo" name="appNo" value="${i.appNo }">
+								<input type="hidden" id="read" name="read" value="1">
+								<button class="searchBtn" onclick="viewAppFromBand() ">이력서 보기</button>
+<!-- 					</form> -->
 					
 				</td>
 				<td>${i.appDate }</td>
 				<td>지원날짜 / 시간</td>
 				<td>
 					<c:if test="${i.accept eq 0}">
-						<form action="/mypage/applicationToBandAccept" method="post">
-								<input type="hidden" name="appNo" value="${i.appNo }">
-								<input type="hidden" name="accept" value="1">
-								<button class="searchBtn">수락</button>
-						</form>
-						<form action="/mypage/applicationToBandAccept" method="post">
-								<input type="hidden" name="appNo" value="${i.appNo }">
-								<input type="hidden" name="accept" value="2">
-								<button class="searchBtn">거절</button>
-						</form>
+<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
+								<input type="hidden" id="acceptAppNo" name="appNo" value="${i.appNo }">
+								<input type="hidden" id="acceptAcc" name="accept" value="1">
+								<button class="searchBtn" onclick="appToBandAccept() ">수락</button>
+<!-- 						</form> -->
+<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
+								<input type="hidden" id="rejectAppNo" name="appNo" value="${i.appNo }">
+								<input type="hidden" id="rejectAcc" name="accept" value="2">
+								<button class="searchBtn" onclick="appToBandReject() ">거절</button>
+<!-- 						</form> -->
 					</c:if>
 					<c:if test="${i.accept eq 1}">
 						수락됨
@@ -504,9 +507,9 @@ $(document).ready(function() {
 <%-- 	    	</c:if> --%>
 			<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
 	    </c:forEach>
-		
-		<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
-		
+		<c:if test="${paging.curPage % 5 ne 1}">
+			<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
+		</c:if>
 	    </ul>
 	</div>
 	</div>

@@ -388,15 +388,15 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public int getAppTotalCount(String startDate, String endDate) {
+	public int getAppTotalCount(Bar bar, String startDate, String endDate) {
 		// TODO Auto-generated method stub
-		return mpDao.selectAppDateSearch(startDate, endDate);
+		return mpDao.selectAppDateSearch(bar, startDate, endDate);
 	}
 
 	@Override
-	public List<Application> appView(Paging paging, Member member, String startDate, String endDate) {
+	public List<Application> appView(Paging paging, Bar bar, String startDate, String endDate) {
 		// TODO Auto-generated method stub
-		return mpDao.selectApplicationSearchList(paging, member, startDate, endDate);
+		return mpDao.selectApplicationSearchList(paging, bar, startDate, endDate);
 	}
 
 	@Override
@@ -433,6 +433,12 @@ public class MypageServiceImpl implements MypageService{
 	public void appAcceptUpdate(Application app) {
 		// TODO Auto-generated method stub
 		mpDao.updateAcceptByAppNo(app);
+	}
+
+	@Override
+	public int getAppTotalCount(Bar bar) {
+		// TODO Auto-generated method stub
+		return mpDao.selectAppListCnt(bar);
 	}
 
 }
