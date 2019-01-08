@@ -43,6 +43,7 @@ public class BandController {
 		List genres = bandService.genreList();
 		List profile = bandService.getProPic(items, genre);
 				
+		model.addAttribute("total", map.get("totalCount"));
 		model.addAttribute("band", band);
 		model.addAttribute("genre", genres);
 		model.addAttribute("profile", profile);
@@ -111,19 +112,21 @@ public class BandController {
 	
 	// 밴드 소개 보기
 	@RequestMapping(value="/band/bandView", method=RequestMethod.GET)
-	public ModelAndView bandView(
-			int bandNo) {
+	public void bandView(
+			int bandNo,
+			Model model) {
 		
 		logger.info("bandNo : " + bandNo);
 		
 		Map general = bandService.bandView(bandNo);
 		
-		mav = new ModelAndView();
-		mav.setViewName("jsonView");
+		model.addAttribute("general", general);
 		
-		mav.addObject("general", general);
 		
-		return mav;
+//		mav = new ModelAndView();
+//		mav.setViewName("jsonView");
+//		mav.addObject("general", general);
+//		return mav;
 	}
 	
 	// 밴드 소개 수정 폼

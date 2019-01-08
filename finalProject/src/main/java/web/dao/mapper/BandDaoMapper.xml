@@ -10,15 +10,15 @@
 	<!-- 밴드 전체목록 -->
 	
 	<sql id="getBands">
-		(SELECT bandNo, bandName, b.userId, profileNo
+		SELECT bandNo, bandName, b.userId, profileNo
     	FROM band b, ( SELECT userId from member WHERE roleId = 2 ) m
     	WHERE b.userId = m.userId
-    	ORDER BY profileNo) c
+    	ORDER BY profileNo
 	</sql>
 	
 	<sql id="chkResumes">
 		SELECT c.bandNo, bandName, userId, profileNo
-		FROM resumes r, <include refid="getBands" />
+		FROM resumes r, (<include refid="getBands" />) c
 		WHERE publicresumes = 1 AND
         r.bandNo = c.bandNo
 	</sql>
@@ -39,6 +39,7 @@
         		SELECT p.ProfileNo, path, OriginName, StoredName
         		FROM profilePic p, (<include refid="chkResumes" />) d
         		WHERE p.profileNo = d.profileNo
+        		ORDER BY p.ProfileNo
         	) A
     		ORDER BY rnum
     	)
@@ -59,7 +60,7 @@
 		SELECT d.bandNo, bandName, userId, profileNo
 		FROM (
 			SELECT c.bandNo, bandName, userId, profileNo
-			FROM resumes r, <include refid="getBands" />
+			FROM resumes r, (<include refid="getBands" />) c
         	WHERE publicresumes = 1 AND
         	r.bandNo = c.bandNo) d, (<include refid="getbandNo" />) e
 		WHERE d.bandNo = e.bandNo
@@ -82,7 +83,7 @@
     			FROM profilePic p, (
 		            SELECT * FROM (
                 		SELECT c.bandNo, bandName, userId, profileNo
-                		FROM resumes r, <include refid="getBands" />
+                		FROM resumes r, (<include refid="getBands" />) c
 		            	WHERE publicresumes = 1 AND
             			r.bandNo = c.bandNo) a, (<include refid="getbandNo" />) b
             				WHERE a.bandNo = b.bandNo) d
@@ -95,7 +96,7 @@
 	
 	<!-- 더보기 -->
 	<select id="getCount" resultType="int">
-		SELECT COUNT(*) FROM band
+		SELECT COUNT(*) FROM (<include refid="chkResumes" />) b
 	</select>
 	
 	<!-- view Page -->
