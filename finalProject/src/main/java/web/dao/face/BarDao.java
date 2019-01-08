@@ -3,7 +3,7 @@ package web.dao.face;
 import java.util.List;
 
 import web.dto.Bar;
-import web.dto.Calendar;
+import web.dto.CalendarD;
 import web.dto.Member;
 import web.dto.ProfilePic;
 
@@ -22,7 +22,7 @@ public interface BarDao {
 	public Bar viewBar(Bar bar);
 	
 	// 일정보기 (calendar)
-	public List<Calendar> getBarCalendar(String BarName);
+	public List<CalendarD> getBarCalendar(String BarName);
 	
 	// 공연요청
 	public void barRequest(String barName, String bandName);

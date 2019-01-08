@@ -40,7 +40,7 @@
 	        AND B.BARNO = #{barNo }
 	</select>
 	
-	<select id="getBarCalendar" parameterType="web.dto.Calendar" resultType="web.dto.Calendar">
+	<select id="getBarCalendar" parameterType="web.dto.Calendar" resultType="web.dto.CalendarD">
 	
 	</select>
 	
