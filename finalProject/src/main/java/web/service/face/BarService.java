@@ -25,7 +25,7 @@ public interface BarService {
 	public List<Bar> barLocation(List<String> locationN);
 	
 	// 리스트 더보기
-	public List<Bar> barListMore();
+	public List<Bar> barListMore(Bar bar, ProfilePic profilePic);
 	
 	// 바 소개
 	public Bar barView(Bar bar);

@@ -16,7 +16,7 @@ public interface BarDao {
 	public List<Bar> getByLocation(List<String> location);
 	
 	// 리스트 더보기
-	public int getBarListMore();
+	public List<Bar> getBarListMore(Bar bar, ProfilePic profilePic);
 	
 	// 바 소개
 	public Bar viewBar(Bar bar);
