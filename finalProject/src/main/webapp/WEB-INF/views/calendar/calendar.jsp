@@ -1,23 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
 <style>
-
-BODY {
-	FONT-SIZE: 9pt; FONT-FAMILY: tahoma;
-}
 
 TABLE {
 	FONT-SIZE: 9pt; COLOR: black; FONT-FAMILY: tahoma;
 }
 
-A {
+a {
 	COLOR: #999999; TEXT-DECORATION: none;
 	cursor: pointer;
 }
@@ -31,7 +22,9 @@ TD.main {
 }
 
 TD.uline {
-    FONT-SIZE: 7pt; COLOR: #999999; BACKGROUND-COLOR: #ffffff;
+    FONT-SIZE: 7pt;
+    COLOR: #999999;
+    BACKGROUND-COLOR: #ffffff;
 }
 
 TD.r_uline {
@@ -45,15 +38,15 @@ td.leftB{
 INPUT {
 	MARGIN: -5px
 }
-.modal {
+.modal-dateView {
 	border: 3px solid cyan;
 	display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
-    width: 470; /* Full width */
-    height: 320; /* Full height */
+    width: 470px; /* Full width */
+    height: 320px; /* Full height */
     margin:auto;
     overflow: auto; /* Enable scroll if needed */
 	background-color:gray;
@@ -128,7 +121,7 @@ function OpenWin(URL, width, height){
 }
 
 </script>
-</head>
+
 
 
 <c:set var="curYear" value="${map.curYear }" />
@@ -142,7 +135,6 @@ function OpenWin(URL, width, height){
 <!-- -------------------------------- -->
 
 
-<body>
 <div style="margin:0 auto">
 <form name="theForm">
 <%-- base table --%>
@@ -271,7 +263,7 @@ function OpenWin(URL, width, height){
 </div>
 
 <!-- 모달 -->
-<div id="wow" class="modal">
+<div id="wow" class="modal-dateView">
 <FORM method="post" name="theForm" action="Update.jsp" style="margin:5px;">
 <TABLE cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" width="100%" height="100%" >
 <TR>
@@ -347,6 +339,3 @@ function OpenWin(URL, width, height){
 <INPUT type="hidden" name="schedule_date_time">
 </FORM>
 </div><!-- 모달 끝 -->
-
-</body>
-</html>

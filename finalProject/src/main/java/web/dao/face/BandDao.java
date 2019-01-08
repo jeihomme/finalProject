@@ -35,6 +35,8 @@ public interface BandDao {
 	public ProfilePic getPic(int proNo);
 	
 	public Resumes getInfo(int bandNo);
+	
+	public List getHistory(int resumesNo);
 	public List getMember(int bandNo);
 	
 	public Music getMusic(int musicNo);

@@ -7,8 +7,8 @@ public class History {
 	private String historyInfo;
 	@Override
 	public String toString() {
-		return "History [historyNo=" + historyNo + ", resumesNo=" + resumesNo + ", year=" + year + ", historyInfo="
-				+ historyInfo + "]";
+		return "History [historyNo=" + historyNo + ", resumesNo=" + resumesNo + ", year=" + year
+				+ ", historyInfo=" + historyInfo + "]";
 	}
 	public int getHistoryNo() {
 		return historyNo;
@@ -34,5 +34,6 @@ public class History {
 	public void setHistoryInfo(String historyInfo) {
 		this.historyInfo = historyInfo;
 	}
+	
 	
 }

@@ -20,20 +20,30 @@ public class CalendarController {
 	
 	@RequestMapping(value="/calendar")
 	public String calendar(
-			Model model) {
+			Model model,
+			int bandNo) {
+		
+		System.out.println("bandNo = " + bandNo);
 		
 		Map map = new HashMap();
 		
 		map = calendar.getCalendar();
-		model.addAttribute("map", map);
+
 		
 		System.out.println("aaa " + map.get("firstDayOfMonth"));
 		System.out.println("bbb " + map.get("firstDayOfNextMonth"));
 		System.out.println("");
 		
 		List list = calendar.getSchedule(map);
-		model.addAttribute("sched", list);
 		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("/calendar");
+		
+//		return mav;
+		
+		
+		model.addAttribute("map", map);
+		model.addAttribute("sched", list);
 		return "/calendar/calendar";
 		
 	}

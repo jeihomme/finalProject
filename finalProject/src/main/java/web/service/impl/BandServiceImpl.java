@@ -115,7 +115,7 @@ public class BandServiceImpl implements BandService {
 		Resumes resumes = bandDao.getInfo(bandNo);
 		map.put("resumes", resumes);
 		
-		// 밴드 대표이력서의 음악파일 존재 유무 확인 후 map조회
+		// 밴드 대표이력서의 음악파일 존재 유무 확인 후 map에 추가
 		if(resumes.getMusicNo() != 0) {
 			Music music = bandDao.getMusic(resumes.getMusicNo());
 			map.put("music", music);
@@ -125,11 +125,20 @@ public class BandServiceImpl implements BandService {
 			System.out.println("음악파일 없음");
 		}
 		
-		List list = bandDao.getMember(bandNo);
-		if(list.isEmpty()) {
+		// 밴드 History 정보
+		List history = bandDao.getHistory(resumes.getResumesNo());
+		if(history.isEmpty()) {
+			System.out.println("History 없음");
+		} else {
+			map.put("history", history);
+		}
+		
+		// 밴드 멤버 정보
+		List member = bandDao.getMember(bandNo);
+		if(member.isEmpty()) {
 			System.out.println("밴드 맴버가 없음");
 		} else {
-			map.put("member", list);
+			map.put("member", member);
 		}
 		
 		return map;

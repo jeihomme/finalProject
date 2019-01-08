@@ -79,6 +79,23 @@ border: 1px solid blue;
 	border: 1px solid CornflowerBlue;
 }
 
+.calendarDiv{
+	display: none;
+	width: 60%;
+	height: 60%;
+	background-color: gray;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+}
+
+.calDiv{
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -127,19 +144,63 @@ $(document).ready(function(){
       tid=setInterval('msg_time()',1000);
    }
    
+   var count = 0;
+   
+   // 달력 불러오기
+   $("#calendarBtn").click(function(){
+	   
+	   // 밴드 번호 가져오기
+	   var bandNo = ${general.band.bandNo };
+	   
+	   var calendarDiv = document.getElementById("calendarDiv");
+	   var calDiv = document.getElementById("calDiv"); 
+	   // 모달 보이기
+	   
+	   calendarDiv.style.display = "block";
+	   
+	   if(count==0) {
+		   console.log("ㅅㅂ");
+		   count += 1;
+	   } else if(count == 1) {
+		   console.log("ㅡ   ㅓ");
+		   count += 1;
+	   } else if(count == 2) {
+		   console.log("ㅇㅁ");
+		   count = 0;
+	   }
+	   
+	   $.ajax({
+		   type: "get",
+			url: "/calendar",
+			data: { bandNo : bandNo } ,
+// 			dataType: "html",
+			context: document.body,
+			success: function(data) {
+				
+				document.getElementById("calendarDiv").style.display = "block";
+
+				console.log(data);
+// 				$("#calDiv").html(data);
+				
+			}, error: function() {
+				alert("망함");
+			}
+	   });
+	   
+   });
 });
 </script>
 
 
 <c:set var="proPic" value="${general.proPic }" />
-<c:set var="band" value="${general.band }" />
 <c:set var="resumes" value="${general.resumes }" />
 <c:set var="music" value="${general.music }" />
 <c:set var="member" value="${general.member }" />
+<c:set var="history" value="${general.history }" />
 
 <!-- 뷰의 헤더부분 -->
 	<div class="leftDiv"><input type="button" value="<Prev" onclick="history.back(-1);" /></div>
-	<div class="centerDiv"><font style="font-size:25px;">${band.bandName }</font></div>
+	<div class="centerDiv"><font style="font-size:25px;">${general.band.bandName }</font></div>
 	<div class="rightDiv">
 		<button id="editBtn" style="height:30px;" class="right" type="button">수정</button>
 		<button id="calendarBtn" style="height:30px;" class="right" type="button">달력</button>
@@ -154,6 +215,8 @@ $(document).ready(function(){
 	<!-- 음악 파일 -->
 	<div class="div-music">
 		<h3>음악 파일</h3>
+		<audio src="C:\Users\trtl4\eclipse-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\finalProject\resources\Front_Porch_Blues.mp3" autoplay controls>
+		</audio><br>
 		music Info<br>
 		musicNo: ${music.musicNo }<br>
 		musicTitle: ${music.musicTitle }<br>
@@ -162,40 +225,60 @@ $(document).ready(function(){
 	
 	<!-- 밴드 History -->
 	<div class="div-history">
-		<h3>밴드 History</h3>
-		
-	</div>
-	
-	<div class="div-member">
-		<h3>밴드 멤버</h3>
 		<table>
-			<tr>
-			<th>밴드맴버</th>
+			<th>History</th>
 			<th>
 				<table>
-				<c:forEach items="${member }">
 					<tr>
-					<td>aaaaa</td>
+						<th>년도</th>
+						<th>내용</th>
 					</tr>
-				</c:forEach>
+					
+					<c:forEach var="hist" items="${history }">
+						<tr>
+							<td>${hist.year }</td>
+							<td>${hist.historyInfo }</td>
+						</tr>
+					</c:forEach>
+					
 				</table>
+			</th>
+		</table>
+	</div>
+	
+	<!-- 밴드 멤버 -->
+	<div class="div-member">
+		<table>
+			<th>Member</th>
 			<th>
-			</tr>
+				<table>
+					<tr>
+						<th>이름</th>
+						<th>포지션</th>
+					</tr>
+					
+					<c:forEach var="mem" items="${member }">
+						<tr>
+							<td>${mem.bandMemName }</td>
+							<td>${mem.mPosition }</td>
+						</tr>
+					</c:forEach>
+					
+				</table>
+			</th>
 		</table>
 	</div>
 	
 	<!-- 밴드 소개 -->
 	<div class="div-info">
-		<h3>밴드 Info</h3>
-		band basic Info<br>
-		bandName: ${band.bandName }<br>
-		bandInfo ${resumes.bandInfo }<br><br>
+		<table>
+			<tr>
+				<th><h3>소개</h3></th>
+				<td>${resumes.bandInfo }</td>
+			</tr>
+		</table>
 	</div>
-	
-	<div style="border: 2px solid white;">
-		resumes Info<br>
-		resumesNo: ${resumes.resumesNo }<br>
-		publicResumes ${resumes.publicResumes }<br>
-		Title ${resumes.resumesTitle }<br>
-	</div>
+</div>
+<div id="calendarDiv" class="calendarDiv">
+	<div id="calDiv" class="calDiv"></div>
 </div>
