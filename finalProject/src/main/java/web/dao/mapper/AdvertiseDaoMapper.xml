@@ -12,7 +12,7 @@ SELECT b.findNo
      , a.bandName
      , b.title
      , b.content
-     , b.writtendate
+     , b.writtendate 
      , B.positionNo
      , CASE WHEN b.positionNo = '1' THEN '보컬'
              WHEN B.positionNo = '2' THEN '기타'
@@ -60,6 +60,12 @@ SELECT COUNT(*) CNT FROM (
 ) CNT
 </select>
 <select id="selectAdvertise" resultType="web.dto.FindMember">
-	SELECT * FROM FindMember WHERE findNo = #{findNo}
+	  SELECT  findNo , title , content , writtenDate , positionNo ,
+  CASE WHEN positionNo = '1' THEN '보컬'
+  WHEN positionNo = '2' THEN '기타'
+  WHEN positionNo = '3' THEN '드러머'
+    ELSE '콜라보'
+    END position
+  FROM FindMember WHERE positionNo = #{positionNo}
 </select>
 </mapper>

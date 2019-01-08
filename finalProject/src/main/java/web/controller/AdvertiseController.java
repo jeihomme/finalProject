@@ -106,16 +106,16 @@ public class AdvertiseController {
 	}
 	@RequestMapping(value="/advertise/view" , method=RequestMethod.GET)
 	public ModelAndView view(
-				Model model , int findNo , FindMember findmember
+				Model model , int findNo 
 			) {
 		
-		findNo = findmember.getFindNo();
-		findmember = advertiseService.view(findNo);
+//		findNo = findmember.getFindNo();
+		FindMember findmember = advertiseService.view(findNo);
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("jsonView");
-		mav.addObject("findNo" , findNo);
+		mav.addObject("findNo" , findmember);
 		
 		return mav;
 	}

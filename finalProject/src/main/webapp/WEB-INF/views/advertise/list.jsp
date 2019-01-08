@@ -52,23 +52,63 @@ td {
    	color: white;
 }
 
-.modal {
+.modal-ads {
    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    position: absolute; /* Stay in place */
+    z-index: 6; /* Sit on top */
     left: 0;
     top: 0;
     width: 60%; /* Full width */
-    height: 60%; /* Full height */
+    height: 70%; /* Full height */
     margin: auto;
     overflow: auto; /* Enable scroll if needed */
    background-color:gray;
     border-radius:20px;
 /*     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */ 
+	margin-left: 20%;
+    margin-top: 8%;
+
+
 
 }
 
+.modal-img{
+	border: 1px solid white;
+	width: 60%;
+	height: 70%;
+	text-align: center;
+	display: inline-block;
+/* 	margin-left: auto; */
+/* 	margin-right: auto; */
+}
 
+.modal-music{
+	border: 1px solid white;
+	width: 60%;
+    height: 10%;
+    margin-top: 5%;
+
+}
+
+.modal-close{
+	margin-left: 90%;
+
+}
+.modal-info{
+	border: 1px solid white;
+	float: right;
+    width: 40%;
+    height: 90%;
+}
+
+.member-div {
+ margin-left: 25%;
+}
+
+.modal-info input {
+
+	color: black;
+}
 
 </style>
 
@@ -122,7 +162,7 @@ td {
 
 </div>
 
-<div class="modal" id="advertiseView"> 
+<div class="modal-ads" id="advertiseView"> 
 </div>
 
 
@@ -147,18 +187,35 @@ $(document).ready(function(){
 		, success: function(data){
 
 			
-			   modal.style.display = "block";
+		 modal.style.display = "block";
+		 
 				
-// // 			var bandName = data.general.bandName;
-// 			var position = data.general.position;
-// 			var title = data.general.title;
-// 			var content = data.general.content;
-// 			var genre = data.general.genre;
-// 			var ads = data.general.ads;
+// 			var bandName = data.bandName;
+			var position = data.findNo.position;
+// //  			var title = data.title;
+			var content = data.findNo.content;
+			var genre = data.findNo.genre;
+			var ads = data.findNo.ads;
+			
+			console.log(data);
+// 			console.log(position);
+// 			console.log(content);
+// 			console.log(genre);
+// 			console.log(ads);
+			
 			
 			$("#advertiseView").empty();
 			
-			$newadvertiseView = $('<div></div>');
+			$newadvertiseView = $(
+					     "<div class='modal-img' ></div><div class='modal-info'>"
+					     +"<div style='margin-left:10%; margin-top:1%;'><p>· Member</p><div class='member-div'><input type='text'style='width: 220px'/><br><input type='text' style='width: 220px'/><br><input type='text'style='width: 220px'/></div>"
+					     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' value='"+genre+"'/></p></div>"
+					     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' type='text'value='"+position+"'/></p></div>"
+					     +"<div style='margin-top: 10%'><p>· Contact Number<input style='margin-left: 5%' type='text' /></p></div>"
+					     +"<div style='margin-top: 10%'><p>· Etc.<input style='margin-left: 5%; height: 85px; width:88%;' value='"+content+"' type='text' name='content'/></p></div>"
+					     +"</div></div>"
+					     +"<div class='modal-music'>음악샘플</div><button class='modal-close'>닫기</button>"
+					      );
 			
 			
 			$("#advertiseView").append($newadvertiseView);
@@ -173,7 +230,7 @@ $(document).ready(function(){
 	
 	 $("#memberCk").click(function(){
 		
-		 var date = "<fmt:formatDate value="${advertise.writtenDate }" pattern="yyyy-MM-dd"/>";
+
 		
 		 var adsNo = $("#member").val();
 			
