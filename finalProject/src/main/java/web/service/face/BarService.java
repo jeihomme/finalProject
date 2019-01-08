@@ -7,6 +7,7 @@ import web.dto.Band;
 import web.dto.Bar;
 import web.dto.Calendar;
 import web.dto.Location;
+import web.dto.Member;
 import web.dto.ProfilePic;
 
 public interface BarService {
@@ -37,6 +38,9 @@ public interface BarService {
 	
 	// 바 정보 수정
 	public void barUpdate(Bar bar);
+	
+	// 멤버 연락처 수정
+	public void memberContactUpdate(Member member);
 	
 	// 프로파일 사진
 	public List<Bar> getProfilePic();

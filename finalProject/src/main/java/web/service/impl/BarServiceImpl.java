@@ -13,6 +13,7 @@ import web.dto.Band;
 import web.dto.Bar;
 import web.dto.Calendar;
 import web.dto.Location;
+import web.dto.Member;
 import web.dto.ProfilePic;
 import web.service.face.BarService;
 
@@ -98,6 +99,12 @@ public class BarServiceImpl implements BarService{
 		map.put("totalCount", count);
 		
 		return map;
+	}
+
+	@Override
+	public void memberContactUpdate(Member member) {
+		
+		barDao.updateMemberContact(member);
 	}
 
 }

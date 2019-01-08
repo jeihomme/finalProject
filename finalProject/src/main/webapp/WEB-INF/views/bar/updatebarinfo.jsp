@@ -22,7 +22,7 @@
 	<img src="https://${info.path }/${info.originName }">
 	Informaiton <textarea id="barInfo" name="barInfo" rows="20" cols="40" >${info.barInfo }</textarea><br>
 	담당자 <input type="text" name="manager" value="${info.manager }"/><br><br>
-	연락처 <input type="text" name="contact" value="${info.contact }"/>
+	연락처 <input type="text" name="contact" value="${contact }"/>
 	
 	<div class="btn">
 		<button id="btnUpdate" class="btn btn-warning">수정하기</button>

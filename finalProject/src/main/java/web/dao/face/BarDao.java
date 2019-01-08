@@ -4,7 +4,7 @@ import java.util.List;
 
 import web.dto.Bar;
 import web.dto.Calendar;
-import web.dto.Location;
+import web.dto.Member;
 import web.dto.ProfilePic;
 
 public interface BarDao {
@@ -29,6 +29,10 @@ public interface BarDao {
 	
 	// 바 정보 수정
 	public void updateBarInfo(Bar bar);
+	
+	// 유저 연락처 수정
+	
+	public void updateMemberContact(Member member);
 	
 	// 프로파일 사진 가져오기
 	public List<Bar> getProfilePic();
