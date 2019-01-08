@@ -146,20 +146,25 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void profilePicSave(ServletContext context, MultipartFile file, ProfilePic profilePic, String uploadPath) {
+	public String profilePicSave(ServletContext context, MultipartFile file, ProfilePic profilePic) {
 		
 		// UUID 고유 식별자
 		String uid = UUID.randomUUID().toString().split("-")[0];
+		
+		// 파일이 저장될 경로
+		String stored = context.getRealPath("upload/profilePic");
+		
+		System.out.println("저장 경로: "+stored);
 		
 		// 저장될 파일의 이름
 		String name = uid+"_"+file.getOriginalFilename();
 		
 		// 파일 객체
-		File dest = new File(uploadPath, name);
+		File dest = new File(stored, name);
 		
-		profilePic.setPath(uploadPath);
 		profilePic.setOriginName(file.getOriginalFilename());
 		profilePic.setStoredName(name);
+		profilePic.setPath(stored);
 		
 		memberDao.insertProfilePic(profilePic);
 		
@@ -171,7 +176,16 @@ public class MemberServiceImpl implements MemberService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return name;
 	}
 
+	@Override
+	public int checkProfileNo(String profileName) {
+		// 프로필 사진 번호 찾아오기
+		int num = memberDao.selectProfileNo(profileName);
+		
+		return num;
+	}
 
 }

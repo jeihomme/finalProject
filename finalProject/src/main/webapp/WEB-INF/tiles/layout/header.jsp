@@ -80,15 +80,102 @@ $(document).ready(function() {
 		console.log("Modal hidden");
 	});
 	
+	$('.barPicAdd').on('click', function() {
+		$("#joinBarPic").click();
+		return false;
+	});
+
+	$("#joinBarPic").change(function() {
+		
+		ext = $(this).val().split('.').pop().toLowerCase();
+		
+		// 확장자가 이미지 파일이 아닐 경우
+        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+    		$("#joinBarPicform").get(0).reset(); //폼 초기화
+            alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
+        }
+		
+		var formData = new FormData();
+		var file = this.files[0];
+		formData.append("JoinPic", file);
+		
+		$.ajax({
+			async: true,
+			method: "post",
+			url: "/member/profilePic",
+			processData: false,
+			data: formData,
+			contentType: false,
+			success: function(data) {
+				alert("파일 업로드 성공");
+			},
+			error: function() {
+				alert("파일 업로드 실패");
+			}
+		});
+		
+		readBarPicURL(this);
+	});
+	
+	function readBarPicURL(input) {
+		if(input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$("#previewBarPic").attr('src', e.target.result);
+			}
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
+	
+	$("#joinBandPic").change(function() {
+		ext = $(this).val().split('.').pop().toLowerCase();
+		
+		// 확장자가 이미지 파일이 아닐 경우
+        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+    		$("#joinBandPicform").get(0).reset(); //폼 초기화
+            alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
+        }
+		
+		var formData = new FormData();
+		var file = this.files[0];
+		formData.append("JoinPic", file);
+		
+		$.ajax({
+			async: true,
+			method: "post",
+			url: "/member/profilePic",
+			processData: false,
+			data: formData,
+			contentType: false,
+			success: function(data) {
+				alert("파일 업로드 성공");
+			},
+			error: function() {
+				alert("파일 업로드 실패");
+			}
+		});
+		
+		readBandPicURL(this);
+	});
+	
+	function readBandPicURL(input) {
+		if(input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$("#previewBandPic").attr('src', e.target.result);
+			}
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
 	$('.bandPicAdd').on('click', function() {
 		$("#joinBandPic").click();
 		return false;
 	});
 	
-	$('.barPicAdd').on('click', function() {
-		$("#joinBarPic").click();
-		return false;
-	});
 	
 	$(".loginBtn").click(function() {
 		$(".modal-content").hide();
@@ -100,6 +187,10 @@ $(document).ready(function() {
 		$("#joinAgreePost1").get(0).reset();
 		$("#joinAgreePost2").get(0).reset();
 		$("#joinForm1").get(0).reset();
+		$("#joinBarPicform").get(0).reset();
+		$("#joinForm2").get(0).reset();
+		$("#joinBandPicform").get(0).reset();
+		$("#joinForm3").get(0).reset();
 		
 	});
 	
@@ -345,6 +436,10 @@ $(document).ready(function() {
 			document.getElementById("joinAgreePost1").reset();
 			document.getElementById("joinAgreePost2").reset();
 			document.getElementById("joinForm1").reset();
+			document.getElementById("joinBarPicform").reset();
+			document.getElementById("joinForm2").reset();
+			document.getElementById("joinBandPicform").reset();
+			document.getElementById("joinForm3").reset();
 			
 			$(".modal-content:eq("+idx+")").hide();
 			$(".modal-content:eq("+Number(idx-1)+")").show();
@@ -358,6 +453,10 @@ $(document).ready(function() {
 			document.getElementById("joinAgreePost1").reset();
 			document.getElementById("joinAgreePost2").reset();
 			document.getElementById("joinForm1").reset();
+			document.getElementById("joinBarPicform").reset();
+			document.getElementById("joinForm2").reset();
+			document.getElementById("joinBandPicform").reset();
+			document.getElementById("joinForm3").reset();
 			
 			$(".modal-content:eq("+idx+")").hide();
 			$(".modal-content:eq("+Number(idx-2)+")").show();
@@ -429,8 +528,7 @@ $(document).ready(function() {
 	    	locationName: $("#addr1").val().substring(0,2),
 	    	barAddress: $("#addr1").val()+" "+$("#addr2").val(),
 	    	barInfo: $("#barInfo").val(),
-	    	genreNo: $("#barGenre").val(),
-	    	joinBarPic: $("#joinBarPic")[0].files[0]
+	    	genreNo: $("#barGenre").val()
 	    };
 	    
 		$.ajax({
@@ -442,6 +540,7 @@ $(document).ready(function() {
 				
 				// join form submit
 				$("joinForm1").submit();
+				$("joinForm2").submit();
 				
 			},
 			error: function() {
@@ -464,48 +563,37 @@ $(document).ready(function() {
 		console.log(roleId);
 		
 	    // 넘겨 줄 값 설정
-// 	    var formData = {
-// 	    	userId: $("#joinUserId").val(),
-// 	    	roleId: roleId,
-// 	    	userName: $("#joinUserName").val(),
-// 	    	password: $("#joinPassword").val(),
-// 	    	telcom: $("#joinTelcom").val(),
-// 	    	contact: $("#joinContact1").val()+$("#joinContact2").val()+$("#joinContact3").val(),
-// 	    	email: $("#joinEmail1").val()+"@"+$("#joinEmail2").val(),
-// 	    	bandName: $("#bandName").val(),
-// 	    	genreNo: $("#bandGenre").val()
-// 	    };
-	    
-// 	    if(confirm("이미지 파일을 업로드하시겠습니까?")) {
-// 	    	if($("#joinBandPic").val() == "") {
-// 	    		alert("업로드 X");
-// 	    		$("#joinBandPic").focus();
-// 	    		return;
-// 	    	}
+	    var formData = {
+	    	userId: $("#joinUserId").val(),
+	    	roleId: roleId,
+	    	userName: $("#joinUserName").val(),
+	    	password: $("#joinPassword").val(),
+	    	telcom: $("#joinTelcom").val(),
+	    	contact: $("#joinContact1").val()+$("#joinContact2").val()+$("#joinContact3").val(),
+	    	email: $("#joinEmail1").val()+"@"+$("#joinEmail2").val(),
+	    	bandName: $("#bandName").val(),
+	    	genreNo: $("#bandGenre").val()
+	    };
 	    	
-// 	    	var data = new FormData($("#joinForm1")[0]);
 	    	
-// 			$.ajax({
-// 				url: "/member/join",
-// 				type: "POST",
-// 				data: formData,
-// 				dataType: "JSON",
-// 				async: false,
-// 				cache: false,
-// 				processData: false,
-// 				contentType: false,
-// 				success: function(res) {
+			$.ajax({
+				type: "POST",
+				url: "/member/join",
+				dataType: "json",
+				data: formData,
+				success: function(res) {
 					
-// 					// join form submit
-// 					$("joinForm1").submit();
+					// join form submit
+					$("joinForm1").submit();
+					$("joinForm3").submit();
 					
-// 				},
-// 				error: function() {
-// 					alert("회원가입 실패");
-// 				}
+				},
+				error: function() {
+					alert("회원가입 실패");
+				}
 				
-// 			});
-			
+			});
+
 			
 			$(".modal-content:eq("+idx+")").hide();
 			$(".modal-content:eq("+Number(idx+1)+")").show();
@@ -524,10 +612,14 @@ $(document).ready(function() {
 		$("#joinModal2").hide();
 		
 		// Form 안의 내용 초기화
-		document.getElementById("loginForm").reset();
-		document.getElementById("joinAgreePost1").reset();
-		document.getElementById("joinAgreePost2").reset();
-		document.getElementById("joinForm1").reset();
+			document.getElementById("loginForm").reset();
+			document.getElementById("joinAgreePost1").reset();
+			document.getElementById("joinAgreePost2").reset();
+			document.getElementById("joinForm1").reset();
+			document.getElementById("joinBarPicform").reset();
+			document.getElementById("joinForm2").reset();
+			document.getElementById("joinBandPicform").reset();
+			document.getElementById("joinForm3").reset();
 		
 		idx=0;
 	});
@@ -715,6 +807,12 @@ input {
 	outline: none;
 	background-color: white;
 	color: #BDBDBD;
+}
+
+#previewBandPic, #previewBarPic {
+	height: 100px;
+	width: 100px;
+	border-radius: 50px;
 }
 
 #btnLogin, .btnBarJoin, .btnBandJoin, .findIdBtn, .findPwBtn {
@@ -959,7 +1057,7 @@ input {
     </div>
 
 <!-- 회원가입 모달 1 #3 -->
-<form id="joinForm1" action="/member/join" method="post" name="joinPost">
+<form id="joinForm1" name="joinPost" class="joinForm">
     <div class="modal-content" id="joinModal1">
         <button class="backBtn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -1011,9 +1109,11 @@ input {
       		<br>
       </div>
     </div>
+</form>
 
 <!-- 회원가입 모달 2 #4 -->
     <div class="modal-content">
+        <button class="backBtn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       <div class="modal-body text-center"  style="height: 330px;">
         <h3 class="modal-title text-center" style="color: black; padding-top: 8px;"><b>Join As</b></h3>
@@ -1047,13 +1147,18 @@ input {
       		<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
     	 </div> 
 		        <br>
-		        <table style="border: none; height: 400px; width: 100%; color: black;">
-		        <tr><td>
+		        <form id="joinBarPicform" name="joinBarPicform" class="joinBarPicform" enctype="multipart/form-data">
+      			<table><tr><td>
+      			<img id="previewBarPic" src="#"/>
       			<button class="barPicAdd" style="border: 1px solid white; background-color: white;"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></button>
       			<input type="file" id="joinBarPic" style="display: none;">
-      			</td></tr>
+      			</td></tr></table></form>
+      			<form id="joinForm2" name="joinPost2" class="joinForm">
+		        <table style="border: none; height: 400px; width: 100%; color: black;">
 				<tr>
-				<td><font color="red">*</font>&nbsp;<input type="text" name="barName" id="barName" placeholder=" bar 이름"/>
+				<td>
+				<input type="text" name="barRoleId" id="barRoleId" value="1" style="display: none;">
+				<font color="red">*</font>&nbsp;<input type="text" name="barName" id="barName" placeholder=" bar 이름"/>
 				</td></tr>
 				<tr>
 				<td><font color="red">*</font>&nbsp;<select name="barGenre" id="barGenre" style="color: black; width: 170px; height: 26px; ">
@@ -1078,6 +1183,7 @@ input {
 				<tr><td><textarea rows="4" cols="40" style="resize: none; margin-left: 10px;" id="barInfo" name="barInfo" placeholder=" bar 소개"></textarea>
 				</td></tr>
 				</table>
+				</form>
 				<br>
  				<button type="button" class="btnBarJoin">Join</button><br>
       		<br>
@@ -1093,14 +1199,20 @@ input {
          <div class="joinInfo text-right" style="color: black; font-size: 11px;"><br>
       		<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
     	 </div> 
-      		<br>
-      		<table style="border: none; height: 300px; width: 100%; color: black;" >
+      			<form id="joinBandPicform" name="joinBandPicform" class="joinBandPicform" enctype="multipart/form-data">
+      		<br><table style="border: none; height: 100px; width: 100%; color: black;">
       			<tr><td>
+      			<img id="previewBandPic" src="#"/>
       			<button class="bandPicAdd" style="border: 1px solid white; background-color: white;"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></button>
-      			<input type="file" id="joinBandPic">
-      			</td></tr>
+      			<input type="file" id="joinBandPic" style="display: none;"></td></tr>
+      			</table>
+      			</form>
+      	    <form id="joinForm3" name="joinPost3" class="joinForm">
+      		<table style="border: none; height: 200px; width: 100%; color: black;" >
 				<tr>
-				<td><font color="red">*</font>&nbsp;<input type="text" name="bandName" id="bandName" placeholder=" band 이름"/>
+				<td>
+				<input type="text" name="bandRoleId" id="bandRoleId" value="2" style="display: none;">
+				<font color="red">*</font>&nbsp;<input type="text" name="bandName" id="bandName" placeholder=" band 이름"/>
 				</td></tr>
 				<tr>
 				<td><font color="red">*</font>&nbsp;<select name="bandGenre" id="bandGenre" style="color: black; width: 170px; height: 26px; ">
@@ -1113,6 +1225,7 @@ input {
 						<option value="6">Boogie Woogie</option>
 					</select>
 			</table><br>
+			</form>
 			<button type="button" class="btnBandJoin">Join</button><br>
 			<br>
       </div>
@@ -1125,11 +1238,11 @@ input {
          <h3 class="modal-title text-center" style="color: black;"><b>Join</b></h3>
  			<br><font style="color: black">회원가입이 완료되었습니다!<br>감사합니다!</font>
 				<br>
- 				<button type="button" data-dismiss="modal" style="color: #ccc; font-size: 18px; border: 1px solid white; background-color: white;">Main</button>
+ 				<button type="button" class="close" data-dismiss="modal" style="color: #ccc; font-size: 18px; border: 1px solid white; background-color: white;">Main</button>
       		<br>
       </div>
     </div>
-</form>
+
 
 <!-- 아이디 / 비밀번호 찾기 모달, ID PW 확인 #8 -->
     <div class="modal-content">
@@ -1186,15 +1299,9 @@ input {
     <div class="modal-content">
         <button class="backBtn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <div class="modal-body text-center"  style="height: 300px;">
+      <div class="modal-body text-center"  style="height: 150px;">
          <h3 class="modal-title text-center" style="color: black;"><b>Find Your ID/PW</b></h3>
-		      <table style="border: none; height: 150px; width: 100%; color: black; margin-left: 33px; margin-top: 20px;" >
-				<tr><td>
-				<button type="button" class="findIdBtn"><b>Find ID</b></button>
-				</td></tr>
-				<tr><td style="padding-top: 10px;">
-				<button type="button" class="findPwBtn"><b>Find PW</b></button>
-			  </table><br>
+		    <br><font style="color: black">이메일이 전송되었습니다!<br>이용해 주셔서 감사합니다!</font>
       		<br>
       </div>
     </div>

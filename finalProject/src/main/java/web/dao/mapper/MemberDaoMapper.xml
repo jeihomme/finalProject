@@ -13,12 +13,12 @@
  	
  	<insert id="insertBar" parameterType="web.dto.Bar">
  		INSERT INTO bar (barNo, barName, userId, profileNo, locationNo, barInfo, manager, barAddress, genreNo)
- 		VALUES ( barNo_seq.nextval, #{barName }, #{userId }, profileNo_seq.nextval, #{locationNo }, #{barInfo }, #{manager }, #{barAddress }, #{genreNo })
+ 		VALUES ( barNo_seq.nextval, #{barName }, #{userId }, #{profileNo }, #{locationNo }, #{barInfo }, #{manager }, #{barAddress }, #{genreNo })
  	</insert> 
  	
  	<insert id="insertBand" parameterType="web.dto.Band">
  		INSERT INTO band (bandNo, bandName, userId, profileNo)
- 		VALUES ( band_seq.nextval, #{bandName }, #{userId }, profileNo_seq.nextval)
+ 		VALUES ( band_seq.nextval, #{bandName }, #{userId }, #{profileNo })
  	</insert>
  	
  	<select id="checkJoinId" parameterType="web.dto.Member" resultType="int">
@@ -82,11 +82,15 @@
  			AND password=#{password }
  	</select>
  	
- 	<insert id="insertFile" parameterType="web.dto.ProfilePic">
+ 	<insert id="insertProfilePic" parameterType="web.dto.ProfilePic">
  		INSERT INTO profilePic (profileNo, path, originName, storedName)
- 		VALUES (profileNo_seq.nextval, 
-				ec2-52-78-8-12.ap-northeast-2.compute.amazonaws.com/final/img,
-				#{originName }, #{storedName }) 
+ 		VALUES (profileNo_seq.nextval, #{path }, #{originName }, #{storedName }) 
  	</insert>
+ 	
+ 	<select id="selectProfileNo" parameterType="String" resultType="int">
+ 		SELECT profileNo
+ 		FROM profilepic
+ 		WHERE storedName=#{profileName }
+ 	</select>
  	
  </mapper>
