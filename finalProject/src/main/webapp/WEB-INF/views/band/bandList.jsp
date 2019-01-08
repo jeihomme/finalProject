@@ -9,9 +9,6 @@
 
 <style type="text/css">
 
-.img-view{
-	border-radius:10px;
-}
 .img-thumb{
 	border-radius:10px;
 	width:110px;
@@ -22,38 +19,13 @@ th, td{
 	padding:5px;
 	text-align:center;
 }
+
 a{
 	cursor: pointer;
 }
 a:hover{ 
 	color: black; 
-} 
-
-/* view 모달 */
-.modal {
-	display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 40%; /* Full width */
-    height: 40%; /* Full height */
-    margin: auto;
-    overflow: auto; /* Enable scroll if needed */
-	background-color:gray;
-    border-radius:20px;
-/*     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
-    
-/* Modal Content/Box */
-.modal-content {
-	background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%; /* Could be more or less, depending on screen size */                          
-}
-
 </style>
 
 <script type="text/javascript">
@@ -120,13 +92,12 @@ $(document).ready(function(){
 											"<img class='img-thumb' src='http://" + profiles.path + "/" + profiles.originName + "' />" +
 										"</td></tr>" +
 										"<tr><td>" +
-// 											"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
-										"<a class='bandView' id='" + bands.bandNo + "'>" + bands.bandName + "</a>" +
+										"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
 										"</td></tr></table></td>");
 							
 							$("#lists").append($newList);
 							
-							if(counter == 8){
+							if(counter == 6){
 								$newLine = $("</tr><tr>");
 								$("#lists").append($newLine);
 							}
@@ -135,7 +106,7 @@ $(document).ready(function(){
 					}); // end of $.each
 				}); // end of $.each
 
-				if(viewPlus < 17) {
+				if(viewPlus < 13) {
 					$("#plus").hide();
 				} else {
 					$("#plus").show();
@@ -198,8 +169,7 @@ $(document).ready(function(){
 												"<img class='img-thumb' src='http://" + profiles.path + "/" + profiles.originName + "' />" +
 										"</td>" + "</tr>" +
 										"<tr>" + "<td>" +
-// 												"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
-										"<a class='bandView' id='" + bands.bandNo + "'>" + bands.bandName + "</a>" +
+										"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
 										"</td>" + "</tr>" + "</table>" + "</td>");
 							
 							if(counter == 1) {
@@ -210,8 +180,8 @@ $(document).ready(function(){
 								$("#lists").append($newList);
 							}
 							
-							if(counter == 8) {
-								// new tr every 8 items
+							if(counter == 6) {
+								// new tr every 6 items
 								$tr.appendChild($newList);
 								document.getElementById("lists").appendChild($tr);
 								counter = 0;
@@ -222,7 +192,7 @@ $(document).ready(function(){
 					}); // end of $.each(profile)
 				}); // end of $.each(band)
 				
-				if(viewPlus < 17) {
+				if(viewPlus < 13) {
 					$("#plus").hide();
 				} else {
 					$("#plus").show();
@@ -234,65 +204,6 @@ $(document).ready(function(){
 		});
 		
 	});
-	
-	
-	// 모달 띄우기
-	var modal = document.getElementById("viewModal");
-	
-	$(".bandView").click(function(){
-		
-		// bandNo 가져오기
-		var bandNo = $(this).attr("id");
-		console.log("bandNO = " + bandNo);
-		
-		$.ajax({
-			type: "get",
-			url: "/band/bandView",
-			data: { bandNo : bandNo },
-			dataType: "json",
-			success: function(data) {
-				
-				// 숨겨진 모달 보여주기
-				modal.style.display = "block";
-				
-				// 참조
-				// http://carami.tistory.com/61
-				
-				// 데이터 받아오기
-				var band = data.general.band;
-				var music = data.general.music;
-				var proPic = data.general.proPic;
-				var resumes = data.general.resumes;
-				var member = data.general.member;
-				
-				if(member != undefined){
-					console.log(member);
-				}
-				
-				$("#viewModal").empty();
-				
-				// 사진
-				$proPics = $("<div style='float: left; margin: 15px;'>" +
-						"<img class='img-view' src='http://" + proPic.path + "/" + proPic.originName + "' />" +
-						"</div>");
-				
-				$("#viewModal").append($proPics);
-
-				// 음악파일
-				
-				
-			}, error: function() {
-				alert("band View Failed");
-			}
-		});
-		
-	});
-	
-	window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
 
 }); // end of document.ready
 </script>
@@ -331,13 +242,13 @@ $(document).ready(function(){
 								</td>
 							</tr>
 							<tr>
-								<td><a class="bandView" id="${b.bandNo }">${b.bandName}</a></td>
+								<td><a href="/band/bandView?bandNo=${b.bandNo }">${b.bandName}</a></td>
 							</tr>
 						</table>
 					</td>
 				</c:if>
 			</c:forEach>
-		<c:if test="${counter == 8 }">
+		<c:if test="${counter == 6 }">
 			</tr>
 			<tr>
 		<c:set var="counter" value="0" />
@@ -347,17 +258,11 @@ $(document).ready(function(){
 	</table>
 </div>
 <c:choose>
-	<c:when test="${itemCounts lt 16 }">
-		<button id="plus" style=" visibility:hidden; display:block; background-color:black; border:0px;">+ 더보기</button>
+	<c:when test="${itemCounts lt total }">
+		<button id="plus" style="visibility:visible; display:block; background-color:black; border:0px;">+ 더보기</button>
 	</c:when>
 	<c:otherwise>
-		<button id="plus" style="visibility:visible; display:none; background-color:black; border:0px;">+ 더보기</button>
+		<button id="plus" style="visibility:hidden; display:none; background-color:black; border:0px;">+ 더보기</button>
 	</c:otherwise>
 </c:choose>
-
- 
-<!-- 밴드 상세보기 -->
-<!-- 모달 띄우기 -->
-<div id="viewModal" class="modal"></div>
-
 </div>
