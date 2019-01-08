@@ -145,10 +145,12 @@
 </style>
 
 <div class="adminMenu">
-	<p onclick=" location.href='/mypage/info' ">Mypage</p>
-	<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-	<p onclick="location.href='/mypage/intro' ">밴드 소개</p>
-	<p class="selectMenu" onclick="location.href='/mypage/applicationToBar' ">지원 현황</p>
+	<p onclick="viewMypageInfo() ">Mypage</p>
+	<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
+	<p onclick="viewMypageIntro() ">밴드 소개</p>
+	<p class="selectMenu" onclick="viewMypageAppToBar() ">지원 현황</p>
+	<p onclick="viewMypageRecommand() ">추천 Bar</p>
+	<p onclick="viewMypageCalendar() ">일정표</p>
 <!-- </div> -->
 
 <!-- <div class="applicationTab"> -->
@@ -163,8 +165,6 @@
 <!-- </div> -->
 
 <!-- <div class="adminMenu"> -->
-	<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
-	<p onclick="location.href='/mypage/calendar' ">일정표</p>
 </div><br><br>
 <hr>
 <div class="adminMypageMain">
@@ -540,10 +540,12 @@ $(document).ready(function() {
 <%-- 	    	  <a href="/board/list?curPage=${i }">${i }</a> --%>
 <!-- 	    	  </li> -->
 <%-- 	    	</c:if> --%>
-			<button id="ajaxBtn${paging.startPage+i-1 }" class="searchBtn" name="ajaxBtn${paging.startPage+i-1 }" value="${paging.startPage+i-1 }">${paging.startPage+i-1 }</button>
+			<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
 	    </c:forEach>
 		
-		<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
+		<c:if test="${paging.curPage % 5 ne 1}">
+			<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
+		</c:if>
 		
 	    </ul>
 	</div>

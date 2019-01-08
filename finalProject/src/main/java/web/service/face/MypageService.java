@@ -89,14 +89,15 @@ public interface MypageService {
 	public List<Bar> barView(BandGenre bandGenre);
 	public Resumes getResumesByBandNo(Resumes resumes);
 	public List<Application> appView(Paging paging, Member member);
-	public int getAppTotalCount(String startDate, String endDate);
-	public List<Application> appView(Paging paging, Member member, String startDate, String endDate);
+	public int getAppTotalCount(Bar bar, String startDate, String endDate);
+	public List<Application> appView(Paging paging, Bar bar, String startDate, String endDate);
 	public void appDelete(Application app);
 	public Location getLocation(Location location);
 	public ProfilePic getProfilePic(ProfilePic pPic);
 	public void updateBar(Bar bar);
 	public void appReadUpdate(Application app);
 	public void appAcceptUpdate(Application app);
+	public int getAppTotalCount(Bar bar);
 	
 	
 	

@@ -3,6 +3,9 @@
    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<!-- ajax 모음 jsp -->
+<jsp:include page="ajax.jsp" />
+
 <style type="text/css">
 	.adminMenu p{
 		float:left;
@@ -52,138 +55,6 @@
 	
 </style>
 
-<script type="text/javascript">
-// $(document).ready(function() {
-	
-	function viewMypageInfo(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/info"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function viewMypageModifyInfo(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/modifyInfo"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function viewMypageUserAdmin(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/userAdmin"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function viewMypageBoardAdmin(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/boardAdmin"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-// 	-------------------------------------------------------------------
-	function viewMypageIntro(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/intro"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function viewMypageAppToBand(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/applicationToBand"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function viewMypageCalendar(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/calendar"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-// 	----------------------------------------------------------------------
-	
-// });
-</script>
 <c:if test="${loginInfo.roleId eq 0 }">
 	<div class="adminMenu">
 		<p id="mypageInfo" class="selectMenu" onclick="viewMypageInfo() ">Mypage</p>
@@ -238,10 +109,10 @@
 	<div class="adminMenu">
 		<p id="mypageInfo" class="selectMenu" onclick="viewMypageInfo() ">Mypage</p>
 		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-		<p onclick="location.href='/mypage/intro' ">밴드 소개</p>
-		<p onclick="location.href='/mypage/applicationToBar' ">지원 현황</p>
-		<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
-		<p onclick="location.href='/mypage/calendar' ">일정표</p>
+		<p onclick="viewMypageIntro() ">밴드 소개</p>
+		<p onclick="viewMypageAppToBar() ">지원 현황</p>
+		<p onclick="viewMypageRecommand() ">추천 Bar</p>
+		<p onclick="viewMypageCalendar() ">일정표</p>
 	</div><br><br>
 	<hr>
 	<div class="adminMypageMain">

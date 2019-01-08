@@ -204,7 +204,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/mypage/modifyPw", method=RequestMethod.POST)
-	public String modifyPwProc(
+	public void modifyPwProc(
 			HttpSession session
 			, HttpServletRequest req
 			, Writer out
@@ -213,30 +213,23 @@ public class MypageController {
 		
 		Member member = (Member) session.getAttribute("loginInfo");
 		
-		if(	member.getPassword().equals(req.getParameter("currPassword")) ) {
-			if(	req.getParameter("newPasswordFisrt").equals(req.getParameter("newPasswordSecond")) ) {
-				try {
-					out.write("{\"res\": true}" );
-					
-					member.setPassword(req.getParameter("newPasswordSecond"));
-					
-					mpService.modifyPw(member);
-					
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					try {
-						out.write("{\"res\": false}" );
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
+		if(	member.getPassword().equals(req.getParameter("currPassword"))
+			&& req.getParameter("newPasswordFisrt").equals(req.getParameter("newPasswordSecond"))) {
+			
+			try {
+				out.write("{\"res\": true}" );
 				
+				member.setPassword(req.getParameter("newPasswordSecond"));
+				
+				mpService.modifyPw(member);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		
-		return "redirect:/mypage/modifyInfo";
+//		return "redirect:/mypage/modifyInfo";
 	}
 //	--------------------------------------------------------------------	
 	@RequestMapping(value = "/mypage/intro", method=RequestMethod.GET)
@@ -335,27 +328,37 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/mypage/modifyIntro", method=RequestMethod.POST)
-	public String modifyIntroProc(
+	public void modifyIntroProc(
 			HttpServletRequest req
+			, Writer out
 			) {
 		logger.info("---modifyIntroProc---");
-		
-		Bar bar = new Bar();
-		bar.setBarNo(Integer.parseInt(req.getParameter("barNo")));
-		
-		bar.setLocationNo( Integer.parseInt(req.getParameter("locationNo")) );
-		bar.setBarAddress( req.getParameter("barAddress") );
-		bar.setBarInfo( req.getParameter("barInfo") );
-		bar.setGenreNo( Integer.parseInt(req.getParameter("genreNo")) );
-		
-		mpService.updateBar(bar);
-		logger.info(bar.toString());
-		
-//		ProfilePic pPic = new ProfilePic();
-//		pPic.setProfileNo(bar.getProfileNo());
-//		pPic = mpService.getProfilePic(pPic);
-		
-		return "redirect:/mypage/modifyIntro";
+
+		if ( !req.getParameter("barNo").equals("") && req.getParameter("barNo") != null) {
+			
+			try {
+				out.write("{\"res\": true}" );
+				
+				Bar bar = new Bar();
+				bar.setBarNo(Integer.parseInt(req.getParameter("barNo")));
+				
+				bar.setLocationNo( Integer.parseInt(req.getParameter("locationNo")) );
+				bar.setBarAddress( req.getParameter("barAddress") );
+				bar.setBarInfo( req.getParameter("barInfo") );
+				bar.setGenreNo( Integer.parseInt(req.getParameter("genreNo")) );
+				
+				mpService.updateBar(bar);
+				logger.info(bar.toString());
+				
+		//		ProfilePic pPic = new ProfilePic();
+		//		pPic.setProfileNo(bar.getProfileNo());
+		//		pPic = mpService.getProfilePic(pPic);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+//		return "redirect:/mypage/modifyIntro";
 	}
 	
 	@RequestMapping(value = "/mypage/resumes", method=RequestMethod.GET)
@@ -376,7 +379,6 @@ public class MypageController {
 		logger.info(resumes.toString());
 		
 		if ( member.getRoleId() == 1 && req.getParameter("appNo") != null && !"".equals(req.getParameter("appNo")) ) {
-
 			Application app = new Application();
 			app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
 			app.setRead(Integer.parseInt(req.getParameter("read") ));
@@ -385,9 +387,12 @@ public class MypageController {
 			mpService.appReadUpdate(app);
 		}
 		
+		System.out.println(1);
 		Band band = new Band();
+		System.out.println(2);
 		band.setBandNo(resumes.getBandNo());
-		band = mpService.getBandByUserId(band);
+		System.out.println(3);
+		band = mpService.getBandByBandNo(band);
 		logger.info(band.toString());
 		
 		BandGenre bandGenre = new BandGenre();
@@ -406,7 +411,7 @@ public class MypageController {
 			music = mpService.getMusic(resumes);
 			logger.info(music.toString());
 		}
-		logger.info("7");
+		
 		List<History> historyList = mpService.getHistoryList(resumes);
 		
 		model.addAttribute("member", member);
@@ -738,14 +743,14 @@ public class MypageController {
 //		검색어가 있다면
 		if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
 			logger.info("---getAppTotalCount---");
-			int totalCount = mpService.getAppTotalCount(startDate, endDate);
+			int totalCount = mpService.getAppTotalCount(bar, startDate, endDate);
 			logger.info("---totalCount String : "+totalCount);
 			
 			logger.info("---Paging---");
 			paging = new Paging(totalCount, CurPage);
 			
 			logger.info("---appView---");
-			List<Application> aList = mpService.appView(paging, member, startDate, endDate);
+			List<Application> aList = mpService.appView(paging, bar, startDate, endDate);
 			
 			logger.info("---addAttribute---");
 			model.addAttribute("aList", aList);
@@ -788,9 +793,9 @@ public class MypageController {
 			HttpServletRequest req
 			, Model model
 			, HttpSession session
+//			, Writer out
 			) {
 		logger.info("---applicationToBandView---");
-//		searchApplicationUser
 		
 		Member member = (Member) session.getAttribute("loginInfo");
 		member = mbService.loginInfo(member);
@@ -801,67 +806,42 @@ public class MypageController {
 		bar = mpService.getBar(bar);
 		
 		int CurPage = mpService.getCurPage(req);
-		
-		logger.info("---getTotalCount---");
-		int totalCount = mpService.getUserTotalCount();
-		
-		logger.info("---Paging---");
-		Paging paging = new Paging(totalCount, CurPage);
-		
-		logger.info("---appView---");
-		List<Application> aList = mpService.appView(paging, member);
-		
-		logger.info("---addAttribute---");
-		model.addAttribute("aList", aList);
-		model.addAttribute("paging", paging);
-	}
-	
-	@RequestMapping(value = "/mypage/applicationToBand", method=RequestMethod.POST)
-	public void applicationToBandSearch(
-			HttpServletRequest req
-			, Model model
-			, HttpSession session
-			) {
-		logger.info("---applicationToBandSearch---");
-//		searchApplicationUser
-		
-		Member member = (Member) session.getAttribute("loginInfo");
-		member = mbService.loginInfo(member);
-		logger.info(member.toString());
-		
-		Bar bar = new Bar();
-		bar.setUserId(member.getUserId());
-		bar = mpService.getBar(bar);
 		
 		String startDate = req.getParameter("appStartDate");
 		String endDate = req.getParameter("appEndDate");
 		
 		System.out.println(startDate + " ~ " + endDate);
 		
-		int CurPage = mpService.getCurPage(req);
-		
 		Paging paging;
 		
 //		검색어가 있다면
 		if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
-			logger.info("---getAppTotalCount---");
-			int totalCount = mpService.getAppTotalCount(startDate, endDate);
-			logger.info("---totalCount String : "+totalCount);
+//			try {
+//				out.write("{\"res\": true}" );
+				
+				logger.info("---getAppTotalCount(bar, startDate, endDate)---");
+				int totalCount = mpService.getAppTotalCount(bar, startDate, endDate);
+				logger.info("---totalCount String : "+totalCount);
+				
+				logger.info("---Paging---");
+				paging = new Paging(totalCount, CurPage);
+				
+				logger.info("---appView---");
+				List<Application> aList = mpService.appView(paging, bar, startDate, endDate);
+				
+				logger.info("---addAttribute---");
+				model.addAttribute("aList", aList);
+				model.addAttribute("paging", paging);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			
-			logger.info("---Paging---");
-			paging = new Paging(totalCount, CurPage);
-			
-			logger.info("---appView---");
-			List<Application> aList = mpService.appView(paging, member, startDate, endDate);
-			
-			logger.info("---addAttribute---");
-			model.addAttribute("aList", aList);
-			model.addAttribute("paging", paging);
 		}
 //		검색어가 없다면,
 		else {
-			logger.info("---getTotalCount---");
-			int totalCount = mpService.getUserTotalCount();
+			logger.info("---getAppTotalCount(bar)---");
+			int totalCount = mpService.getAppTotalCount(bar);
 			
 			logger.info("---Paging---");
 			paging = new Paging(totalCount, CurPage);
@@ -875,19 +855,98 @@ public class MypageController {
 		}
 	}
 	
+//	@RequestMapping(value = "/mypage/applicationToBand", method=RequestMethod.POST)
+//	public void applicationToBandSearch(
+//			HttpServletRequest req
+//			, Model model
+//			, HttpSession session
+//			, Writer out
+//			) {
+//		logger.info("---applicationToBandSearch---");
+////		searchApplicationUser
+//		
+//		Member member = (Member) session.getAttribute("loginInfo");
+//		member = mbService.loginInfo(member);
+//		logger.info(member.toString());
+//		
+//		Bar bar = new Bar();
+//		bar.setUserId(member.getUserId());
+//		bar = mpService.getBar(bar);
+//		
+//		int CurPage = mpService.getCurPage(req);
+//		
+//		String startDate = req.getParameter("appStartDate");
+//		String endDate = req.getParameter("appEndDate");
+//		
+//		System.out.println(startDate + " ~ " + endDate);
+//		
+//		Paging paging;
+//		
+////		검색어가 있다면
+//		if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
+//			try {
+//				out.write("{\"res\": true}" );
+//				
+//				logger.info("---getAppTotalCount---");
+//				int totalCount = mpService.getAppTotalCount(bar, startDate, endDate);
+//				logger.info("---totalCount String : "+totalCount);
+//				
+//				logger.info("---Paging---");
+//				paging = new Paging(totalCount, CurPage);
+//				
+//				logger.info("---appView---");
+//				List<Application> aList = mpService.appView(paging, bar, startDate, endDate);
+//				
+//				logger.info("---addAttribute---");
+//				model.addAttribute("aList", aList);
+//				model.addAttribute("paging", paging);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			
+//		}
+////		검색어가 없다면,
+//		else {
+//			logger.info("---getTotalCount---");
+//			int totalCount = mpService.getUserTotalCount();
+//			
+//			logger.info("---Paging---");
+//			paging = new Paging(totalCount, CurPage);
+//			
+//			logger.info("---appView---");
+//			List<Application> aList = mpService.appView(paging, member);
+//			
+//			logger.info("---addAttribute---");
+//			model.addAttribute("aList", aList);
+//			model.addAttribute("paging", paging);
+//		}
+//	}
+	
 	@RequestMapping(value = "/mypage/applicationToBandAccept", method=RequestMethod.POST)
-	public String applicationToBandAccept(
+	public void applicationToBandAccept(
 			HttpServletRequest req
+			, Writer out
 			) {
-		logger.info("---applicationToBandCancel---");
-		Application app = new Application();
-		app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
-		app.setAccept(Integer.parseInt(req.getParameter("accept") ));
+		logger.info("---applicationToBandAccept---");
 		
-		logger.info(app.toString());
-		mpService.appAcceptUpdate(app);
+		if( req.getParameter("appNo")!=null && !"".equals(req.getParameter("appNo")) ) {
+			try {
+				out.write("{\"res\": true}" );
+				
+				Application app = new Application();
+				app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
+				app.setAccept(Integer.parseInt(req.getParameter("accept") ));
+				
+				logger.info(app.toString());
+				mpService.appAcceptUpdate(app);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
-		return "redirect:/mypage/applicationToBand";
+//		return "redirect:/mypage/applicationToBand";
 	}
 	
 //	--------------------------------------------------------------------------------------------------------------------------------------

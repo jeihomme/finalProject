@@ -211,20 +211,20 @@
 	
 	<hr>
 	<div class="resumesViewDiv">
-		<form action="/mypage/modifyIntro" method="get">
-			<button class="resumesBtn" >수정</button>
-		</form>
+<!-- 		<form action="/mypage/modifyIntro" method="get"> -->
+			<button class="resumesBtn" onclick="modifyIntro()">수정</button>
+<!-- 		</form> -->
 	</div>
 </c:if>
 
 <c:if test="${loginInfo.roleId eq 2 }">
 	<div class="adminMenu">
-		<p onclick=" location.href='/mypage/info' ">Mypage</p>
-		<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-		<p class="selectMenu" onclick="location.href='/mypage/intro' ">밴드 소개</p>
-		<p onclick="location.href='/mypage/applicationToBar' ">지원 현황</p>
-		<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
-		<p onclick="location.href='/mypage/calendar' ">일정표</p>
+		<p onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
+		<p class="selectMenu" onclick="viewMypageIntro() ">밴드 소개</p>
+		<p onclick="viewMypageAppToBar() ">지원 현황</p>
+		<p onclick="viewMypageRecommand() ">추천 Bar</p>
+		<p onclick="viewMypageCalendar() ">일정표</p>
 	</div><br><br>
 	<hr>
 	<div class="adminMypageMain">
@@ -280,7 +280,7 @@
 				type: "post"
 				, url: "/mypage/commitPublicResumes"
 					, data: {
-						publicResumes : publicResumes
+						"publicResumes" : publicResumes
 						}
 				, dataType: "html"
 				, success: function(res) {

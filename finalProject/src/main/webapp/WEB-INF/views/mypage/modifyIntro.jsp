@@ -146,53 +146,17 @@
 		width:300px;
 	}
 </style>
-
-<script type="text/javascript">
-function execDaumPostcode() { // (post)
-	new daum.Postcode({
-		oncomplete: function(data) {
-			// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-			var fullAddr = ''; // 최종 주소 변수
-			var extraAddr = ''; // 조합형 주소 변수
-			// 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-				fullAddr = data.roadAddress;
-			} else { // 사용자가 지번 주소를 선택했을 경우(J)
-				fullAddr = data.jibunAddress;
-			}
-			// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-			if(data.userSelectedType === 'R'){
-				if(data.bname !== ''){//법정동명이 있을 경우 추가한다.
-					extraAddr += data.bname;
-				}
-				if(data.buildingName !== ''){ // 건물명이 있을 경우 추가한다.
-					extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-				}
-				// 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-				fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-			}
-			// 우편번호와 주소 정보를 해당 필드에 넣는다.
-//  			document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
-			document.getElementById('barAddress').value = fullAddr;
-			// 커서를 상세주소 필드로 이동한다.
-//  			document.getElementById('addr2').focus();
-//  			$("input[name=addr2]").val("");
-		}
-	}).open();
-}
-</script>
 						
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
-		<p onclick=" location.href='/mypage/info' ">Mypage</p>
-		<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-		<p class="selectMenu" onclick="location.href='/mypage/intro' ">바 소개</p>
-		<p onclick="location.href='/mypage/applicationToBand' ">지원 현황</p>
-		<p onclick="location.href='/mypage/calendar' ">일정표</p>
+		<p onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
+		<p class="selectMenu" onclick="viewMypageIntro() ">바 소개</p>
+		<p onclick="viewMypageAppToBand() ">지원 현황</p>
+		<p onclick="viewMypageCalendar() ">일정표</p>
 	</div><br><br>
 	<hr>
-	<form action="/mypage/modifyIntro" method="post">
+	
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
 			<p class="adminDetailTitle">기본정보 </p>
@@ -230,7 +194,7 @@ function execDaumPostcode() { // (post)
 				<b class="adminDetailInfo">장르 </b><p class="adminDetailMust">(필수) </p><br>
 <%-- 				${genre.genreName }<br><br> --%>
 				
-					<select class="modifyBtn" name="genreNo" >
+					<select class="modifyBtn" id="genreNo" name="genreNo" >
 						<c:if test="${genre.genreNo eq 0}">
 							<option value="0">선택</option>
 						</c:if>
@@ -244,7 +208,7 @@ function execDaumPostcode() { // (post)
 						<option value="5">보사노바</option><option value="6">부기우기</option>
 						
 					</select>
-						<input type="hidden" name="barNo" value="${bar.barNo }"/>
+						<input type="hidden" id="barNo" name="barNo" value="${bar.barNo }"/>
 <!-- 				</form> -->
 			</div>
 			
@@ -265,7 +229,7 @@ function execDaumPostcode() { // (post)
 				<tr>
 					<td>
 <!-- 						<form action="/mypage/modifyIntro" method="post"> -->
-							<select class="modifyBtn" name="locationNo" >
+							<select class="modifyBtn" id="locationNo" name="locationNo" >
 								<c:if test="${location.locationNo eq 0}">
 									<option value="0">선택</option>
 								</c:if>
@@ -292,7 +256,7 @@ function execDaumPostcode() { // (post)
 					</td>
 					<td>
 						
-						<input type="text" id="barAddress" class="barAddress" name="barAddress" placeholder=" bar 주소" value="${bar.barAddress }" />
+						<input type="text" id="barAddress" class="barAddress" id="barAddress" name="barAddress" placeholder=" bar 주소" value="${bar.barAddress }" />
 						<input type="button" onclick="execDaumPostcode()" value="주소 찾기" class="btn btn-xs"/>
 						
 					</td>
@@ -310,7 +274,9 @@ function execDaumPostcode() { // (post)
 					<th>소개</th>
 				</tr>
 				<tr>
-					<td><textArea class="insertBarInfo" name="barInfo" >${bar.barInfo }</textArea>
+					<td>
+						<textArea class="insertBarInfo" id="modifyBarInfo" name="barInfo" >${bar.barInfo }</textArea>
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -319,21 +285,21 @@ function execDaumPostcode() { // (post)
 	<hr>
 <!-- 	<form action="/mypage/modifyIntro" method="post"> -->
 		<div class="resumesViewDiv">
-			<button class="resumesBtn" onclick=" location.href='/mypage/intro' ">뒤로가기</button>
+			<button class="resumesBtn" onclick="viewMypageIntro() ">뒤로가기</button>
 			<input type="hidden" name="barNo" value="${bar.barNo }"/>
-			<button class="resumesBtn" >완료</button>
+			<button class="resumesBtn" onclick="modifyIntro() ">완료</button>
 		</div>
-	</form>
+		
 </c:if>
 
 <c:if test="${loginInfo.roleId eq 2 }">
 	<div class="adminMenu">
-		<p onclick=" location.href='/mypage/info' ">Mypage</p>
-		<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-		<p class="selectMenu" onclick="location.href='/mypage/intro' ">밴드 소개</p>
-		<p onclick="location.href='/mypage/applicationToBar' ">지원 현황</p>
-		<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
-		<p onclick="location.href='/mypage/calendar' ">일정표</p>
+		<p onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
+		<p class="selectMenu" onclick="viewMypageIntro() ">밴드 소개</p>
+		<p onclick="viewMypageAppToBar() ">지원 현황</p>
+		<p onclick="viewMypageRecommand() ">추천 Bar</p>
+		<p onclick="viewMypageCalendar() ">일정표</p>
 	</div><br><br>
 	<hr>
 	<div class="adminMypageMain">
