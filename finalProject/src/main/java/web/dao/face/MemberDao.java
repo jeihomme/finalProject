@@ -39,4 +39,7 @@ public interface MemberDao {
 	
 	// 프로필 사진 업로드
 	public void insertProfilePic(ProfilePic profilePic);
+	
+	// 프로필 사진 번호 가지고 오기
+	public int selectProfileNo(String profileName);
 }

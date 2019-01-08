@@ -46,23 +46,27 @@ public class MemberController {
 		
 	}
 	
-	@Resource(name="uploadPath")
-	private String uploadPath;
-	
-	@Autowired MappingJackson2JsonView jsonView;
+	@RequestMapping(value="/member/profilePic", method=RequestMethod.POST)
+	public void joinPic(@RequestParam(value="JoinPic") MultipartFile joinPic,
+							HttpSession session,
+							ProfilePic profilePic) {
+		String PicName = memberService.profilePicSave(context, joinPic, profilePic);
+		
+		session.setAttribute("profileName", PicName);
+	}
+
 	
 	@Transactional
 	@RequestMapping(value="/member/join", method=RequestMethod.POST)
 	public void joinProc(Member member,
 							Bar bar,
 							Band band,
-							@RequestParam(required=false, value="locationName") String locationName,
-//							@RequestParam(value="joinBarPic") MultipartFile barPic, 
-//							@RequestParam(value="joinBandPic") MultipartFile bandPic,
-							Model model,
-							MultipartHttpServletRequest request,
-							Writer out,
-							ProfilePic profilePic) {
+							@RequestParam(required=false, value="locationName") String locationName, 
+							HttpSession session,
+							Writer out) {
+		
+		int profileNo = 0;
+		String profileName = null;
 		
 		// bar 가입일 때
 		if(member.getRoleId()==1) {		
@@ -99,8 +103,12 @@ public class MemberController {
 			} else if(locationName.equals("제주")) {
 				bar.setLocationNo(16);
 			}
-						
-//			memberService.profilePicSave(context, barPic, profilePic, uploadPath);
+			
+			// 프로필 사진 no 찾아서 member에 넘겨주기
+			profileName = (String) session.getAttribute("profileName");
+			profileNo = memberService.checkProfileNo(profileName);
+			bar.setProfileNo(profileNo);
+			
 			memberService.join(member);
 			memberService.barJoin(bar);
 			
@@ -117,8 +125,11 @@ public class MemberController {
 			
 		} else if(member.getRoleId()==2) {
 			
+			// 프로필 사진 no 찾아서 member에 넘겨주기
+			profileName = (String) session.getAttribute("profileName");
+			profileNo = memberService.checkProfileNo(profileName);
+			band.setProfileNo(profileNo);
 			
-//			memberService.profilePicSave(context, bandPic, profilePic, uploadPath);
 			memberService.join(member);
 			memberService.bandJoin(band);
 			
