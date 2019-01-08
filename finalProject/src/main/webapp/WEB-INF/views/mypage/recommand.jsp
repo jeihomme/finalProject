@@ -98,6 +98,39 @@
 	}
 </style>
 
+<%
+int test = 5;
+
+%>
+
+<script type="text/javascript">
+// 	var sum = 5;
+	var sum = '<%=test%>';
+	sum = Number(sum);
+	document.sum.value = sum;
+</script>
+
+<script type="text/javascript">
+	function test() {
+		sum+=5;
+		console.log(sum);
+		
+		$.ajax({
+			type: "get"
+			, url: "/mypage/recommand"
+				, data: {
+					"sum":sum
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+</script>
 <div class="adminMenu">
 	<p onclick=" location.href='/mypage/info' ">Mypage</p>
 	<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
@@ -143,4 +176,5 @@
 			</c:forEach>
 		</table>
 	</div>
+	<button class="searchBtn" onclick="test()">더보기</button>
 </div>

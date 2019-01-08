@@ -37,20 +37,21 @@ public interface MypageService {
 //	public void userView();
 	public int getCurPage(HttpServletRequest req);
 	public String getSearch(HttpServletRequest req);
+	public int getCategory(HttpServletRequest req);
 	
-	public int getUserTotalCount(String search);
+	public int getUserTotalCount(String search, int category);
 	public int getUserTotalCount();
 	
-	public int getResumesTotalCount(String search);
+	public int getResumesTotalCount(String search, int category);
 	public int getResumesTotalCount();
 	
 	
 	public List<Member> userView(Paging paging);
-	public List<Member> userSearch(Paging paging);
+	public List<Member> userSearch(Paging paging, int category);
 	public void userDelete(Member member);
 	
 	public List<Resumes> boardView(Paging paging);
-	public List<Resumes> boardSearch(Paging paging);
+	public List<Resumes> boardSearch(Paging paging, int category);
 	public void boardDelete(Resumes resumes);
 	
 	public Band getBandByUserId(Band band);

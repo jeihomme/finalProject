@@ -52,12 +52,144 @@
 	
 </style>
 
+<script type="text/javascript">
+// $(document).ready(function() {
+	
+	function viewMypageInfo(){
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/info"
+			, data: {
+				
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewMypageModifyInfo(){
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/modifyInfo"
+			, data: {
+				
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewMypageUserAdmin(){
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/userAdmin"
+			, data: {
+				
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewMypageBoardAdmin(){
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/boardAdmin"
+			, data: {
+				
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+// 	-------------------------------------------------------------------
+	function viewMypageIntro(){
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/intro"
+			, data: {
+				
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewMypageAppToBand(){
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/applicationToBand"
+			, data: {
+				
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewMypageCalendar(){
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/calendar"
+			, data: {
+				
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+// 	----------------------------------------------------------------------
+	
+// });
+</script>
 <c:if test="${loginInfo.roleId eq 0 }">
 	<div class="adminMenu">
-		<p class="selectMenu" onclick=" location.href='/mypage/info' ">Mypage</p>
-		<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-		<p onclick="location.href='/mypage/userAdmin' ">회원 관리</p>
-		<p onclick="location.href='/mypage/boardAdmin' ">게시글 관리</p>
+		<p id="mypageInfo" class="selectMenu" onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
+		<p onclick="viewMypageUserAdmin() ">회원 관리</p>
+		<p onclick="viewMypageBoardAdmin() ">게시글 관리</p>
 	</div><br><br>
 	<hr>
 	<div class="adminMypageMain">
@@ -78,11 +210,11 @@
 
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
-		<p class="selectMenu" onclick=" location.href='/mypage/info' ">Mypage</p>
-		<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-		<p onclick="location.href='/mypage/intro' ">바 소개</p>
-		<p onclick="location.href='/mypage/applicationToBand' ">지원 현황</p>
-		<p onclick="location.href='/mypage/calendar' ">일정표</p>
+		<p class="selectMenu" onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
+		<p onclick="viewMypageIntro() ">바 소개</p>
+		<p onclick="viewMypageAppToBand() ">지원 현황</p>
+		<p onclick="viewMypageCalendar() ">일정표</p>
 	</div><br><br>
 	<hr>
 	
@@ -104,8 +236,8 @@
 
 <c:if test="${loginInfo.roleId eq 2 }">
 	<div class="adminMenu">
-		<p class="selectMenu" onclick=" location.href='/mypage/info' ">Mypage</p>
-		<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
+		<p id="mypageInfo" class="selectMenu" onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
 		<p onclick="location.href='/mypage/intro' ">밴드 소개</p>
 		<p onclick="location.href='/mypage/applicationToBar' ">지원 현황</p>
 		<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>

@@ -85,13 +85,13 @@ public class MypageServiceImpl implements MypageService{
 	}
 	
 	@Override
-	public int getUserTotalCount(String search) {
-		return mpDao.selectUserCntAll(search);
+	public int getUserTotalCount(String search, int category) {
+		return mpDao.selectUserCntAll(search, category);
 	}
 	
 	@Override
-	public int getResumesTotalCount(String search) {
-		return mpDao.selectResumesCntAll(search);
+	public int getResumesTotalCount(String search, int category) {
+		return mpDao.selectResumesCntAll(search, category);
 	}
 
 	@Override
@@ -112,10 +112,33 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public String getSearch(HttpServletRequest req) {
 		//요청파라미터 받기
+		System.out.println(req.getParameter("searchKeyowrd"));
 		String search = req.getParameter("searchKeyowrd");
-		
-		return search;
+		//null이나 ""이 아니면 int로 리턴
+		if( search != null && !"".equals(search) ) {
+			return req.getParameter("searchKeyowrd");
+		}
+
+		//null이나 "" 면 0으로 반환
+		return null;
 	}
+	
+	@Override
+	public int getCategory(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		System.out.println(req.getParameter("searchCategory") );
+		String category = req.getParameter("searchCategory");
+		
+		//null이나 ""이 아니면 int로 리턴
+		if( category != null && !"".equals(category) ) {
+			return Integer.parseInt( category );
+		}
+
+		//null이나 "" 면 0으로 반환
+		return 0;
+	}
+
+
 //	--------------------------유저 관리
 	@Override
 	public List<Member> userView(Paging paging) {
@@ -124,9 +147,9 @@ public class MypageServiceImpl implements MypageService{
 	}
 	
 	@Override
-	public List<Member> userSearch(Paging paging) {
+	public List<Member> userSearch(Paging paging, int category) {
 		// TODO Auto-generated method stub
-		return mpDao.selectUserByUserId(paging);
+		return mpDao.selectUserByUserId(paging, category);
 	}
 	
 	@Override
@@ -142,9 +165,9 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public List<Resumes> boardSearch(Paging paging) {
+	public List<Resumes> boardSearch(Paging paging, int category) {
 		// TODO Auto-generated method stub
-		return mpDao.selectBoardByResumesNo(paging);
+		return mpDao.selectBoardByResumesNo(paging, category);
 	}
 
 	@Override

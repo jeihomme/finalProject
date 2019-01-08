@@ -145,11 +145,11 @@
 </style>
 
 <div class="adminMenu">
-	<p onclick=" location.href='/mypage/info' ">Mypage</p>
-	<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-	<p onclick="location.href='/mypage/intro' ">바 소개</p>
-	<p class="selectMenu" onclick="location.href='/mypage/applicationToBand' ">지원 현황</p>
-	<p onclick="location.href='/mypage/calendar' ">일정표</p>
+	<p onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
+		<p onclick="viewMypageIntro() ">바 소개</p>
+		<p class="selectMenu" onclick="viewMypageAppToBand() ">지원 현황</p>
+		<p onclick="viewMypageCalendar() ">일정표</p>
 	</div><br><br>
 <hr>
 <div class="adminMypageMain">

@@ -1,6 +1,8 @@
 package web.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -205,13 +207,34 @@ public class MypageController {
 	public String modifyPwProc(
 			HttpSession session
 			, HttpServletRequest req
+			, Writer out
 			) {
 		logger.info("---modifyPwProc---");
 		
 		Member member = (Member) session.getAttribute("loginInfo");
-		member.setPassword(req.getParameter("newPassword"));
 		
-		mpService.modifyPw(member);
+		if(	member.getPassword().equals(req.getParameter("currPassword")) ) {
+			if(	req.getParameter("newPasswordFisrt").equals(req.getParameter("newPasswordSecond")) ) {
+				try {
+					out.write("{\"res\": true}" );
+					
+					member.setPassword(req.getParameter("newPasswordSecond"));
+					
+					mpService.modifyPw(member);
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					try {
+						out.write("{\"res\": false}" );
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				
+			}
+		}
 		
 		return "redirect:/mypage/modifyInfo";
 	}
@@ -866,6 +889,7 @@ public class MypageController {
 		
 		return "redirect:/mypage/applicationToBand";
 	}
+	
 //	--------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/recommand", method=RequestMethod.GET)
 	public void recommandBar(
@@ -898,6 +922,7 @@ public class MypageController {
 		
 		logger.info("---addAttribute---");
 		model.addAttribute("barList", barList);
+		
 	}
 //	--------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/calendar", method=RequestMethod.GET)
@@ -954,19 +979,18 @@ public class MypageController {
 			) {
 		logger.info("---searchUserAdmin---");
 		
-		System.out.println(req.getParameter("searchCategory"));
-		System.out.println(req.getParameter("searchKeyowrd"));
-		
 		int CurPage = mpService.getCurPage(req);
 		
 		String search = mpService.getSearch(req);
+		int category = mpService.getCategory(req);
+		
 		Paging paging;
 		
 //		검색어가 있다면
-		if( search!=null && !"".equals(search) ) {
+		if( search!=null && !"".equals(search) && category > 0) {
 			logger.info("---getTotalCount---");
 			logger.info("---search String : "+search);
-			int totalCount = mpService.getUserTotalCount(search);
+			int totalCount = mpService.getUserTotalCount(search, category);
 			logger.info("---totalCount String : "+totalCount);
 			
 			logger.info("---Paging---");
@@ -977,7 +1001,7 @@ public class MypageController {
 			
 			logger.info("---getPagingList---");
 			
-			List<Member> mbList = mpService.userSearch(paging);
+			List<Member> mbList = mpService.userSearch(paging, category);
 			
 			logger.info("---addAttribute---");
 			model.addAttribute("mbList", mbList);
@@ -1046,20 +1070,19 @@ public class MypageController {
 			) {
 			logger.info("---searchBoardAdmin---");
 			
-			System.out.println(req.getParameter("searchCategory"));
-			System.out.println(req.getParameter("searchKeyowrd"));
-			
 			int CurPage = mpService.getCurPage(req);
 			
 			String search = mpService.getSearch(req);
+			int category = mpService.getCategory(req);
+			
 			Paging paging;
 			
 	//		검색어가 있다면
-			if( search!=null && !"".equals(search) ) {
+			if( search!=null && !"".equals(search) && category > 0) {
 				logger.info("---getTotalCount---");
 				logger.info("---search String : "+search);
 				
-				int totalCount = mpService.getResumesTotalCount(search);
+				int totalCount = mpService.getResumesTotalCount(search, category);
 				logger.info("---totalCount String : "+totalCount);
 				
 				logger.info("---Paging---");
@@ -1070,7 +1093,7 @@ public class MypageController {
 				
 				logger.info("---getPagingList---");
 				
-				List<Resumes> rsList = mpService.boardSearch(paging);
+				List<Resumes> rsList = mpService.boardSearch(paging, category);
 				
 				logger.info("---addAttribute---");
 				model.addAttribute("rsList", rsList);
