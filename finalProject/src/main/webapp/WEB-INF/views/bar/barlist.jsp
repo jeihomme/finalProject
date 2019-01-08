@@ -79,29 +79,6 @@
 		 });
 	}
 	
-	$(document).ready(function(){
-		$("#listMore").click(function(){
-			
-			console.log(sum);
-			
-			$.ajax({
-				type: "POST",
-				url: "/bar/barlist",
-				data: {
-					
-				},
-				dataType: "JSON",
-				success: function(res){
-					console.log("성공");
-					$("#body").html(res);
-				},
-				error.function(){
-					console.log("실패");
-				}
-			});
-		});
-	});
-
 </script>
 
 <style type="text/css">

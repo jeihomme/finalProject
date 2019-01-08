@@ -49,9 +49,15 @@
 	</insert>
 	
 	<update id="updateBarInfo" parameterType="web.dto.Bar">
-		UPDATE BAR SET BARINFO=#{barInfo }, manager=#{manager }, contact=#{contact }
+		UPDATE BAR SET BARINFO=#{barInfo }, manager=#{manager }
 		WHERE BARNO=#{barNo }
 	</update>
+	
+	<update id="updateMemberContact" parameterType="web.dto.Member">
+		UPDATE MEMBER SET contact=#{contact }
+		WHERE USERID=#{userId }
+	</update>
+	
 	
 	<select id="getProPic" resultType="web.dto.ProfilePic">
 		SELECT ProfileNo, path, OriginName, StoredName

@@ -67,6 +67,10 @@
 			<div id="barInfo">
 				${view.genreName }<br>
 			</div>
+			
+			<div id="barInfo">
+				${contact }<br>
+			</div>
 		
 <!-- 	</div> -->
 </form>
