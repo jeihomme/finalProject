@@ -36,9 +36,9 @@ public class BarServiceImpl implements BarService{
 	}
 
 	@Override
-	public List<Bar> barListMore() {
+	public List<Bar> barListMore(Bar bar, ProfilePic profilePic) {
 		// TODO Auto-generated method stub
-		return null;
+		return barDao.getBarListMore(bar, profilePic);
 	}
 
 	@Override
@@ -83,22 +83,22 @@ public class BarServiceImpl implements BarService{
 	@Override
 	public Map listPaging(String curPage) {
 		
-		// map 생성
-		Map map = new HashMap();
+//		// map 생성
+//		Map map = new HashMap();
+//		
+//		// curPage 셋팅
+//		if(curPage != null && !"".equals(curPage)) {
+//			map.put("curPage", Integer.parseInt(curPage));
+//		} else {
+//			map.put("curPage", 0);
+//		}
+//		
+//		// total count
+//		List<Bar> count = barDao.getBarListMore(bar, profilePic);
+//		
+//		map.put("totalCount", count);
 		
-		// curPage 셋팅
-		if(curPage != null && !"".equals(curPage)) {
-			map.put("curPage", Integer.parseInt(curPage));
-		} else {
-			map.put("curPage", 0);
-		}
-		
-		// total count
-		int count = barDao.getBarListMore();
-		
-		map.put("totalCount", count);
-		
-		return map;
+		return null;
 	}
 
 	@Override

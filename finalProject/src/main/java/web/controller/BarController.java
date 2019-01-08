@@ -160,4 +160,26 @@ public class BarController {
 		
 	}
 	
+	@RequestMapping(value="/bar/listmore", method=RequestMethod.POST)
+	public ModelAndView listMore(
+			Model model,
+			HttpSession session
+			) {
+		
+		Bar bar = new Bar();
+		ProfilePic profilePic = new ProfilePic();
+		
+		logger.info("listMore");
+		
+		List<Bar> listMore = barService.barListMore(bar, profilePic);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("jsonView");
+		mav.addObject(listMore);
+		mav.addObject("result", "true");
+		return mav;
+		
+		
+	}
 }
