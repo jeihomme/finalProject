@@ -42,4 +42,27 @@ public interface MemberDao {
 	
 	// 프로필 사진 번호 가지고 오기
 	public int selectProfileNo(String profileName);
+	
+	// 일반 회원 탈퇴
+	public void deleteMember(Member member);
+	
+	// bar 탈퇴
+	public void deleteBar(Member member);
+	
+	// band 탈퇴
+	public void deleteBand(Member member);
+	
+	// bar 프로필 사진 정보 가져오기
+	public int checkBarPicNo(Member member);
+	
+	// band 프로필 사진 정보 가져오기
+	public int checkBandPicNo(Member member);
+	
+	// bar 프로필 사진 삭제
+	public void deleteBarPic(int barPicNo);
+	
+	// band 프로필 사진 삭제
+	public void deleteBandPic(int bandPicNo);
+	
+	
 }

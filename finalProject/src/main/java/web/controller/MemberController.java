@@ -3,9 +3,7 @@ package web.controller;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Iterator;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -16,13 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+
 
 import web.dto.Band;
 import web.dto.Bar;
@@ -277,5 +273,51 @@ public class MemberController {
 		
 	}
 	
+	@RequestMapping(value="/member/delete", method=RequestMethod.POST)
+	public String joinCheckIdPw(Member member,
+						HttpSession session,
+						Bar bar,
+						Band band,
+						Writer out) {
+				
+		// bar 탈퇴일 경우
+		if(member.getRoleId()==1) {
+			// bar 프로필 사진 정보 가져오기
+			int barPicNo = memberService.checkBarProfileNo(member);
+			
+			// 프로필 사진 삭제
+			memberService.deleteBarProfile(barPicNo);
+
+			// bar 탈퇴
+			memberService.deleteBar(member);
+			
+		// band 탈퇴일 경우
+		} else if(member.getRoleId()==2) {			
+			// band 프로필 사진 정보 가져오기
+			int bandPicNo = memberService.checkBandProfileNo(member);
+			
+			// 프로필 사진 삭제
+			memberService.deleteBandProfile(bandPicNo);
+			
+			// band 탈퇴
+			memberService.deleteBand(member);
+		} 
+		
+		// 회원 탈퇴
+		memberService.deleteMember(member);
+		
+		try {
+			out.write("{\"res\": true}" );				
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		session.setAttribute("login", false);
+		
+		session.invalidate();
+		
+		return "redirect:/main";
+	}
 
 }

@@ -49,4 +49,27 @@ public interface MemberService {
 	
 	// 프로필 사진 번호 찾기
 	public int checkProfileNo(String profileName);
+	
+	// 일반 회원 탈퇴
+	public void deleteMember(Member member);
+	
+	// bar 탈퇴
+	public void deleteBar(Member member);
+	
+	// band 탈퇴
+	public void deleteBand(Member member);
+	
+	// bar 정보 확인
+	public int checkBarProfileNo(Member member);
+	
+	// band 정보 확인
+	public int checkBandProfileNo(Member member);
+	
+	// bar 프로필 사진 삭제
+	public void deleteBarProfile(int barPicNo);
+	
+	// band 프로필 사진 삭제
+	public void deleteBandProfile(int bandPicNo);
+
 }
+

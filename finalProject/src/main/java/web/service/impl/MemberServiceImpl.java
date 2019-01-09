@@ -187,5 +187,44 @@ public class MemberServiceImpl implements MemberService {
 		
 		return num;
 	}
+	
+	@Override
+	public void deleteMember(Member member) {
+		memberDao.deleteMember(member);
+	}
+	
+	@Override
+	public void deleteBar(Member member) {
+		memberDao.deleteBar(member);
+	}
+	
+	@Override
+	public void deleteBand(Member member) {
+		memberDao.deleteBand(member);
+	}
 
+	@Override
+	public int checkBarProfileNo(Member member) {
+		int barProfileNo = memberDao.checkBarPicNo(member);
+		
+		return barProfileNo;
+	}
+	
+	@Override
+	public int checkBandProfileNo(Member member) {
+		int bandProfileNo = memberDao.checkBandPicNo(member);
+		
+		return bandProfileNo;
+	}
+	
+	@Override
+	public void deleteBarProfile(int barPicNo) {
+		memberDao.deleteBarPic(barPicNo);
+	}
+	
+	@Override
+	public void deleteBandProfile(int bandPicNo) {
+		memberDao.deleteBandPic(bandPicNo);
+	}
+	
 }
