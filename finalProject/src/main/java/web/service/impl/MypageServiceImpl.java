@@ -201,9 +201,9 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public void minMemberList(BandMember bandMember) {
+	public void minMemberList(BandMember bandMember, int rnum) {
 		// TODO Auto-generated method stub
-		mpDao.deleteBandMemberList(bandMember);
+		mpDao.deleteBandMemberList(bandMember, rnum);
 	}
 
 	@Override

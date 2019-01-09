@@ -3,6 +3,8 @@
    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<jsp:include page="ajax.jsp" />
+
 <style type="text/css">
 	.adminMenu p{
 		float:left;

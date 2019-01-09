@@ -3,6 +3,7 @@
    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<jsp:include page="ajax.jsp" />
 
 <style type="text/css">
 	.adminMenu p{
@@ -129,6 +130,15 @@
 		width: 220px;
 		height: 200px;
 	}
+	
+	.mousePointer {
+		cursor:pointer;
+	}
+	
+	.mousePointer:hover{
+		color: gold;
+		cursor:pointer;
+	}
 </style>
 
 <c:if test="${loginInfo.roleId eq 1 }">
@@ -248,12 +258,14 @@
 		color:#000;
 		background-color: gold;
 	}
+	
 	td {
 		border-left: 1px solid white;
 		border-right: 1px solid white;
 		color:#fff;
 		background-color: black;
 	}
+	
 	</style>
 	<style>
 		.bandIntroHeader {
@@ -298,7 +310,7 @@
 		<hr>
 		<div>
 			<p class="bandIntroHeader">밴드소개 리스트</p>
-			<button class="bandIntroInsert" onclick="location.href='/mypage/modifyResumes' ">소개 등록</button>
+			<button class="bandIntroInsert" onclick="viewModifyResumes() ">소개 등록</button>
 			<table class="table table-hover table-striped table-condensed">
 				
 				<tr>
@@ -306,9 +318,7 @@
 					<th>밴드소개 제목</th>
 					<th>첨부파일번호</th>
 				</tr>
-				<c:forEach
-				items="${resumesList }" var="i"
-				>
+				<c:forEach items="${resumesList }" var="i" varStatus="status">
 					<tr>
 						<td>
 						<c:if test="${i.publicResumes eq 1}"> 
@@ -319,17 +329,17 @@
 						</c:if>
 						</td>
 						<td>
-						<a href="/mypage/resumes?resumesNo=${i.resumesNo }">${i.resumesTitle }</a>
-							
+							<b class="mousePointer" onclick="viewResumes${status.count }()"> ${i.resumesTitle } </b>
+								<input type="hidden" id="statusCount" value="${status.count }">${status.count }
 								
-							<form class="bandModifyBtn" action="/mypage/deleteResumes" method="post">
-								<input type="hidden" name="resumesNo" value="${i.resumesNo }">
+<!-- 							<form class="bandModifyBtn" action="/mypage/deleteResumes" method="post"> -->
+								<input type="hidden" name="resumesNo[]" value="${i.resumesNo }">
 								<button class="searchBtn">삭제</button>
-							</form>
-							<form class="bandModifyBtn" action="/mypage/modifyResumes" method="get">
+<!-- 							</form> -->
+<!-- 							<form class="bandModifyBtn" action="/mypage/modifyResumes" method="get"> -->
 								<input type="hidden" name="resumesNo" value="${i.resumesNo }">
 								<button class="searchBtn">수정</button>
-							</form>
+<!-- 							</form> -->
 							<button id="commitPublicResumes" class="searchBtn">대표 이력서 설정</button>
 						</td>
 						<td>${i.musicNo }</td>
