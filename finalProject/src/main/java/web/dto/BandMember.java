@@ -34,6 +34,4 @@ public class BandMember {
 	public void setmPosition(String mPosition) {
 		this.mPosition = mPosition;
 	}
-
-	
 }

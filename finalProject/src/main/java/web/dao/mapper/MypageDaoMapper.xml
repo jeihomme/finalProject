@@ -214,21 +214,25 @@
 			values(
 			#{bandMemberNo }
 			, ''
-			, #{bandNo }
 			, ''
+			, #{bandNo }
 			)
 	</insert>
 	
-<!-- 	public void deleteBandMemberList(BandMember bandMember); -->
-	<delete id="deleteBandMemberList" parameterType="web.dto.BandMember">
+<!-- public void deleteBandMemberList(@Param("bandMember")BandMember bandMember, @Param("rnum")int rnum); -->
+	<delete id="deleteBandMemberList" >
+<!-- 	parameterType="web.dto.BandMember" -->
 		delete BandMember
-		where bandMemberNo = (
-		select * from (
-			select bandMemberNo from bandMember
-			order by bandMemberNo desc
+			where bandMemberNo = (
+			SELECT bandMemberNo FROM (
+			    SELECT rownum rnum, Bm.* FROM (
+				    select * from bandmember
+				    where bandno = #{bandMember.bandNo }
+				    order by bandMemberNo
+				    ) Bm
+				ORDER BY rnum )
+				where rnum = #{rnum }
 			)
-			where rownum = 1
-		)
 	</delete>
 	
 <!-- 	public Resumes selectResumesByBandName(Resumes resumes); -->

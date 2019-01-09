@@ -3,6 +3,8 @@
    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<jsp:include page="ajax.jsp" />
+
 <style type="text/css">
 	.adminMenu p{
 		float:left;
@@ -190,7 +192,7 @@ $(document).ready(function() {
 					
 				</select><br>
 				<b class="adminDetailInfo">연락처 : </b><input id="contact" name="contact" value="${member.contact }"/><br>
-				<button class="modifyBtn" onclick="modifyMypageInfo();">수정</button>
+				<button class="modifyBtn" onclick="modifyMypageInfo()">수정</button>
 <!-- 			</form> -->
 		</div>
 		<div class="adminMypageMainImage">
@@ -286,40 +288,28 @@ $(document).ready(function() {
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
 			<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><br>
 			
-			<form class="modifyInfoDone" action="/mypage/modifyPw" method="post">
-				<!-- The Modal -->
-				<div id="myModal" class="modal-pw">
-				  <!-- Modal content -->
-				  <div class="modal-content-pw">
-				    <p class="close">X</p>
-				    <h2>비밀번호 변경</h2>
-				    
-					<b class="adminDetailInfo">현재 PW : </b><input type="password"  name="password" ><br>
-					<b class="adminDetailInfo">새 PW : </b><input type="password"  name="newPassword" ><br>
-					<b class="adminDetailInfo">새 PW 확인 : </b><input type="password"  name="newPassword" ><br>
-					
-					<button class="modifyBtn">수정</button><br>
-					
-				  </div>
-				</div>
-			</form>
+			<!-- The Modal -->
+			<div id="myModal" class="modal-pw">
+			  <!-- Modal content -->
+			  <div class="modal-content-pw">
+			    <p class="close">X</p>
+			    <h2>비밀번호 변경</h2>
+			    
+				<b class="adminDetailInfo">현재 PW : </b><input type="password"  id="currPassword" name="password" ><br>
+				<b class="adminDetailInfo">새 PW : </b><input type="password"  id="newPasswordFisrt" name="newPasswordFisrt" ><br>
+				<b class="adminDetailInfo">새 PW 확인 : </b><input type="password"  id="newPasswordSecond" name="newPasswordSecond" ><br>
+				
+				<button class="modifyBtn" onclick="modifyPw()">수정</button><br>
+				
+			  </div>
+			</div>
+				
 				<p class="adminDetailInfo">밴드 : ${band.bandName }</p>
-				<b class="adminDetailInfo">멤버</b>
 				
-				<form class="modifyInfoDone" action="/mypage/addMemberlist" method="post">
-					<button class="modifyBtn">+</button>
-				</form>
-				<c:if test="${bandMemberList[0].bandMemberNo > 0}">
-					<form class="modifyInfoDone" action="/mypage/minMemberlist" method="post">
-						<button class="modifyBtn">-</button>
-					</form>
-				</c:if>
-				
-			<form class="modifyInfoDone" action="/mypage/modifyInfo" method="post">
-				<b class="adminDetailInfo">이메일 : </b><input name="email" value="${member.email }"/><br>
+				<b class="adminDetailInfo">이메일 : </b><input id="email" name="email" value="${member.email }"/><br>
 				<b class="adminDetailInfo">통신사 : </b>
 				
-				<select class="modifyBtn" name="telcom" >
+				<select class="modifyBtn" id="telcom" name="telcom" >
 					<c:if test="${member.telcom eq null}">
 						<option value="">선택</option>
 					</c:if>
@@ -333,17 +323,29 @@ $(document).ready(function() {
 					<option value="LG">LG</option>
 					
 				</select><br>
-				<b class="adminDetailInfo">연락처 : </b><input name="contact" value="${member.contact }"/><br><br>
+				<b class="adminDetailInfo">연락처 : </b><input id="contact" name="contact" value="${member.contact }"/><br><br>
+				
+				<b class="adminDetailInfo">멤버</b>
+				
+				<c:if test="${rnum < 5}">
+					<button class="modifyBtn" onclick="addMemberlist() ">+</button>
+				</c:if>
+				
 				<ul id = 'memberList'>
 					<c:forEach
 					items="${bandMemberList }" var="i" varStatus="status">
 					<li>
-					<input class="modifyBandValue" name="bandMemName${status.count }" value="${i.bandMemName }"/> - <input class="modifyBandValue" name="mPosition${status.count }" value="${i.mPosition }"/>
+						<input class="modifyBandValue" name="bandMemName[]" value="${i.bandMemName }"/> -
+						<input class="modifyBandValue" name="mPosition[]" value="${i.mPosition }"/>
+						
+						<input type="hidden" name="bandMemberNo[]" value="${i.bandMemberNo }"/>
+						<input type="hidden" id="bandNo" value="${band.bandNo }"/>
+						
+						<button class="modifyBtn" onclick="minMemberlist${status.count }() ">-</button>
 					</li>
 					</c:forEach>
 				</ul>
-				<button type="submit" class="modifyBtn">수정</button>
-			</form>
+				<button type="submit" class="modifyBtn" onclick="modifyMypageInfo()">수정</button>
 		</div>
 		<div class="adminMypageMainImage">
 			<p >이미지 넣어주세요 </p>

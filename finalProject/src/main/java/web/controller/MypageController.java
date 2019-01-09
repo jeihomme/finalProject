@@ -81,12 +81,12 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/mypage/modifyInfo", method=RequestMethod.GET)
-	public void modifyView(
+	public void modifyInfoView(
 			HttpSession session
 			, Model model
 			) {
 		
-		logger.info("---modifyView---");
+		logger.info("---modifyInfoView---");
 		
 		Member member = (Member) session.getAttribute("loginInfo");
 		logger.info(member.toString());
@@ -107,20 +107,24 @@ public class MypageController {
 			bandMember.setBandNo(band.getBandNo());
 			List<BandMember> bandMemberList = mpService.getBandMember(bandMember);
 			
+			int rnum = bandMemberList.size();
+			
 			logger.info(bandMemberList.toString());
 			
 			model.addAttribute("band", band);
+			model.addAttribute("rnum", rnum);
 			model.addAttribute("bandMemberList", bandMemberList);
 		}
 		model.addAttribute("member", member);
 	}
 	
 	@RequestMapping(value = "/mypage/modifyInfo", method=RequestMethod.POST)
-	public String modifyProc(
+	public String modifyInfoProc(
 			HttpSession session
 			, HttpServletRequest req
+//			, @RequestParam(value="bandMemName" ,required=false) List<String> arrayParams
 			) {
-		logger.info("---modifyProc---");
+		logger.info("---modifyInfoProc---");
 		
 		try {
 			req.setCharacterEncoding("euc-kr");
@@ -143,11 +147,11 @@ public class MypageController {
 			bandMember.setBandNo(band.getBandNo());
 			List<BandMember> bandMemberList = mpService.getBandMember(bandMember);
 			
-			int i = 1;
+			int i = 0;
 			for(BandMember bM : bandMemberList) {
-				bM.setBandMemberNo(i);
-				bM.setBandMemName(req.getParameter("bandMemName"+i));
-				bM.setmPosition(req.getParameter("mPosition"+i));
+				bM.setBandMemberNo(Integer.parseInt( req.getParameterValues("bandMemberNo")[i]) );
+				bM.setBandMemName(req.getParameterValues("bandMemName")[i]);
+				bM.setmPosition(req.getParameterValues("mPosition")[i]);
 				
 				i++;
 				mpService.infoBandMemberModify(bM);
@@ -185,20 +189,21 @@ public class MypageController {
 	@RequestMapping(value = "/mypage/minMemberlist", method=RequestMethod.POST)
 	public String minMemberlistProc(
 			HttpSession session
+			, HttpServletRequest req
 			) {
-			logger.info("---addMemberlist---");
+			logger.info("---minMemberlist---");
 			
-			Member member = (Member) session.getAttribute("loginInfo");
-			logger.info(member.toString());
-			
-			Band band = new Band();
-			band.setUserId(member.getUserId());
-			band = mpService.getBandByUserId(band);
+//			Member member = (Member) session.getAttribute("loginInfo");
+//			logger.info(member.toString());
+//			
+//			Band band = new Band();
+//			band.setUserId(member.getUserId());
+//			band = mpService.getBandByUserId(band);
 			
 			BandMember bandMember = new BandMember();
-			bandMember.setBandNo(band.getBandNo());
-			
-			mpService.minMemberList(bandMember);
+			bandMember.setBandNo(Integer.parseInt( req.getParameter("bandNo") ) );
+			int rnum = Integer.parseInt( req.getParameter("rnum") );
+			mpService.minMemberList(bandMember, rnum);
 		
 		return "redirect:/mypage/modifyInfo";
 	}

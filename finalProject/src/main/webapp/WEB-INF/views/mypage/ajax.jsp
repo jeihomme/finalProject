@@ -259,42 +259,6 @@
 			}
 		});
 	}
-	
-	function viewMypageInfo(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/info"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-
-	function viewMypageModifyInfo(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/modifyInfo"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
 
 	function viewMypageUserAdmin(){
 		//AJAX 처리하기
@@ -477,42 +441,6 @@
 		});
 	}
 	
-	function viewMypageInfo(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/info"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function viewMypageModifyInfo(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/modifyInfo"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
 	function viewMypageUserAdmin(){
 		//AJAX 처리하기
 		$.ajax({ 	
@@ -551,9 +479,30 @@
 
 	function modifyMypageInfo(){
 		//AJAX 처리하기
+		
+// 		var jsonData = {
+// 			email: document.getElementById("email").value
+// 			, telcom: document.getElementById("telcom").value
+// 			, contact: document.getElementById("contact").value
+// 			, bandMemName: document.getElementsByName("bandMemName[]")
+// 			, mPosition: document.getElementsByName("mPosition[]")
+// 		}
+		
 		var email = document.getElementById("email").value;
 		var telcom = document.getElementById("telcom").value;
 		var contact = document.getElementById("contact").value;
+		
+		var bandMemberNo = [];
+		var bandMemName = [];
+		var mPosition = [];
+		
+		for(i=0;i<document.getElementsByName("bandMemName[]").length; i++) {
+			bandMemberNo[i] = document.getElementsByName("bandMemberNo[]")[i].value;
+			bandMemName[i] = document.getElementsByName("bandMemName[]")[i].value;
+			mPosition[i] = document.getElementsByName("mPosition[]")[i].value;
+	    }
+		
+		$.ajaxSettings.traditional = true
 		
 		$.ajax({ 	
 			type: "post"
@@ -562,6 +511,9 @@
 				"email": email
 				, "telcom": telcom
 				, "contact": contact
+				, "bandMemberNo": bandMemberNo
+				, "bandMemName": bandMemName
+				, "mPosition": mPosition
 			}
 			, dataType: "html"
 			, success: function( res ) {
@@ -590,6 +542,7 @@
 				$(".close").click();
 			}
 			, error: function() {
+// 				console.log(passwordData);
 				alert("현재 비밀번호 혹은 새로운 비밀번호가 틀렸습니다.");
 			}
 		});
@@ -652,42 +605,6 @@
 			, error: function() {
 				console.log(introData);
 				alert("실패");
-			}
-		});
-	}
-	
-	function viewMypageInfo(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/info"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-
-	function viewMypageModifyInfo(){
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/modifyInfo"
-			, data: {
-				
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
 			}
 		});
 	}
@@ -844,6 +761,332 @@
 			, url: "/mypage/deleteUser"
 			, data: {
 				"userId": selectUserId
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function addMemberlist(){
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/addMemberlist"
+			, data: {
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+// 				viewMypageModifyInfo();
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function minMemberlist1(){
+		
+		var bandNo = document.getElementById("bandNo").value;
+		
+		console.log(bandNo);
+		
+		var rnum = 1;
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/minMemberlist"
+			, data: {
+				"bandNo": bandNo
+				, "rnum": rnum
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+// 				viewMypageModifyInfo();
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function minMemberlist2(){
+			
+		var bandNo = document.getElementById("bandNo").value;
+		
+		console.log(bandNo);
+		
+		var rnum = 2;
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/minMemberlist"
+			, data: {
+				"bandNo": bandNo
+				, "rnum": rnum
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+// 				viewMypageModifyInfo();
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+		
+	}
+		
+	function minMemberlist3(){
+		
+		var bandNo = document.getElementById("bandNo").value;
+		
+		console.log(bandNo);
+		
+		var rnum = 3;
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/minMemberlist"
+			, data: {
+				"bandNo": bandNo
+				, "rnum": rnum
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+// 				viewMypageModifyInfo();
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function minMemberlist4(){
+		
+		var bandNo = document.getElementById("bandNo").value;
+		
+		console.log(bandNo);
+		
+		var rnum = 4;
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/minMemberlist"
+			, data: {
+				"bandNo": bandNo
+				, "rnum": rnum
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+// 				viewMypageModifyInfo();
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function minMemberlist5(){
+		
+		var bandNo = document.getElementById("bandNo").value;
+		
+		console.log(bandNo);
+		
+		var rnum = 5;
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/minMemberlist"
+			, data: {
+				"bandNo": bandNo
+				, "rnum": rnum
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+// 				viewMypageModifyInfo();
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewResumes1(){
+		
+		var resumesNoList = [];
+		
+		for(i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
+			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
+	    }
+		
+		var resumesNo = resumesNoList[0];
+		console.log(resumesNo);
+		$.ajaxSettings.traditional = true
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/resumes?resumesNo=" + resumesNo
+			, data: {
+				resumesNo: resumesNo
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewResumes2(){
+		
+		var resumesNoList = [];
+		
+		for(i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
+			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
+	    }
+		
+		var resumesNo = resumesNoList[1];
+		
+		console.log(resumesNo);
+		
+		$.ajaxSettings.traditional = true
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/resumes?resumesNo=" + resumesNo
+			, data: {
+				resumesNo: resumesNo
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+function viewResumes3(){
+		
+		var resumesNoList = [];
+		
+		for(i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
+			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
+	    }
+		
+		var resumesNo = resumesNoList[2];
+		
+		console.log(resumesNo);
+		
+		$.ajaxSettings.traditional = true
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/resumes?resumesNo=" + resumesNo
+			, data: {
+				resumesNo: resumesNo
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewResumes4(){
+		
+		var resumesNoList = [];
+		
+		for(i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
+			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
+	    }
+		
+		var resumesNo = resumesNoList[3];
+		
+		console.log(resumesNo);
+		
+		$.ajaxSettings.traditional = true
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/resumes?resumesNo=" + resumesNo
+			, data: {
+				resumesNo: resumesNo
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewResumes5(){
+		
+		var resumesNoList = [];
+		
+		for(i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
+			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
+	    }
+		
+		var resumesNo = resumesNoList[4];
+		
+		console.log(resumesNo);
+		
+		$.ajaxSettings.traditional = true
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/resumes?resumesNo=" + resumesNo
+			, data: {
+				resumesNo: resumesNo
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+
+	function viewModifyResumes(){
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/modifyResumes"
+			, data: {
+				
 			}
 			, dataType: "html"
 			, success: function( res ) {

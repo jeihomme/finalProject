@@ -73,7 +73,7 @@ public interface MypageDao {
 	public Band selectBandByBandNo(Band band);
 	public List<BandMember>  selectBandMemberByBandName(BandMember bandMember);
 	public void insertBandMemberList(BandMember bandMember);
-	public void deleteBandMemberList(BandMember bandMember);
+	public void deleteBandMemberList(@Param("bandMember")BandMember bandMember, @Param("rnum")int rnum);
 	
 	public Resumes selectResumesByBandNo(Resumes resumes);
 	public List<Resumes> selectResumesListByBandName(Resumes resumes);

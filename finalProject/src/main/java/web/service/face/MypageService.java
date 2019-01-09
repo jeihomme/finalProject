@@ -58,7 +58,7 @@ public interface MypageService {
 	public Band getBandByBandNo(Band band);
 	public List<BandMember>  getBandMember(BandMember bandMember);
 	public void addMemberList(BandMember bandMember);
-	public void minMemberList(BandMember bandMember);
+	public void minMemberList(BandMember bandMember, int rnum);
 	public Resumes getResumes(Resumes resumes);
 	public List<Resumes> getResumesList(Resumes resumes);
 	public List<Music> getMusicList(Music music);
