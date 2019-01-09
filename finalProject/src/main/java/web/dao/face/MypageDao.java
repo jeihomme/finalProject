@@ -91,8 +91,8 @@ public interface MypageDao {
 	public BandGenre selectBandGenreByBandNo(BandGenre bandGenre);
 	public Genre selectGenreByGenreNo(Genre genre);
 	public void updatePublicResumesByResumesNo(Resumes resumes);
-	public void insertResumesByBandName(Resumes resumes);
-	public List<History> selectHistoryByBandName(Resumes resumes);
+	public void insertResumesByBandNo(Resumes resumes);
+	public List<History> selectHistoryByBandNo(Resumes resumes);
 	
 	public Music selectMusicByResumesNo(Resumes resumes);
 	public void insertSound(Music music);

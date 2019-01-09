@@ -312,8 +312,8 @@
 		where resumesNo = #{resumesNo }
 	</update>
 	
-<!-- 	public Resumes insertResumesByBandName(Resumes resumes); -->
-	<insert id="insertResumesByBandName" parameterType="web.dto.Resumes">
+<!-- 	public Resumes insertResumesByBandNo(Resumes resumes); -->
+	<insert id="insertResumesByBandNo" parameterType="web.dto.Resumes">
 		<selectKey keyProperty="resumesNo" resultType="int" order="BEFORE">
 			select * from (
         		select NVL(max(resumesNo)+1, 1) from resumes
@@ -328,8 +328,8 @@
 			, #{bandNo }
 			)
 	</insert>
-<!-- public List<History> selectHistoryByBandName(Resumes resumes); -->
-	<select id="selectHistoryByBandName" parameterType="web.dto.Resumes"
+<!-- public List<History> selectHistoryByBandNo(Resumes resumes); -->
+	<select id="selectHistoryByBandNo" parameterType="web.dto.Resumes"
 		resultType="web.dto.History">
 		select h.* from resumes r, history h
 		where

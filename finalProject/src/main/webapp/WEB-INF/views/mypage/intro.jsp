@@ -310,7 +310,9 @@
 		<hr>
 		<div>
 			<p class="bandIntroHeader">밴드소개 리스트</p>
-			<button class="bandIntroInsert" onclick="viewModifyResumes() ">소개 등록</button>
+			<c:if test="${rListRnum < 5 }">
+				<button class="bandIntroInsert" onclick="viewNewResumes() ">소개 등록</button>
+			</c:if>
 			<table class="table table-hover table-striped table-condensed">
 				
 				<tr>
@@ -330,15 +332,14 @@
 						</td>
 						<td>
 							<b class="mousePointer" onclick="viewResumes${status.count }()"> ${i.resumesTitle } </b>
-								<input type="hidden" id="statusCount" value="${status.count }">${status.count }
 								
 <!-- 							<form class="bandModifyBtn" action="/mypage/deleteResumes" method="post"> -->
 								<input type="hidden" name="resumesNo[]" value="${i.resumesNo }">
-								<button class="searchBtn">삭제</button>
+								<button class="searchBtn" onclick="deleteResumes${status.count }()">삭제</button>
 <!-- 							</form> -->
 <!-- 							<form class="bandModifyBtn" action="/mypage/modifyResumes" method="get"> -->
 								<input type="hidden" name="resumesNo" value="${i.resumesNo }">
-								<button class="searchBtn">수정</button>
+								<button class="searchBtn" onclick="viewModifyResumes${status.count }()">수정</button>
 <!-- 							</form> -->
 							<button id="commitPublicResumes" class="searchBtn">대표 이력서 설정</button>
 						</td>
@@ -357,7 +358,9 @@
 				<b class="bandIntroHeader">첨부파일 리스트</b>
 				<input type="hidden" name="bandNo" value="${band.bandNo }">
 				<input class="bandIntroInsert" type="file" id="file" name="file"/><br>
-				<button class="bandIntroInsert">파일 첨부</button>
+				<c:if test="${mListRnum < 5 }">
+					<button class="bandIntroInsert">파일 첨부</button>
+				</c:if>
 			</form>
 			<table class="table table-hover table-striped table-condensed">
 				
