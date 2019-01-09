@@ -927,6 +927,34 @@
 		});
 	}
 	
+function viewResumes(){
+		
+		var resumesNo = document.getElementById("resumesNo").value;
+		var musicNo = document.getElementById("musicNo").value;
+		var bandNo = document.getElementById("bandNo").value;
+		
+		
+		$.ajaxSettings.traditional = true
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/resumes?resumesNo=" + resumesNo
+			, data: {
+				resumesNo: resumesNo
+				, musicNo: musicNo
+				, bandNo: bandNo
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
 	function viewResumes1(){
 		
 		var resumesNoList = [];
@@ -1080,7 +1108,7 @@ function viewResumes3(){
 		});
 	}
 
-	function viewModifyResumes(){
+	function viewNewResumes(){
 		//AJAX 처리하기
 		$.ajax({ 	
 			type: "get"
@@ -1097,4 +1125,255 @@ function viewResumes3(){
 			}
 		});
 	}
+	
+	function viewModifyResumes(){
+		
+		var resumesNo = document.getElementById("resumesNo").value;
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/modifyResumes"
+			, data: {
+				"resumesNo": resumesNo
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function deleteResumes1(){
+		var resumesNoList = [];
+		
+		for(i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
+			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
+	    }
+		
+		var resumesNo = resumesNoList[0];
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/deleteResumes"
+			, data: {
+				resumesNo: resumesNo
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function deleteResumes2(){
+		var resumesNoList = [];
+		
+		for(i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
+			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
+	    }
+		
+		var resumesNo = resumesNoList[1];
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/deleteResumes"
+			, data: {
+				resumesNo: resumesNo
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function deleteResumes3(){
+		var resumesNoList = [];
+		
+		for(i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
+			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
+	    }
+		
+		var resumesNo = resumesNoList[2];
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/deleteResumes"
+			, data: {
+				resumesNo: resumesNo
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function deleteResumes4(){
+		var resumesNoList = [];
+		
+		for(i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
+			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
+	    }
+		
+		var resumesNo = resumesNoList[3];
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/deleteResumes"
+			, data: {
+				resumesNo: resumesNo
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function deleteResumes5(){
+		var resumesNoList = [];
+		
+		for(i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
+			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
+	    }
+		
+		var resumesNo = resumesNoList[4];
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/deleteResumes"
+			, data: {
+				resumesNo: resumesNo
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	
+	function modifyResumesProc(){
+		
+		var resumesNo = document.getElementById("resumesNo").value;
+		var musicNo = document.getElementById("musicNo").value;
+		var bandNo = document.getElementById("bandNo").value;
+		var bandInfo = document.getElementById("bandInfo").value;
+		var resumesTitle = document.getElementById("resumesTitle").value;
+		var musicNo = document.getElementById("musicNo").value;
+		var genreNo = document.getElementById("genreNo").value;
+		
+		var year = [];
+		var historyNo = [];
+		var historyInfo = [];
+		
+		for(i=0;i<document.getElementsByName("year[]").length; i++) {
+			year[i] = document.getElementsByName("year[]")[i].value;
+			historyNo[i] = document.getElementsByName("historyNo[]")[i].value;
+			historyInfo[i] = document.getElementsByName("historyInfo[]")[i].value;
+	    }
+		
+		console.log( year );
+		console.log( historyNo );
+		console.log( historyInfo );
+		
+		$.ajaxSettings.traditional = true
+		
+// 		//AJAX 처리하기
+// 		$.ajax({ 	
+// 			type: "post"
+// 			, url: "/mypage/modifyResumesProc"
+// 			, data: {
+// 				resumesNo: resumesNo
+// 				, musicNo: musicNo
+// 				, bandNo: bandNo
+// 				, bandInfo: bandInfo
+// 				, resumesTitle: resumesTitle
+// 				, musicNo: musicNo
+// 				, genreNo: genreNo
+// 			}
+// 			, dataType: "html"
+// 			, success: function( res ) {
+// 				$("#body").html(res);
+// 			}
+// 			, error: function() {
+// 				console.log("실패");
+// 			}
+// 		});
+	}
+	
+	function addHistorylist(){
+		
+		var resumesNo = document.getElementById("resumesNo").value;
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/addHistorylist"
+			, data: {
+				resumesNo: resumesNo
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function minHistorylist1(){
+		
+		var bandNo = document.getElementById("bandNo").value;
+		
+		console.log(bandNo);
+		
+		var rnum = 1;
+		
+		//AJAX 처리하기
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/minHistorylist"
+			, data: {
+				"bandNo": bandNo
+				, "rnum": rnum
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+// 				viewMypageModifyInfo();
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	
 </script>

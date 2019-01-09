@@ -127,6 +127,11 @@
 	.modifyBtn {
 		color:#000;
 	}
+	
+	.addHistoryList {
+		color:#000;
+		float:right;
+	}
 </style>
 
 <style type="text/css">
@@ -160,12 +165,12 @@ td {
 </style>
 
 <div class="adminMenu">
-	<p onclick=" location.href='/mypage/info' ">Mypage</p>
-	<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-	<p class="selectMenu" onclick="location.href='/mypage/intro' ">밴드 소개</p>
-	<p onclick="location.href='/mypage/applicationToBar' ">지원 현황</p>
-	<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
-	<p onclick="location.href='/mypage/calendar' ">일정표</p>
+	<p onclick="viewMypageInfo() ">Mypage</p>
+	<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
+	<p class="selectMenu" onclick="viewMypageIntro() ">밴드 소개</p>
+	<p onclick="viewMypageAppToBar() ">지원 현황</p>
+	<p onclick="viewMypageRecommand() ">추천 Bar</p>
+	<p onclick="viewMypageCalendar() ">일정표</p>
 </div><br><br>
 <hr>
 <div class="adminMypageMain">
@@ -191,7 +196,7 @@ td {
 			${bandGenre.genreTitle }<br>
 			
 			<form action="/mypage/modifyResumesProc" method="post">
-				<select class="modifyBtn" name="genreNo" >
+				<select class="modifyBtn" id="genreNo" >
 					<c:if test="${genre.genreNo eq 0}">
 						<option value="0">선택</option>
 					</c:if>
@@ -213,59 +218,24 @@ td {
 	</div>
 </div>
 
-<form class="modifyInfoDone" action="/mypage/addHistorylist" method="post">
-	<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
-	<button type="button" id="historyAdd" class="modifyBtn">+</button>
-</form>
-
-<c:if test="${history.historyNo > 0}">
-	<form class="modifyInfoDone" action="/mypage/minHistorylist" method="post">
-		<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
-		<button type="button" id="historyDel" class="modifyBtn">-</button>
-	</form>
-</c:if>
-
-
-<script type="text/javascript">
-// $("input[name='list[${fn:length(historyList) }].historyNo']").val();
-
-$(document).ready(function() {
+<!-- <form class="modifyInfoDone" action="/mypage/addHistorylist" method="post"> -->
 	
-	$("#historyAdd").click(function() {
-		$('#table > tbody:last').append(
-			"<tr>"+
-				"<td>"+
-// 					" <input type='hidden' class='insertResumesHistory' name='list[${fn:length(historyList) }].historyNo' value='"+ j +"'/>"+
-					" <input type='hidden' class='insertResumesHistory' name='list[${fn:length(historyList) }].resumesNo' value='${resumes.resumesNo }'/>"+
-					" <input type='month' class='insertResumesHistory' name='list[${fn:length(historyList) }].year' value='${i.year }'/>년, "+
-					" <input type='text' class='insertResumesHistory' name='list[${fn:length(historyList) }].historyInfo' value='${i.historyInfo }'/>"+
-				"</td>"+
-			"</tr>"
-		);
-	});
-	
-	
-// 	$(function(){ 
-// 		  $('.bt_up').click(function(){ 
-// 		    var n = $('.bt_up').index(this);
-// 		    var num = $(".num:eq("+n+")").val();
-// 		    num = $(".num:eq("+n+")").val(num*1+1); 
-// 		  });
-// 		  $('.bt_down').click(function(){ 
-// 		    var n = $('.bt_down').index(this);
-// 		    var num = $(".num:eq("+n+")").val();
-// 		    num = $(".num:eq("+n+")").val(num*1-1); 
-// 		  });
-// 		});
-});
-</script>
+<!-- </form> -->
 
-<form action="/mypage/modifyResumesProc" method="post">
+
+<!-- 	<form class="modifyInfoDone" action="/mypage/minHistorylist" method="post"> -->
+		
+<!-- 	</form> -->
+
+<!-- <form action="/mypage/modifyResumesProc" method="post"> -->
 	<input type="hidden" name="genreNo"/>
 	<div class="adminMypageSearchRes">
 		<hr>
 		<div>
-			<p class="bandIntroHeader">History</p>
+			<b class="bandIntroHeader">History</b>
+			<c:if test="${hList > 5}">
+				<button class="addHistoryList" onclick="addHistorylist() ">+</button>
+			</c:if>
 			<table id="table" class="table table-hover table-striped table-condensed">
 				
 				<tr>
@@ -275,10 +245,11 @@ $(document).ready(function() {
 					<c:forEach items="${historyList }" var="i" varStatus="status">
 							<tr>
 								<td>
-<%-- 									<input type="hidden" class="insertResumesHistory" name="list[${status.count-1 }].historyNo" value="${i.historyNo }"/> --%>
-									<input type="hidden" class="insertResumesHistory" name="list[${status.count-1 }].resumesNo" value="${resumes.resumesNo }"/>
-									<input type="month" class="insertResumesHistory" name="list[${status.count-1 }].year" value="${i.year }"/>년, 
-									<input type="text" class="insertResumesHistory" name="list[${status.count-1 }].historyInfo" value="${i.historyInfo }"/>
+									<input type="hidden" class="insertResumesHistory" name="historyNo[]" value="${i.historyNo }"/>
+									<input type="hidden" class="insertResumesHistory" name="resumesNo[]" value="${resumes.resumesNo }"/>
+									<input type="month" class="insertResumesHistory" name="year[]" value="${i.year }"/>년, 
+									<input type="text" class="insertResumesHistory" name="historyInfo[]" value="${i.historyInfo }"/>
+									<button class="modifyBtn" onclick="minHistorylist${status.count }() ">-</button>
 								</td>
 							</tr>
 							
@@ -299,7 +270,7 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td>
-					<select class="insertResumesInfo" name="musicNo">
+					<select class="insertResumesInfo" id="musicNo">
 						<c:forEach items="${musicList }" var="i">
 							<c:if test="${resumes.musicNo eq i.musicNo }">
 								<option value=${i.musicNo } selected="selected">${i.musicTitle }</option>
@@ -326,7 +297,7 @@ $(document).ready(function() {
 				</tr>
 			
 				<tr>
-					<td><input id="resumesTitle" type="text" class="insertResumesInfo" name="resumesTitle" value="${resumes.resumesTitle }"/></td>
+					<td><input id="resumesTitle" type="text" class="insertResumesInfo" id="resumesTitle" value="${resumes.resumesTitle }"/></td>
 				</tr>
 				
 			</table>
@@ -343,7 +314,7 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td>
-					<textArea class="insertResumesBandInfo" name="bandInfo" >${resumes.bandInfo }</textArea>
+					<textArea class="insertResumesBandInfo" id="bandInfo" >${resumes.bandInfo }</textArea>
 					</td>
 				</tr>
 			</table>
@@ -353,11 +324,11 @@ $(document).ready(function() {
 	<div class="resumesViewDiv">
 		<hr>
 <%-- 		<c:if test="${bandInfo eq null}"> --%>
-			<button class="searchBtn" onclick="location.href='/mypage/intro' ">취소</button>
-			<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
-			<input type="hidden" name="bandNo" value="${resumes.bandNo }"/>
-			<input type="hidden" name="musicNo" value="${resumes.musicNo }"/>
-				<button class="searchBtn">완료</button>
+			<button class="searchBtn" onclick="viewResumes() ">취소</button>
+			<input type="hidden" id="resumesNo" value="${resumes.resumesNo }"/>
+			<input type="hidden" id="bandNo" value="${resumes.bandNo }"/>
+			<input type="hidden" id="musicNo" value="${resumes.musicNo }"/>
+			<button class="searchBtn" onclick="modifyResumesProc() ">완료</button>
 			
 			
 <%-- 		</c:if> --%>
@@ -367,4 +338,4 @@ $(document).ready(function() {
 <!-- 			<button class="searchBtn" onclick="location.href='/mypage/modifyResumes' ">수정</button> -->
 <%-- 		</c:if> --%>
 	</div>
-</form>
+	

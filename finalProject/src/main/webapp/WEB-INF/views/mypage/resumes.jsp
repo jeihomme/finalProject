@@ -134,12 +134,12 @@ td {
 </style>
 
 <div class="adminMenu">
-	<p onclick=" location.href='/mypage/info' ">Mypage</p>
-	<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-	<p class="selectMenu" onclick="location.href='/mypage/intro' ">밴드 소개</p>
-	<p onclick="location.href='/mypage/applicationToBar' ">지원 현황</p>
-	<p onclick="location.href='/mypage/recommand' ">추천 Bar</p>
-	<p onclick="location.href='/mypage/calendar' ">일정표</p>
+	<p onclick="viewMypageInfo() ">Mypage</p>
+	<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
+	<p class="selectMenu" onclick="viewMypageIntro() ">밴드 소개</p>
+	<p onclick="viewMypageAppToBar() ">지원 현황</p>
+	<p onclick="viewMypageRecommand() ">추천 Bar</p>
+	<p onclick="viewMypageCalendar() ">일정표</p>
 </div><br><br>
 <hr>
 
@@ -164,13 +164,6 @@ td {
 			${member.email }<br><br>
 			<b class="adminDetailInfo">장르 </b><p class="adminDetailMust">(필수) </p><br>
 			${genre.genreName }<br>
-<!-- 			<input type="text" name="genreNo"/><br> -->
-<!-- 			<select name="genre"> -->
-<!-- 				<option value=""></option> -->
-<!-- 				<option value="비밥"></option><option value="스윙"></option> -->
-<!-- 				<option value="펑크"></option><option value="모던"></option> -->
-<!-- 				<option value="보사노바"></option><option value="부기우기"></option> -->
-<!-- 			</select> -->
 		</div>
 		
 	</div>
@@ -250,9 +243,7 @@ td {
 
 <hr>
 <div class="resumesViewDiv">
-	<button class="resumesBtn" onclick="location.href='/mypage/intro' ">뒤로가기</button>
-	<form action="/mypage/modifyResumes" method="post">
-		<input type="hidden" name="resumesNo" value="${resumes.resumesNo }"/>
-		<button class="resumesBtn" >수정</button>
-	</form>
+	<button class="resumesBtn" onclick="viewMypageIntro() ">뒤로가기</button>
+	<input type="hidden" id="resumesNo" value="${resumes.resumesNo }"/>
+	<button class="resumesBtn" onclick="viewModifyResumes() ">수정</button>
 </div>

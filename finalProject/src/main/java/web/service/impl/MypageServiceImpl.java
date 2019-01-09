@@ -251,13 +251,13 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public void createResumes(Resumes resumes) {
 		// TODO Auto-generated method stub
-		mpDao.insertResumesByBandName(resumes);
+		mpDao.insertResumesByBandNo(resumes);
 	}
 
 	@Override
 	public List<History> getHistoryList(Resumes resumes) {
 		// TODO Auto-generated method stub
-		return mpDao.selectHistoryByBandName(resumes);
+		return mpDao.selectHistoryByBandNo(resumes);
 	}
 
 	@Override

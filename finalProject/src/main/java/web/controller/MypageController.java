@@ -280,17 +280,24 @@ public class MypageController {
 			resumes.setBandNo(band.getBandNo());
 	//		logger.info(resumes.toString());
 			List<Resumes> resumesList = mpService.getResumesList(resumes);
+			int rListRnum = resumesList.size();
+			
 			logger.info(resumesList.toString());
 			
 			Music music = new Music();
 			music.setBandNo(band.getBandNo());
 	//		logger.info(music.toString());
 			List<Music> musicList = mpService.getMusicList(music);
+			int mListRnum = musicList.size();
+			
 			logger.info(musicList.toString());
 			
 			model.addAttribute("band", band);
 			model.addAttribute("resumesList", resumesList);
 			model.addAttribute("musicList", musicList);
+			
+			model.addAttribute("rListRnum", rListRnum);
+			model.addAttribute("mListRnum", mListRnum);
 		}
 
 		model.addAttribute("member", member);
@@ -471,7 +478,7 @@ public class MypageController {
 		return "redirect:/mypage/intro";
 	}
 	
-	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.POST)
+	@RequestMapping(value = "/mypage/modifyResumes", method=RequestMethod.GET)
 	public void modifyResumes(
 			HttpSession session
 			, Model model
@@ -492,6 +499,9 @@ public class MypageController {
 		Music music = new Music();
 		music.setBandNo(band.getBandNo());
 		
+		List<Music> musicList = mpService.getMusicList(music);
+		logger.info(musicList.toString());
+		
 		Resumes resumes = new Resumes();
 		if ( req.getParameter("resumesNo") != null && !"".equals(req.getParameter("resumesNo")) ) {
 			resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
@@ -499,34 +509,36 @@ public class MypageController {
 			logger.info(resumes.toString());
 			
 			List<History> historyList = mpService.getHistoryList(resumes);
-			model.addAttribute("music", music);
-			model.addAttribute("historyList", historyList);
+			int hList = historyList.size();
+			model.addAttribute("hList", hList);
+//			model.addAttribute("music", music);
+//			model.addAttribute("historyList", historyList);
+			
+			BandGenre bandGenre = new BandGenre();
+			bandGenre.setBandNo(band.getBandNo());
+			bandGenre.setResumesNo(resumes.getResumesNo());
+			bandGenre = mpService.getBandGenre(bandGenre);
+			logger.info(bandGenre.toString());
+			
+			Genre genre = new Genre();
+			genre.setGenreNo(bandGenre.getGenreNo());
+			genre = mpService.getGenre(genre);
+			logger.info(genre.toString());
+			
+			
+			model.addAttribute("genre", genre);
+			
 		} else {
-//			resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
 			resumes.setBandNo(band.getBandNo());
-			resumes = mpService.getResumes(resumes);
+			mpService.createResumes(resumes);
 			logger.info(resumes.toString());
 		}
 		
-		BandGenre bandGenre = new BandGenre();
-		bandGenre.setBandNo(band.getBandNo());
-		bandGenre.setResumesNo(resumes.getResumesNo());
-		bandGenre = mpService.getBandGenre(bandGenre);
-		logger.info(bandGenre.toString());
-		
-		Genre genre = new Genre();
-		genre.setGenreNo(bandGenre.getGenreNo());
-		genre = mpService.getGenre(genre);
-		logger.info(genre.toString());
-		
-		List<Music> musicList = mpService.getMusicList(music);
-		logger.info(musicList.toString());
-		
 		model.addAttribute("band", band);
-		model.addAttribute("genre", genre);
 		model.addAttribute("member", member);
 		model.addAttribute("resumes", resumes);
 		model.addAttribute("musicList", musicList);
+		
 	}
 	
 	@RequestMapping(value = "/mypage/addHistorylist", method=RequestMethod.POST)
@@ -543,7 +555,7 @@ public class MypageController {
 			history.setResumesNo(Integer.parseInt( req.getParameter("resumesNo") ));
 			mpService.addHistoryList(history);
 		
-			return "redirect:/mypage/modifyResumes";
+			return "redirect:/mypage/modifyResumes?resumesNo="+history.getResumesNo();
 	}
 	
 	@RequestMapping(value = "/mypage/minHistorylist", method=RequestMethod.POST)
@@ -565,8 +577,7 @@ public class MypageController {
 	
 	@RequestMapping(value = "/mypage/modifyResumesProc", method=RequestMethod.POST)
 	public String modifyResumesProc(
-			HistoryList hList
-			, HttpSession session
+			HttpSession session
 			, HttpServletRequest req
 			){
 		logger.info("---modifyResumesProc---");
@@ -577,36 +588,27 @@ public class MypageController {
 		resumes.setResumesNo(Integer.parseInt(req.getParameter("resumesNo")) );
 		resumes = mpService.getResumes(resumes);
 		
-		System.out.println(hList);
-		
-		logger.info(hList.toString());
-		
-		
-//		String[] historyNo = req.getParameterValues("historyNo");
-//		String[] year = req.getParameterValues("year");
-//		String[] historyInfo = req.getParameterValues("historyInfo");
-		
 		if ( req.getParameter("resumesTitle") != null && !"".equals(req.getParameter("resumesTitle"))) {
 			logger.info("---setResumesInfo---");
 			mpService.setResumesInfo(req);
 		
 //		히스토리 저장
-//			History history = new History();
-//			history.setResumesNo(resumes.getResumesNo());
+			History history = new History();
+			history.setResumesNo(resumes.getResumesNo());
 				
-//			List<History> historyList = (List<History>) hList;
-//	
-//			for(History his : historyList) {
-//				if ( req.getParameter("historyNo") != null && !"".equals(req.getParameter("historyNo"))) {
-//					his.setHistoryNo(Integer.parseInt( req.getParameter("historyNo")) );
-//				}
-//				his.setYear(req.getParameter("year") );
-//				his.setHistoryInfo(req.getParameter("historyInfo"));
-//				
-//				mpService.modifyHistoryInfo(his);
-//				
-//				logger.info(hList.toString());
-//			}
+			List<History> historyList = mpService.getHistoryList(resumes);
+	
+			for(History his : historyList) {
+				if ( req.getParameter("historyNo") != null && !"".equals(req.getParameter("historyNo"))) {
+					his.setHistoryNo(Integer.parseInt( req.getParameter("historyNo")) );
+				}
+				his.setYear(req.getParameter("year") );
+				his.setHistoryInfo(req.getParameter("historyInfo"));
+				
+				mpService.modifyHistoryInfo(his);
+				
+				logger.info(his.toString());
+			}
 		}
 		
 //		장르 저장
@@ -621,7 +623,6 @@ public class MypageController {
 //		사진 저장
 //		
 //		장르저장
-//		mpService.createResumes(resumes);
 //		resumeView
 		return "redirect:/mypage/resumes?resumesNo="+resumes.getResumesNo();
 	}
