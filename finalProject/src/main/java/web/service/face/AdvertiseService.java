@@ -1,9 +1,10 @@
 package web.service.face;
 
 import java.util.List;
+import java.util.Map;
 
 import web.dto.Advertise;
-import web.dto.FindMember;
+import web.dto.ProfilePic;
 import web.utils.Paging;
 
 public interface AdvertiseService {
@@ -12,7 +13,7 @@ public interface AdvertiseService {
 	public List getList(Paging paigng);
 
 	// 구인구직 상세 보기
-	public FindMember view(int findNo);
+	public Map view(int findNo );
 	
 	//구인구직 쓰기
 	public void write();
@@ -24,6 +25,8 @@ public interface AdvertiseService {
 	public void modify();
 	public int updateMusic();
 	
+	//이미지 가져오기
+	public ProfilePic viewProfile(int profileNo);
 	
 	// 구인 구직 삭제
 	public void delete(Advertise advertise);

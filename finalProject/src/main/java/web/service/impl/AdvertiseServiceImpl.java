@@ -1,17 +1,19 @@
 package web.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import web.dao.face.AdvertiseDao;
 import web.dao.face.BandGenreDao;
 import web.dao.face.MusicDao;
 import web.dto.Advertise;
+import web.dto.BandMember;
 import web.dto.FindMember;
+import web.dto.ProfilePic;
 import web.service.face.AdvertiseService;
 import web.utils.Paging;
 
@@ -42,9 +44,36 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		return advertiseDao.selectAdvertiseCntAll();
 	}
 	@Override
-	public FindMember view(int findNo) {
+	public Map view(int findNo ) {
 		
-		return advertiseDao.selectAdvertise(findNo);
+		Map map = new HashMap();
+		
+		// advertise
+		FindMember findM = advertiseDao.selectAdvertise(findNo);
+		map.put("findM", findM);
+		
+		// profile 사진 가져오기
+		int profileNo = advertiseDao.getPicNo(findM.getBandNo());
+		ProfilePic proPic = advertiseDao.getProPic(profileNo);
+		map.put("proPic", proPic);
+		
+		// 밴드 멤버 가져오기
+		List list = advertiseDao.getBMember(findM.getBandNo());
+		map.put("bandMember", list);
+		
+		// 밴드 장르 가져오기
+		List list2 = advertiseDao.getGenre(findM.getBandNo());
+		List list3 = advertiseDao.allGenre();
+		
+		for(int i=1; i<list2.size(); i++) {
+			for(int j=1; j<list3.size(); j++) {
+				// 여기 작성해야함. 장르 번호에 따라 장르 이름 넣어주기
+			}
+		}
+		
+		//		map.put("bandGenre", list2);
+		
+		return map;
 	}
 	@Override
 	public void write() {
@@ -82,6 +111,12 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 
 		return advertiseDao.getList(findMember);
 	}*/
+
+	@Override
+	public ProfilePic viewProfile(int profileNo) {
+		
+		return advertiseDao.selectProfilePic(profileNo);
+	}
 
 	
 	
