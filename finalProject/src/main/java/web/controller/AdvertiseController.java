@@ -1,6 +1,7 @@
 package web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -106,16 +107,17 @@ public class AdvertiseController {
 	}
 	@RequestMapping(value="/advertise/view" , method=RequestMethod.GET)
 	public ModelAndView view(
-				Model model , int findNo 
+			int findNo
 			) {
 		
-//		findNo = findmember.getFindNo();
-		FindMember findmember = advertiseService.view(findNo);
+//		logger.info(""+findNo);
+		
+		Map map = advertiseService.view(findNo);
 		
 		ModelAndView mav = new ModelAndView();
-		
 		mav.setViewName("jsonView");
-		mav.addObject("findNo" , findmember);
+		
+		mav.addObject("map", map);
 		
 		return mav;
 	}

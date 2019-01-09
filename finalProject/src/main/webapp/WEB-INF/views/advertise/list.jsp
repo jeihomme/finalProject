@@ -83,7 +83,7 @@ td {
 }
 
 .modal-music{
-	border: 1px solid white;
+/* 	border: 1px solid white; */
 	width: 60%;
     height: 10%;
     margin-top: 5%;
@@ -189,40 +189,35 @@ $(document).ready(function(){
 			
 		 modal.style.display = "block";
 		 
-				
-// 			var bandName = data.bandName;
-			var position = data.findNo.position;
-// //  			var title = data.title;
-			var content = data.findNo.content;
-			var genre = data.findNo.genre;
-			var ads = data.findNo.ads;
+			var findM = data.map.findM;
+			var proPic = data.map.proPic;
+			var bandMember = data.map.bandMember;
+// 			var bandgenre = data.map.bandGenre;
 			
-			console.log(data);
-// 			console.log(position);
-// 			console.log(content);
-// 			console.log(genre);
-// 			console.log(ads);
-			
+			console.log(data.map);
 			
 			$("#advertiseView").empty();
 			
 			$newadvertiseView = $(
-					     "<div class='modal-img' ></div><div class='modal-info'>"
+					     "<div class='modal-img' ><img src='http://" + proPic.path + "/" + proPic.originName + "' width='60%' height='70%'/></div><div class='modal-info'>"
 					     +"<div style='margin-left:10%; margin-top:1%;'><p>· Member</p><div class='member-div'><input type='text'style='width: 220px'/><br><input type='text' style='width: 220px'/><br><input type='text'style='width: 220px'/></div>"
-					     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' value='"+genre+"'/></p></div>"
-					     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' type='text'value='"+position+"'/></p></div>"
+					     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' '/></p></div>"
+					     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' type='text''/></p></div>"
 					     +"<div style='margin-top: 10%'><p>· Contact Number<input style='margin-left: 5%' type='text' /></p></div>"
-					     +"<div style='margin-top: 10%'><p>· Etc.<input style='margin-left: 5%; height: 85px; width:88%;' value='"+content+"' type='text' name='content'/></p></div>"
+					     +"<div style='margin-top: 10%'><p>· Etc.<input style='margin-left: 5%; height: 85px; width:88%;'  type='text' name='content'/></p></div>"
 					     +"</div></div>"
-					     +"<div class='modal-music'>음악샘플</div><button class='modal-close'>닫기</button>"
+					     +"<audio controls class='modal-music'><source type='audio/ogg'><source type='audio/mpeg'></audio><button class='modal-close'>닫기</button>"
 					      );
 			
 			
 			$("#advertiseView").append($newadvertiseView);
 			
+		}, error:function(){
+			alert("ㅋㅋ 망함");
 		}
-				})
-	})
+		
+	});
+});
 
 	
 

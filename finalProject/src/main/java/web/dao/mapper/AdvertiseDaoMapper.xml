@@ -59,13 +59,47 @@ SELECT COUNT(*) CNT FROM (
 	 </if> 
 ) CNT
 </select>
-<select id="selectAdvertise" resultType="web.dto.FindMember">
-	  SELECT  findNo , title , content , writtenDate , positionNo ,
-  CASE WHEN positionNo = '1' THEN '보컬'
-  WHEN positionNo = '2' THEN '기타'
-  WHEN positionNo = '3' THEN '드러머'
-    ELSE '콜라보'
-    END position
-  FROM FindMember WHERE positionNo = #{positionNo}
+<select id="selectProfilePic">
+	SELECT * FROM ProfilePic WHERE profileNo = #{profileNo};
+
+</select>
+
+<select id="selectAdvertise" parameterType="int" resultType="web.dto.FindMember">
+	SELECT findNo, bandNo, positionNo, title, content, writtenDate, genre, musicNo, adsNo,
+		CASE WHEN positionNo = '1' THEN '보컬'
+			WHEN positionNo = '2' THEN '기타'
+			WHEN positionNo = '3' THEN '드러머'
+		ELSE '콜라보'
+		END position
+	 FROM findMember
+	 WHERE findNo = #{findNo}
+</select>
+
+<select id="getPicNo" parameterType="String" resultType="int">
+	SELECT profileNo
+	FROM band
+	WHERE bandNo = #{bandNo}
+</select>
+
+<select id="getProPic" parameterType="int" resultType="web.dto.ProfilePic">
+	SELECT profileNo, path, originName, storedName
+	FROM profilePic
+	WHERE profileNo = #{profileNo }
+</select>
+
+<select id="getBMember" parameterType="String" resultType="web.dto.BandMember">
+	SELECT bandMemberNo, bandMemName, mPosition, bandNo
+	FROM bandMember
+	WHERE bandNo = #{bandNo}
+</select>
+
+<select id="getGenre" parameterType="String" resultType="web.dto.BandGenre">
+	SELECT bandNo, genreNo
+	FROM bandGenre
+	WHERE bandNo = #{bandNo}
+</select>
+<select id="allGenre" resultType="web.dto.Genre">
+	SELECT *
+	FROM genre
 </select>
 </mapper>
