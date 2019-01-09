@@ -60,8 +60,8 @@
 	}
 	
 	.adminMypageMainImage {
-		border: 1px solid #fff;
-		margin: 10px;
+/* 		border: 1px solid #fff; */
+/* 		margin: 10px; */
 		width: 290px;
 		height: 280px;
 		float:right;
@@ -139,8 +139,28 @@
 		color: gold;
 		cursor:pointer;
 	}
+	
+	.profileImage {
+		width: 290px;
+		height: 280px;
+		margin: 7px 0px 0px -8px;
+		border-radius: 15px;
+	}
 </style>
 
+<script>
+$(document).ready(function(){
+	$('#profileImage').click(function(){
+		$('#profileFile').click();
+	});
+	
+	$('#profileFile').change(function(){
+		uploadProfilePicIntro();
+		$('#profileFileForm').submit();
+	});
+});
+</script>
+ 			
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
 		<p onclick="viewMypageInfo() ">Mypage</p>
@@ -155,7 +175,12 @@
 			<p class="adminDetailTitle">기본정보 </p>
 			
 			<div class="bandIntroInfo">
-				<img class="profilePicSize" src="http://${pPic.path }/${pPic.originName }">
+			
+				<form id="profileFileForm" action="" enctype="multipart/form-data" class="uploadForm">
+					<input id="profileFile" type="file" name="uploadFile" style="display:none;"/>
+				</form>
+<%-- 				<img class="profilePicSize" src="http://${pPic.path }/${pPic.originName }"> --%>
+				<img src="../resources/${pPic.originName }" id="profileImage" class="profileImage img-rounded" style="cursor:pointer;"/>
 <!-- 				<input type="file" name="profileNo"/> -->
 			</div>
 			<div class="bandIntroInfo">
@@ -174,13 +199,6 @@
 				${member.email }<br><br>
 				<b class="introDetailInfo">장르 </b><p class="adminDetailMust">(필수) </p><br>
 				${genre.genreName }<br><br>
-	<!-- 			<input type="text" name="genreNo"/><br> -->
-	<!-- 			<select name="genre"> -->
-	<!-- 				<option value=""></option> -->
-	<!-- 				<option value="비밥"></option><option value="스윙"></option> -->
-	<!-- 				<option value="펑크"></option><option value="모던"></option> -->
-	<!-- 				<option value="보사노바"></option><option value="부기우기"></option> -->
-	<!-- 			</select> -->
 			</div>
 			
 		</div>
@@ -244,11 +262,15 @@
 			<ul class="introDetailInfo">
 				<li>이력서는 최대 5개까지 작성 가능합니다.</li>
 				<li>지원하고자 하는 Bar마다 내용을 다르게 할 수 있습니다.</li>
+				<li>사진을 눌러 수정이 가능합니다.</li>
 			</ul>
 		</div>
 		
+		<form id="profileFileForm" action="" enctype="multipart/form-data" class="uploadForm">
+			<input id="profileFile" type="file" name="uploadFile" style="display:none;"/>
+		</form>
 		<div class="adminMypageMainImage">
-			<p >이미지 넣어주세요 </p>
+			<img src="../resources/${pPic.originName }" id="profileImage" class="profileImage img-rounded" style="cursor:pointer;"/>
 		</div>
 	</div>
 	<style type="text/css">
@@ -282,34 +304,12 @@
 			float:right;
 		}
 	</style>
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$("#commitPublicResumes").click( function() {
-			
-			publicResumes = $("checkbox[name='publicResumes']").val();
-			
-			$.ajax({
-				type: "post"
-				, url: "/mypage/commitPublicResumes"
-					, data: {
-						"publicResumes" : publicResumes
-						}
-				, dataType: "html"
-				, success: function(res) {
-					$("#body").html(res);
-				}
-				, error: function() {
-					console.log("실패");
-				}
-			});
-		});
-	});
-	</script>
 	
 	<div class="adminMypageSearchRes">
 		<hr>
 		<div>
 			<p class="bandIntroHeader">밴드소개 리스트</p>
+			<button class="bandIntroInsert" onclick="modifyPublicResumes() ">대표 이력서 설정</button>
 			<c:if test="${rListRnum < 5 }">
 				<button class="bandIntroInsert" onclick="viewNewResumes() ">소개 등록</button>
 			</c:if>
@@ -324,24 +324,19 @@
 					<tr>
 						<td>
 						<c:if test="${i.publicResumes eq 1}"> 
-							<input type="checkbox" name="publicResumes" value="1" checked="checked">
+							<input type="checkbox" name="publicResumes" value="${status.count }" checked="checked" onclick="oneCheckbox(this)">
 						</c:if>
 						<c:if test="${i.publicResumes eq 0}"> 
-							<input type="checkbox" name="publicResumes" value="0">
+							<input type="checkbox" name="publicResumes" value="${status.count }" onclick="oneCheckbox(this)">
 						</c:if>
+						
 						</td>
 						<td>
 							<b class="mousePointer" onclick="viewResumes${status.count }()"> ${i.resumesTitle } </b>
 								
-<!-- 							<form class="bandModifyBtn" action="/mypage/deleteResumes" method="post"> -->
 								<input type="hidden" name="resumesNo[]" value="${i.resumesNo }">
 								<button class="searchBtn" onclick="deleteResumes${status.count }()">삭제</button>
-<!-- 							</form> -->
-<!-- 							<form class="bandModifyBtn" action="/mypage/modifyResumes" method="get"> -->
-								<input type="hidden" name="resumesNo" value="${i.resumesNo }">
-								<button class="searchBtn" onclick="viewModifyResumes${status.count }()">수정</button>
-<!-- 							</form> -->
-							<button id="commitPublicResumes" class="searchBtn">대표 이력서 설정</button>
+								
 						</td>
 						<td>${i.musicNo }</td>
 					</tr>
@@ -354,35 +349,30 @@
 	<div class="adminMypageSearchRes">
 		<hr>
 		<div>
-			<form action="/mypage/uploadSoundIntro" method="post" enctype="multipart/form-data">
+			<form id="soundFileForm" action="" method="post" enctype="multipart/form-data">
 				<b class="bandIntroHeader">첨부파일 리스트</b>
-				<input type="hidden" name="bandNo" value="${band.bandNo }">
-				<input class="bandIntroInsert" type="file" id="file" name="file"/><br>
+				<input class="bandIntroInsert" type="file" name="file" id="soundFile"/>
 				<c:if test="${mListRnum < 5 }">
-					<button class="bandIntroInsert">파일 첨부</button>
+					<button type="button" class="bandIntroInsert" onclick="uploadSoundIntro() ">파일 첨부</button>
 				</c:if>
 			</form>
+			
+<!-- 			</form> -->
 			<table class="table table-hover table-striped table-condensed">
 				
 				<tr>
-					<th>파일번호</th>
+					<th>첨부파일번호</th>
 					<th>파일명</th>
 					<th>등록/수정일</th>
 				</tr>
 			
-				<c:forEach items="${musicList }" var="i">
-		<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
+				<c:forEach items="${musicList }" var="i" varStatus="status">
 						<tr>
-			<!-- 			<tr id="memberView"> -->
-			<%-- 				<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
-			<%-- 				<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
 							<td>${i.musicNo }</td>
 							<td><a href="">${i.musicTitle }</a>
-								<form class="bandModifyBtn" action="/mypage/deleteSound" method="post">
-									<input type="hidden" name="musicNo" value="${i.musicNo }">
-									<input type="hidden" name="bandNo" value="${i.musicNo }">
-									<button class="searchBtn">삭제</button>
-								</form>
+								<input type="hidden" name="musicNo" value="${i.musicNo }">
+								<input type="hidden" name="bandNo" value="${i.musicNo }">
+								<button class="searchBtn" onclick="deleteSound${status.count}() ">삭제</button>
 							</td>
 							<td>${i.writtenDate }</td>
 						</tr>

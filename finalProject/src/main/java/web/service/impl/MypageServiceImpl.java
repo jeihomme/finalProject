@@ -319,29 +319,29 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public void minHistoryList(History history) {
+	public void minHistoryList(History history, int rnum) {
 		// TODO Auto-generated method stub
-		mpDao.deleteHistoryList(history);
+		mpDao.deleteHistoryList(history, rnum);
 	}
 
 	@Override
 	public void setResumesInfo(HttpServletRequest req) {
 		// TODO Auto-generated method stub
 		
-		System.out.println(req.getParameter("resumesNo"));
-		System.out.println(req.getParameter("resumesTitle"));
-		System.out.println(req.getParameter("bandNo"));
-		System.out.println(req.getParameter("bandInfo"));
-		System.out.println(req.getParameter("musicNo"));
+//		System.out.println(req.getParameter("resumesNo"));
+//		System.out.println(req.getParameter("resumesTitle"));
+//		System.out.println(req.getParameter("bandNo"));
+//		System.out.println(req.getParameter("bandInfo"));
+//		System.out.println(req.getParameter("musicNo"));
 		
 		Resumes resumes = new Resumes();
 		
 		resumes.setResumesNo(Integer.parseInt(req.getParameter("resumesNo")) );
-//		resumes.setPublicResumes(Integer.parseInt(req.getParameter("resumes.publicResumes")) );
 		resumes.setResumesTitle(req.getParameter("resumesTitle"));
-//		resumes.setBandNo(Integer.parseInt(req.getParameter("resumes.bandNo")) );
+		resumes.setBandNo(Integer.parseInt(req.getParameter("bandNo")) );
 		resumes.setBandInfo(req.getParameter("bandInfo"));
 		resumes.setMusicNo(Integer.parseInt(req.getParameter("musicNo")) );
+//		resumes.setPublicResumes(Integer.parseInt(req.getParameter("publicResumes")) );
 		
 		resumes.toString();
 		mpDao.updateResume(resumes);
@@ -439,6 +439,59 @@ public class MypageServiceImpl implements MypageService{
 	public int getAppTotalCount(Bar bar) {
 		// TODO Auto-generated method stub
 		return mpDao.selectAppListCnt(bar);
+	}
+
+	@Override
+	public void createBandGenre(BandGenre bandGenre) {
+		// TODO Auto-generated method stub
+		mpDao.insertBandGenreByBandNo(bandGenre);
+	}
+
+	@Override
+	public void deleteBandGenre(Resumes resumes) {
+		// TODO Auto-generated method stub
+		mpDao.deleteBandGenre(resumes);
+	}
+
+	@Override
+	public void updatePublicResumes(Band band) {
+		// TODO Auto-generated method stub
+		mpDao.updatePublicResumes(band);
+	}
+
+	@Override
+	public void uploadPicture(ServletContext context, ProfilePic pPic, MultipartFile file) {
+		// TODO Auto-generated method stub
+//		UUID, 고유 식별자
+//		String uId = UUID.randomUUID().toString().split("-")[0];
+		
+//		파일이 저장될 경로
+		String path = context.getRealPath("resources");
+		
+		System.out.println(path);
+		
+//		저장될 파일의 이름
+		String picTitle = file.getOriginalFilename();
+		
+//		파일 객체
+		File saveSound = new File(path, picTitle);
+		
+//		파일 저장 ( 업로드 )
+		try {
+			file.transferTo(saveSound);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		pPic.setOriginName(picTitle);
+		pPic.setStoredName(picTitle);
+		pPic.setPath(path);
+		
+//		if( musicTitle != null ) {
+			mpDao.updateProfilePic(pPic);
+//		}
 	}
 
 }

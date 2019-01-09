@@ -76,7 +76,7 @@ public interface MypageService {
 	public void updateSoundBandTable(Music music);
 	
 	public void addHistoryList(History history);
-	public void minHistoryList(History history);
+	public void minHistoryList(History history, int rnum);
 	
 	public void setResumesInfo(HttpServletRequest req);
 	public void modifyHistoryInfo(History history);
@@ -98,6 +98,10 @@ public interface MypageService {
 	public void appReadUpdate(Application app);
 	public void appAcceptUpdate(Application app);
 	public int getAppTotalCount(Bar bar);
+	public void createBandGenre(BandGenre bandGenre);
+	public void deleteBandGenre(Resumes resumes);
+	public void updatePublicResumes(Band band);
+	public void uploadPicture(ServletContext context, ProfilePic pPic, MultipartFile file);
 	
 	
 	

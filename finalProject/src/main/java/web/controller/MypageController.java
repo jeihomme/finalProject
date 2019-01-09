@@ -276,6 +276,10 @@ public class MypageController {
 			band = mpService.getBandByUserId(band);
 			logger.info(band.toString());
 			
+			ProfilePic pPic = new ProfilePic();
+			pPic.setProfileNo(band.getProfileNo());
+			pPic = mpService.getProfilePic(pPic);
+			
 			Resumes resumes = new Resumes();
 			resumes.setBandNo(band.getBandNo());
 	//		logger.info(resumes.toString());
@@ -293,6 +297,7 @@ public class MypageController {
 			logger.info(musicList.toString());
 			
 			model.addAttribute("band", band);
+			model.addAttribute("pPic", pPic);
 			model.addAttribute("resumesList", resumesList);
 			model.addAttribute("musicList", musicList);
 			
@@ -399,11 +404,8 @@ public class MypageController {
 			mpService.appReadUpdate(app);
 		}
 		
-		System.out.println(1);
 		Band band = new Band();
-		System.out.println(2);
 		band.setBandNo(resumes.getBandNo());
-		System.out.println(3);
 		band = mpService.getBandByBandNo(band);
 		logger.info(band.toString());
 		
@@ -454,25 +456,13 @@ public class MypageController {
 		band = mpService.getBandByUserId(band);
 		logger.info(band.toString());
 		
+		mpService.updatePublicResumes(band);
+		
 		Resumes resumes = new Resumes();
-		resumes.setBandNo(band.getBandNo());
-		logger.info(resumes.toString());
-		
-		List<Resumes> resumesList = mpService.getResumesList(resumes);
-		logger.info(resumesList.toString());
-		
-		for(Resumes rs : resumesList) {
+		System.out.println(Integer.parseInt(req.getParameter("resumesNo")));
+		resumes.setResumesNo(Integer.parseInt(req.getParameter("resumesNo")));
 			
-			logger.info(rs.toString());
-			logger.info(req.getParameter("publicResumes"));
-			
-			rs.setResumesNo(Integer.parseInt(req.getParameter("resumesNo")));
-			rs.setPublicResumes(Integer.parseInt(req.getParameter("publicResumes")) );
-			
-			mpService.updatePublicResumes(rs);
-			
-		}
-		logger.info(resumesList.toString());
+		mpService.updatePublicResumes(resumes);
 		
 		
 		return "redirect:/mypage/intro";
@@ -503,41 +493,46 @@ public class MypageController {
 		logger.info(musicList.toString());
 		
 		Resumes resumes = new Resumes();
+		Genre genre = new Genre();
+		BandGenre bandGenre = new BandGenre();
+		
 		if ( req.getParameter("resumesNo") != null && !"".equals(req.getParameter("resumesNo")) ) {
 			resumes.setResumesNo(Integer.parseInt( req.getParameter("resumesNo")) );
 			resumes = mpService.getResumes(resumes);	
 			logger.info(resumes.toString());
 			
-			List<History> historyList = mpService.getHistoryList(resumes);
-			int hList = historyList.size();
-			model.addAttribute("hList", hList);
-//			model.addAttribute("music", music);
-//			model.addAttribute("historyList", historyList);
-			
-			BandGenre bandGenre = new BandGenre();
 			bandGenre.setBandNo(band.getBandNo());
 			bandGenre.setResumesNo(resumes.getResumesNo());
 			bandGenre = mpService.getBandGenre(bandGenre);
 			logger.info(bandGenre.toString());
 			
-			Genre genre = new Genre();
+			genre = new Genre();
 			genre.setGenreNo(bandGenre.getGenreNo());
 			genre = mpService.getGenre(genre);
 			logger.info(genre.toString());
-			
-			
-			model.addAttribute("genre", genre);
 			
 		} else {
 			resumes.setBandNo(band.getBandNo());
 			mpService.createResumes(resumes);
 			logger.info(resumes.toString());
+			
+			bandGenre.setBandNo(band.getBandNo());
+			bandGenre.setResumesNo(resumes.getResumesNo());
+			mpService.createBandGenre(bandGenre);
+			logger.info(bandGenre.toString());
+			
 		}
+		
+		List<History> historyList = mpService.getHistoryList(resumes);
+		int hList = historyList.size();
 		
 		model.addAttribute("band", band);
 		model.addAttribute("member", member);
 		model.addAttribute("resumes", resumes);
 		model.addAttribute("musicList", musicList);
+		model.addAttribute("hList", hList);
+		model.addAttribute("historyList", historyList);
+		model.addAttribute("genre", genre);
 		
 	}
 	
@@ -550,6 +545,11 @@ public class MypageController {
 			
 			Member member = (Member) session.getAttribute("loginInfo");
 			logger.info(member.toString());
+			
+			Band band = new Band();
+			band.setUserId(member.getUserId());
+			band = mpService.getBandByUserId(band);
+			logger.info(band.toString());
 			
 			History history = new History();
 			history.setResumesNo(Integer.parseInt( req.getParameter("resumesNo") ));
@@ -570,15 +570,16 @@ public class MypageController {
 			
 			History history = new History();
 			history.setResumesNo(Integer.parseInt( req.getParameter("resumesNo") ));
-			mpService.minHistoryList(history);
+			
+			int rnum = Integer.parseInt( req.getParameter("rnum") );
+			mpService.minHistoryList(history, rnum);
 		
-			return "redirect:/mypage/modifyResumes";
+			return "redirect:/mypage/modifyResumes?resumesNo="+history.getResumesNo();
 	}
 	
 	@RequestMapping(value = "/mypage/modifyResumesProc", method=RequestMethod.POST)
 	public String modifyResumesProc(
-			HttpSession session
-			, HttpServletRequest req
+			HttpServletRequest req
 			){
 		logger.info("---modifyResumesProc---");
 //		밴드소개 제목 저장
@@ -597,17 +598,19 @@ public class MypageController {
 			history.setResumesNo(resumes.getResumesNo());
 				
 			List<History> historyList = mpService.getHistoryList(resumes);
-	
+			
+			int i = 0;
 			for(History his : historyList) {
-				if ( req.getParameter("historyNo") != null && !"".equals(req.getParameter("historyNo"))) {
-					his.setHistoryNo(Integer.parseInt( req.getParameter("historyNo")) );
-				}
-				his.setYear(req.getParameter("year") );
-				his.setHistoryInfo(req.getParameter("historyInfo"));
+//				if ( req.getParameter("historyNo") != null && !"".equals(req.getParameter("historyNo"))) {
+					his.setHistoryNo(Integer.parseInt( req.getParameterValues("historyNo")[i]) );
+//				}
+				his.setYear(req.getParameterValues("year")[i] );
+				his.setHistoryInfo(req.getParameterValues("historyInfo")[i]);
 				
 				mpService.modifyHistoryInfo(his);
 				
 				logger.info(his.toString());
+				i++;
 			}
 		}
 		
@@ -634,6 +637,7 @@ public class MypageController {
 		logger.info("---deleteResumes---");
 		
 		mpService.deleteResumes(resumes);
+		mpService.deleteBandGenre(resumes);
 		
 		return "redirect:/mypage/intro";
 	}
@@ -661,25 +665,76 @@ public class MypageController {
 //	private Object barMemberList;
 	@RequestMapping(value = "/mypage/uploadSoundIntro", method=RequestMethod.POST)
 	public String uploadSoundIntro(
-		@RequestParam(value="file") MultipartFile file
+		@RequestParam(value="file",required=false) MultipartFile file
 		, HttpServletRequest req
+		, HttpSession session
 		) {
 			logger.info("---uploadSound---");
 			
-		//context, filepload
-//		서버 컨텍스트 리얼패스, 업로드파일정보 전달
+		Member member = (Member) session.getAttribute("loginInfo");
+		logger.info(member.toString());
+		
+		Band band = new Band();
+		band.setUserId(member.getUserId());
+		band = mpService.getBandByUserId(band);
+		logger.info(band.toString());
+		
 		Music music = new Music();
-		music.setBandNo( Integer.parseInt( req.getParameter("bandNo")) ); 
+		music.setBandNo( band.getBandNo() ); 
 		mpService.uploadSound(context, music, file);
+		
+		return "redirect:/mypage/intro";
+	}
+	
+	@RequestMapping(value = "/mypage/uploadProfilePicIntro", method=RequestMethod.POST)
+	public String uploadProfilePicIntro(
+		@RequestParam(value="uploadFile",required=false) MultipartFile file
+		, HttpServletRequest req
+		, HttpSession session
+		) {
+			logger.info("---uploadProfilePicIntro---");
+			
+		Member member = (Member) session.getAttribute("loginInfo");
+		logger.info(member.toString());
+		
+		ProfilePic pPic = new ProfilePic();
+		
+		if ( member.getRoleId() == 1 ) {
+			Bar bar = new Bar();
+			bar.setUserId(member.getUserId());
+			bar = mpService.getBar(bar);
+			logger.info(bar.toString());
+			
+			pPic = new ProfilePic();
+			pPic.setProfileNo(bar.getProfileNo());
+			pPic = mpService.getProfilePic(pPic);
+			
+		} else if ( member.getRoleId() == 2 ) {
+			Band band = new Band();
+			band.setUserId(member.getUserId());
+			band = mpService.getBandByUserId(band);
+			logger.info(band.toString());
+			
+			pPic = new ProfilePic();
+			pPic.setProfileNo(band.getProfileNo());
+			pPic = mpService.getProfilePic(pPic);
+		}
+		
+		mpService.uploadPicture(context, pPic, file);
 		
 		return "redirect:/mypage/intro";
 	}
 	
 	@RequestMapping(value = "/mypage/deleteSound", method=RequestMethod.POST)
 	public String deleteSound(
-			Music music
+			HttpServletRequest req
 			) {
 		logger.info("---deleteSound---");
+		
+		Music music = new Music();
+		music.setBandNo( Integer.parseInt(req.getParameter("bandNo")) );
+		music.setMusicNo( Integer.parseInt(req.getParameter("musicNo")) );
+		
 		mpService.updateSoundBandTable(music);
 		mpService.deleteSound(music);
 		
@@ -700,24 +755,37 @@ public class MypageController {
 		member = mbService.loginInfo(member);
 		logger.info(member.toString());
 		
-		Bar bar = new Bar();
-		bar.setUserId(member.getUserId());
-		bar = mpService.getBar(bar);
+		Band band = new Band();
+		band.setUserId(member.getUserId());
+		band = mpService.getBandByUserId(band);
+		logger.info(band.toString());
+		
+//		Bar bar = new Bar();
+//		bar.setUserId(member.getUserId());
+//		bar = mpService.getBar(bar);
 		
 		int CurPage = mpService.getCurPage(req);
+		logger.info("---getAppTotalCount---");
 		
-		logger.info("---getTotalCount---");
-		int totalCount = mpService.getUserTotalCount();
+		int[] totalCount;
+//		for( int i = 1; i <0; i++) {
+//			if ( mpService.getAppRnumCount(band, i) == 0 || mpService.getAppRnumCount(band, i) == null) {
+//				totalCount[i-1] = mpService.getAppRnumCount(band, i);
+//				break;
+//			}
+//			mpService.getAppTotalCount();
+//		}
+		
 		
 		logger.info("---Paging---");
-		Paging paging = new Paging(totalCount, CurPage);
+//		Paging paging = new Paging(totalCount, CurPage);
 		
 		logger.info("---appView---");
-		List<Application> aList = mpService.appView(paging, member);
+//		List<Application> aList = mpService.appView(paging, member);
 		
 		logger.info("---addAttribute---");
-		model.addAttribute("aList", aList);
-		model.addAttribute("paging", paging);
+//		model.addAttribute("aList", aList);
+//		model.addAttribute("paging", paging);
 	}
 	
 	@RequestMapping(value = "/mypage/applicationToBar", method=RequestMethod.POST)

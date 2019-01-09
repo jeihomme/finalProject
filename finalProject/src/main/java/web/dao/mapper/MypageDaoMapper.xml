@@ -52,6 +52,7 @@
 		select count(*) from application
 		where barname = #{barName }
 	</select>
+	
 	<select id="selectUserCntAll" parameterType="String"
 		resultType="int">
 		select count(*) from member
@@ -308,7 +309,7 @@
 <!-- 	public void updatePublicResumesByResumesNo(Resumes resumes); -->
 	<update id="updatePublicResumesByResumesNo"
 	parameterType="web.dto.Resumes">
-		update resumes set publicResumes = #{publicResumes }
+		update resumes set publicResumes = 1
 		where resumesNo = #{resumesNo }
 	</update>
 	
@@ -326,6 +327,26 @@
 			values(
 			#{resumesNo }
 			, #{bandNo }
+			)
+	</insert>
+<!-- public void insertBandGenreByBandNo(BandGenre bandGenre); -->
+	<insert id="insertBandGenreByBandNo" parameterType="web.dto.BandGenre">
+<!-- 		<selectKey keyProperty="resumesNo" resultType="int" order="BEFORE"> -->
+<!-- 			select * from ( -->
+<!--         		select NVL(max(resumesNo)+1, 1) from resumes -->
+<!--                 ) -->
+<!-- 		</selectKey> -->
+<!-- 		bandGenre.setBandNo(band.getBandNo()); -->
+<!-- 			bandGenre.setResumesNo(resumes.getResumesNo()); -->
+		insert into BandGenre(
+			bandNo
+			, genreNo
+			, resumesNo
+			)
+			values(
+			#{bandNo }
+			, 1
+			, #{resumesNo }
 			)
 	</insert>
 <!-- public List<History> selectHistoryByBandNo(Resumes resumes); -->
@@ -398,16 +419,28 @@
 			, ''
 			)
 	</insert>
-<!-- 	public void deleteHistoryList(History history); -->
-	<delete id="deleteHistoryList" parameterType="web.dto.History">
+<!-- public void deleteHistoryList(History history, int rnum); -->
+	<delete id="deleteHistoryList" >
+<!-- 	parameterType="web.dto.History" -->
+<!-- 		delete History -->
+<!-- 		where historyNo = ( -->
+<!-- 			select * from ( -->
+<!-- 				select historyNo from History -->
+<!-- 	            where resumesNo = #{resumesNo } -->
+<!-- 				order by historyNo desc -->
+<!-- 				) -->
+<!-- 			where rownum = 1 -->
+<!-- 			) -->
 		delete History
-		where historyNo = (
-			select * from (
-				select historyNo from History
-	            where resumesNo = #{resumesNo }
-				order by historyNo desc
-				)
-			where rownum = 1
+			where historyNo = (
+			SELECT historyNo FROM (
+			    SELECT rownum rnum, his.* FROM (
+				    select historyNo from History
+				    where resumesNo = #{history.resumesNo }
+				    order by resumesNo
+				    ) his
+				ORDER BY rnum )
+				where rnum = #{rnum }
 			)
 	</delete>
 	
@@ -429,30 +462,10 @@
 <!-- 	public void updateHisotry(History history); -->
 	<insert id="updateHisotry"
 	parameterType="web.dto.History">
-<!-- 		update history set -->
-<!-- 			year=#{year } -->
-<!-- 			, historyInfo=#{historyInfo } -->
-<!-- 		where historyNo = #{historyNo } and resumesNo = #{resumesNo } -->
-		
-	merge into history
-    using dual
-        on ( historyNo = #{historyNo } )
-            when matched then
-                update set year=#{year }, historyInfo=#{historyInfo }
-            when not matched then
-            
-        <selectKey keyProperty="historyNo" resultType="int" order="BEFORE">
-<!-- 			select dept_seq.nextval from dual -->
-			select * from (
-			select NVL(max(historyNo)+1, 1) from History
-			order by historyNo desc
-			)
-			where rownum = 1
-<!-- 			select max(no)+1 no from test_member -->
-		</selectKey>
-		
-                insert (historyNo, resumesNo, year, historyInfo)
-                    values (#{historyNo }, #{resumesNo }, #{year }, #{historyInfo })
+		update history set
+			year=#{year }
+			, historyInfo=#{historyInfo }
+		where historyNo = #{historyNo } and resumesNo = #{resumesNo }
 	</insert>
 	
 <!-- 	public void updateBandGenre(BandGenre bandGenre); -->
@@ -568,5 +581,22 @@
 		parameterType="web.dto.Application">
 			update Application set accept=#{accept }
 			where appNo = #{appNo }
+	</update>
+	
+<!-- 	public void deleteBandGenre(Resumes resumes); -->
+<delete id="deleteBandGenre" parameterType="web.dto.Resumes">
+		delete BandGenre
+		where resumesNo=#{resumesNo }
+	</delete>
+<!-- 	public void updatePublicResumes(Band band); -->
+	<update id="updatePublicResumes"
+		parameterType="web.dto.Band">
+			update Resumes set publicResumes= 0
+			where bandNo = #{bandNo }
+	</update>
+<!-- 	public void updateProfilePic(ProfilePic pPic); -->
+	<update id="updateProfilePic" parameterType="web.dto.ProfilePic">
+		update ProfilePic set path= #{path }, originName= #{originName }, storedName= #{storedName }
+			where profileNo=#{profileNo }
 	</update>
 </mapper>
