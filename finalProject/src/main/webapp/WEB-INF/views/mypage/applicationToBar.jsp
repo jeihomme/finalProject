@@ -186,12 +186,12 @@
 
 <div class="adminMypageSearchDiv">
 	<div class="searchUserinfo">
-		<form action="/mypage/applicationToBar" method="post">
+<!-- 		<form action="/mypage/applicationToBar" method="post"> -->
 			
-			<input type="date" class="insertResumesHistory" name="appStartDate" value=""/> ~ 
-			<input type="date" class="insertResumesHistory" name="appEndDate" value=""/>
-			<button id="searchBtn" class="searchBtn"> 검색 </button>
-		</form>
+			<input type="date" class="insertResumesHistory" id="appStartDate" value=""/> ~ 
+			<input type="date" class="insertResumesHistory" id="appEndDate" value=""/>
+			<button id="searchBtn" class="searchBtn" onclick="searchAppFromBar() "> 검색 </button>
+<!-- 		</form> -->
 	</div>
 </div>
 <style type="text/css">

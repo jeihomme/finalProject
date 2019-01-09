@@ -100,7 +100,7 @@ public interface MypageDao {
 	public void updateResumesByMusicNo(Music music);
 	
 	public void insertHistoryList(History history);
-	public void deleteHistoryList(History history);
+	public void deleteHistoryList(@Param("history")History history, @Param("rnum")int rnum);
 	public void updateHisotry(History history);
 	
 	public void updateBandGenre(BandGenre bandGenre);
@@ -119,5 +119,9 @@ public interface MypageDao {
 	public void updateReadByAppNo(Application app);
 	public void updateAcceptByAppNo(Application app);
 	public int selectAppListCnt(Bar bar);
+	public void insertBandGenreByBandNo(BandGenre bandGenre);
+	public void deleteBandGenre(Resumes resumes);
+	public void updatePublicResumes(Band band);
+	public void updateProfilePic(ProfilePic pPic);
 	
 }

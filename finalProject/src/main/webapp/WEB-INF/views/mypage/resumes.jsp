@@ -101,23 +101,7 @@
 	.resumesViewDiv {
 		text-align:center;
 	}
-</style>
-
-<style type="text/css">
-/* tr th:not(:nth-child(2)) { */
-tr th {
-	text-align: center;
-	color:#000;
-	background-color: gold;
-}
-td {
-	border-left: 1px solid white;
-	border-right: 1px solid white;
-	color:#fff;
-	background-color: black;
-}
-</style>
-<style>
+	/* tr th:not(:nth-child(2)) { */
 	.bandIntroHeader {
 		font-size:20px;
 	}
@@ -130,6 +114,19 @@ td {
 	
 	.bandModifyBtn {
 		float:right;
+	}
+	
+	tr th {
+		text-align: center;
+		color:#000;
+		background-color: gold;
+	}
+	
+	td {
+		border-left: 1px solid white;
+		border-right: 1px solid white;
+		color:#fff;
+		background-color: black;
 	}
 </style>
 
@@ -228,17 +225,15 @@ td {
 
 <div class="adminMypageSearchRes">
 	<hr>
-	<div >
 		<p class="adminDetailTitle">밴드 소개 </p>
-		<table class="table table-hover table-striped table-condensed">
-			<tr>
-				<th>소개</th>
+		<table class="table table-hover table-striped table-condensed fixedTableSize">
+			<tr class="fixedTableSize">
+				<th class="fixedTableSize">소개</th>
 			</tr>
-			<tr>
-				<td>${resumes.bandInfo }</td>
+			<tr class="fixedTableSize">
+				<td class="fixedTableSize">${resumes.bandInfo }</td>
 			</tr>
 		</table>
-	</div>
 </div>
 
 <hr>
