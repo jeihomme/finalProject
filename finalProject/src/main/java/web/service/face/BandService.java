@@ -28,6 +28,12 @@ public interface BandService {
 	// 밴드 소개 보기
 	public Map bandView(int bandNo);
 	
+	// history 삭제
+	public void delHistory(String codes);
+	
+	// 밴드 멤버 삭제
+	public void delBMember(String codes);
+	
 	// 밴드 소개 수정
 	public void bandEdit(Band band);
 	

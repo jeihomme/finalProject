@@ -41,6 +41,14 @@ public interface BandDao {
 	
 	public Music getMusic(int musicNo);
 	
+	// 밴드 소개 수정
+	// history 삭제
+	public void delHistory(String codes);
+	
+	// 멤버 삭제
+	public void delBMember(String codes);
+	
+	
 	// 밴드 일정표
 	public List getSchedule(String bandName);
 	

@@ -139,4 +139,11 @@
 		ORDER BY bandMemberNo
 	</select>
 	
+	<delete id="delHistory" parameterType="String">
+		DELETE FROM history WHERE historyNo IN #{codes}
+	</delete>
+	
+	<delete id="delBMember" parameterType="String">
+		DELETE FROM bandMember WHERE bandMemberNo IN #{codes}
+	</delete>
 </mapper>

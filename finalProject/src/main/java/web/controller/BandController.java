@@ -1,5 +1,7 @@
 package web.controller;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -75,7 +77,7 @@ public class BandController {
 		
 		// input Data
 		mav.addObject("band", band);
-		mav.addObject("genre", genre);
+//		mav.addObject("genre", genre);
 		mav.addObject("profile", profile);
 		
 		return mav;
@@ -122,15 +124,41 @@ public class BandController {
 		
 		model.addAttribute("general", general);
 		
-		
-//		mav = new ModelAndView();
-//		mav.setViewName("jsonView");
-//		mav.addObject("general", general);
-//		return mav;
 	}
 	
-	// 밴드 소개 수정 폼
-	public void bandEdit() {
+	// 밴드 history 삭제
+	@RequestMapping(value="/band/delHistory", method=RequestMethod.POST)
+	public void delHistory(
+			String codes,
+			Writer out) {
+		
+		logger.info("codes: " + codes);
+		
+		bandService.delHistory(codes);
+		
+		try {
+			out.write("{\"res\": true}" );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	// 밴드 멤버 삭제
+	@RequestMapping(value="/band/delBMember", method=RequestMethod.POST)
+	public void delBMember(
+			String codes,
+			Writer out) {
+		
+		logger.info("codes: " + codes);
+		
+		bandService.delBMember(codes);
+		
+		try {
+			out.write("{\"res\": true}" );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

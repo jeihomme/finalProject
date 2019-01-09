@@ -57,7 +57,6 @@ public class BandServiceImpl implements BandService {
 		}
 	}
 	
-	
 	// List By Category
 	@Override
 	public List bandCate(AddItems addItems, String genre) {
@@ -144,6 +143,32 @@ public class BandServiceImpl implements BandService {
 		return map;
 	}
 
+	@Override
+	public void delHistory(String codes) {
+
+		if(codes != "") {
+			String[] array = codes.split(",");
+			
+			for(int i=0; i<array.length; i++) {
+				bandDao.delHistory(array[i]);
+			}
+		}
+		
+	}
+	
+	@Override
+	public void delBMember(String codes) {
+
+		if(codes != "") {
+			String[] array = codes.split(",");
+			
+			for(int i=0; i<array.length; i++) {
+				bandDao.delBMember(array[i]);
+			}
+		}
+		
+	}
+	
 	@Override
 	public void bandEdit(Band band) {
 		// TODO Auto-generated method stub
