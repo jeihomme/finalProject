@@ -5,7 +5,7 @@ import java.util.Map;
 
 import web.dto.Band;
 import web.dto.Bar;
-import web.dto.Calendar;
+import web.dto.CalendarD;
 import web.dto.Location;
 import web.dto.Member;
 import web.dto.ProfilePic;
@@ -31,7 +31,7 @@ public interface BarService {
 	public Bar barView(Bar bar);
 	
 	// 일정 보기 (calendar)
-	public List<Calendar> barCalendar(Bar bar);
+	public List<CalendarD> barCalendar(Bar bar);
 	
 	// 공연 요청
 	public void RequestShow(Bar bar, Band band);

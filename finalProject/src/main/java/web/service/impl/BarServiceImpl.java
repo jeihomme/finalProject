@@ -11,7 +11,7 @@ import web.dao.face.BarDao;
 import web.dao.face.LocationDao;
 import web.dto.Band;
 import web.dto.Bar;
-import web.dto.Calendar;
+import web.dto.CalendarD;
 import web.dto.Location;
 import web.dto.Member;
 import web.dto.ProfilePic;
@@ -55,7 +55,7 @@ public class BarServiceImpl implements BarService{
 	}
 
 	@Override
-	public List<Calendar> barCalendar(Bar bar) {
+	public List<CalendarD> barCalendar(Bar bar) {
 		// TODO Auto-generated method stub
 		return null;
 	}

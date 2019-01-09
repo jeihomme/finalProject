@@ -119,6 +119,13 @@
 				publicResumes = 1
 	</select>
 	
+	<select id="getHistory" parameterType="int" resultType="web.dto.History">
+		SELECT HistoryNo, resumesNo, year, historyInfo
+		FROM history
+		WHERE resumesNo=#{resumesNo }
+		ORDER BY year DESC
+	</select>
+	
 	<select id="getMusic" parameterType="int" resultType="web.dto.Music">
 		SELECT musicNo, musicTitle, path
 		FROM music
@@ -132,4 +139,11 @@
 		ORDER BY bandMemberNo
 	</select>
 	
+	<delete id="delHistory" parameterType="String">
+		DELETE FROM history WHERE historyNo IN #{codes}
+	</delete>
+	
+	<delete id="delBMember" parameterType="String">
+		DELETE FROM bandMember WHERE bandMemberNo IN #{codes}
+	</delete>
 </mapper>
