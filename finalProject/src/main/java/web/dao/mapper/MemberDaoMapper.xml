@@ -93,4 +93,46 @@
  		WHERE storedName=#{profileName }
  	</select>
  	
+ 	<delete id="deleteMember">
+ 		DELETE
+ 		FROM member
+ 		WHERE userId=#{userId }
+ 	</delete>
+ 	
+ 	<delete id="deleteBar">
+ 		DELETE
+ 		FROM bar
+ 		WHERE userId=#{userId }
+ 	</delete>
+ 	
+ 	<delete id="deleteBand">
+ 		DELETE
+ 		FROM band
+ 		WHERE userId=#{userId }
+ 	</delete>
+ 	
+ 	<select id="checkBarPicNo" parameterType="web.dto.Member" resultType="int">
+ 		SELECT profileNo
+ 		FROM bar
+ 		WHERE userId=#{userId }
+ 	</select>
+ 	
+ 	<select id="checkBandPicNo" parameterType="web.dto.Member" resultType="int">
+ 		SELECT profileNo
+ 		FROM band
+ 		WHERE userId=#{userId }
+ 	</select>
+
+	<delete id="deleteBarPic" parameterType="int">
+ 		DELETE
+ 		FROM profilePic
+ 		WHERE profileNo=#{barPicNo }
+ 	</delete>
+ 	
+ 	<delete id="deleteBandPic" parameterType="int">
+ 		DELETE
+ 		FROM profilePic
+ 		WHERE profileNo=#{bandPicNo }
+ 	</delete>
+ 	
  </mapper>

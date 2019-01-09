@@ -30,7 +30,7 @@ function removeChar(event) { // 글자수 초과시 최대 글자 수만큼 자�
 	   var keyID = (event.which) ? event.which : event.keyCode;
 	   if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) {
 	      return;      
-	   } else{
+	   } else {
 	      event.target.value = event.target.value.replace(/[^0-9]/g, "");
 	   }
 	}
@@ -80,11 +80,13 @@ $(document).ready(function() {
 		console.log("Modal hidden");
 	});
 	
+	// bar 가입할 때 사진 등록 버튼을 눌렀을 경우
 	$('.barPicAdd').on('click', function() {
 		$("#joinBarPic").click();
 		return false;
 	});
 
+	// 이미지 파일 확장자 확인 (이미지가 아닐 경우 반환)
 	$("#joinBarPic").change(function() {
 		
 		ext = $(this).val().split('.').pop().toLowerCase();
@@ -419,6 +421,36 @@ $(document).ready(function() {
 		
 	});
 	
+	$(".deleteMember").click(function() {
+		if(document.deleteAgreeForm.deleteMemberAgree.value=="disagree") {
+			alert("약관에 동의하셔야 합니다");
+			return;
+		}
+		
+	    var formData = {
+		    	userId: $("#memberDeleteId").val(),
+		    	roleId: $("#memberDeleteRoleId").val()
+		    };
+		
+		$.ajax({
+			type: "POST",
+			url: "/member/delete",
+			dataType: "json",
+			data: formData,
+			success: function(res) {
+				alert("회원 탈퇴 성공");
+				opener.location.reload();
+			},
+			error: function() {
+				// 회원 탈퇴 실패
+				alert("회원 탈퇴 실패.");
+			}
+		});
+		
+			location.href="/main";
+
+	});
+	
 	$(".findIdPw").click(function() {
 		$(".modal-content:eq("+idx+")").hide();
 		$(".modal-content:eq("+Number(idx+8)+")").show();
@@ -430,16 +462,24 @@ $(document).ready(function() {
 	$(".backBtn").click(function() {
 		console.log("이전 버튼 클릭 "+idx);
 		
-		if(idx<6 || idx>6 && idx<8 || idx>8 && idx<=11) {
+		if(idx<=4 || idx>8 && idx<=11) {
 			// Form 안의 내용 초기화
 			document.getElementById("loginForm").reset();
 			document.getElementById("joinAgreePost1").reset();
 			document.getElementById("joinAgreePost2").reset();
 			document.getElementById("joinForm1").reset();
+			
+			$(".modal-content:eq("+idx+")").hide();
+			$(".modal-content:eq("+Number(idx-1)+")").show();
+			idx--;
+			
+			console.log("인덱스 -- "+idx);
+		
+		// bar 가입 모달일 때
+		} else if(idx==5) {
+			$("#joinBarPicform").get(0).reset();
 			document.getElementById("joinBarPicform").reset();
 			document.getElementById("joinForm2").reset();
-			document.getElementById("joinBandPicform").reset();
-			document.getElementById("joinForm3").reset();
 			
 			$(".modal-content:eq("+idx+")").hide();
 			$(".modal-content:eq("+Number(idx-1)+")").show();
@@ -449,12 +489,7 @@ $(document).ready(function() {
 		
 		// band 가입 모달일 때
 		} else if(idx==6) {
-			document.getElementById("loginForm").reset();
-			document.getElementById("joinAgreePost1").reset();
-			document.getElementById("joinAgreePost2").reset();
-			document.getElementById("joinForm1").reset();
-			document.getElementById("joinBarPicform").reset();
-			document.getElementById("joinForm2").reset();
+			$("#joinBandPicform").get(0).reset();
 			document.getElementById("joinBandPicform").reset();
 			document.getElementById("joinForm3").reset();
 			
@@ -490,6 +525,10 @@ $(document).ready(function() {
 		idx+=2;
 		
 		console.log("인덱스 +=2 "+idx);	
+	});
+	
+	$(".deleteMemberBtn").click(function() {
+		$(".modal-content:eq("+Number(idx+12)+")").show();
 	});
 	
 	// 아이디 찾기 버튼
@@ -575,7 +614,6 @@ $(document).ready(function() {
 	    	genreNo: $("#bandGenre").val()
 	    };
 	    	
-	    	
 			$.ajax({
 				type: "POST",
 				url: "/member/join",
@@ -607,17 +645,16 @@ $(document).ready(function() {
 	$(".close").click(function() {
 		// 전체 모달 숨기기
 		$("#loginModal").hide();
-		$("#joinAgreeModal").hide();
-		$("#joinModal1").hide();
-		$("#joinModal2").hide();
 		
 		// Form 안의 내용 초기화
 			document.getElementById("loginForm").reset();
 			document.getElementById("joinAgreePost1").reset();
 			document.getElementById("joinAgreePost2").reset();
 			document.getElementById("joinForm1").reset();
+			$("#joinBarPicform").get(0).reset();
 			document.getElementById("joinBarPicform").reset();
 			document.getElementById("joinForm2").reset();
+			$("#joinBandPicform").get(0).reset();
 			document.getElementById("joinBandPicform").reset();
 			document.getElementById("joinForm3").reset();
 		
@@ -767,12 +804,6 @@ input {
 	margin: auto;
 }
 
-.barJoinImg, .bandJoinImg {
-	width: 150px;
-	height: 150px;
-	border-radius: 20px;
-}
-
 .loginBtn {
 	height:16px;
 	color:#f1f1f1;
@@ -809,13 +840,19 @@ input {
 	color: #BDBDBD;
 }
 
+.barJoinImg, .bandJoinImg {
+	width: 150px;
+	height: 150px;
+	border-radius: 20px;
+}
+
 #previewBandPic, #previewBarPic {
 	height: 100px;
 	width: 100px;
 	border-radius: 50px;
 }
 
-#btnLogin, .btnBarJoin, .btnBandJoin, .findIdBtn, .findPwBtn {
+#btnLogin, .btnBarJoin, .btnBandJoin, .findIdBtn, .findPwBtn, .deleteMember {
 	border: none;
 	outline: none;
 	color: gold;
@@ -940,7 +977,7 @@ input {
 		<ul>
 			<li><a href="/mypage/info">계정관리</a></li>
 			<li><a href="/member/logout">로그아웃</a></li>
-			<li><a href="#">계정탈퇴</a></li>
+			<li><a data-toggle="modal" href="/main#deleteMemberModal" class="deleteMemberBtn" style="cursor: pointer;">계정탈퇴</a></li>
 		</ul>
 	</li>
 	</c:if>
@@ -1141,14 +1178,14 @@ input {
     <div class="modal-content">
         <button class="backBtn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <div class="modal-body text-center"  style="height: 600px;">
+      <div class="modal-body text-center"  style="height: 700px;">
          <h3 class="modal-title text-center" style="color: black; padding-top: 8px;"><b>Bar</b></h3>
          <div class="joinInfo text-right" style="color: black; font-size: 11px;"><br>
       		<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
     	 </div> 
 		        <br>
 		        <form id="joinBarPicform" name="joinBarPicform" class="joinBarPicform" enctype="multipart/form-data">
-      			<table><tr><td>
+      			<table style="border: none; height: 100px; width: 100%; color: black;"><tr><td>
       			<img id="previewBarPic" src="#"/>
       			<button class="barPicAdd" style="border: 1px solid white; background-color: white;"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></button>
       			<input type="file" id="joinBarPic" style="display: none;">
@@ -1303,6 +1340,31 @@ input {
          <h3 class="modal-title text-center" style="color: black;"><b>Find Your ID/PW</b></h3>
 		    <br><font style="color: black">이메일이 전송되었습니다!<br>이용해 주셔서 감사합니다!</font>
       		<br>
+      </div>
+    </div>
+ </div>
+</div>
+    
+<!-- 계정 탈퇴 모달 -->
+<div class="modal modal-center fade" id="deleteMemberModal" tabindex="12" role="dialog" aria-hidden="true" style="display: none">
+  <div class="modal-dialog modal-lg" style="width: 30%;">
+    <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <div class="modal-body text-center"  style="height: 250px;">
+         <h3 class="modal-title text-center" style="color: black;"><b>Delete Your Account</b></h3>
+		      <form name="deleteAgreeForm" id="deleteAgreeForm">
+		      <table class="text-center" style="border: none; border-spacing: 20px 25px; height: 100px; width: 80%; color: black;  margin-top: 20px; margin-left: 33px; " >
+				<tr style="height: 30px;"><td colspan="4">
+				<font class="text-center">모든 정보가 삭제됩니다.<br><b>탈퇴</b>하시겠습니까?</font>
+				<input type="text" id="memberDeleteId" value="${loginInfo.userId }" style="display: none;">
+				<input type="text" id="memberDeleteRoleId" value="${loginInfo.roleId }" style="display: none;">
+				</td></tr>
+				<tr>
+					<td style="height: 20px; width: 20px;"><input type="radio" name="deleteMemberAgree" value="disagree" checked="checked"></td><td style="width: 165px; padding-right:25px">동의하지 않습니다</td>
+				    <td style="width: 20px;"><input type="radio" name="deleteMemberAgree" value="agree"></td><td style="width: 80px">동의합니다</td></tr>
+			  </table>
+			  </form><br>
+					<button type="button" class="deleteMember"><b>Delete</b></button>
       </div>
     </div>
 </div>
