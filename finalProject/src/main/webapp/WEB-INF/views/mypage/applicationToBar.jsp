@@ -19,20 +19,20 @@
 	}
 	
 	.adminMypageMain {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 300px;
 		margin: 10px auto;
 	}
 	
 	.adminMypageSearchDiv {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 50px;
 		margin: 10px auto;
 		
 		font-size:18px;
-		text-align:center;
+		text-align:right;
 	}
 	
 	.adminMypageSearchRes {
@@ -149,412 +149,706 @@
 		width: 340px;
 		height: 275px;
 	}
+	
+	.selectMenuli:hover {
+		color: white;
+	}
 </style>
-
-<div class="adminMenu">
-	<p onclick="viewMypageInfo() ">Mypage</p>
-	<p onclick="viewMypageModifyInfo() ">Modify</p>
-	<p onclick="viewMypageIntro() ">Intro</p>
-	<p class="selectMenu" onclick="viewMypageAppToBar() ">Application</p>
-	<p onclick="viewMypageRecommand() ">Recommand Bar</p>
-	<p onclick="viewMypageCalendar() ">Calendar</p>
-<!-- </div> -->
-
-<!-- <div class="applicationTab"> -->
-<!-- 	<ul > -->
-<!-- 		<li class="selectMenu">Application -->
-<!-- 			<ul > -->
-<!-- 				<li><a href="/mypage/applicationToBar">Band to Bar</a></li> -->
-<!-- 				<li><a href="/mypage/applicationToBand">Bar to Band</a></li> -->
-<!-- 			</ul> -->
-<!-- 		</li> -->
-<!-- 	</ul> -->
-<!-- </div> -->
-
-<!-- <div class="adminMenu"> -->
-</div><br><br>
-<hr>
-<div class="adminMypageMain">
-	<div class="adminMypageMainInfo">
-		<p class="adminDetailTitle">Band to Bar 지원현황</p>
-		<hr>
-		<ul class="adminDetailInfo">
-			<li>Application 검색 페이지입니다.</li>
-			<li>최근 6개월 간 지원내역에 대해 확인합니다.</li>
-			<li>지원 확정, 취소 등  최근 1년 이내 입니다.</li>
+<c:if test="${loginInfo.roleId eq 1 }">
+	<div class="adminMenu">
+		<p onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">Modify</p>
+		<p onclick="viewMypageIntro() ">Intro</p>
+	<!-- 	<p class="selectMenu" onclick="viewMypageAppToBar() ">Application</p> -->
+	</div>
+	
+	<div class="applicationTab">
+		<ul >
+			<li class="selectMenu">Application
+				<ul >
+					<li><p class="selectMenuli" onclick="viewMypageAppToBand() ">Bar to Band</p></li>
+					<li><p class="selectMenuli" onclick="viewMypageAppToBar() ">Band to Bar</p></li>
+				</ul>
+			</li>
 		</ul>
 	</div>
-	<div class="applicationImage">
-		<img src="../resources/bandAppImage.gif" class="appImage">
+	
+	<div class="adminMenu">
+		<p onclick="viewMypageCalendar() ">Calendar</p>
+	</div><br><br>
+	<hr>
+	<div class="adminMypageMain">
+		<div class="adminMypageMainInfo">
+			<p class="adminDetailTitle">Band to Bar</p>
+			<hr>
+			<ul class="adminDetailInfo">
+				<li>Application 검색 페이지입니다.</li>
+				<li>최근 6개월 간 지원내역에 대해 확인합니다.</li>
+				<li>지원 확정, 취소 등  최근 1년 이내 입니다.</li>
+			</ul>
+		</div>
+		<div class="applicationImage">
+			<img src="../resources/bandAppImage.gif" class="appImage">
+		</div>
 	</div>
-</div>
-
-<div class="adminMypageSearchDiv">
-	<div class="searchUserinfo">
-<!-- 		<form action="/mypage/applicationToBar" method="post"> -->
-			
-			<input type="date" class="insertResumesHistory" id="appStartDate" value=""/> ~ 
-			<input type="date" class="insertResumesHistory" id="appEndDate" value=""/>
-			<button id="searchBtn" class="searchBtn" onclick="searchAppFromBar() "> 검색 </button>
-<!-- 		</form> -->
-	</div>
-</div>
-<style type="text/css">
-/* tr th:not(:nth-child(2)) { */
-tr th {
-	text-align: center;
-	color:#000;
-	background-color: gold;
-}
-td {
-	border-left: 1px solid white;
-	border-right: 1px solid white;
-	color:#fff;
-	background-color: black;
-}
-
-#pagingBox {
-	position: relative;
-}
-#btnBox {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	height: 30px;
-	margin: auto;
-}
-#btnWrite {
-	height: 25px;
-}
-
-#memberView{
-	cursor:pointer;
-}
-
-#memberView:hover {
-	background: #dadada;
-}
-
-#listTitle {
-	cursor:pointer;
-}
-</style>
-
-<script type="text/javascript">
-$(document).ready(function() {
 	
-	var selectPage = 0;
-	
-// 	var curPage = "${paging.curPage }";
-// 	console.log(${paging.startPage });
-// 	console.log("curPage : " +curPage);
-// 	console.log("selectPage : " +selectPage);
-	
-	$("#ajaxBtn1").click( function() {
-		
-		selectPage = $("button[name='ajaxBtn1']").val();
-		console.log("selectPage : " +selectPage);
-		
-		$.ajax({
-			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+selectPage
-				, data: {
-					curPage : selectPage
-					}
-			, dataType: "html"
-			, success: function(res) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	});
-	
-	$("#ajaxBtn2").click( function() {
+	<div class="adminMypageSearchDiv">
+		<div class="searchUserinfo">
+	<!-- 		<form action="/mypage/applicationToBar" method="post"> -->
 				
-		selectPage = $("button[name='ajaxBtn2']").val();
-		console.log("selectPage : " +selectPage);
+				<input type="date" class="insertResumesHistory" id="appStartDate" value=""/> ~ 
+				<input type="date" class="insertResumesHistory" id="appEndDate" value=""/>
+				<button id="searchBtn" class="searchBtn" onclick="searchAppFromBar() "> 검색 </button>
+	<!-- 		</form> -->
+		</div>
+	</div>
+	<style type="text/css">
+	/* tr th:not(:nth-child(2)) { */
+	tr th {
+		text-align: center;
+		color:#000;
+		background-color: gold;
+	}
+	td {
+		border-left: 1px solid white;
+		border-right: 1px solid white;
+		color:#fff;
+		background-color: black;
+	}
+	
+	#pagingBox {
+		position: relative;
+	}
+	#btnBox {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		height: 30px;
+		margin: auto;
+	}
+	#btnWrite {
+		height: 25px;
+	}
+	
+	#memberView{
+		cursor:pointer;
+	}
+	
+	#memberView:hover {
+		background: #dadada;
+	}
+	
+	#listTitle {
+		cursor:pointer;
+	}
+	</style>
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
 		
-		$.ajax({
-			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+selectPage
-				, data: {
-					curPage : selectPage
-					}
-			, dataType: "html"
-			, success: function(res) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	});
+		var selectPage = 0;
+		
+	// 	var curPage = "${paging.curPage }";
+	// 	console.log(${paging.startPage });
+	// 	console.log("curPage : " +curPage);
+	// 	console.log("selectPage : " +selectPage);
+		
+		$("#ajaxBtn1").click( function() {
 			
-	$("#ajaxBtn3").click( function() {
-		
-		selectPage = $("button[name='ajaxBtn3']").val();
-		console.log("selectPage : " +selectPage);
-		
-		$.ajax({
-			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+selectPage
-				, data: {
-					curPage : selectPage
-					}
-			, dataType: "html"
-			, success: function(res) {
-				console.log("성공");
-	//				console.log(res);
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	});
-	
-	$("#ajaxBtn4").click( function() {
-		
-		selectPage = $("button[name='ajaxBtn4']").val();
-		console.log("selectPage : " +selectPage);
-		
-		$.ajax({
-			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+selectPage
-				, data: {
-					curPage : selectPage
-					}
-			, dataType: "html"
-			, success: function(res) {
-				console.log("성공");
-	//				console.log(res);
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	});
-	
-	$("#ajaxBtn5").click( function() {
-		
-		selectPage = $("button[name='ajaxBtn5']").val();
-		console.log("selectPage : " +selectPage);
-		
-		$.ajax({
-			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+selectPage
-				, data: {
-					curPage : selectPage
-					}
-			, dataType: "html"
-			, success: function(res) {
-				console.log("성공");
-	//				console.log(res);
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	});
-	
-	$("#ajaxBtnNext").click( function() {
-		
-		console.log(${paging.curPage });
-		var nextStartPage = "${paging.startPage }"+1;
+			selectPage = $("button[name='ajaxBtn1']").val();
+			console.log("selectPage : " +selectPage);
 			
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+selectPage
+					, data: {
+						curPage : selectPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		});
+		
+		$("#ajaxBtn2").click( function() {
+					
+			selectPage = $("button[name='ajaxBtn2']").val();
+			console.log("selectPage : " +selectPage);
 			
-		$.ajax({
-			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+nextStartPage
-				, data: {
-					curPage : nextStartPage
-					}
-			, dataType: "html"
-			, success: function(res) {
-				console.log("성공");
-	//				console.log(res);
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+selectPage
+					, data: {
+						curPage : selectPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		});
+				
+		$("#ajaxBtn3").click( function() {
+			
+			selectPage = $("button[name='ajaxBtn3']").val();
+			console.log("selectPage : " +selectPage);
+			
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+selectPage
+					, data: {
+						curPage : selectPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					console.log("성공");
+		//				console.log(res);
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		});
+		
+		$("#ajaxBtn4").click( function() {
+			
+			selectPage = $("button[name='ajaxBtn4']").val();
+			console.log("selectPage : " +selectPage);
+			
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+selectPage
+					, data: {
+						curPage : selectPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					console.log("성공");
+		//				console.log(res);
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		});
+		
+		$("#ajaxBtn5").click( function() {
+			
+			selectPage = $("button[name='ajaxBtn5']").val();
+			console.log("selectPage : " +selectPage);
+			
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+selectPage
+					, data: {
+						curPage : selectPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					console.log("성공");
+		//				console.log(res);
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		});
+		
+		$("#ajaxBtnNext").click( function() {
+			
+			console.log(${paging.curPage });
+			var nextStartPage = "${paging.startPage }"+1;
+				
+				
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+nextStartPage
+					, data: {
+						curPage : nextStartPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					console.log("성공");
+		//				console.log(res);
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		});
+		
+		$("#ajaxBtnPrev").click( function() {
+			
+			var prevStartPage = "${paging.startPage }"-5;
+				if( prevStartPage < 0 ) {
+					prevStartPage = 1;
+				}
+				console.log("prevStartPage : " +prevStartPage)
+				
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+prevStartPage
+					, data: {
+						curPage : prevStartPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					console.log("성공");
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		}); 
+		
+		$("#memberView").click( function() {
+			
+			selectBoard_no = $("input[name='board_no']").val();
+			console.log(selectBoard_no);
+			$.ajax({
+				type: "get"
+				, url: "/board/view?board_no=" + selectBoard_no
+					, data: {
+						}
+				, dataType: "html"
+				, success: function(res) {
+					console.log("성공");
+		//				console.log(res);
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
 		});
 	});
+	</script>
 	
-	$("#ajaxBtnPrev").click( function() {
-		
-		var prevStartPage = "${paging.startPage }"-5;
-			if( prevStartPage < 0 ) {
-				prevStartPage = 1;
-			}
-			console.log("prevStartPage : " +prevStartPage)
+	<div class="adminMypageSearchRes">
+		<div>
+			<table class="table table-hover table-striped table-condensed">
 			
-		$.ajax({
-			type: "get"
-			, url: "/mypage/applicationToBar?curPage="+prevStartPage
-				, data: {
-					curPage : prevStartPage
-					}
-			, dataType: "html"
-			, success: function(res) {
-				console.log("성공");
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}); 
-	
-	$("#memberView").click( function() {
+		<tr>
+			<th>이력서</th>
+			<th>지원일</th>
+			<th>Bar</th>
+			<th>공연 지원 날짜 / 시간</th>
+			<th>열람여부</th>
+			<th>수락 여부</th>
+			<th>지원취소</th>
+		</tr>
 		
-		selectBoard_no = $("input[name='board_no']").val();
-		console.log(selectBoard_no);
-		$.ajax({
-			type: "get"
-			, url: "/board/view?board_no=" + selectBoard_no
-				, data: {
-					}
-			, dataType: "html"
-			, success: function(res) {
-				console.log("성공");
-	//				console.log(res);
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	});
-});
-</script>
-
-<div class="adminMypageSearchRes">
-	<div>
-		<table class="table table-hover table-striped table-condensed">
-		
-	<tr>
-		<th>이력서</th>
-		<th>지원일</th>
-		<th>Bar</th>
-		<th>공연 지원 날짜 / 시간</th>
-		<th>열람여부</th>
-		<th>수락 여부</th>
-		<th>지원취소</th>
-	</tr>
-	
-		<c:forEach items="${aList }" var="i">
-		<%-- 			<c:if test="${i.roleId eq 1 || i.roleId eq 2}"> --%>
-		<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
-			<tr>
-	<!-- 			<tr id="memberView"> -->
-	<%-- 					<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
-	<%-- 					<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
-	<%-- 					<td>${i.userId }</td> --%>
-	<%-- 					<c:choose> --%>
-	<%-- 						<c:when test="${i.roleId eq 1}"> --%>
-	<!-- 							<td>바</td> -->
-	<%-- 						</c:when> --%>
-	<%-- 						<c:when test="${i.roleId eq 2}"> --%>
-	<!-- 							<td>밴드</td> -->
-	<%-- 						</c:when> --%>
-	<%-- 					</c:choose> --%>
-				<td><a href="/mypage/resumes?resumesNo=${i.resumesNo }">이력서 보기</a></td>
-				<td>${i.appDate }</td>
-				<td>${i.barName }</td>
-				<td>지원날짜 / 시간</td>
-				<td>
-					<c:if test="${i.read eq 0}">
-						미열람
-					</c:if>
-					<c:if test="${i.read eq 0}">
-						열람
-					</c:if>
-				</td>
-				<td>
-					<c:if test="${i.accept eq 0}">
-						대기
-					</c:if>
-					<c:if test="${i.accept eq 1}">
-						수락
-					</c:if>
-					<c:if test="${i.accept eq 2}">
-						거절
-					</c:if>
-				</td>
-				<td>
-					<form action="/mypage/applicationToBarCancel" method="post">
+			<c:forEach items="${aList }" var="i" varStatus="status">
+				<tr>
+					<td>
+						<input type="hidden" name="resumesNo[]" value="${i.resumesNo }"/>
+						<button class="searchBtn" onclick="viewResumes${status.count }() ">이력서 보기</button>
+					</td>
+					<td>${i.appDate }</td>
+					<td>${i.barName }</td>
+					<td>지원날짜 / 시간</td>
+					<td>
+						<c:if test="${i.read eq 0}">미열람</c:if>
+						<c:if test="${i.read eq 1}">열람</c:if>
+					</td>
+					<td>
+						<c:if test="${i.accept eq 0}">대기</c:if>
+						<c:if test="${i.accept eq 1}">수락</c:if>
+						<c:if test="${i.accept eq 2}">거절</c:if>
+					</td>
+					<td>
 						<input type="hidden" name="appNo" value="${i.appNo }">
-							<button class="searchBtn">지원취소</button>
-					</form>
-				</td>
-			</tr>
-		</c:forEach>
+						<button class="searchBtn" onclick="applicationToBarCancel${status.count }() ">지원취소</button>
+					</td>
+				</tr>
+			</c:forEach>
+				
+		</table>
 			
-	</table>
-		
-	<div id="pagingBox" class="text-center">
-	  <ul class="pagination pagination-sm">
-	  
-<%-- 		<c:if test="${paging.curPage ne 1 }"> --%>
-<!-- 	    <li> -->
-<!-- 	      <a href="/board/list" aria-label="First"> -->
-<!-- 	        <span aria-hidden="true">&larr;처음</span> -->
-<!-- 	      </a> -->
-<!-- 	    </li> -->
-<%-- 		</c:if> --%>
-	  
-	  	<!-- 이전 페이지 -->
-	  	<!-- 첫 페이지라면 버튼 동작 안 되게 만들기 -->
-<%-- 	  	<c:if test="${paging.curPage eq 1 }"> --%>
-<!-- 	    <li class="disabled"> -->
-<!-- 	        <span aria-hidden="true">&laquo;</span> -->
-<!-- 	    </li> -->
-<%-- 	    </c:if> --%>
-	    
-<%-- 	  	<c:if test="${paging.curPage ne 1 }"> --%>
-<!-- 	    <li> -->
-<%-- 	      <a href="/board/list?curPage=${paging.curPage-1 }" aria-label="Previous"> --%>
-<!-- 	        <span aria-hidden="true">&laquo;</span> -->
-<!-- 	      </a> -->
-<!-- 	    </li> -->
-<%-- 	    </c:if> --%>
-	    
-	    	<!-- 이전 페이지 -->
-	    <c:if test="${paging.curPage ne 1}">
-    		<button id="ajaxBtnPrev" class="searchBtn" name="ajaxBtnPrev">Prev</button>
-    	</c:if>
-    	
-	    <!-- 페이징 리스트 -->
-	   
-	    <c:forEach
- 	     begin="${paging.startPage }"
- 	     end="${paging.endPage }"
- 	     var="i">
-<!-- 			현재 보고 있는 페이지번호만 강조해주기 -->
-<%-- 			<c:if test="${paging.curPage eq i}">           --%>
-<!-- 	    	  <li class="active"> -->
-<%-- 	    	  	<a href="/board/list?curPage=${i }">${i }</a> --%>
-<!-- 	    	  	</li> -->
-<%-- 	    	</c:if> --%>
-<%-- 			<c:if test="${paging.curPage ne i}">           --%>
-<!-- 	    	  <li> -->
-<%-- 	    	  <a href="/board/list?curPage=${i }">${i }</a> --%>
-<!-- 	    	  </li> -->
-<%-- 	    	</c:if> --%>
-			<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
-	    </c:forEach>
-		
-		<c:if test="${paging.curPage % 5 ne 1}">
-			<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
-		</c:if>
-		
-	    </ul>
+		<div id="pagingBox" class="text-center">
+		  <ul class="pagination pagination-sm">
+		    	<!-- 이전 페이지 -->
+		    <c:if test="${paging.curPage ne 1}">
+	    		<button id="ajaxBtnPrev" class="searchBtn" name="ajaxBtnPrev">Prev</button>
+	    	</c:if>
+	    	
+		    <!-- 페이징 리스트 -->
+		    <c:forEach
+	 	     begin="${paging.startPage }"
+	 	     end="${paging.endPage }"
+	 	     var="i">
+				<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+		    </c:forEach>
+			
+			<c:if test="${paging.curPage % 5 ne 1}">
+				<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
+			</c:if>
+			
+		    </ul>
+		</div>
+		</div>
 	</div>
+</c:if>
+
+<c:if test="${loginInfo.roleId eq 2 }">
+	<div class="adminMenu">
+		<p onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">Modify</p>
+		<p onclick="viewMypageIntro() ">Intro</p>
+	<!-- 	<p class="selectMenu" onclick="viewMypageAppToBar() ">Application</p> -->
 	</div>
-</div>
+	
+	<div class="applicationTab">
+		<ul >
+			<li class="selectMenu">Application
+				<ul >
+					<li><p class="selectMenuli" onclick="viewMypageAppToBand() ">Bar to Band</p></li>
+					<li><p class="selectMenuli" onclick="viewMypageAppToBar() ">Band to Bar</p></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="adminMenu">
+		<p onclick="viewMypageRecommand() ">Recommand Bar</p>
+		<p onclick="viewMypageCalendar() ">Calendar</p>
+	</div><br><br>
+	<hr>
+	<div class="adminMypageMain">
+		<div class="adminMypageMainInfo">
+			<p class="adminDetailTitle">Bar to Band</p>
+			<hr>
+			<ul class="adminDetailInfo">
+				<li>Application 검색 페이지입니다.</li>
+				<li>최근 6개월 간 지원내역에 대해 확인합니다.</li>
+				<li>지원 확정, 취소 등  최근 1년 이내 입니다.</li>
+			</ul>
+		</div>
+		<div class="applicationImage">
+			<img src="../resources/bandAppImage.gif" class="appImage">
+		</div>
+	</div>
+	
+	<div class="adminMypageSearchDiv">
+		<div class="searchUserinfo">
+	<!-- 		<form action="/mypage/applicationToBar" method="post"> -->
+				
+				<input type="date" class="insertResumesHistory" id="appStartDate" value=""/> ~ 
+				<input type="date" class="insertResumesHistory" id="appEndDate" value=""/>
+				<button id="searchBtn" class="searchBtn" onclick="searchAppFromBar() "> 검색 </button>
+	<!-- 		</form> -->
+		</div>
+	</div>
+	<style type="text/css">
+	/* tr th:not(:nth-child(2)) { */
+	tr th {
+		text-align: center;
+		color:#000;
+		background-color: gold;
+	}
+	td {
+		border-left: 1px solid white;
+		border-right: 1px solid white;
+		color:#fff;
+		background-color: black;
+	}
+	
+	#pagingBox {
+		position: relative;
+	}
+	#btnBox {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		height: 30px;
+		margin: auto;
+	}
+	#btnWrite {
+		height: 25px;
+	}
+	
+	#memberView{
+		cursor:pointer;
+	}
+	
+	#memberView:hover {
+		background: #dadada;
+	}
+	
+	#listTitle {
+		cursor:pointer;
+	}
+	</style>
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		
+		var selectPage = 0;
+		
+	// 	var curPage = "${paging.curPage }";
+	// 	console.log(${paging.startPage });
+	// 	console.log("curPage : " +curPage);
+	// 	console.log("selectPage : " +selectPage);
+		
+		$("#ajaxBtn1").click( function() {
+			
+			selectPage = $("button[name='ajaxBtn1']").val();
+			console.log("selectPage : " +selectPage);
+			
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+selectPage
+					, data: {
+						curPage : selectPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		});
+		
+		$("#ajaxBtn2").click( function() {
+					
+			selectPage = $("button[name='ajaxBtn2']").val();
+			console.log("selectPage : " +selectPage);
+			
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+selectPage
+					, data: {
+						curPage : selectPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		});
+				
+		$("#ajaxBtn3").click( function() {
+			
+			selectPage = $("button[name='ajaxBtn3']").val();
+			console.log("selectPage : " +selectPage);
+			
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+selectPage
+					, data: {
+						curPage : selectPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					console.log("성공");
+		//				console.log(res);
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		});
+		
+		$("#ajaxBtn4").click( function() {
+			
+			selectPage = $("button[name='ajaxBtn4']").val();
+			console.log("selectPage : " +selectPage);
+			
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+selectPage
+					, data: {
+						curPage : selectPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					console.log("성공");
+		//				console.log(res);
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		});
+		
+		$("#ajaxBtn5").click( function() {
+			
+			selectPage = $("button[name='ajaxBtn5']").val();
+			console.log("selectPage : " +selectPage);
+			
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+selectPage
+					, data: {
+						curPage : selectPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					console.log("성공");
+		//				console.log(res);
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		});
+		
+		$("#ajaxBtnNext").click( function() {
+			
+			console.log(${paging.curPage });
+			var nextStartPage = "${paging.startPage }"+1;
+				
+				
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+nextStartPage
+					, data: {
+						curPage : nextStartPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					console.log("성공");
+		//				console.log(res);
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		});
+		
+		$("#ajaxBtnPrev").click( function() {
+			
+			var prevStartPage = "${paging.startPage }"-5;
+				if( prevStartPage < 0 ) {
+					prevStartPage = 1;
+				}
+				console.log("prevStartPage : " +prevStartPage)
+				
+			$.ajax({
+				type: "get"
+				, url: "/mypage/applicationToBar?curPage="+prevStartPage
+					, data: {
+						curPage : prevStartPage
+						}
+				, dataType: "html"
+				, success: function(res) {
+					console.log("성공");
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		}); 
+		
+		$("#memberView").click( function() {
+			
+			selectBoard_no = $("input[name='board_no']").val();
+			console.log(selectBoard_no);
+			$.ajax({
+				type: "get"
+				, url: "/board/view?board_no=" + selectBoard_no
+					, data: {
+						}
+				, dataType: "html"
+				, success: function(res) {
+					console.log("성공");
+		//				console.log(res);
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+		});
+	});
+	</script>
+	
+	<div class="adminMypageSearchRes">
+		<div>
+			<table class="table table-hover table-striped table-condensed">
+			
+		<tr>
+			<th>이력서</th>
+			<th>지원일</th>
+			<th>Bar</th>
+			<th>공연 지원 날짜 / 시간</th>
+			<th>열람여부</th>
+			<th>수락 여부</th>
+			<th>지원취소</th>
+		</tr>
+		
+			<c:forEach items="${aList }" var="i" varStatus="status">
+				<tr>
+					<td>
+						<input type="hidden" name="resumesNo[]" value="${i.resumesNo }"/>
+						<button class="searchBtn" onclick="viewResumes${status.count }() ">이력서 보기</button>
+					</td>
+					<td>${i.appDate }</td>
+					<td>${i.barName }</td>
+					<td>지원날짜 / 시간</td>
+					<td>
+						<c:if test="${i.read eq 0}">미열람</c:if>
+						<c:if test="${i.read eq 1}">열람</c:if>
+					</td>
+					<td>
+						<c:if test="${i.accept eq 0}">대기</c:if>
+						<c:if test="${i.accept eq 1}">수락</c:if>
+						<c:if test="${i.accept eq 2}">거절</c:if>
+					</td>
+					<td>
+						<input type="hidden" name="appNo" value="${i.appNo }">
+						<button class="searchBtn" onclick="applicationToBarCancel${status.count }() ">지원취소</button>
+					</td>
+				</tr>
+			</c:forEach>
+				
+		</table>
+			
+		<div id="pagingBox" class="text-center">
+		  <ul class="pagination pagination-sm">
+		    	<!-- 이전 페이지 -->
+		    <c:if test="${paging.curPage ne 1}">
+	    		<button id="ajaxBtnPrev" class="searchBtn" name="ajaxBtnPrev">Prev</button>
+	    	</c:if>
+	    	
+		    <!-- 페이징 리스트 -->
+		    <c:forEach
+	 	     begin="${paging.startPage }"
+	 	     end="${paging.endPage }"
+	 	     var="i">
+				<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+		    </c:forEach>
+			
+			<c:if test="${paging.curPage % 5 ne 1}">
+				<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
+			</c:if>
+			
+		    </ul>
+		</div>
+		</div>
+	</div>
+</c:if>

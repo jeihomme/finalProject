@@ -447,8 +447,8 @@
 	}
 	
 	function modifyIntro(){
-		//AJAX 처리하기
 		
+		//AJAX 처리하기
 		$.ajax({ 	
 			type: "get"
 			, url: "/mypage/modifyIntro"
@@ -609,6 +609,32 @@
 	function modifyIntro(){
 		//AJAX 처리하기
 		
+// 		var introData = {
+// 				locationNo: $("#locationNo").val()
+// 				, genreNo: $("#genreNo").val()
+// 				, barAddress: $("#barAddress").val()
+// 				, barInfo: $("#modifyBarInfo").val()
+// 				, barNo: $("#barNo").val()
+// 		    };
+		
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/modifyIntro"
+			, data: {}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+// 				viewMypageIntro();
+			}
+			, error: function() {
+				alert("실패");
+			}
+		});
+	}
+
+	function modifyIntroProc(){
+		//AJAX 처리하기
+		
 		var introData = {
 				locationNo: $("#locationNo").val()
 				, genreNo: $("#genreNo").val()
@@ -621,7 +647,7 @@
 			type: "post"
 			, url: "/mypage/modifyIntro"
 			, data: introData
-			, dataType: "json"
+			, dataType: "html"
 			, success: function( res ) {
 				console.log(res);
 				viewMypageIntro();
@@ -632,7 +658,7 @@
 			}
 		});
 	}
-
+	
 	function viewMypageUserAdmin(){
 		//AJAX 처리하기
 		$.ajax({ 	
@@ -1747,6 +1773,136 @@ function minHistorylist2(){
 				, data: {
 					musicNo: musicNo
 					, bandNo: bandNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function applicationToBarCancel1() {
+		
+		var appNoList = [];
+		
+		for(var i=0;i<document.getElementsByName("appNo").length; i++) {
+			appNoList[i] = document.getElementsByName("appNo")[i].value;
+	    }
+		
+		var appNo = appNoList[0];
+		
+		$.ajax({
+			type: "post"
+			, url: "/mypage/applicationToBarCancel"
+				, data: {
+					appNo: appNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function applicationToBarCancel2() {
+		
+		var appNoList = [];
+		
+		for(var i=0;i<document.getElementsByName("appNo").length; i++) {
+			appNoList[i] = document.getElementsByName("appNo")[i].value;
+	    }
+		
+		var appNo = appNoList[1];
+		
+		$.ajax({
+			type: "post"
+			, url: "/mypage/applicationToBarCancel"
+				, data: {
+					appNo: appNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function applicationToBarCancel3() {
+		
+		var appNoList = [];
+		
+		for(var i=0;i<document.getElementsByName("appNo").length; i++) {
+			appNoList[i] = document.getElementsByName("appNo")[i].value;
+	    }
+		
+		var appNo = appNoList[2];
+		
+		$.ajax({
+			type: "post"
+			, url: "/mypage/applicationToBarCancel"
+				, data: {
+					appNo: appNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function applicationToBarCancel4() {
+		
+		var appNoList = [];
+		
+		for(var i=0;i<document.getElementsByName("appNo").length; i++) {
+			appNoList[i] = document.getElementsByName("appNo")[i].value;
+	    }
+		
+		var appNo = appNoList[3];
+		
+		$.ajax({
+			type: "post"
+			, url: "/mypage/applicationToBarCancel"
+				, data: {
+					appNo: appNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function applicationToBarCancel5() {
+		
+		var appNoList = [];
+		
+		for(var i=0;i<document.getElementsByName("appNo").length; i++) {
+			appNoList[i] = document.getElementsByName("appNo")[i].value;
+	    }
+		
+		var appNo = appNoList[4];
+		
+		$.ajax({
+			type: "post"
+			, url: "/mypage/applicationToBarCancel"
+				, data: {
+					appNo: appNo
 					}
 			, dataType: "html"
 			, success: function(res) {

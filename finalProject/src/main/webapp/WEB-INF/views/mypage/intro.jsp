@@ -19,7 +19,7 @@
 	}
 	
 	.adminMypageMain {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 300px;
 		margin: 10px auto;
@@ -95,7 +95,7 @@
 	.introDetailInfo {
 /*  		width:144px; */
 		font-size:13px;
-/* 		float:left; */
+		color: gold;
 	}
 	
 	.adminDetailMust {
@@ -166,6 +166,18 @@
 	    right: 135px;
 	    top: -10px;
 	}
+	
+	.barIntroInfo1 {
+		margin: 10px;
+		width:400;
+		float:left;
+	}
+	
+	.barIntroInfo2 {
+		margin: 10px;
+		width:400;
+		float:left;
+	}
 </style>
 
 <script>
@@ -192,10 +204,10 @@ $(document).ready(function(){
 	<hr>
 	<div class="adminMypageMain">
 		<div class=bandIntroInfo>
-			<b class="adminDetailTitle">기본정보 </b><b>사진을 누르면 변경됩니다.</b><br>
-			
+			<b class="adminDetailTitle">Intro </b><br>
+			<input type="hidden" id="barNo" value="${bar.barNo }"/>
 			<div class="bandIntroInfo">
-			
+				<b>사진을 누르면 사진이 변경됩니다.</b>
 				<form id="profileFileForm" action="" enctype="multipart/form-data" class="uploadForm">
 					<input id="profileFile" type="file" name="uploadFile" style="display:none;"/>
 				</form>
@@ -203,21 +215,21 @@ $(document).ready(function(){
 				<img src="../resources/${pPic.originName }" id="profileImage" class="barProfileImage img-rounded"/>
 				
 			</div>
-			<div class="bandIntroInfo">
-				<b class="introDetailInfo">바명</b><p class="adminDetailMust">(필수) </p><br>
+			<div class="barIntroInfo1">
+				<b class="introDetailInfo">바명</b>
 				${bar.barName }<br><br>
 	<!-- 			<input type="text" name="bandName"/><br> -->
-				<b class="introDetailInfo">담당자 </b><p class="adminDetailMust">(필수) </p><br>
+				<b class="introDetailInfo">담당자 </b>
 				${bar.manager }<br><br>
-				<b class="introDetailInfo">연락처 </b><p class="adminDetailMust">(필수) </p><br>
+				<b class="introDetailInfo">연락처 </b>
 				${member.contact }<br><br>
 	<!-- 			<input type="text" name="contact"/><br> -->
 			</div>
-			<div class="bandIntroInfo">
-				<b class="introDetailInfo">이메일 </b><p class="adminDetailMust">(필수) </p><br>
+			<div class="barIntroInfo1">
+				<b class="introDetailInfo">이메일 </b>
 	<!-- 			<input type="text" name="email"/><br> -->
 				${member.email }<br><br>
-				<b class="introDetailInfo">장르 </b><p class="adminDetailMust">(필수) </p><br>
+				<b class="introDetailInfo">장르 </b>
 				${genre.genreName }<br><br>
 			</div>
 			
@@ -227,7 +239,7 @@ $(document).ready(function(){
 	<div class="adminMypageSearchRes">
 		<hr>
 		<div>
-			<b class="bandIntroHeader">주소</b>
+			<b class="adminDetailTitle">Address</b>
 			<table class="table table-hover table-striped table-condensed">
 				
 				<tr>
@@ -308,28 +320,26 @@ $(document).ready(function(){
 		background-color: black;
 	}
 	
-	</style>
-	<style>
-		.bandIntroHeader {
-			font-size:20px;
-		}
-		
-		.bandIntroInsert {
-			color: black;
-			background-color:gold;
-			float:right;
-		}
-		
-		.bandIntroPublic {
-			color: black;
-			background-color:gold;
-			float:left;
-		}
-		
-		.bandModifyBtn {
-			float:right;
-		}
-	</style>
+	.bandIntroHeader {
+		font-size:20px;
+	}
+	
+	.bandIntroInsert {
+		color: black;
+		background-color:gold;
+		float:right;
+	}
+	
+	.bandIntroPublic {
+		color: black;
+		background-color:gold;
+		float:left;
+	}
+	
+	.bandModifyBtn {
+		float:right;
+	}
+</style>
 	
 	<div class="adminMypageSearchRes">
 		<hr>
@@ -361,10 +371,8 @@ $(document).ready(function(){
 						</td>
 						<td>
 							<b class="mousePointer" onclick="viewResumes${status.count }()"> ${i.resumesTitle } </b>
-								
 								<input type="hidden" name="resumesNo[]" value="${i.resumesNo }">
 								<button class="searchBtn" onclick="deleteResumes${status.count }()">삭제</button>
-								
 						</td>
 						<td>${i.musicNo }</td>
 					</tr>

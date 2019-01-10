@@ -20,7 +20,7 @@
 	}
 	
 	.adminMypageMain {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		height: 600px;
 		width:700px;
 		margin: 0 auto;
@@ -38,6 +38,7 @@
 	
 	.adminDetailInfo {
 		font-size:20px;
+		color:gold;
 /* 		float:left; */
 	}
 	
@@ -70,7 +71,7 @@
 	<hr>
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">관리자 마이페이지 메인 </p>
+			<p class="adminDetailTitle">Mypage </p>
 			<hr>
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
@@ -78,7 +79,7 @@
 			<p class="adminDetailInfo">연락처 : ${member.contact }</p>
 		</div>
 		<div class="adminMypageMainImage">
-			<img src="../resources/mainImage.png" class="myPageMainImage">
+			<img src="../resources/adminMainImage.png" class="myPageMainImage">
 		</div>
 		
 	</div>
@@ -90,22 +91,22 @@
 		<p onclick="viewMypageModifyInfo() ">Modify</p>
 		<p onclick="viewMypageCaldendar() ">Intro</p>
 		<p onclick="viewMypageAppToBand() ">Application</p>
-		<p onclick="viewMypageCalendar() ">Caldendar</p>
+		<p onclick="viewMypageCalendar() ">Calendar</p>
 	</div><br><br>
 	<hr>
 	
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">Bar 마이페이지 메인 </p>
+			<p class="adminDetailTitle">Mypage </p>
 			<hr>
-			<p class="adminDetailInfo">계정 : ${member.userId }</p>
-			<p class="adminDetailInfo">이름 : ${member.userName }</p>
-			<p class="adminDetailInfo">이메일 : ${member.email }</p>
-			<p class="adminDetailInfo">연락처 : ${member.contact }</p>
-			<p class="adminDetailInfo">바 : ${bar.barName }</p>
+			<b class="adminDetailInfo">계정</b> ${member.userId }<br>
+			<b class="adminDetailInfo">이름</b> ${member.userName }<br>
+			<b class="adminDetailInfo">이메일</b> ${member.email }<br>
+			<b class="adminDetailInfo">연락처</b> ${member.contact }<br>
+			<b class="adminDetailInfo">바</b> ${bar.barName }<br>
 		</div>
 		<div class="adminMypageMainImage">
-			<img src="../resources/mainImage.jpg" class="myPageMainImage">
+			<img src="../resources/barMainImage.jpg" class="myPageMainImage">
 		</div>
 	</div>
 </c:if>
@@ -117,12 +118,12 @@
 		<p onclick="viewMypageIntro() ">Intro</p>
 		<p onclick="viewMypageAppToBar() ">Application</p>
 		<p onclick="viewMypageRecommand() ">Recommand Bar</p>
-		<p onclick="viewMypageCalendar() ">Caldendar</p>
+		<p onclick="viewMypageCalendar() ">Calendar</p>
 	</div><br><br>
 	<hr>
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">Band 마이페이지 메인 </p>
+			<p class="adminDetailTitle">Mypage </p>
 			<hr>
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>

@@ -19,7 +19,7 @@
 	}
 	
 	.adminMypageMain {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		height: 600px;
 		width:700px;
 		margin: 0 auto;
@@ -37,6 +37,7 @@
 	
 	.adminDetailInfo {
 		font-size:20px;
+		color:gold;
 /* 		float:left; */
 	}
 	
@@ -154,10 +155,10 @@ $(document).ready(function() {
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
 			
-			<p class="adminDetailTitle">관리자 마이페이지 메인 </p>
+			<p class="adminDetailTitle">Modify </p>
 			<hr>
-			<p class="adminDetailInfo">계정 : ${member.userId }</p>
-			<p class="adminDetailInfo">이름 : ${member.userName }</p>
+			<p class="adminDetailInfo">계정</p> ${member.userId }
+			<p class="adminDetailInfo">이름</p> ${member.userName }
 			<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><br>
 			
 <!-- 			<form class="modifyInfoDone" action="/mypage/modifyPw" method="post"> -->
@@ -168,9 +169,9 @@ $(document).ready(function() {
 				    <p class="close">X</p>
 				    <h2>비밀번호 변경</h2>
 				    
-					<b class="adminDetailInfo">현재 PW : </b><input type="password"  id="currPassword" name="password" ><br>
-					<b class="adminDetailInfo">새 PW : </b><input type="password"  id="newPasswordFisrt" name="newPasswordFisrt" ><br>
-					<b class="adminDetailInfo">새 PW 확인 : </b><input type="password"  id="newPasswordSecond" name="newPasswordSecond" ><br>
+					<b class="adminDetailInfo">현재 PW</b> <input type="password"  id="currPassword" name="password" ><br>
+					<b class="adminDetailInfo">새 PW</b> <input type="password"  id="newPasswordFisrt" name="newPasswordFisrt" ><br>
+					<b class="adminDetailInfo">새 PW 확인</b> <input type="password"  id="newPasswordSecond" name="newPasswordSecond" ><br>
 					
 					<button class="modifyBtn" onclick="modifyPw()">수정</button><br>
 					
@@ -179,8 +180,8 @@ $(document).ready(function() {
 <!-- 			</form> -->
 			
 <!-- 			<form class="modifyInfoDone" action="/mypage/modifyInfo" method="post"> -->
-				<b class="adminDetailInfo">이메일 : </b><input id="email" name="email" value="${member.email }"/><br>
-				<b class="adminDetailInfo">통신사 : </b>
+				<b class="adminDetailInfo">이메일</b> <input id="email" name="email" value="${member.email }"/><br>
+				<b class="adminDetailInfo">통신사</b>
 				
 				<select class="modifyBtn" id="telcom" name="telcom" >
 					<c:if test="${member.telcom eq null}">
@@ -196,12 +197,12 @@ $(document).ready(function() {
 					<option value="LG">LG</option>
 					
 				</select><br>
-				<b class="adminDetailInfo">연락처 : </b><input id="contact" name="contact" value="${member.contact }"/><br>
+				<b class="adminDetailInfo">연락처</b> <input id="contact" name="contact" value="${member.contact }"/><br>
 				<button class="modifyBtn" onclick="modifyMypageInfo()">수정</button>
 <!-- 			</form> -->
 		</div>
 		<div class="adminMypageMainImage">
-			<img src="../resources/mainImage.png" class="myPageMainImage">
+			<img src="../resources/adminMainImage.png" class="myPageMainImage">
 		</div>
 		
 	</div>
@@ -220,10 +221,10 @@ $(document).ready(function() {
 
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">Bar 마이페이지 메인</p>
+			<p class="adminDetailTitle">Modify</p>
 			<hr>
-			<p class="adminDetailInfo">아이디 : ${member.userId }</p>
-			<p class="adminDetailInfo">닉네임 : ${member.userName }</p>
+			<b class="adminDetailInfo">아이디</b> ${member.userId }<br>
+			<b class="adminDetailInfo">닉네임</b> ${member.userName }<br>
 			
 			<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><br>
 			
@@ -234,9 +235,9 @@ $(document).ready(function() {
 				    <p class="close">X</p>
 				    <h2>비밀번호 변경</h2>
 				    
-					<b class="adminDetailInfo">현재 PW : </b><input type="password"  id="currPassword" name="password" ><br>
-					<b class="adminDetailInfo">새 PW : </b><input type="password"  id="newPasswordFisrt" name="newPasswordFisrt" ><br>
-					<b class="adminDetailInfo">새 PW 확인 : </b><input type="password"  id="newPasswordSecond" name="newPasswordSecond" ><br>
+					<b class="adminDetailInfo">현재 PW</b> <input type="password"  id="currPassword" name="password" ><br>
+					<b class="adminDetailInfo">새 PW</b> <input type="password"  id="newPasswordFisrt" name="newPasswordFisrt" ><br>
+					<b class="adminDetailInfo">새 PW 확인</b> <input type="password"  id="newPasswordSecond" name="newPasswordSecond" ><br>
 					
 					<button class="modifyBtn" onclick="modifyPw()">수정</button><br>
 					
@@ -244,9 +245,9 @@ $(document).ready(function() {
 				</div>
 			
 			
-				<b class="adminDetailInfo">이메일 : </b>
+				<b class="adminDetailInfo">이메일</b>
 					<input id="email" name="email" value="${member.email }" /><br>
-				<b class="adminDetailInfo">통신사 : </b>
+				<b class="adminDetailInfo">통신사</b>
 				
 				<select class="modifyBtn" id="telcom" name="telcom" >
 					<c:if test="${member.telcom eq null}">
@@ -262,13 +263,13 @@ $(document).ready(function() {
 					<option value="LG">LG</option>
 					
 				</select><br>
-				<b class="adminDetailInfo">연락처 : </b><input id="contact" name="contact"value="${member.contact }" /><br>
+				<b class="adminDetailInfo">연락처</b><input id="contact" name="contact"value="${member.contact }" /><br>
 				<button class="modifyBtn" onclick="modifyMypageInfo()">수정</button>
 
 		</div>
 
 		<div class="adminMypageMainImage">
-			<img src="../resources/mainImage.jpg" class="myPageMainImage">
+			<img src="../resources/barMainImage.jpg" class="myPageMainImage">
 		</div>
 
 	</div>
@@ -287,7 +288,7 @@ $(document).ready(function() {
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
 			
-			<p class="adminDetailTitle">Band 마이페이지 메인 </p>
+			<p class="adminDetailTitle">Modify</p>
 			<hr>
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>

@@ -19,7 +19,7 @@
 	}
 	
 	.adminMypageMain {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 300px;
 		margin: 10px auto;
@@ -160,7 +160,7 @@
 	
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">기본정보 </p>
+			<p class="adminDetailTitle">Intro </p>
 			
 			<div class="adminMypageMainInfo">
 				<img src="../resources/${pPic.originName }" id="profileImage" class="profilePicSize img-rounded" />
@@ -220,7 +220,7 @@
 	<div class="adminMypageSearchRes">
 		<hr>
 		<div>
-			<b class="bandIntroHeader">주소</b>
+			<b class="adminDetailTitle">Address</b>
 			<table class="table table-hover table-striped table-condensed">
 				
 				<tr>
@@ -288,7 +288,7 @@
 		<div class="resumesViewDiv">
 			<button class="resumesBtn" onclick="viewMypageIntro() ">뒤로가기</button>
 			<input type="hidden" name="barNo" value="${bar.barNo }"/>
-			<button class="resumesBtn" onclick="modifyIntro() ">완료</button>
+			<button class="resumesBtn" onclick="modifyIntroProc() ">완료</button>
 		</div>
 		
 </c:if>
