@@ -489,9 +489,22 @@ public class MypageServiceImpl implements MypageService{
 		pPic.setStoredName(picTitle);
 		pPic.setPath(path);
 		
-//		if( musicTitle != null ) {
+		System.out.println(pPic);
+//		if( pPic.get != null ) {
 			mpDao.updateProfilePic(pPic);
 //		}
+	}
+
+	@Override
+	public void insertBarProfile(Bar bar) {
+		// TODO Auto-generated method stub
+		mpDao.insertBarProfileNo(bar);
+	}
+
+	@Override
+	public void insertBandProfile(Band band) {
+		// TODO Auto-generated method stub
+		mpDao.insertBandProfileNo(band);
 	}
 
 }

@@ -57,13 +57,19 @@
 	}
 	
 	.adminMypageMainImage {
-		border: 1px solid #fff;
+/* 		border: 1px solid #fff; */
 		margin: 10px;
 		width: 335px;
 		height: 280px;
 		float:right;
 	}
 	
+	.calendarImage {
+		width: 340px;
+		height: 275px;
+		-webkit-filter: grayscale(100%);
+		filter: gray;
+	}
 	.selectMenu {
 		color: gold;
 	}
@@ -105,16 +111,16 @@
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
 		<p onclick="viewMypageInfo() ">Mypage</p>
-		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-		<p onclick="viewMypageIntro() ">바 소개</p>
-		<p onclick="viewMypageAppToBand() ">지원 현황</p>
-		<p class="selectMenu" onclick="viewMypageCalendar() ">일정표</p>
+		<p onclick="viewMypageModifyInfo() ">Modify</p>
+		<p onclick="viewMypageIntro() ">Intro</p>
+		<p onclick="viewMypageAppToBand() ">Application</p>
+		<p class="selectMenu" onclick="viewMypageCalendar() ">Calendar</p>
 	</div><br><br>
 	<hr>
 	
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">Bar 일정표 </p>
+			<p class="adminDetailTitle">Bar Calendar </p>
 			<hr>
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
@@ -123,14 +129,14 @@
 			<p class="adminDetailInfo">바 : ${bar.barName }</p>
 		</div>
 		<div class="adminMypageMainImage">
-			<p >이미지 넣어주세요 </p>
+			<img src="../resources/calendarImage.gif" class="calendarImage">
 		</div>
 	</div>
 	
 	<div class="adminMypageSearchRes">
 		<hr>
 		<div>
-			<b class="bandIntroHeader">일정표</b>
+			<b class="bandIntroHeader">Calendar</b>
 			<table class="table table-hover table-striped table-condensed">
 				
 				<tr>
@@ -150,16 +156,16 @@
 <c:if test="${loginInfo.roleId eq 2 }">
 	<div class="adminMenu">
 		<p onclick="viewMypageInfo() ">Mypage</p>
-		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-		<p onclick="viewMypageIntro() ">밴드 소개</p>
-		<p onclick="viewMypageAppToBar() ">지원 현황</p>
-		<p onclick="viewMypageRecommand() ">추천 Bar</p>
-		<p class="selectMenu" onclick="viewMypageCalendar() ">일정표</p>
+		<p onclick="viewMypageModifyInfo() ">Modify</p>
+		<p onclick="viewMypageIntro() ">Intro</p>
+		<p onclick="viewMypageAppToBar() ">Application</p>
+		<p onclick="viewMypageRecommand() ">Recommand Bar</p>
+		<p class="selectMenu" onclick="viewMypageCalendar() ">Calendar</p>
 	</div><br><br>
 	<hr>
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">Bar 일정표 </p>
+			<p class="adminDetailTitle">Bar Calendar </p>
 			<hr>
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
@@ -168,14 +174,14 @@
 			<p class="adminDetailInfo">바 : ${bar.barName }</p>
 		</div>
 		<div class="adminMypageMainImage">
-			<p >이미지 넣어주세요 </p>
+			<img src="../resources/calendarImage.gif" class="calendarImage">
 		</div>
 	</div>
 	
 	<div class="adminMypageSearchRes">
 		<hr>
 		<div>
-			<b class="bandIntroHeader">일정표</b>
+			<b class="bandIntroHeader">Calendar</b>
 			<table class="table table-hover table-striped table-condensed">
 				
 				<tr>

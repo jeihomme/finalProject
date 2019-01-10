@@ -123,5 +123,7 @@ public interface MypageDao {
 	public void deleteBandGenre(Resumes resumes);
 	public void updatePublicResumes(Band band);
 	public void updateProfilePic(ProfilePic pPic);
+	public void insertBarProfileNo(Bar bar);
+	public void insertBandProfileNo(Band band);
 	
 }

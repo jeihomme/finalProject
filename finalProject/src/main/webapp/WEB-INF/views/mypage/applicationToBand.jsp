@@ -57,11 +57,16 @@
 	}
 	
 	.applicationImage {
-		border: 1px solid #fff;
+/* 		border: 1px solid #fff; */
 		margin: 10px;
-		width: 335px;
-		height: 280px;
+		width: 340px;
+		height: 275px;
 		float:right;
+	}
+	
+	.appImage {
+		width: 340px;
+		height: 275px;
 	}
 	
 	.selectMenu {
@@ -148,10 +153,10 @@
 
 <div class="adminMenu">
 	<p onclick="viewMypageInfo() ">Mypage</p>
-		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-		<p onclick="viewMypageIntro() ">바 소개</p>
-		<p class="selectMenu" onclick="viewMypageAppToBand() ">지원 현황</p>
-		<p onclick="viewMypageCalendar() ">일정표</p>
+		<p onclick="viewMypageModifyInfo() ">Modify</p>
+		<p onclick="viewMypageIntro() ">Intro</p>
+		<p class="selectMenu" onclick="viewMypageAppToBand() ">Application</p>
+		<p onclick="viewMypageCalendar() ">Calendar</p>
 	</div><br><br>
 <hr>
 <div class="adminMypageMain">
@@ -159,13 +164,13 @@
 		<p class="adminDetailTitle">Bar to Band 지원현황</p>
 		<hr>
 		<ul class="adminDetailInfo">
-			<li>지원 현황 검색 페이지입니다.</li>
+			<li>Application 검색 페이지입니다.</li>
 			<li>최근 6개월 간 지원내역에 대해 확인합니다.</li>
 			<li>지원 확정, 취소 등  최근 1년 이내 입니다.</li>
 		</ul>
 	</div>
 	<div class="applicationImage">
-		<p >이미지 넣어주세요 </p>
+		<img src="../resources/bandAppImage.gif" class="appImage">
 	</div>
 </div>
 <div class="adminMypageSearchDiv">
