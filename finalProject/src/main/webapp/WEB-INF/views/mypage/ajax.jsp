@@ -141,7 +141,7 @@
 				$("#body").html(res);
 			}
 			, error: function() {
-				console.log("실패");
+				alert("실패");
 			}
 		});
 	}
@@ -540,6 +540,7 @@
 			}
 			, dataType: "html"
 			, success: function( res ) {
+				alert("수정 완료!");
 				$("#body").html(res);
 			}
 			, error: function() {
@@ -1538,17 +1539,18 @@ function minHistorylist2(){
 	function uploadSoundIntro() {
 			
 		var form = $('#soundFileForm')[0];
-                var formData = new FormData(form);
-                formData.append("fileObj", $("#soundFile")[0].files[0]);
+		var formData = new FormData(form);
+		formData.append("fileObj", $("#soundFile")[0].files[0]);
 
 		$.ajax({
-			type: 'POST'
+			type: "post"
 			, url: "/mypage/uploadSoundIntro"
 				, data: formData
 	        , processData: false
 	        , contentType: false
 	        , success: function(res){
 	            viewMypageIntro();
+	            alert("선택된 이력서를 공개합니다.");
 	        }
 			, error: function() {
 				alert("실패");
@@ -1558,22 +1560,52 @@ function minHistorylist2(){
 	
 	function uploadProfilePicIntro() {
 		var form = $('#profileFileForm')[0];
-                var formData = new FormData(form);
-                formData.append("fileObj", $("#profileFile")[0].files[0]);
+		var formData = new FormData(form);
+		formData.append("fileObj", $("#profileFile")[0].files[0]);
 
 		$.ajax({
-			type: 'POST'
+			type: "post"
 			, url: "/mypage/uploadProfilePicIntro"
 				, data: formData
 	        , processData: false
 	        , contentType: false
 	        , success: function(res){
-	            viewMypageIntro();
+	        	viewMypageIntro();
 	        }
 			, error: function() {
 				alert("실패");
 			}
 		});
+		
+// 		$.post( "/mypage/uploadProfilePicIntro", {
+// 			data: formData
+// 			, processData: false
+// 			, contentType: false
+// 		}, function(jqXHR) {
+// 			viewMypageIntro();
+// 		}, 'json' /* xml, text, script, html */)
+// 		.done(function(jqXHR) {
+// 		    console.log( "second success" );
+// 		})
+// 		.fail(function(jqXHR) {
+// 			console.log( "error" );
+// 		})
+// 		.always(function(jqXHR) {
+// 			console.log( "finished" );
+// 		});
+		
+// 		$.get( "example.php?Name=ajax&Age=10", function(jqXHR) {
+// 		    alert( "success" );
+// 		}, 'json' /* xml, text, script, html */)
+// 		.done(function(jqXHR) {
+// 		    alert( "second success" );
+// 		})
+// 		.fail(function(jqXHR) {
+// 		    alert( "error" );
+// 		})
+// 		.always(function(jqXHR) {
+// 		    alert( "finished" );
+// 		});
 	}
 	
 	function deleteSound1() {

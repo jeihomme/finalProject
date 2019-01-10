@@ -41,11 +41,16 @@
 	}
 	
 	.adminMypageMainImage {
-		border: 1px solid #fff;
+/* 		border: 1px solid #fff; */
 		margin: 10px;
 		width: 335px;
 		height: 575px;
 		float:right;
+	}
+	
+	.myPageMainImage {
+		width: 335px;
+		height: 575px;
 	}
 	
 	.selectMenu {
@@ -141,9 +146,9 @@ $(document).ready(function() {
 <c:if test="${loginInfo.roleId eq 0 }">
 	<div class="adminMenu">
 		<p onclick="viewMypageInfo() ">Mypage</p>
-		<p class="selectMenu" onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-		<p onclick="viewMypageUserAdmin() ">회원 관리</p>
-		<p onclick="viewMypageBoardAdmin() ">게시글 관리</p>
+		<p class="selectMenu" onclick="viewMypageModifyInfo() ">Modify</p>
+		<p onclick="viewMypageUserAdmin() ">Users</p>
+		<p onclick="viewMypageBoardAdmin() ">Boards</p>
 	</div><br><br>
 	<hr>
 	<div class="adminMypageMain">
@@ -196,7 +201,7 @@ $(document).ready(function() {
 <!-- 			</form> -->
 		</div>
 		<div class="adminMypageMainImage">
-			<p >이미지 넣어주세요 </p>
+			<img src="../resources/mainImage.png" class="myPageMainImage">
 		</div>
 		
 	</div>
@@ -206,10 +211,10 @@ $(document).ready(function() {
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
 		<p onclick="viewMypageInfo() ">Mypage</p>
-		<p class="selectMenu" onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-		<p onclick="viewMypageIntro() ">바 소개</p>
-		<p onclick="viewMypageAppToBand() ">지원 현황</p>
-		<p onclick="viewMypageCalendar() ">일정표</p>
+		<p class="selectMenu" onclick="viewMypageModifyInfo() ">Modify</p>
+		<p onclick="viewMypageIntro() ">Intro</p>
+		<p onclick="viewMypageAppToBand() ">Application</p>
+		<p onclick="viewMypageCalendar() ">Calendar</p>
 	</div><br><br>
 	<hr>
 
@@ -263,7 +268,7 @@ $(document).ready(function() {
 		</div>
 
 		<div class="adminMypageMainImage">
-			<p>이미지 넣어주세요</p>
+			<img src="../resources/mainImage.jpg" class="myPageMainImage">
 		</div>
 
 	</div>
@@ -272,11 +277,11 @@ $(document).ready(function() {
 <c:if test="${loginInfo.roleId eq 2 }">
 	<div class="adminMenu">
 		<p onclick="viewMypageInfo() ">Mypage</p>
-		<p class="selectMenu" onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-		<p onclick="viewMypageIntro() ">밴드 소개</p>
-		<p onclick="viewMypageAppToBar() ">지원 현황</p>
-		<p onclick="viewMypageRecommand() ">추천 Bar</p>
-		<p onclick="viewMypageCalendar() ">일정표</p>
+		<p class="selectMenu" onclick="viewMypageModifyInfo() ">Modify</p>
+		<p onclick="viewMypageIntro() ">Intro</p>
+		<p onclick="viewMypageAppToBar() ">Application</p>
+		<p onclick="viewMypageRecommand() ">Recommand Bar</p>
+		<p onclick="viewMypageCalendar() ">Calendar</p>
 	</div><br><br>
 	<hr>
 	<div class="adminMypageMain">
@@ -348,7 +353,7 @@ $(document).ready(function() {
 				<button type="submit" class="modifyBtn" onclick="modifyMypageInfo()">수정</button>
 		</div>
 		<div class="adminMypageMainImage">
-			<p >이미지 넣어주세요 </p>
+			<img src="../resources/BandMainImage.gif" class="myPageMainImage">
 		</div>
 		
 	</div>

@@ -57,13 +57,17 @@
 	}
 	
 	.adminMypageMainImage {
-		border: 1px solid #fff;
+/* 		border: 1px solid #fff; */
 		margin: 10px;
 		width: 335px;
 		height: 280px;
 		float:right;
 	}
 	
+	.bandRecomm {
+		width: 340px;
+		height: 275px;
+	}
 	.selectMenu {
 		color: gold;
 	}
@@ -101,12 +105,12 @@
 </style>
 
 <div class="adminMenu">
-	<p onclick=" location.href='/mypage/info' ">Mypage</p>
-	<p onclick="location.href='/mypage/modifyInfo' ">회원 정보수정</p>
-	<p onclick="location.href='/mypage/intro' ">밴드 소개</p>
-	<p onclick="location.href='/mypage/applicationToBar' ">지원 현황</p>
-	<p class="selectMenu" onclick="location.href='/mypage/recommand' ">추천 Bar</p>
-	<p onclick="location.href='/mypage/calendar' ">일정표</p>
+	<p onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
+		<p onclick="viewMypageIntro() ">밴드 소개</p>
+		<p onclick="viewMypageAppToBar() ">지원 현황</p>
+		<p class="selectMenu" onclick="viewMypageRecommand() ">추천 Bar</p>
+		<p onclick="viewMypageCalendar() ">일정표</p>
 </div><br><br>
 <hr>
 <div class="adminMypageMain">
@@ -117,7 +121,7 @@
 		<p class="adminDetailInfo">추천 Bar는 등록하신 음악 장르에 미리 분류됩니다.</p>
 	</div>
 	<div class="adminMypageMainImage">
-		<p >이미지 넣어주세요 </p>
+		<img src="../resources/bandRecomm.gif" class="bandRecomm">
 	</div>
 </div>
 

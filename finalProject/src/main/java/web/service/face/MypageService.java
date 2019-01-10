@@ -102,6 +102,8 @@ public interface MypageService {
 	public void deleteBandGenre(Resumes resumes);
 	public void updatePublicResumes(Band band);
 	public void uploadPicture(ServletContext context, ProfilePic pPic, MultipartFile file);
+	public void insertBarProfile(Bar bar);
+	public void insertBandProfile(Band band);
 	
 	
 	

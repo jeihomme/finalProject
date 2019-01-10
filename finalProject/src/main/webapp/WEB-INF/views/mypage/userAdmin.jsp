@@ -57,11 +57,16 @@
 	}
 	
 	.adminMypageMainImage {
-		border: 1px solid #fff;
+/* 		border: 1px solid #fff; */
 		margin: 10px;
 		width: 335px;
 		height: 280px;
 		float:right;
+	}
+	
+	.adminUserManage {
+		width: 340px;
+		height: 275px;
 	}
 	
 	.selectMenu {
@@ -104,7 +109,7 @@
 		<p class="adminDetailInfo">회원을 검색하여 강제 삭제할 수 있는 공간입니다.</p>
 	</div>
 	<div class="adminMypageMainImage">
-		<p >이미지 넣어주세요 </p>
+		<img src="../resources/adminUserManage.png" class="adminUserManage">
 	</div>
 </div>
 <div class="adminMypageSearchDiv">

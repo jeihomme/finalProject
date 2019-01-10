@@ -428,6 +428,10 @@ public class MypageController {
 		
 		List<History> historyList = mpService.getHistoryList(resumes);
 		
+		ProfilePic pPic = new ProfilePic();
+		pPic.setProfileNo(band.getProfileNo());
+		pPic = mpService.getProfilePic(pPic);
+		
 		model.addAttribute("member", member);
 		model.addAttribute("band", band);
 		model.addAttribute("genre", genre);
@@ -435,6 +439,9 @@ public class MypageController {
 		model.addAttribute("resumes", resumes);
 		model.addAttribute("music", music);
 		model.addAttribute("historyList", historyList);
+		
+		model.addAttribute("pPic", pPic);
+		
 		
 	}
 	
@@ -489,6 +496,10 @@ public class MypageController {
 		Music music = new Music();
 		music.setBandNo(band.getBandNo());
 		
+		ProfilePic pPic = new ProfilePic();
+		pPic.setProfileNo(band.getProfileNo());
+		pPic = mpService.getProfilePic(pPic);
+		
 		List<Music> musicList = mpService.getMusicList(music);
 		logger.info(musicList.toString());
 		
@@ -526,6 +537,7 @@ public class MypageController {
 		List<History> historyList = mpService.getHistoryList(resumes);
 		int hList = historyList.size();
 		
+		model.addAttribute("pPic", pPic);
 		model.addAttribute("band", band);
 		model.addAttribute("member", member);
 		model.addAttribute("resumes", resumes);
@@ -706,9 +718,17 @@ public class MypageController {
 			logger.info(bar.toString());
 			
 			pPic = new ProfilePic();
-			pPic.setProfileNo(bar.getProfileNo());
-			pPic = mpService.getProfilePic(pPic);
 			
+			if ( bar.getProfileNo() == 0 ) {
+				mpService.insertBarProfile(bar);
+			}
+			
+			pPic.setProfileNo(bar.getProfileNo());
+			
+			mpService.uploadPicture(context, pPic, file);
+			
+			
+					
 		} else if ( member.getRoleId() == 2 ) {
 			Band band = new Band();
 			band.setUserId(member.getUserId());
@@ -716,11 +736,15 @@ public class MypageController {
 			logger.info(band.toString());
 			
 			pPic = new ProfilePic();
+			
+			if( band.getProfileNo() == 0) {
+				mpService.insertBandProfile(band);
+			}
+			
 			pPic.setProfileNo(band.getProfileNo());
-			pPic = mpService.getProfilePic(pPic);
+			
+			mpService.uploadPicture(context, pPic, file);
 		}
-		
-		mpService.uploadPicture(context, pPic, file);
 		
 		return "redirect:/mypage/intro";
 	}

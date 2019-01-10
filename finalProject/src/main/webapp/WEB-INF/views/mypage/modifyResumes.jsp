@@ -162,6 +162,15 @@ td {
 	.bandModifyBtn {
 		float:right;
 	}
+	
+	.bandProfileImage {
+		cursor:pointer;	
+	}
+	
+	.profilePicSize {
+		width: 220px;
+		height: 200px;
+	}
 </style>
 
 <div class="adminMenu">
@@ -178,7 +187,7 @@ td {
 		<p class="adminDetailTitle">기본정보 </p>
 		
 		<div class="adminMypageMainInfo">
-			<input type="file" name="profileNo"/>
+			<img src="../resources/${pPic.originName }" id="profileImage" class="profilePicSize img-rounded" />
 		</div>
 		<div class="adminMypageMainInfo">
 			<b class="adminDetailInfo">밴드명</b><p class="adminDetailMust">(필수) </p><br>

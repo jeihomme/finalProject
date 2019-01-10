@@ -140,11 +140,31 @@
 		cursor:pointer;
 	}
 	
-	.profileImage {
+	.bandProfileImage {
 		width: 290px;
 		height: 280px;
 		margin: 7px 0px 0px -8px;
 		border-radius: 15px;
+		cursor:pointer;
+	}
+	
+	.barProfileImage {
+		width: 210px;
+		height: 200px;
+		margin: 7px 0px 0px -8px;
+		border-radius: 15px;
+		cursor:pointer;
+	}
+	
+	.modifyProfilePic {
+		float:left;
+		text-decoration:none;
+		color: #ffffff;
+		font-size:35px;
+		cursor:pointer;
+	    position: relative;
+	    right: 135px;
+	    top: -10px;
 	}
 </style>
 
@@ -156,7 +176,7 @@ $(document).ready(function(){
 	
 	$('#profileFile').change(function(){
 		uploadProfilePicIntro();
-		$('#profileFileForm').submit();
+// 		$('#profileFileForm').submit();
 	});
 });
 </script>
@@ -164,15 +184,15 @@ $(document).ready(function(){
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
 		<p onclick="viewMypageInfo() ">Mypage</p>
-		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-		<p class="selectMenu" onclick="viewMypageIntro() ">바 소개</p>
-		<p onclick="viewMypageAppToBand() ">지원 현황</p>
-		<p onclick="viewMypageCalendar() ">일정표</p>
+		<p onclick="viewMypageModifyInfo() ">Modify</p>
+		<p class="selectMenu" onclick="viewMypageIntro() ">Intro</p>
+		<p onclick="viewMypageAppToBand() ">Application</p>
+		<p onclick="viewMypageCalendar() ">Calendar</p>
 	</div><br><br>
 	<hr>
 	<div class="adminMypageMain">
 		<div class=bandIntroInfo>
-			<p class="adminDetailTitle">기본정보 </p>
+			<b class="adminDetailTitle">기본정보 </b><b>사진을 누르면 변경됩니다.</b><br>
 			
 			<div class="bandIntroInfo">
 			
@@ -180,8 +200,8 @@ $(document).ready(function(){
 					<input id="profileFile" type="file" name="uploadFile" style="display:none;"/>
 				</form>
 <%-- 				<img class="profilePicSize" src="http://${pPic.path }/${pPic.originName }"> --%>
-				<img src="../resources/${pPic.originName }" id="profileImage" class="profileImage img-rounded" style="cursor:pointer;"/>
-<!-- 				<input type="file" name="profileNo"/> -->
+				<img src="../resources/${pPic.originName }" id="profileImage" class="barProfileImage img-rounded"/>
+				
 			</div>
 			<div class="bandIntroInfo">
 				<b class="introDetailInfo">바명</b><p class="adminDetailMust">(필수) </p><br>
@@ -225,7 +245,7 @@ $(document).ready(function(){
 	<div class="adminMypageSearchRes">
 		<hr>
 		<div >
-			<p class="adminDetailTitle">바 소개 </p>
+			<p class="adminDetailTitle">Intro </p>
 			<table class="table table-hover table-striped table-condensed">
 				<tr>
 					<th>소개</th>
@@ -248,16 +268,16 @@ $(document).ready(function(){
 <c:if test="${loginInfo.roleId eq 2 }">
 	<div class="adminMenu">
 		<p onclick="viewMypageInfo() ">Mypage</p>
-		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-		<p class="selectMenu" onclick="viewMypageIntro() ">밴드 소개</p>
-		<p onclick="viewMypageAppToBar() ">지원 현황</p>
-		<p onclick="viewMypageRecommand() ">추천 Bar</p>
-		<p onclick="viewMypageCalendar() ">일정표</p>
+		<p onclick="viewMypageModifyInfo() ">Modify</p>
+		<p class="selectMenu" onclick="viewMypageIntro() ">Intro</p>
+		<p onclick="viewMypageAppToBar() ">Application</p>
+		<p onclick="viewMypageRecommand() ">Recommand Bar</p>
+		<p onclick="viewMypageCalendar() ">Calendar</p>
 	</div><br><br>
 	<hr>
 	<div class="adminMypageMain">
 		<div class="barIntroInfo">
-			<p class="adminDetailTitle">밴드 소개 </p>
+			<p class="adminDetailTitle">Intro </p>
 			<hr>
 			<ul class="introDetailInfo">
 				<li>이력서는 최대 5개까지 작성 가능합니다.</li>
@@ -270,7 +290,7 @@ $(document).ready(function(){
 			<input id="profileFile" type="file" name="uploadFile" style="display:none;"/>
 		</form>
 		<div class="adminMypageMainImage">
-			<img src="../resources/${pPic.originName }" id="profileImage" class="profileImage img-rounded" style="cursor:pointer;"/>
+			<img src="../resources/${pPic.originName }" id="profileImage" class="bandProfileImage img-rounded"/>
 		</div>
 	</div>
 	<style type="text/css">
@@ -300,6 +320,12 @@ $(document).ready(function(){
 			float:right;
 		}
 		
+		.bandIntroPublic {
+			color: black;
+			background-color:gold;
+			float:left;
+		}
+		
 		.bandModifyBtn {
 			float:right;
 		}
@@ -309,9 +335,11 @@ $(document).ready(function(){
 		<hr>
 		<div>
 			<p class="bandIntroHeader">밴드소개 리스트</p>
-			<button class="bandIntroInsert" onclick="modifyPublicResumes() ">대표 이력서 설정</button>
+			<c:if test="${rListRnum > 0 }">
+				<button class="bandIntroPublic" onclick="modifyPublicResumes() ">공개 선택</button>
+			</c:if>
 			<c:if test="${rListRnum < 5 }">
-				<button class="bandIntroInsert" onclick="viewNewResumes() ">소개 등록</button>
+				<button class="bandIntroInsert" onclick="viewNewResumes() ">+</button>
 			</c:if>
 			<table class="table table-hover table-striped table-condensed">
 				

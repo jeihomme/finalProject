@@ -128,6 +128,11 @@
 		color:#fff;
 		background-color: black;
 	}
+	
+	.profilePicSize {
+		width: 220px;
+		height: 200px;
+	}
 </style>
 
 <div class="adminMenu">
@@ -145,7 +150,7 @@
 		<p class="adminDetailTitle">기본정보 </p>
 		
 		<div class="adminMypageMainInfo">
-			<input type="file" name="profileNo"/>
+			<img src="../resources/${pPic.originName }" id="profileImage" class="profilePicSize img-rounded" />
 		</div>
 		<div class="adminMypageMainInfo">
 			<b class="adminDetailInfo">밴드명</b><p class="adminDetailMust">(필수) </p><br>

@@ -598,5 +598,33 @@
 	<update id="updateProfilePic" parameterType="web.dto.ProfilePic">
 		update ProfilePic set path= #{path }, originName= #{originName }, storedName= #{storedName }
 			where profileNo=#{profileNo }
+		
+	</update>
+	
+<!-- 	public void insertBarProfileNo(Bar bar); -->
+	<update id="insertBarProfileNo"
+		parameterType="web.dto.Bar">
+			insert into Bar
+			values(
+				profileNo= (select * from (
+				select NVL(max(profileNo)+1, 1) from ProfilePic
+				order by profileNo desc
+				)
+				where rownum = 1)
+				)
+			where barNo = #{barNo }
+	</update>
+<!-- 	public void insertBandProfileNo(Band band); -->
+	<update id="insertBandProfileNo"
+		parameterType="web.dto.Band">
+			insert into Band
+			values(
+				profileNo= (select * from (
+				select NVL(max(profileNo)+1, 1) from ProfilePic
+				order by profileNo desc
+				)
+				where rownum = 1)
+				)
+			where bandNo = #{bandNo }
 	</update>
 </mapper>
