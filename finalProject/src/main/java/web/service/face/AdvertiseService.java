@@ -35,5 +35,11 @@ public interface AdvertiseService {
 	public Paging getPaging(int curPage, int listCount, int pageCount);
 
 	public int selectAdvertiseCntAll();
+
+	public List bandList();
+
+	public ProfilePic getPropic();
+
+
 	
 }

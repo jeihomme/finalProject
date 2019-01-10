@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.dao.face.AdvertiseDao;
+import web.dao.face.BandDao;
 import web.dao.face.BandGenreDao;
 import web.dao.face.MusicDao;
 import web.dto.Advertise;
-import web.dto.BandMember;
 import web.dto.FindMember;
+import web.dto.Member;
 import web.dto.ProfilePic;
 import web.service.face.AdvertiseService;
 import web.utils.Paging;
@@ -23,6 +24,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	@Autowired private AdvertiseDao advertiseDao;
 	@Autowired MusicDao musicDao;
 	@Autowired BandGenreDao bandGenreDao;
+	@Autowired BandDao bandDao;
 	
 	@Override
 	public List getList(Paging paigng) {
@@ -56,6 +58,11 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		int profileNo = advertiseDao.getPicNo(findM.getBandNo());
 		ProfilePic proPic = advertiseDao.getProPic(profileNo);
 		map.put("proPic", proPic);
+		
+		// 맴버에서 아이디 가져오기
+		String userId = advertiseDao.getMemberUserId(findM.getBandNo());
+		Member member = advertiseDao.getMemberContact(userId);
+		map.put("member" , member);
 		
 		// 밴드 멤버 가져오기
 		List list = advertiseDao.getBMember(findM.getBandNo());
@@ -105,17 +112,25 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	public int selectAdvertiseCntAll() {
 		return advertiseDao.selectAdvertiseCntAll();
 	}
-/*	@Override
-	public List getList(FindMember findMember) {
-
-
-		return advertiseDao.getList(findMember);
-	}*/
 
 	@Override
 	public ProfilePic viewProfile(int profileNo) {
 		
 		return advertiseDao.selectProfilePic(profileNo);
+	}
+
+	@Override
+	public List bandList() {
+		// TODO Auto-generated method stub
+		return advertiseDao.getBand();
+	}
+
+	@Override
+	public ProfilePic getPropic() {
+		
+
+		// TODO Auto-generated method stub
+		return advertiseDao.getProfile();
 	}
 
 	

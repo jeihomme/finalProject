@@ -28,12 +28,13 @@ WHERE a.bandNo = b.bandNo
   <if test="adsNo != null and adsNo != '' ">
 	 AND b.adsNo = #{adsNo}
 	 </if>
+	 ORDER BY findNo DESC
 </sql>
 <select id="selectPagingList" resultType="web.dto.FindMember" parameterType="web.utils.Paging">
 SELECT * FROM ( SELECT rownum rnum, B.* FROM (
 <include refid="selectAdvertise"/>
 )
-B ORDER BY findNo DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum
+B ORDER BY rnum DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum
 </select>
 <select id="selectAdvertiseCntAll" resultType="int">
 SELECT COUNT(*) CNT FROM (
@@ -52,6 +53,7 @@ SELECT COUNT(*) CNT FROM (
 	     , CASE WHEN B.adsNo = '1' THEN '맴버'
 	         ELSE '콜라보'
 	         END ads
+	     , a.profileNo
 	FROM BAND A , FINDMEMBER B 
 	WHERE a.bandNo = b.bandNo
  	  <if test="adsNo != null and adsNo != '' "> 
@@ -65,14 +67,17 @@ SELECT COUNT(*) CNT FROM (
 </select>
 
 <select id="selectAdvertise" parameterType="int" resultType="web.dto.FindMember">
-	SELECT findNo, bandNo, positionNo, title, content, writtenDate, genre, musicNo, adsNo,
+	SELECT a.findNo, a.bandNo, a.positionNo, a.title, a.content, a.writtenDate,  a.musicNo, a.adsNo,
 		CASE WHEN positionNo = '1' THEN '보컬'
 			WHEN positionNo = '2' THEN '기타'
 			WHEN positionNo = '3' THEN '드러머'
 		ELSE '콜라보'
 		END position
-	 FROM findMember
-	 WHERE findNo = #{findNo}
+		,CASE WHEN b.genreNo = a.genre THEN b.genreName
+		END genre
+	 FROM findMember A ,genre B
+	 WHERE a.findNo = #{findNo}
+	 AND b.genreNo = #{genre}
 </select>
 
 <select id="getPicNo" parameterType="String" resultType="int">
@@ -101,5 +106,25 @@ SELECT COUNT(*) CNT FROM (
 <select id="allGenre" resultType="web.dto.Genre">
 	SELECT *
 	FROM genre
+</select>
+
+<select id="getMemberUserId" resultType="String">
+	SELECT userId
+	FROM band
+	WHERE bandNo = #{bandNo}
+</select>
+
+<select id="getMemberContact" parameterType="String" resultType="web.dto.Member">
+ SELECT userId , contact , userName
+ FROM Member
+ WHERE userId = #{userId}
+</select>
+
+<select id="getBand" resultType="String">
+ SELECT * FROM BAND WHERE bandNo = #{bandNo}
+</select>
+
+<select id="getProfile" resultType="int">
+SELECT * FROM profilepic WHERE profileNo = #{profileNo}
 </select>
 </mapper>

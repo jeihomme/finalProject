@@ -18,17 +18,20 @@ public class FindMember {
 	private String ads;
 	private String rnum;
 	private String profileNo;
+	private String userId;
 	
 	
 	
 
+
+	
 
 	@Override
 	public String toString() {
 		return "FindMember [findNo=" + findNo + ", bandName=" + bandName + ", bandNo=" + bandNo + ", position="
 				+ position + ", positionNo=" + positionNo + ", title=" + title + ", content=" + content
 				+ ", writtenDate=" + writtenDate + ", genre=" + genre + ", musicNo=" + musicNo + ", adsNo=" + adsNo
-				+ ", ads=" + ads + ", rnum=" + rnum + ", profileNo=" + profileNo + "]";
+				+ ", ads=" + ads + ", rnum=" + rnum + ", profileNo=" + profileNo + ", userId=" + userId + "]";
 	}
 
 
@@ -169,6 +172,17 @@ public class FindMember {
 	public void setProfileNo(String profileNo) {
 		this.profileNo = profileNo;
 	}
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	
 	
 	
