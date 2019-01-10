@@ -54,16 +54,16 @@ public interface MemberService {
 	public void deleteMember(Member member);
 	
 	// bar 탈퇴
-	public void deleteBar(Member member);
+	public void deleteBar(Member member, Bar bar);
 	
 	// band 탈퇴
-	public void deleteBand(Member member);
+	public void deleteBand(Member member, Band band);
 	
 	// bar 정보 확인
-	public int checkBarProfileNo(Member member);
+	public Bar checkBarInfo(Member member);
 	
 	// band 정보 확인
-	public int checkBandProfileNo(Member member);
+	public Band checkBandInfo(Member member);
 	
 	// bar 프로필 사진 삭제
 	public void deleteBarProfile(int barPicNo);

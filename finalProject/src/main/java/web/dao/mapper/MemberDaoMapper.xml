@@ -111,14 +111,27 @@
  		WHERE userId=#{userId }
  	</delete>
  	
- 	<select id="checkBarPicNo" parameterType="web.dto.Member" resultType="int">
- 		SELECT profileNo
+ 	<select id="checkBarInformation" parameterType="web.dto.Member" resultType="web.dto.Bar">
+ 		SELECT 
+			barNo,
+			barName,
+			userId,
+			profileNo,
+			locationNo,
+			barInfo,
+			manager,
+			barAddress,
+			genreNo
  		FROM bar
  		WHERE userId=#{userId }
  	</select>
  	
- 	<select id="checkBandPicNo" parameterType="web.dto.Member" resultType="int">
- 		SELECT profileNo
+ 	<select id="checkBandInformation" parameterType="web.dto.Member" resultType="web.dto.Band">
+ 		SELECT 
+			bandNo,
+			bandName,
+			userId,
+			profileNo
  		FROM band
  		WHERE userId=#{userId }
  	</select>
@@ -134,5 +147,59 @@
  		FROM profilePic
  		WHERE profileNo=#{bandPicNo }
  	</delete>
+ 	
+ 	<delete id="deleteBarApp" parameterType="web.dto.Bar">
+ 		DELETE
+ 		FROM application
+ 		WHERE barName = #{barName }
+ 	</delete>
+ 	
+ 	<delete id="deleteBarCal" parameterType="web.dto.Bar">
+ 		DELETE
+ 		FROM calendar
+ 		WHERE barNo = #{barNo }
+ 	</delete>
+ 	
+ 	<delete id="deleteBandMember" parameterType="web.dto.Band">
+ 		DELETE
+ 		FROM bandMember
+ 		WHERE bandNo = #{bandNo }
+ 	</delete>
+	
+	<delete id="deleteCollab" parameterType="web.dto.Band">
+		DELETE
+		FROM collaboration
+		WHERE bandNo = #{bandNo }
+	</delete>
+	
+	<delete id="deleteAdvertise" parameterType="web.dto.Band">
+		DELETE
+		FROM advertise
+		WHERE bandNo = #{bandNo }
+	</delete>
+	
+	<delete id="deleteFindMember" parameterType="web.dto.Band">
+		DELETE
+		FROM findMember
+		WHERE bandNo = #{bandNo }
+	</delete>
+	
+	<delete id="deleteMusic" parameterType="web.dto.Band">
+		DELETE
+		FROM music
+		WHERE bandNo = #{bandNo }
+	</delete>
+
+	<delete id="deleteResume" parameterType="web.dto.Band">
+		DELETE
+		FROM resumes
+		WHERE bandNo = #{bandNo }
+	</delete>
+	
+	<delete id="deleteBandCal" parameterType="web.dto.Band">
+		DELETE
+		FROM calendar
+		WHERE bandNo = #{bandNo }
+	</delete>
  	
  </mapper>

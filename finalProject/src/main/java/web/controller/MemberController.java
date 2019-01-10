@@ -282,41 +282,49 @@ public class MemberController {
 				
 		// bar 탈퇴일 경우
 		if(member.getRoleId()==1) {
+			bar = memberService.checkBarInfo(member);
+
 			// bar 프로필 사진 정보 가져오기
-			int barPicNo = memberService.checkBarProfileNo(member);
+			int barPicNo = bar.getProfileNo();
 			
 			// 프로필 사진 삭제
 			memberService.deleteBarProfile(barPicNo);
 
 			// bar 탈퇴
-			memberService.deleteBar(member);
+			memberService.deleteBar(member, bar);
 			
 		// band 탈퇴일 경우
 		} else if(member.getRoleId()==2) {			
-			// band 프로필 사진 정보 가져오기
-			int bandPicNo = memberService.checkBandProfileNo(member);
+			band = memberService.checkBandInfo(member);
 			
+			// band 프로필 사진 정보 가져오기
+			int bandPicNo = band.getProfileNo();
+
 			// 프로필 사진 삭제
 			memberService.deleteBandProfile(bandPicNo);
 			
 			// band 탈퇴
-			memberService.deleteBand(member);
+			memberService.deleteBand(member, band);
 		} 
 		
 		// 회원 탈퇴
 		memberService.deleteMember(member);
 		
-		try {
-			out.write("{\"res\": true}" );				
-			
-		} catch (IOException e) {
-			e.printStackTrace();
+		// 컬럼이 성공적으로 삭제되었을 경우
+		if(memberService.login(member)==false) {
+			try {
+				out.write("{\"res\": true}" );				
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
+		// 로그인 처리 해제
 		session.setAttribute("login", false);
 		
-		session.invalidate();
-		
+		session.invalidate();		
+
 		return "redirect:/main";
 	}
 

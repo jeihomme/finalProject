@@ -4,6 +4,7 @@ import web.dto.Band;
 import web.dto.Bar;
 import web.dto.Member;
 import web.dto.ProfilePic;
+import web.dto.Resumes;
 
 public interface MemberDao {
 	
@@ -53,10 +54,10 @@ public interface MemberDao {
 	public void deleteBand(Member member);
 	
 	// bar 프로필 사진 정보 가져오기
-	public int checkBarPicNo(Member member);
+	public Bar checkBarInformation(Member member);
 	
 	// band 프로필 사진 정보 가져오기
-	public int checkBandPicNo(Member member);
+	public Band checkBandInformation(Member member);
 	
 	// bar 프로필 사진 삭제
 	public void deleteBarPic(int barPicNo);
@@ -64,5 +65,32 @@ public interface MemberDao {
 	// band 프로필 사진 삭제
 	public void deleteBandPic(int bandPicNo);
 	
+	// bar application 삭제 (barName)
+	public void deleteBarApp(Bar bar);
+	
+	// bar calendar 삭제 (barName)
+	public void deleteBarCal(Bar bar);
+	
+	// band member 삭제
+	public void deleteBandMember(Band band);
+	
+	// band collab 삭제
+	public void deleteCollab(Band band);
+	
+	// band advertise 삭제
+	public void deleteAdvertise(Band band);
+	
+	// find member 삭제
+	public void deleteFindMember(Band band);
+	
+	// music 삭제
+	public void deleteMusic(Band band);
+	
+	// band resume 삭제
+	public void deleteResume(Band band);
+	
+	// band calendar 삭제
+	public void deleteBandCal(Band band);
+
 	
 }

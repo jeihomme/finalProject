@@ -16,6 +16,7 @@ import web.dto.Band;
 import web.dto.Bar;
 import web.dto.Member;
 import web.dto.ProfilePic;
+import web.dto.Resumes;
 import web.service.face.MemberService;
 
 @Service
@@ -152,7 +153,7 @@ public class MemberServiceImpl implements MemberService {
 		String uid = UUID.randomUUID().toString().split("-")[0];
 		
 		// 파일이 저장될 경로
-		String stored = context.getRealPath("upload/profilePic");
+		String stored = context.getRealPath("resources");
 		
 		System.out.println("저장 경로: "+stored);
 		
@@ -189,32 +190,44 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void deleteMember(Member member) {
+	public void deleteMember(Member member) {		
+		// member 삭제
 		memberDao.deleteMember(member);
 	}
 	
 	@Override
-	public void deleteBar(Member member) {
+	public void deleteBar(Member member, Bar bar) {
+		// bar와 관련된 테이블 삭제 (deleteBarApp은 barName 기준)
+		memberDao.deleteBarApp(bar);
+		memberDao.deleteBarCal(bar);
+		
+		// bar 삭제
 		memberDao.deleteBar(member);
 	}
 	
 	@Override
-	public void deleteBand(Member member) {
+	public void deleteBand(Member member, Band band) {
+		// band와 관련된 테이블 삭제 (bandNo 기준)
+		memberDao.deleteBandMember(band);
+		memberDao.deleteCollab(band);
+		memberDao.deleteAdvertise(band);
+		memberDao.deleteFindMember(band);
+		memberDao.deleteMusic(band);
+		memberDao.deleteResume(band);
+		memberDao.deleteBandCal(band);
+		
+		// band 삭제
 		memberDao.deleteBand(member);
 	}
 
 	@Override
-	public int checkBarProfileNo(Member member) {
-		int barProfileNo = memberDao.checkBarPicNo(member);
-		
-		return barProfileNo;
+	public Bar checkBarInfo(Member member) {
+		return memberDao.checkBarInformation(member);
 	}
 	
 	@Override
-	public int checkBandProfileNo(Member member) {
-		int bandProfileNo = memberDao.checkBandPicNo(member);
-		
-		return bandProfileNo;
+	public Band checkBandInfo(Member member) {
+		return memberDao.checkBandInformation(member);
 	}
 	
 	@Override

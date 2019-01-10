@@ -440,13 +440,16 @@ $(document).ready(function() {
 			success: function(res) {
 				alert("회원 탈퇴 성공");
 				opener.location.reload();
+				location.reload();
+				window.location.reload();
 			},
 			error: function() {
 				// 회원 탈퇴 실패
 				alert("회원 탈퇴 실패.");
 			}
 		});
-		
+			opener.location.reload();
+			window.location.reload();
 			location.href="/main";
 
 	});
