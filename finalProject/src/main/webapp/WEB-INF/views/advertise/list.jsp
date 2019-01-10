@@ -73,7 +73,7 @@ td {
 }
 
 .modal-img{
-	border: 1px solid white;
+/* 	border: 1px solid white; */
 	width: 60%;
 	height: 70%;
 	text-align: center;
@@ -95,10 +95,10 @@ td {
 
 }
 .modal-info{
-	border: 1px solid white;
+/*  	border: 1px solid white;  */
 	float: right;
     width: 40%;
-    height: 90%;
+    height: 100%;
 }
 
 .member-div {
@@ -109,6 +109,22 @@ td {
 
 	color: black;
 }
+
+
+.close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+.close:hover,
+.close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
 
 </style>
 
@@ -193,28 +209,34 @@ $(document).ready(function(){
 			var proPic = data.map.proPic;
 			var bandMember = data.map.bandMember;
 // 			var bandgenre = data.map.bandGenre;
+			var member = data.map.member;
+// 			var mem = data.map.list;
 			
 			console.log(data.map);
 			
 			$("#advertiseView").empty();
-			
+		
+
 			$newadvertiseView = $(
-					     "<div class='modal-img' ><img src='http://" + proPic.path + "/" + proPic.originName + "' width='60%' height='70%'/></div><div class='modal-info'>"
-					     +"<div style='margin-left:10%; margin-top:1%;'><p>· Member</p><div class='member-div'><input type='text'style='width: 220px'/><br><input type='text' style='width: 220px'/><br><input type='text'style='width: 220px'/></div>"
-					     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' '/></p></div>"
-					     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' type='text''/></p></div>"
-					     +"<div style='margin-top: 10%'><p>· Contact Number<input style='margin-left: 5%' type='text' /></p></div>"
-					     +"<div style='margin-top: 10%'><p>· Etc.<input style='margin-left: 5%; height: 85px; width:88%;'  type='text' name='content'/></p></div>"
+					     "<div class='modal-img' ><img src='http://" + proPic.path + "/" + proPic.originName + "' width='100%' height='100%'/></div><div class='modal-info'>"
+					     +"<div style='margin-left:10%; margin-top:1%;'><p>· Member</p><div class='member-div'><input type='text'style='width: 220px' value='"+bandMember.bandMemName+"'/></div>"
+					     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' value='"+findM.genre+"'/></p></div>"
+					     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' value='"+findM.position+"' type='text''/></p></div>"
+					     +"<div style='margin-top: 10%'><p>· Contact Number<input style='margin-left: 5%' type='text' value='"+member.contact+"' /></p></div>"
+					     +"<div style='margin-top: 10%'><p>· Etc.<input style='margin-left: 5%; height: 185px; width:88%;'  type='text' name='content' value='"+findM.content+"''/></p></div>"
 					     +"</div></div>"
-					     +"<audio controls class='modal-music'><source type='audio/ogg'><source type='audio/mpeg'></audio><button class='modal-close'>닫기</button>"
+					     +"<audio controls class='modal-music'><source type='audio/ogg'><source type='audio/mpeg'></audio><button type='button' id='close' class='btn btn-default'>Close</button>"
 					      );
-			
-			
 			$("#advertiseView").append($newadvertiseView);
+	
+			
+			
 			
 		}, error:function(){
 			alert("ㅋㅋ 망함");
 		}
+		
+	
 		
 	});
 });
@@ -236,28 +258,41 @@ $(document).ready(function(){
 				, dataType : "json" 
 				, data : {adsNo : adsNo}
 				, success: function(data){
-						
-						
+					
 						var ads = data.list;
 					
-						console.log(data.list);
+						console.log(data);
 						
-					
+						
+						$("#advertiseView").empty();
 // 						$newlist = $("<tr><th>번호</th>"+"<th>분류</th><th>제목</th><th>"
 // 								+"작성자</th><th>작성일</th>");
 // 						$("#advertiseTable").append($newlist);
 				
 						$.each(ads , function(index , advertise){
-							$newAdvertiseTable = $("<tr><td style='width:7%'>"+advertise.findNo+"</td><td style='width:14%'>"+advertise.ads+"</td><td>"+"</td><td style='width:28%'><a href='#' data-toggle='modal' class='view' id='"+advertise.findNo+"'>"+advertise.title+"</a></td><td>"
+							$newAdvertiseTable = $("<tr><td style='width:7%'>"+advertise.findNo+"</td><td style='width:14%'>"+advertise.ads+"</td><td>"+"</td><td style='width:28%'><a href='#advertiseView' ' data-toggle='modal' class='view' id='"+advertise.findNo+"'>"+advertise.title+"</a></td><td>"
 									+"</td><td>"+advertise.bandName+"</td><td>"+advertise.writtenDate+"</td></tr>");
 							 
 									$("#subTable").append($newAdvertiseTable);
 									
+						})
+
+									$newadvertiseView = $(
+											     "<div class='modal-img' ></div><div class='modal-info'>"
+											     +"<div style='margin-left:10%; margin-top:1%;'><p>· Member</p><div class='member-div'><input type='text'style='width: 220px'/></div>"
+											     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' /></p></div>"
+											     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' ' type='text''/></p></div>"
+											     +"<div style='margin-top: 10%'><p>· Contact Number<input style='margin-left: 5%' type='text' ' /></p></div>"
+											     +"<div style='margin-top: 10%'><p>· Etc.<input style='margin-left: 5%; height: 185px; width:88%;'  type='text' name='content'/></p></div>"
+											     +"</div></div>"
+											     +"<audio controls class='modal-music'><source type='audio/ogg'><source type='audio/mpeg'></audio><button type='button' id='close' class='btn btn-default'>Close</button>"
+											      );
+									$("#advertiseView").append($newadvertiseView);
+							
 									
-							})
+					
 							 
-					}
-			
+				}
 				
 			});	
 			
@@ -301,6 +336,7 @@ $("#collaboration").click(function() {
 
 	
 });
+	 
 	
 	window.onclick = function(event) {
         if (event.target == modal) {

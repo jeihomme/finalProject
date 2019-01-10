@@ -29,12 +29,13 @@ public class AdvertiseController {
 	@Autowired AdvertiseService advertiseService;
 	
 	@RequestMapping(value="/advertise/list" , method=RequestMethod.GET)
-	public String list(
+	public ModelAndView list( 
 				Model model,
 				@RequestParam(required=false , defaultValue="0") int curPage,
 				@RequestParam(required=false , defaultValue="10") int listCount,
 				@RequestParam(required=false , defaultValue="10") int pageCount,
 				HttpServletResponse response , HttpServletRequest req
+			
 			) {
 
 		Paging paging = advertiseService.getPaging(curPage, listCount, pageCount);
@@ -46,6 +47,7 @@ public class AdvertiseController {
 		
 		int totalCount = advertiseService.selectAdvertiseCntAll();
 		
+		
 		FindMember findMember = new FindMember();
 		
 		if(adsNo != null){
@@ -54,14 +56,21 @@ public class AdvertiseController {
 			paging.setAdsNo("");
 		}
 	
+		ModelAndView mav = new ModelAndView();
+		
+		
+		
 		List<FindMember> list = advertiseService.getList(paging);
-		model.addAttribute("list" ,list);
+	
+		
+		model.addAttribute("list",list);
+	
 //		req.setAttribute("list", list);
 		
 		logger.info("구인구직 리스트");
 		logger.info("구인구직 리스트");
 		
-		return "/advertise/list";
+		return mav;
 		
 	}
 	@RequestMapping(value="/advertise/list" , method=RequestMethod.POST)
@@ -98,6 +107,8 @@ public class AdvertiseController {
 		
 		mav.setViewName("jsonView");
 		mav.addObject("list" , list);
+		
+		model.addAttribute("list", list);
 		
 		logger.info("구인구직 리스트");
 		logger.info("구인구직 리스트");
@@ -146,6 +157,6 @@ public class AdvertiseController {
 	public void delete() {
 		
 	}
-	
+
 	
 }

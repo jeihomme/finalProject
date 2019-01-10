@@ -3,6 +3,7 @@ package web.dao.face;
 import java.util.List;
 
 import web.dto.FindMember;
+import web.dto.Member;
 import web.dto.ProfilePic;
 import web.utils.Paging;;
 
@@ -33,16 +34,27 @@ public interface AdvertiseDao {
 	// 밴드 멤버 가져오기
 	public List getBMember(String bandNo);
 	
+	
 	// 장르 가져오기
 	public List getGenre(String bandNo);
 	// 전체 장르 가져오기
 	public List allGenre();
+	
+	// 맴버 번호 가져오기
+	public String getMemberUserId(String bandNo);
+	
+	// 맴버 전화번호가져오기
+	public Member getMemberContact(String userId);
 	
 	//=-------=-=-=-=-=--=-=-=-=-=-
 	// 게시판 총 글수 출력
 	public int selectAdvertiseCntAll();
 
 	public ProfilePic selectProfilePic(int profileNo);
+
+	public List getBand();
+
+	public ProfilePic getProfile();
 
 	/*public List getList(FindMember findMember);*/
 	

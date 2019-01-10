@@ -951,7 +951,7 @@ input {
 		</ul>
 	</li>
 	
-	<li><a>Ad</a>
+	<li><a href="/advertise/list">Ad</a>
 		<ul>
 			<li><a href="#">Sub Menu 1</a></li>
 			<li><a href="#">Sub Menu 2</a></li>
@@ -959,7 +959,7 @@ input {
 		</ul>
 	</li>
 	
-	<li><a>Notice</a>
+	<li><a href="/notice/list">Notice</a>
 		<ul>
 			<li><a href="#">Sub Menu 1</a></li>
 			<li><a href="#">Sub Menu 2</a></li>
