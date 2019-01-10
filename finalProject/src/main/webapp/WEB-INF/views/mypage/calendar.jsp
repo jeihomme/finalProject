@@ -19,7 +19,7 @@
 	}
 	
 	.adminMypageMain {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 300px;
 		margin: 10px auto;
@@ -120,7 +120,7 @@
 	
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">Bar Calendar </p>
+			<p class="adminDetailTitle">Calendar </p>
 			<hr>
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>
@@ -165,7 +165,7 @@
 	<hr>
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">Bar Calendar </p>
+			<p class="adminDetailTitle">Calendar </p>
 			<hr>
 			<p class="adminDetailInfo">계정 : ${member.userId }</p>
 			<p class="adminDetailInfo">이름 : ${member.userName }</p>

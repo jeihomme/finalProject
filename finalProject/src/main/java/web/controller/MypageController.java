@@ -64,7 +64,7 @@ public class MypageController {
 		} else if( member.getRoleId() == 2) {
 			Band band = new Band();
 			band.setUserId(member.getUserId());
-			band = mpService.getBandByUserId(band);
+			band = mpService.getBand(band);
 			
 			BandMember bandMember = new BandMember();
 			bandMember.setBandNo(band.getBandNo());
@@ -101,7 +101,7 @@ public class MypageController {
 		} else if( member.getRoleId() == 2) {
 			Band band = new Band();
 			band.setUserId(member.getUserId());
-			band = mpService.getBandByUserId(band);
+			band = mpService.getBand(band);
 			
 			BandMember bandMember = new BandMember();
 			bandMember.setBandNo(band.getBandNo());
@@ -141,7 +141,7 @@ public class MypageController {
 		if( member.getRoleId() == 2) {
 			Band band = new Band();
 			band.setUserId(member.getUserId());
-			band = mpService.getBandByUserId(band);
+			band = mpService.getBand(band);
 			
 			BandMember bandMember = new BandMember();
 			bandMember.setBandNo(band.getBandNo());
@@ -177,7 +177,7 @@ public class MypageController {
 			
 			Band band = new Band();
 			band.setUserId(member.getUserId());
-			band = mpService.getBandByUserId(band);
+			band = mpService.getBand(band);
 			
 			BandMember bandMember = new BandMember();
 			bandMember.setBandNo(band.getBandNo());
@@ -198,7 +198,7 @@ public class MypageController {
 //			
 //			Band band = new Band();
 //			band.setUserId(member.getUserId());
-//			band = mpService.getBandByUserId(band);
+//			band = mpService.getBand(band);
 			
 			BandMember bandMember = new BandMember();
 			bandMember.setBandNo(Integer.parseInt( req.getParameter("bandNo") ) );
@@ -273,7 +273,7 @@ public class MypageController {
 		} else if( member.getRoleId() == 2) {
 			Band band = new Band();
 			band.setUserId(member.getUserId());
-			band = mpService.getBandByUserId(band);
+			band = mpService.getBand(band);
 			logger.info(band.toString());
 			
 			ProfilePic pPic = new ProfilePic();
@@ -460,7 +460,7 @@ public class MypageController {
 		
 		Band band = new Band();
 		band.setUserId(member.getUserId());
-		band = mpService.getBandByUserId(band);
+		band = mpService.getBand(band);
 		logger.info(band.toString());
 		
 		mpService.updatePublicResumes(band);
@@ -490,7 +490,7 @@ public class MypageController {
 		
 		Band band = new Band();
 		band.setUserId(member.getUserId());
-		band = mpService.getBandByUserId(band);
+		band = mpService.getBand(band);
 		logger.info(band.toString());
 		
 		Music music = new Music();
@@ -560,7 +560,7 @@ public class MypageController {
 			
 			Band band = new Band();
 			band.setUserId(member.getUserId());
-			band = mpService.getBandByUserId(band);
+			band = mpService.getBand(band);
 			logger.info(band.toString());
 			
 			History history = new History();
@@ -688,7 +688,7 @@ public class MypageController {
 		
 		Band band = new Band();
 		band.setUserId(member.getUserId());
-		band = mpService.getBandByUserId(band);
+		band = mpService.getBand(band);
 		logger.info(band.toString());
 		
 		Music music = new Music();
@@ -732,7 +732,7 @@ public class MypageController {
 		} else if ( member.getRoleId() == 2 ) {
 			Band band = new Band();
 			band.setUserId(member.getUserId());
-			band = mpService.getBandByUserId(band);
+			band = mpService.getBand(band);
 			logger.info(band.toString());
 			
 			pPic = new ProfilePic();
@@ -778,38 +778,51 @@ public class MypageController {
 		Member member = (Member) session.getAttribute("loginInfo");
 		member = mbService.loginInfo(member);
 		logger.info(member.toString());
-		
+		Bar bar = new Bar();
 		Band band = new Band();
-		band.setUserId(member.getUserId());
-		band = mpService.getBandByUserId(band);
-		logger.info(band.toString());
 		
-//		Bar bar = new Bar();
-//		bar.setUserId(member.getUserId());
-//		bar = mpService.getBar(bar);
+		if ( member.getRoleId() == 1 ) {
+			bar.setUserId(member.getUserId());
+			bar = mpService.getBar(bar);
+			logger.info(bar.toString());
+			
+			int CurPage = mpService.getCurPage(req);
+			logger.info("---getAppTotalCount---");
+			
+			int totalCount = mpService.getResumesTotalCount(bar);
+			
+			logger.info("---Paging---");
+			Paging paging = new Paging(totalCount, CurPage);
+			
+			logger.info("---appView---");
+			List<Application> aList = mpService.appView(paging, bar);
+			
+			logger.info("---addAttribute---");
+			model.addAttribute("aList", aList);
+			model.addAttribute("paging", paging);
+			
+		} else if ( member.getRoleId() == 2 ) {
+			band.setUserId(member.getUserId());
+			band = mpService.getBand(band);
+			logger.info(band.toString());
+			
+			int CurPage = mpService.getCurPage(req);
+			logger.info("---getAppTotalCount---");
+			
+			int totalCount = mpService.getResumesTotalCount(band);
+			
+			logger.info("---Paging---");
+			Paging paging = new Paging(totalCount, CurPage);
+			
+			logger.info("---appView---");
+			List<Application> aList = mpService.appView(paging, band);
+			
+			logger.info("---addAttribute---");
+			model.addAttribute("aList", aList);
+			model.addAttribute("paging", paging);
+		}
 		
-		int CurPage = mpService.getCurPage(req);
-		logger.info("---getAppTotalCount---");
 		
-		int[] totalCount;
-//		for( int i = 1; i <0; i++) {
-//			if ( mpService.getAppRnumCount(band, i) == 0 || mpService.getAppRnumCount(band, i) == null) {
-//				totalCount[i-1] = mpService.getAppRnumCount(band, i);
-//				break;
-//			}
-//			mpService.getAppTotalCount();
-//		}
-		
-		
-		logger.info("---Paging---");
-//		Paging paging = new Paging(totalCount, CurPage);
-		
-		logger.info("---appView---");
-//		List<Application> aList = mpService.appView(paging, member);
-		
-		logger.info("---addAttribute---");
-//		model.addAttribute("aList", aList);
-//		model.addAttribute("paging", paging);
 	}
 	
 	@RequestMapping(value = "/mypage/applicationToBar", method=RequestMethod.POST)
@@ -900,57 +913,118 @@ public class MypageController {
 		logger.info(member.toString());
 		
 		Bar bar = new Bar();
-		bar.setUserId(member.getUserId());
-		bar = mpService.getBar(bar);
 		
-		int CurPage = mpService.getCurPage(req);
 		
-		String startDate = req.getParameter("appStartDate");
-		String endDate = req.getParameter("appEndDate");
+		Band band = new Band();
 		
-		System.out.println(startDate + " ~ " + endDate);
 		
-		Paging paging;
-		
-//		검색어가 있다면
-		if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
-//			try {
-//				out.write("{\"res\": true}" );
+		if ( member.getRoleId() == 1 ) {
+			bar.setUserId(member.getUserId());
+			bar = mpService.getBar(bar);
+			
+			int CurPage = mpService.getCurPage(req);
+			
+			String startDate = req.getParameter("appStartDate");
+			String endDate = req.getParameter("appEndDate");
+			
+			System.out.println(startDate + " ~ " + endDate);
+			
+			Paging paging;
+			
+//			검색어가 있다면
+			if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
+//				try {
+//					out.write("{\"res\": true}" );
+					
+					logger.info("---getAppTotalCount(bar, startDate, endDate)---");
+					int totalCount = mpService.getAppTotalCount(bar, startDate, endDate);
+					logger.info("---totalCount String : "+totalCount);
+					
+					logger.info("---Paging---");
+					paging = new Paging(totalCount, CurPage);
+					
+					logger.info("---appView---");
+					List<Application> aList = mpService.appView(paging, bar, startDate, endDate);
+					
+					logger.info("---addAttribute---");
+					model.addAttribute("aList", aList);
+					model.addAttribute("paging", paging);
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				
-				logger.info("---getAppTotalCount(bar, startDate, endDate)---");
-				int totalCount = mpService.getAppTotalCount(bar, startDate, endDate);
-				logger.info("---totalCount String : "+totalCount);
+			}
+//			검색어가 없다면,
+			else {
+				logger.info("---getAppTotalCount(bar)---");
+				int totalCount = mpService.getAppTotalCount(bar);
 				
 				logger.info("---Paging---");
 				paging = new Paging(totalCount, CurPage);
 				
 				logger.info("---appView---");
-				List<Application> aList = mpService.appView(paging, bar, startDate, endDate);
+				List<Application> aList = mpService.appView(paging, member);
 				
 				logger.info("---addAttribute---");
 				model.addAttribute("aList", aList);
 				model.addAttribute("paging", paging);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+			}
 			
+		} else if ( member.getRoleId() == 2 ) {
+			band.setUserId(member.getUserId());
+			band = mpService.getBand(band);
+			
+			int CurPage = mpService.getCurPage(req);
+			
+			String startDate = req.getParameter("appStartDate");
+			String endDate = req.getParameter("appEndDate");
+			
+			System.out.println(startDate + " ~ " + endDate);
+			
+			Paging paging;
+			
+//			검색어가 있다면
+			if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
+//				try {
+//					out.write("{\"res\": true}" );
+					
+					logger.info("---getAppTotalCount(bar, startDate, endDate)---");
+					int totalCount = mpService.getAppTotalCount(band, startDate, endDate);
+					logger.info("---totalCount String : "+totalCount);
+					
+					logger.info("---Paging---");
+					paging = new Paging(totalCount, CurPage);
+					
+					logger.info("---appView---");
+					List<Application> aList = mpService.appView(paging, band, startDate, endDate);
+					
+					logger.info("---addAttribute---");
+					model.addAttribute("aList", aList);
+					model.addAttribute("paging", paging);
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				
+			}
+//			검색어가 없다면,
+			else {
+				logger.info("---getAppTotalCount(bar)---");
+				int totalCount = mpService.getAppTotalCount(bar);
+				
+				logger.info("---Paging---");
+				paging = new Paging(totalCount, CurPage);
+				
+				logger.info("---appView---");
+				List<Application> aList = mpService.appView(paging, member);
+				
+				logger.info("---addAttribute---");
+				model.addAttribute("aList", aList);
+				model.addAttribute("paging", paging);
+			}
 		}
-//		검색어가 없다면,
-		else {
-			logger.info("---getAppTotalCount(bar)---");
-			int totalCount = mpService.getAppTotalCount(bar);
-			
-			logger.info("---Paging---");
-			paging = new Paging(totalCount, CurPage);
-			
-			logger.info("---appView---");
-			List<Application> aList = mpService.appView(paging, member);
-			
-			logger.info("---addAttribute---");
-			model.addAttribute("aList", aList);
-			model.addAttribute("paging", paging);
-		}
+		
 	}
 	
 //	@RequestMapping(value = "/mypage/applicationToBand", method=RequestMethod.POST)
@@ -1062,11 +1136,11 @@ public class MypageController {
 		
 		Band band = new Band();
 		band.setUserId(member.getUserId());
-		band = mpService.getBandByUserId(band);
+		band = mpService.getBand(band);
 		
 		Resumes resumes = new Resumes();
 		resumes.setBandNo(band.getBandNo() );
-		resumes = mpService.getResumesByBandNo(resumes);
+		resumes = mpService.getResumesByBandNoWithPublic(resumes);
 		
 		BandGenre bandGenre = new BandGenre();
 		bandGenre.setBandNo(band.getBandNo());

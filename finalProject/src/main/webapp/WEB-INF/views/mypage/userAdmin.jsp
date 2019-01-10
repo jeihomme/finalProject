@@ -19,7 +19,7 @@
 	}
 	
 	.adminMypageMain {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 300px;
 		margin: 10px auto;
@@ -97,14 +97,14 @@
 
 <div class="adminMenu">
 	<p onclick="viewMypageInfo() ">Mypage</p>
-		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-		<p class="selectMenu" onclick="viewMypageUserAdmin() ">회원 관리</p>
-		<p onclick="viewMypageBoardAdmin() ">게시글 관리</p>
+	<p onclick="viewMypageModifyInfo() ">Modify</p>
+	<p class="selectMenu" onclick="viewMypageUserAdmin() ">Users</p>
+	<p onclick="viewMypageBoardAdmin() ">Boards</p>
 </div><br><br>
 <hr>
 <div class="adminMypageMain">
 	<div class="adminMypageMainInfo">
-		<p class="adminDetailTitle">관리자 회원 관리 </p>
+		<p class="adminDetailTitle">Users </p>
 		<hr>
 		<p class="adminDetailInfo">회원을 검색하여 강제 삭제할 수 있는 공간입니다.</p>
 	</div>
@@ -429,10 +429,9 @@ $(document).ready(function() {
 <%-- 	    	</c:if> --%>
 	    	<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
 	    </c:forEach>
-		
-		<c:if test="${paging.curPage % 5 ne 1}">
+<%-- 		<c:if test="${paging.curPage eq paging.endPage}"> --%>
 			<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
-		</c:if>
+<%-- 		</c:if> --%>
 			
 	    <!-- 다음 페이지 -->
 	  	<c:if test="${paging.curPage eq paging.totalPage }">

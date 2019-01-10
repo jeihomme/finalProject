@@ -19,7 +19,7 @@
 	}
 	
 	.adminMypageMain {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 300px;
 		margin: 10px auto;
@@ -102,7 +102,7 @@
 <hr>
 <div class="adminMypageMain">
 	<div class="adminMypageMainInfo">
-		<p class="adminDetailTitle">관리자 Boards </p>
+		<p class="adminDetailTitle">Boards </p>
 		<hr>
 		<p class="adminDetailInfo">게시글을 검색하여 강제 삭제할 수 있는 공간입니다.</p>
 	</div>

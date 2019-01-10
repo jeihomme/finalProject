@@ -42,13 +42,16 @@
 		select count(*) from member
 		where roleId between 1 and 2
 	</select>
-	
-	<select id="selectResumesListCnt" resultType="int">
-		select count(*) from resumes
+<!-- 	public int selectAppListCntByBandNo(Band band); -->
+	<select id="selectAppListCntByBandNo" parameterType="web.dto.Band" resultType="int">
+		select count(*) from application a
+		left outer join resumes r on a.resumesNo = r.resumesNo
+		where r.bandNo = #{bandNo }
+		order by appDate desc
 	</select>
 
-<!-- public int selectAppListCnt(); -->
-	<select id="selectAppListCnt" parameterType="web.dto.Bar" resultType="int">
+<!-- public int selectAppListCntByBarName(); -->
+	<select id="selectAppListCntByBarName" parameterType="web.dto.Bar" resultType="int">
 		select count(*) from application
 		where barname = #{barName }
 	</select>
@@ -236,8 +239,8 @@
 			)
 	</delete>
 	
-<!-- 	public Resumes selectResumesByBandName(Resumes resumes); -->
-	<select id="selectResumesByBandNo" parameterType="web.dto.Resumes"
+<!-- 	public Resumes "selectResumesByBandNoWithPublic"(Resumes resumes); -->
+	<select id="selectResumesByBandNoWithPublic" parameterType="web.dto.Resumes"
 		resultType="web.dto.Resumes">
 		select
 			*
@@ -245,6 +248,15 @@
 		where
 			bandNo = #{bandNo }
 			and publicResumes = 1
+	</select>
+	
+	<select id="selectResumesByBandNo" parameterType="web.dto.Resumes"
+		resultType="web.dto.Resumes">
+		select
+			*
+		from Resumes
+		where bandNo = #{bandNo }
+		order by resumesNo
 	</select>
 <!-- 	public List<Resumes> selectResumesListByBandName(Resumes resumes); -->
 	<select id="selectResumesListByBandName" parameterType="web.dto.Resumes"
@@ -510,8 +522,8 @@
 		WHERE rnum between #{paging.startNo } AND
 		#{paging.endNo }
 	</select>
-<!-- 	public int selectBarDateSearch(Date startDate, Date endDate); -->
-	<select id="selectAppDateSearch"
+<!-- 	public int selectAppDateSearchCntByBarName(Date startDate, Date endDate); -->
+	<select id="selectAppDateSearchCntByBarName"
 		resultType="int">
 <!-- 		parameterType="String" -->
 		select count(*) from Application
@@ -519,7 +531,7 @@
 			and appDate between #{startDate } and #{endDate }
 	</select>
 <!-- public List<Application> selectApplicationSearchList(@Param("paging")Paging paging, @Param("member")Member member, @Param("startDate")String startDate, @Param("endDate")String endDate); -->
-	<select id="selectApplicationSearchList" 
+	<select id="selectApplicationSearchListByBarName" 
 		resultType="web.dto.Application">
 <!-- 		parameterType="web.utils.Paging" -->
 		SELECT * FROM (
@@ -627,4 +639,61 @@
 				)
 			where bandNo = #{bandNo }
 	</update>
+<!-- 	public List<Application> selectAppListByBandNo(@Param("paging")Paging paging, @Param("band")Band band); -->
+	<select id="selectAppListByBandNo" resultType="web.dto.Application">
+<!-- 		parameterType="web.utils.Paging" -->
+		SELECT * FROM (
+		    SELECT rownum rnum, A.* FROM (
+		        select * from application a
+		        left outer join resumes r on a.resumesNo = r.resumesNo
+		        where r.bandNo = #{band.bandNo }
+		    order by appDate desc
+		    ) A
+		    order by rnum
+		    ) WHERE rnum between #{paging.startNo } AND #{paging.endNo }
+
+	</select>
+<!-- 	public int selectResumesListCnt(); -->
+	<select id="selectResumesListCnt" resultType="int">
+	<!-- 		parameterType="web.utils.Paging" -->
+		select count(*) from resumes
+		where resumesNo is not null
+	</select>
+<!-- 	public List<Application> selectAppListByBandName(@Param("paging")Paging paging, @Param("bar")Bar bar); -->
+	<select id="selectAppListByBandName" resultType="web.dto.Application">
+<!-- 		parameterType="web.utils.Paging" -->
+		SELECT * FROM (
+		    SELECT rownum rnum, A.* FROM (
+		        select * from application a
+		        left outer join resumes r on a.resumesNo = r.resumesNo
+		        where a.barName = #{bar.barName }
+		    order by appDate desc
+		    ) A
+		    order by rnum
+		    ) WHERE rnum between #{paging.startNo } AND #{paging.endNo }
+	</select>
+<!-- 	public int selectAppDateSearchCntByBandNo(@Param("band")Band band, @Param("startDate")String startDate, @Param("endDate")String endDate); -->
+	<select id="selectAppDateSearchCntByBandNo"
+		resultType="int">
+<!-- 		parameterType="String" -->
+		select count(*) from Application
+		WHERE bandNo=#{band.bandNo }
+			and appDate between #{startDate } and #{endDate }
+	</select>
+<!-- 	public List<Application> selectApplicationSearchListByBandNo(@Param("paging")Paging paging, @Param("band")Band band, @Param("startDate")String startDate, @Param("endDate")String endDate); -->
+	<select id="selectApplicationSearchListByBandNo" 
+		resultType="web.dto.Application">
+<!-- 		parameterType="web.utils.Paging" -->
+		SELECT * FROM (
+		SELECT rownum rnum, B.* FROM (
+		SELECT * FROM Application
+			where appDate between #{startDate } and #{endDate }
+				and bandNo=#{band.bandNo }
+		ORDER BY appno DESC
+		) B
+		ORDER BY appno
+		)
+		WHERE
+			rnum between #{paging.startNo } AND #{paging.endNo }
+	</select>
 </mapper>
