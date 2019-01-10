@@ -38,7 +38,7 @@ public class BarServiceImpl implements BarService{
 	@Override
 	public List<Bar> barListMore(Bar bar, ProfilePic profilePic) {
 		// TODO Auto-generated method stub
-		return barDao.getBarListMore(bar, profilePic);
+		return barDao.getBarListMore(bar);
 	}
 
 	@Override

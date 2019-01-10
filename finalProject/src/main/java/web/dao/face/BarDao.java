@@ -16,7 +16,7 @@ public interface BarDao {
 	public List<Bar> getByLocation(List<String> location);
 	
 	// 리스트 더보기
-	public List<Bar> getBarListMore(Bar bar, ProfilePic profilePic);
+	public List<Bar> getBarListMore(Bar bar);
 	
 	// 바 소개
 	public Bar viewBar(Bar bar);
@@ -31,7 +31,6 @@ public interface BarDao {
 	public void updateBarInfo(Bar bar);
 	
 	// 유저 연락처 수정
-	
 	public void updateMemberContact(Member member);
 	
 	// 프로파일 사진 가져오기
