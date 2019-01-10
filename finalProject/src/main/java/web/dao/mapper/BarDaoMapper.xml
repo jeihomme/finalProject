@@ -8,27 +8,53 @@
 <!--  매퍼 설정 -->
 <mapper namespace="web.dao.face.BarDao">
 
-	<select id="getBarList" parameterType="web.dto.Bar" resultType="web.dto.Bar">
+	<sql id="getBar">
 		SELECT B.BARNO, B.BARNAME, B.USERID, B.PROFILENO, B.LOCATIONNO, B.BARINFO, B.MANAGER, B.BARADDRESS, B.GENRENO, P.PATH, P.ORIGINNAME, P.STOREDNAME
 		FROM BAR B
 		LEFT OUTER JOIN PROFILEPIC P ON B.PROFILENO = P.PROFILENO
-		ORDER BY BARNO
+		ORDER BY BARNO 
+	</sql>
+
+	<select id="getBarList" parameterType="web.dto.Bar" resultType="web.dto.Bar">
+		SELECT * FROM (
+			SELECT rownum rnum, A.*FROM(
+				<include refid="getBar"/>
+			) A
+			ORDER BY rnum
+		)
+<![CDATA[		
+		WHERE rnum < 13
+]]>
 	</select>
 	
 	<select id="getByLocation" parameterType="java.util.List" resultType="web.dto.Bar">
-		SELECT L.LOCATIONNO, L.LOCATIONNAME, B.BARNO, B.BARNAME, B.USERID, B.PROFILENO, B.LOCATIONNO, B.BARINFO, B.MANAGER, B.BARADDRESS, B.GENRENO, P.PATH, P.ORIGINNAME, P.STOREDNAME, G.GENRENAME
-		FROM LOCATION L
-		LEFT OUTER JOIN BAR B ON B.LOCATIONNO = L.LOCATIONNO
-        LEFT OUTER JOIN PROFILEPIC P ON P.PROFILENO = B.PROFILENO
-        LEFT OUTER JOIN GENRE G ON G.GENRENO = B.GENRENO
-        WHERE L.LOCATIONNO IN
-        <foreach collection="list" item="item" open="(" close=")" separator=",">
-        	#{item }
-        </foreach>
+		SELECT * FROM (
+			SELECT rownum rnum, A.*FROM(
+				SELECT L.LOCATIONNO, L.LOCATIONNAME, B.BARNO, B.BARNAME, B.USERID, B.PROFILENO, B.BARINFO, B.MANAGER, B.BARADDRESS, B.GENRENO, P.PATH, P.ORIGINNAME, P.STOREDNAME, G.GENRENAME
+				FROM LOCATION L
+				LEFT OUTER JOIN BAR B ON B.LOCATIONNO = L.LOCATIONNO
+		        LEFT OUTER JOIN PROFILEPIC P ON P.PROFILENO = B.PROFILENO
+		        LEFT OUTER JOIN GENRE G ON G.GENRENO = B.GENRENO
+			        WHERE L.LOCATIONNO IN
+			        <foreach collection="list" item="item" open="(" close=")" separator=",">
+			        	#{item }
+			        </foreach>
+		       ) A
+			ORDER BY rnum
+		)
+<![CDATA[		
+		WHERE rnum < 13
+]]>
 	</select>
 	
 	<select id="getBarListMore" parameterType="web.dto.Bar" resultType="web.dto.Bar">
-	
+		SELECT * FROM (
+			SELECT rownum rnum, A.*FROM(
+				<include refid="getBar" />
+			) A
+			ORDER BY rnum
+		)
+		WHERE rnum between #{startNo } AND #{endNo }
 	</select>
 	
 	<select id="viewBar" parameterType="web.dto.Bar" resultType="web.dto.Bar">

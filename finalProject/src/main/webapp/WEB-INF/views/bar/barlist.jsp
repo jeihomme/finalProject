@@ -8,8 +8,21 @@
 	var locArr = []; // [1,2] 
 	var idx = 0;
 	
+	// 페이징 처리
+	var page = 1;
+	
+	// 각 밴드 출력 카운터
+	var counter = 0;
+	
+	// 로딩 시 더보기 버튼 유무 확인
+	var viewPlus = 1;
+	
 	$(document).ready(function(){
 		$('#locSearch').click(function(){
+			
+			// 여기서 체크박스 및 어레이 초기화!
+			idx = 0;
+			locArr = []; //끝~ ???
 			
 			$('input:checkbox[name="location"]').each(function(){
 				
@@ -23,33 +36,33 @@
 
 			console.log(locArr);
 			
-		$.ajax({
-
-         type : "POST",
-         url : "/bar/barlocation",
-         dataType : "JSON",
-         data : {'paramMap' : locArr},
-         success : function(data) {
-            console.log(data.result);
-            
-            console.log(data.barList.length);
-            
-            var str = "";
-            
-            for(i=0; i<data.barList.length; i++){
-	            str += '<a href="/bar/viewbar?barNo=' + data.barList[i].barNo + '">';
-	            str += '	<div class="bar">';
-	            str += '		<p><img src="http://' + data.barList[i].path + '/' + data.barList[i].originName + '"></p>';
-	            str += '		<p>' + data.barList[i].barName + '</p>';
-	            str += '	</div>';
-	            str += '</a>';
-            }
-            
-            $('.barList').html(str);
-         },
-         error : function(data) {
-         	console.log(data);
-         }
+			$.ajax({
+	
+		         type : "POST",
+		         url : "/bar/barlocation",
+		         dataType : "JSON",
+		         data : {'paramMap' : locArr},
+		         success : function(data) {
+		            console.log(data.result);
+		            
+		            console.log(data.barList.length);
+		            
+		            var str = "";
+		            
+		            for(i=0; i<data.barList.length; i++){
+			            str += '<a href="/bar/viewbar?barNo=' + data.barList[i].barNo + '">';
+			            str += '	<div class="bar">';
+			            str += '		<p><img src="http://' + data.barList[i].path + '/' + data.barList[i].originName + '"></p>';
+			            str += '		<p>' + data.barList[i].barName + '</p>';
+			            str += '	</div>';
+			            str += '</a>';
+		            }
+		            
+		            $('.barList').html(str);
+		         }, 
+		         error : function(data) {
+		         	console.log(data);
+		         }
 			});
 			
 		});	
@@ -79,28 +92,37 @@
 		 });
 	}
 	
-	$(document).ready(function(){
-		$("#listMore").click(function(){
-			
-			console.log(sum);
-			
-			$.ajax({
-				type: "POST",
-				url: "/bar/listmore",
-				data: {
-					
-				},
-				dataType: "JSON",
-				success: function(res){
-					console.log("성공");
-					$("#body").html(res);
-				},
-				error: function(){
-					console.log("실패");
-				}
-			});
+
+	function listMore(){
+		
+		$.ajax({
+			type: "POST",
+			url: "/bar/listmore",
+			data: {'page': page, 'cnt':12 },
+			dataType: "JSON",
+			success: function(data){
+				console.log("성공");
+				
+				page++;
+				
+				var str = "";
+	            
+	            for(i=0; i<data.barList.length; i++){
+		            str += '<a href="/bar/viewbar?barNo=' + data.barList[i].barNo + '">';
+		            str += '	<div class="bar">';
+		            str += '		<p><img src="http://' + data.barList[i].path + '/' + data.barList[i].originName + '"></p>';
+		            str += '		<p>' + data.barList[i].barName + '</p>';
+		            str += '	</div>';
+		            str += '</a>';
+	            }
+	            
+	            $('.barList').append(str);
+			},
+			error: function(){
+				console.log("실패");
+			}
 		});
-	});
+	}
 
 </script>
 
@@ -112,11 +134,6 @@
 		width: 130px;
 	}
 	.font {
-		text-align:center;
-	}
-	.backgroundColor {
-		background-color:#000;
-		cursor:pointer;
 		text-align:center;
 	}
 </style>
@@ -146,29 +163,20 @@
 
 <div id="list" class="barList"> 
 	<div class="bar">
-		<table class="table">
-			<c:set var="doneLoop" value="false"/>
-		
 			<c:forEach var="row" varStatus="status" items="${list }">
-				<c:if test="${not doneLoop }">
-					<td class="backgroundColor">
+					<div class="bar">
 						<p onclick="location.href= '/bar/viewbar?barNo=${row.barNo}' "> <img src="http://${row.path }/${row.originName }"> </p> 
 						<p class="font" onclick="location.href= '/bar/viewbar?barNo=${row.barNo}'"> ${row.barName } </p>
 						
 						<c:if test="${status.count % 6 eq 0 }">
 						<tr></tr>
 						</c:if>
-					</td>
-					<c:if test="${status.count == 12 }">
-						<c:set var="doneLoop" value="true"/>
-					</c:if>
-				</c:if>
+					</div>
 			</c:forEach>
-		</table>
 	</div>
 </div>
 
 <div>
-	<button id="listMore" class="barMore">+ 더보기</button>
+	<button id="listMore" class="barMore" onclick="listMore();">+ 더보기</button>
 </div>
 
