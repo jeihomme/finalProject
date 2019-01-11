@@ -98,7 +98,7 @@
 	width: 60%;
 	height: 60%;
 	background-color: gray;
-    position: fixed; /* Stay in place */
+    position: absolute; /* Stay in place */
     z-index: 1; /* Sit on top */
 }
 
@@ -135,7 +135,7 @@ th{
 }
 
 .mems{
-	width: 100px;
+	width: 80px;
 }
 
 </style>
@@ -144,93 +144,80 @@ th{
 $(document).ready(function(){
 	
 	var bandNo = "${general.band.bandNo}"
+
+	// 세션에서 barNo 가져오기
+// 	var barNo = "@Request.RequestContext.HttpContext.Session['someKey']";
 	
 	var general = "${general}";
 	var musicFile = "${general.music}";
 // 	console.log(general);
 	
-	console.log("${general.music}");
+// 	console.log("${general.music}");
 	
 	// 음악파일 처리
-	window.stop();
-	   $("#preSound").click( function() {
-	      timerStart();
-	      song.play();
-	   });
+// 	window.stop();
+// 	   $("#preSound").click( function() {
+// 	      timerStart();
+// 	      song.play();
+// 	   });
 	
 
-	if(!musicFile){
-		console.log("음악파일 없음");
+// 	if(!musicFile){
+// 		console.log("음악파일 없음");
 	
-	} else {
+// 	} else {
 		
-	var setTime = 15;      // 최초 설정 시간(기본 : 초)
-	var song = new Audio('/resources/seong-youAreMySpring.mp3');
+// 	var setTime = 15;      // 최초 설정 시간(기본 : 초)
+// 	var song = new Audio('/resources/seong-youAreMySpring.mp3');
 
-		function msg_time() {   // 1초씩 카운트
+// 		function msg_time() {    1초씩 카운트
        
-			m = Math.floor(setTime / 60) + "분 " + (setTime % 60) + "초";   // 남은 시간 계산
+// 			m = Math.floor(setTime / 60) + "분 " + (setTime % 60) + "초";    남은 시간 계산
       
-			var msg = "현재 남은 시간은 <font color='red'>" + m + "</font> 입니다.";
+// 			var msg = "현재 남은 시간은 <font color='red'>" + m + "</font> 입니다.";
       
-//       document.all.ViewTimer.innerHTML = msg;      // div 영역에 보여줌 
+// //       document.all.ViewTimer.innerHTML = msg;      // div 영역에 보여줌 
             
-			setTime--;               // 1초씩 감소
+// 			setTime--;               // 1초씩 감소
       
-			if (setTime < 0) {         // 시간이 종료 되었으면..
-				song.pause();
-				song.currentTime = 0;
-				clearInterval(tid);
-			}
-		}
-	}
+// 			if (setTime < 0) {         // 시간이 종료 되었으면..
+// 				song.pause();
+// 				song.currentTime = 0;
+// 				clearInterval(tid);
+// 			}
+// 		}
+// 	}
    
-   function timerStart(){ 
-      tid=setInterval('msg_time()',1000);
-   }
+//    function timerStart(){ 
+//       tid=setInterval('msg_time()',1000);
+//    }
    
-   var count = 0;
+  
    
    // 달력 불러오기
    $("#calendarBtn").click(function(){
 	   
-	   // 밴드 번호 가져오기
-	   var bandNo = ${general.band.bandNo };
+	    // 밴드 번호 가져오기
+		var bandNo = ${general.band.bandNo };
 	   
-	   var calendarDiv = document.getElementById("calendarDiv");
-	   var calDiv = document.getElementById("calDiv"); 
-	   // 모달 보이기
-	   
-	   calendarDiv.style.display = "block";
-	   
-	   if(count==0) {
-		   console.log("ㅅㅂ");
-		   count += 1;
-	   } else if(count == 1) {
-		   console.log("ㅡ   ㅓ");
-		   count += 1;
-	   } else if(count == 2) {
-		   console.log("ㅇㅁ");
-		   count = 0;
-	   }
-	   
-	   $.ajax({
-		   type: "get",
+	   	var calendarDiv = document.getElementById("calendarDiv");
+	   	var calDiv = document.getElementById("calDiv"); 
+	    
+		$.ajax({
+			type: "post",
 			url: "/calendar",
 			data: { bandNo : bandNo } ,
-// 			dataType: "html",
 			context: document.body,
 			success: function(data) {
-				
-				document.getElementById("calendarDiv").style.display = "block";
+					
+				// 모달 띄우기
+				$("#body").html(data);
 
-				console.log(data);
-// 				$("#calDiv").html(data);
-				
 			}, error: function() {
 				alert("망함");
 			}
-	   });
+		});
+		   
 	   
    });
    
@@ -244,20 +231,38 @@ $(document).ready(function(){
 			$(this).html("저장");
 			$("input[type=text]").attr("disabled", false);
 			$("input[type=text]").css({"background-color" : "white"});
+			$("input[type=text]").css({"border" : "1px solid black"});
 			$("input[type=checkbox]").css({"display" : "block"});
 			
-			document.getElementById("rmMember").style.display="block";
-			document.getElementById("rmHistory").style.display="block";
+			document.getElementById("rmMember").style.display="inline-block";
+			document.getElementById("addMember").style.display="inline-block";
+			document.getElementById("rmHistory").style.display="inline-block";
+			document.getElementById("addHistory").style.display="inline-block";
+			document.getElementById("addMForm").style.display="inline-block";
+			document.getElementById("mP").style.display="inline-block";
+			document.getElementById("mName").style.display="inline-block";
+			document.getElementById("hY").style.display="inline-block";
+			document.getElementById("hisInfo").style.display="inline-block";
+			document.getElementById("addHForm").style.display="inline-block";
 			
 		} else {
 			
 			$(this).html("수정");
 			$("input[type=text]").attr("disabled", true);
 			$("input[type=text]").css({"background-color" : "gray"});
+			$("input[type=text]").css({"border" : "none"});
 			$("input[type=checkbox]").css({"display" : "none"});
 			
 			document.getElementById("rmMember").style.display="none";
+			document.getElementById("addMember").style.display="none";
 			document.getElementById("rmHistory").style.display="none";
+			document.getElementById("addHistory").style.display="none";
+			document.getElementById("addMForm").style.display="none";
+			document.getElementById("mP").style.display="none";
+			document.getElementById("mName").style.display="none";
+			document.getElementById("hY").style.display="none";
+			document.getElementById("hisInfo").style.display="none";
+			document.getElementById("addHForm").style.display="none";
 			
 			// 수정된거 저장하기
 			
@@ -341,6 +346,49 @@ $(document).ready(function(){
 	   
    });
    
+   $("#applyBtn").click(function(){
+
+   });
+   
+   // 멤버 추가
+   $("#addMember").click(function(){
+	  var mP = $("#mP").val();
+	  var mName = $("#mName").val();
+	  
+// 	  console.log(mP);
+// 	  console.log(mName);
+	  
+	  $.ajax({
+			type: "post",
+			url: "/band/addMember",
+			data: { mPosition : mP,
+				bandMemName : mName,
+					bandNo : bandNo } ,
+			context: document.body,
+			success: function(data) {
+							
+// 				$(first).insertBefore(second) // first 객체를 second 객체의 앞쪽에 붙인다.
+				
+// 				리스트에 새로 생성해서 붙이기
+			
+			}, error: function() {
+				alert("망함");
+			}
+		});
+   });
+   
+   var resumesNo = "${general.resumes.resumesNo}";
+   
+   $("#addHistory").click(function(){
+	   
+	   var hY = $("#hY").val();
+	   var hisInfo = $("#hisInfo").val();
+	   
+	   console.log(hY);
+	   console.log(hisInfo);
+	   
+   });
+   
 });
 </script>
 
@@ -379,12 +427,14 @@ $(document).ready(function(){
 	<!-- 오른쪽 -->
 	<div class="div-common div-right">
 		<div>
-		<div id="div-history" class="div-history div-common">
+		<div class="div-history div-common">
 			<table>
 				<th><h3>History</h3></th>
 				<th>
-					<table>
+					<table id="div-history">
+						<c:set var="histNo" value="0" />
 						<c:forEach var="hist" items="${history }">
+						<c:set var="histNo" value="${histNo + 1 }" />
 							<tr>
 								<td>
 									<input type="checkbox" name="hisChk" value="${hist.historyNo }" />
@@ -396,8 +446,12 @@ $(document).ready(function(){
 							</tr>
 						</c:forEach>
 						<tr>
-							<td></td>
+							<td id="addHForm" colspan="2" style="display:none;">
+								년도 <input id="hY" class="hist" type="text" style="display:none;" disabled />
+								내용 <input id="hisInfo" class="hist"  type="text" style="display:none;" disabled />
+							</td>
 							<td style="text-align: right;">
+								<button id="addHistory" type="button" style="display:none;">추가</button>
 								<button id="rmHistory" type="button" style="display:none;">삭제</button>
 							</td>
 						</tr>
@@ -427,8 +481,15 @@ $(document).ready(function(){
 						</tr>
 						</c:forEach>
 						<tr>
-							<td></td>
-							<td><button id="rmMember" type="button" style="display:none;">삭제</button></td>
+							<td id="addMForm" colspan="2" style="display:none;">
+								포지션 <input id="mP" class="mems" type="text" style="display:none;" disabled />
+								이름 <input id="mName" class="mems"  type="text" style="display:none;" disabled />
+							</td>
+							<td style="width:100px">
+								
+								<button id="addMember" type="button" style="display:none;">추가</button>
+								<button id="rmMember" type="button" style="display:none;">삭제</button>								
+							</td>
 						</tr>
 					</table>
 				</th>
@@ -453,6 +514,4 @@ $(document).ready(function(){
 	</div>
 	
 </div>
-<div id="calendarDiv" class="calendarDiv">
-	<div id="calDiv" class="calDiv"></div>
-</div>
+<button type="button" id="applyBtn">초청하기</button>

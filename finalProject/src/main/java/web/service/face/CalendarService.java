@@ -3,14 +3,18 @@ package web.service.face;
 import java.util.List;
 import java.util.Map;
 
-import web.dto.CalendarD;
+import org.apache.ibatis.annotations.Param;
 
 public interface CalendarService {
 
+	
 	public Map getCalendar();
 	
-	public List getSchedule(Map map);
+	public List getHours();
+	public Map getSchedule(Map map, String bandNo);
+		
+	public List getInfoBand(String bandNo, String tDate);
+	public List getInfoBar();
 	
-	public CalendarD getInfo(int tYear, int tMonth, int tDay);
-	
+	public void insertBar(String thisDate, String stTime, String edTime, String barNo, String bandNo);
 }

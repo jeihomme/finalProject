@@ -11,6 +11,7 @@ import web.dao.face.BandDao;
 import web.dao.face.GenreDao;
 import web.dao.face.MusicDao;
 import web.dto.Band;
+import web.dto.BandMember;
 import web.dto.Music;
 import web.dto.Resumes;
 import web.service.face.BandService;
@@ -170,15 +171,16 @@ public class BandServiceImpl implements BandService {
 	}
 	
 	@Override
+	public void addBMember(BandMember bMem) {
+
+		bandDao.addBMember(bMem);
+		
+	}
+	
+	@Override
 	public void bandEdit(Band band) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public List bandSchedule(String bandName) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

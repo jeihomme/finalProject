@@ -150,11 +150,14 @@ $(document).ready(function(){
 				var band = data.band;
 				var profile = data.profile;
 			
+				var itemsCounts = 0;
+				
 				viewPlus = 1;
 				counter = 0;
 				
 				$.each(band, function(index1, bands){
 										
+					itemsCounts = itemsCounts + 1;
 					counter = counter + 1;
 					
 					// 더보기 버튼 체크
@@ -185,6 +188,10 @@ $(document).ready(function(){
 								$tr.appendChild($newList);
 								document.getElementById("lists").appendChild($tr);
 								counter = 0;
+							}
+							
+							if(itemsCounts != 12) {
+								document.getElementById("plus").style.display="none";
 							}
 							
 							

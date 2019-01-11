@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import web.dto.Band;
+import web.dto.BandMember;
 import web.dto.ProfilePic;
 import web.utils.AddItems;
 
@@ -34,9 +35,10 @@ public interface BandService {
 	// 밴드 멤버 삭제
 	public void delBMember(String codes);
 	
+	// 밴드 멤버 추가
+	public void addBMember(BandMember bMem);
+	
 	// 밴드 소개 수정
 	public void bandEdit(Band band);
 	
-	// 밴드 일정표
-	public List bandSchedule(String bandName);
 }
