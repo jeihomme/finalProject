@@ -37,11 +37,16 @@
 	}
 	
 	.adminMypageSearchRes {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: auto;
 		margin: 10px auto;
 		text-align:center;
+		
+		-moz-border-radius: 3px;
+		-khtml-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		border-radius: 3px;
 	}
 	
 	.adminMypageMainInfo {
@@ -77,6 +82,10 @@
 	
 	.searchBtn {
 		color: black;
+		font-weight: bold;
+		background: gold;
+		border-radius:10px;
+		border-color: gold;
 	}
 	
 	.searchUserinfo {
@@ -154,20 +163,6 @@
 	
 	.selectMenuli:hover {
 		color: white;
-	}
-	
-	/* tr th:not(:nth-child(2)) { */
-	tr th {
-		text-align: center;
-		color:#000;
-		background-color: gold;
-	}
-	tr td {
-		text-align: center;
-		border-left: 1px solid white;
-		border-right: 1px solid white;
-		color:#fff;
-		background-color: black;
 	}
 	
 	#pagingBox {
@@ -396,7 +391,7 @@
 	<hr>
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">Band to Bar</p>
+			<p class="adminDetailTitle">Bar to Band</p>
 			<hr>
 			<ul class="adminDetailInfo">
 				<li>Application 검색 페이지입니다.</li>
@@ -420,45 +415,74 @@
 	</div>
 	
 	<div class="adminMypageSearchRes">
-		<div>
-			<table class="table table-hover table-striped table-condensed">
+		<div >
+<!-- 			<table class="table table-hover table-striped table-condensed"> -->
+			<table class="type10">
 			
-		<tr>
-			<th>이력서</th>
-			<th>지원일</th>
-			<th>공연 지원 날짜 / 시간</th>
-			<th>수락 여부</th>
-		</tr>
-		
-			<c:forEach items="${aList }" var="i">
+				<thead>
 				<tr>
-					<td>
-						<input type="hidden" id="resumesNo" name="resumesNo" value="${i.resumesNo }">
-						<input type="hidden" id="appNo" name="appNo" value="${i.appNo }">
-						<input type="hidden" id="read" name="read" value="1">
-						<button class="searchBtn" onclick="viewAppFromBand() ">이력서 보기</button>
-						
-					</td>
-					<td>${i.appDate }</td>
-					<td>지원날짜 / 시간</td>
-					<td>
-						<c:if test="${i.accept eq 0}">
-							<input type="hidden" id="acceptAppNo" name="appNo" value="${i.appNo }">
-							<input type="hidden" id="acceptAcc" name="accept" value="1">
-							<button class="searchBtn" onclick="appToBandAccept() ">수락</button>
-							
-							<input type="hidden" id="rejectAppNo" name="appNo" value="${i.appNo }">
-							<input type="hidden" id="rejectAcc" name="accept" value="2">
-							<button class="searchBtn" onclick="appToBandReject() ">거절</button>
-						</c:if>
-						<c:if test="${i.accept eq 1}">
-							수락됨
-						</c:if>
-						<c:if test="${i.accept eq 2}">
-							거절됨
-						</c:if>
-					</td>
+					<th scope="col">밴드소개글</th>
+					<th scope="col">지원일</th>
+					<th scope="col">공연</th>
+					<th scope="col">열람여부</th>
+					<th scope="col">지원</th>
 				</tr>
+				</thead>
+			<c:forEach items="${aList }" var="i" varStatus="status">
+				<tbody>
+				<tr>
+					<c:if test="${status.count % 2 eq 0 }">
+						<td class="even">
+							<button class="searchBtn" onclick="viewAppFromBand(${bandNoList[status.index].bandNo }) ">${bandNoList[status.index].bandName }</button>
+						</td>
+					</c:if>
+					<c:if test="${status.count % 2 eq 1 }">
+						<td >
+							<button class="searchBtn" onclick="viewAppFromBand(${bandNoList[status.index].bandNo }) ">${bandNoList[status.index].bandName }</button>
+						</td>
+					</c:if>
+					
+					<c:if test="${status.count % 2 eq 0 }">
+					<td class="even">${i.appDate }</td>
+					</c:if>
+					<c:if test="${status.count % 2 eq 1 }">
+					<td>${i.appDate }</td>
+					</c:if>
+					
+					<c:if test="${status.count % 2 eq 0 }">
+					<td class="even">지원날짜 / 시간</td>
+					</c:if>
+					<c:if test="${status.count % 2 eq 1 }">
+					<td>지원날짜 / 시간</td>
+					</c:if>
+					
+					<c:if test="${status.count % 2 eq 0 }">
+					<td class="even">
+						<c:if test="${i.read eq 0}">미열람</c:if>
+						<c:if test="${i.read eq 1}">열람</c:if>
+					</td>
+					</c:if>
+					<c:if test="${status.count % 2 eq 1 }">
+					<td>
+						<c:if test="${i.read eq 0}">미열람</c:if>
+						<c:if test="${i.read eq 1}">열람</c:if>
+					</td>
+					</c:if>
+					
+					<input type="hidden" id="acceptAppNo" name="appNo" value="${i.appNo }">
+					<c:if test="${status.count % 2 eq 0 }">
+					<td class="even">
+						<button class="acceptBtnRed" onclick="applicationToBarCancel${status.count }() ">지원취소</button>
+					</td>
+					</c:if>
+					<c:if test="${status.count % 2 eq 1 }">
+					<td>
+						<button class="acceptBtnRed" onclick="applicationToBarCancel${status.count }() ">지원취소</button>
+					</td>
+					</c:if>
+					
+				</tr>
+				</tbody>
 			</c:forEach>
 				
 		</table>
@@ -467,7 +491,7 @@
 		  <ul class="pagination pagination-sm">
 		    
 		    	<!-- 이전 페이지 -->
-		    <c:if test="${paging.curPage ne 1}">
+		    <c:if test="${paging.curPage > 1}">
 	    		<button id="ajaxBtnPrev" class="searchBtn" name="ajaxBtnPrev">Prev</button>
 	    	</c:if>
 	    	
@@ -477,9 +501,11 @@
 	 	     begin="${paging.startPage }"
 	 	     end="${paging.endPage }"
 	 	     var="i">
-				<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+				<c:if test="${paging.endPage > 1}">
+					<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+				</c:if>
 		    </c:forEach>
-			<c:if test="${paging.curPage % 5 ne 1}">
+			<c:if test="${paging.endPage > 1}">
 				<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
 			</c:if>
 		    </ul>
@@ -535,97 +561,93 @@
 	
 	<div class="adminMypageSearchRes">
 		<div>
-			<table class="table table-hover table-striped table-condensed">
+<!-- 			<table class="table table-hover table-striped table-condensed"> -->
+		<table class="type10">
 			
-		<tr>
-			<th>이력서</th>
-			<th>지원일</th>
-			<th>공연 지원 날짜 / 시간</th>
-			<th>수락 여부</th>
-		</tr>
-		
-			<c:forEach items="${aList }" var="i">
-			<%-- 			<c:if test="${i.roleId eq 1 || i.roleId eq 2}"> --%>
-			<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
+				<thead>
 				<tr>
-		<!-- 			<tr id="memberView"> -->
-		<%-- 					<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
-		<%-- 					<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
-		<%-- 					<td>${i.userId }</td> --%>
-		<%-- 					<c:choose> --%>
-		<%-- 						<c:when test="${i.roleId eq 1}"> --%>
-		<!-- 							<td>바</td> -->
-		<%-- 						</c:when> --%>
-		<%-- 						<c:when test="${i.roleId eq 2}"> --%>
-		<!-- 							<td>밴드</td> -->
-		<%-- 						</c:when> --%>
-		<%-- 					</c:choose> --%>
-					<td>
+					<th scope="col">밴드소개</th>
+					<th scope="col">지원일</th>
+					<th scope="col">공연 지원 날짜 / 시간</th>
+					<th scope="col">수락 여부</th>
+				</tr>
+				</thead>
+			<c:forEach items="${aList }" var="i" varStatus="status">
+				<tbody>
+				<tr>
+					<c:if test="${status.count % 2 eq 0 }">
+						<td class="even">
+							<button class="searchBtn" onclick="viewAppFromBand(${bandNoList[status.index].bandNo }) ">${bandNoList[status.index].bandName }</button>
+						</td>
+					</c:if>
+					<c:if test="${status.count % 2 eq 1 }">
+						<td >
+							<button class="searchBtn" onclick="viewAppFromBand(${bandNoList[status.index].bandNo }) ">${bandNoList[status.index].bandName }</button>
+						</td>
+					</c:if>
 					
-	<%-- 					<form action="/mypage/resumes?resumesNo=${i.resumesNo }" method="get"> --%>
-									<input type="hidden" id="resumesNo" name="resumesNo" value="${i.resumesNo }">
-									<input type="hidden" id="appNo" name="appNo" value="${i.appNo }">
-									<input type="hidden" id="read" name="read" value="1">
-									<button class="searchBtn" onclick="viewAppFromBand() ">이력서 보기</button>
-	<!-- 					</form> -->
-						
-					</td>
+					<c:if test="${status.count % 2 eq 0 }">
+					<td class="even">${i.appDate }</td>
+					</c:if>
+					<c:if test="${status.count % 2 eq 1 }">
 					<td>${i.appDate }</td>
+					</c:if>
+					
+					<c:if test="${status.count % 2 eq 0 }">
+					<td class="even">지원날짜 / 시간</td>
+					</c:if>
+					<c:if test="${status.count % 2 eq 1 }">
 					<td>지원날짜 / 시간</td>
+					</c:if>
+					
+					<c:if test="${status.count % 2 eq 0 }">
+					<td class="even">
+						<c:if test="${i.accept eq 0}">
+	<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
+									<input type="hidden" id="acceptAppNo" name="appNo" value="${i.appNo }">
+									<input type="hidden" id="acceptAcc" name="accept" value="1">
+									<button class="acceptBtnBlue" onclick="appToBandAccept() ">수락</button>
+	<!-- 						</form> -->
+	<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
+									<input type="hidden" id="rejectAppNo" name="appNo" value="${i.appNo }">
+									<input type="hidden" id="rejectAcc" name="accept" value="2">
+									<button class="acceptBtnRed" onclick="appToBandReject() ">거절</button>
+	<!-- 						</form> -->
+						</c:if>
+						<c:if test="${i.accept eq 1}">수락</c:if>
+						<c:if test="${i.accept eq 2}">거절</c:if>
+					</td>
+					</c:if>
+					<c:if test="${status.count % 2 eq 1 }">
 					<td>
 						<c:if test="${i.accept eq 0}">
 	<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
 									<input type="hidden" id="acceptAppNo" name="appNo" value="${i.appNo }">
 									<input type="hidden" id="acceptAcc" name="accept" value="1">
-									<button class="searchBtn" onclick="appToBandAccept() ">수락</button>
+									<button class="acceptBtnBlue" onclick="appToBandAccept() ">수락</button>
 	<!-- 						</form> -->
 	<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
 									<input type="hidden" id="rejectAppNo" name="appNo" value="${i.appNo }">
 									<input type="hidden" id="rejectAcc" name="accept" value="2">
-									<button class="searchBtn" onclick="appToBandReject() ">거절</button>
+									<button class="acceptBtnRed" onclick="appToBandReject() ">거절</button>
 	<!-- 						</form> -->
 						</c:if>
-						<c:if test="${i.accept eq 1}">
-							수락됨
-						</c:if>
-						<c:if test="${i.accept eq 2}">
-							거절됨
-						</c:if>
+						<c:if test="${i.accept eq 1}">수락</c:if>
+						<c:if test="${i.accept eq 2}">거절</c:if>
 					</td>
+					</c:if>
+					
 				</tr>
+				</tbody>
 			</c:forEach>
 				
 		</table>
 			
 		<div id="pagingBox" class="text-center">
 		  <ul class="pagination pagination-sm">
-		  
-	<%-- 		<c:if test="${paging.curPage ne 1 }"> --%>
-	<!-- 	    <li> -->
-	<!-- 	      <a href="/board/list" aria-label="First"> -->
-	<!-- 	        <span aria-hidden="true">&larr;처음</span> -->
-	<!-- 	      </a> -->
-	<!-- 	    </li> -->
-	<%-- 		</c:if> --%>
-		  
-		  	<!-- 이전 페이지 -->
-		  	<!-- 첫 페이지라면 버튼 동작 안 되게 만들기 -->
-	<%-- 	  	<c:if test="${paging.curPage eq 1 }"> --%>
-	<!-- 	    <li class="disabled"> -->
-	<!-- 	        <span aria-hidden="true">&laquo;</span> -->
-	<!-- 	    </li> -->
-	<%-- 	    </c:if> --%>
-		    
-	<%-- 	  	<c:if test="${paging.curPage ne 1 }"> --%>
-	<!-- 	    <li> -->
-	<%-- 	      <a href="/board/list?curPage=${paging.curPage-1 }" aria-label="Previous"> --%>
-	<!-- 	        <span aria-hidden="true">&laquo;</span> -->
-	<!-- 	      </a> -->
-	<!-- 	    </li> -->
-	<%-- 	    </c:if> --%>
 		    
 		    	<!-- 이전 페이지 -->
-		    <c:if test="${paging.curPage ne 1}">
+		    <c:if test="${paging.curPage > 1}">
 	    		<button id="ajaxBtnPrev" class="searchBtn" name="ajaxBtnPrev">Prev</button>
 	    	</c:if>
 	    	
@@ -635,20 +657,13 @@
 	 	     begin="${paging.startPage }"
 	 	     end="${paging.endPage }"
 	 	     var="i">
-	<!-- 			현재 보고 있는 페이지번호만 강조해주기 -->
-	<%-- 			<c:if test="${paging.curPage eq i}">           --%>
-	<!-- 	    	  <li class="active"> -->
-	<%-- 	    	  	<a href="/board/list?curPage=${i }">${i }</a> --%>
-	<!-- 	    	  	</li> -->
-	<%-- 	    	</c:if> --%>
-	<%-- 			<c:if test="${paging.curPage ne i}">           --%>
-	<!-- 	    	  <li> -->
-	<%-- 	    	  <a href="/board/list?curPage=${i }">${i }</a> --%>
-	<!-- 	    	  </li> -->
-	<%-- 	    	</c:if> --%>
-				<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+				<c:if test="${paging.endPage > 1}">
+					<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+				</c:if>
 		    </c:forEach>
+		    <c:if test="${paging.endPage > 1}">
 				<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
+			</c:if>
 		    </ul>
 		</div>
 		</div>

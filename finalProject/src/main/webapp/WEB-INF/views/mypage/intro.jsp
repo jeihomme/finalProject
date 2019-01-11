@@ -26,7 +26,7 @@
 	}
 	
 	.adminMypageSearchDiv {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 50px;
 		margin: 10px auto;
@@ -73,6 +73,10 @@
 	
 	.searchBtn {
 		color: black;
+		font-weight: bold;
+		background: gold;
+		border-radius:10px;
+		border-color: gold;
 		float:right;
 	}
 	
@@ -107,19 +111,10 @@
 	.resumesBtn {
 		margin: 0 auto;
 		color: black;
-	}
-	
-	tr th {
-	text-align: center;
-	color:#000;
-	background-color: gold;
-	}
-	
-	td {
-		border-left: 1px solid white;
-		border-right: 1px solid white;
-		color:#fff;
-		background-color: black;
+		font-weight: bold;
+		background: gold;
+		border-radius:10px;
+		border-color: gold;
 	}
 	
 	.resumesViewDiv {
@@ -177,6 +172,48 @@
 		margin: 10px;
 		width:400;
 		float:left;
+	}
+	
+	.bandIntroHeader {
+		font-size:20px;
+	}
+	
+	.bandIntroInsert {
+		color: black;
+		background-color:gold;
+		float:right;
+	}
+	
+	.bandIntroPublic {
+		color: black;
+		background-color:gold;
+		float:left;
+	}
+	
+	.addResumesList {
+		color: black;
+		font-weight: bold;
+		background: gold;
+		border-radius:10px;
+		border-color: gold;
+		float:right;
+	}
+	
+	.selectPublicResumes {
+		color: black;
+		font-weight: bold;
+		background: gold;
+		border-radius:10px;
+		border-color: gold;
+		float:left;
+	}
+	
+	table.type10 td.tdSize100 {
+		width:100px;
+	}
+	
+	table.type10 td.tdSize500 {
+		width:500px;
 	}
 </style>
 
@@ -305,79 +342,74 @@ $(document).ready(function(){
 			<img src="../resources/${pPic.originName }" id="profileImage" class="bandProfileImage img-rounded"/>
 		</div>
 	</div>
-	<style type="text/css">
-	/* tr th:not(:nth-child(2)) { */
-	tr th {
-		text-align: center;
-		color:#000;
-		background-color: gold;
-	}
-	
-	td {
-		border-left: 1px solid white;
-		border-right: 1px solid white;
-		color:#fff;
-		background-color: black;
-	}
-	
-	.bandIntroHeader {
-		font-size:20px;
-	}
-	
-	.bandIntroInsert {
-		color: black;
-		background-color:gold;
-		float:right;
-	}
-	
-	.bandIntroPublic {
-		color: black;
-		background-color:gold;
-		float:left;
-	}
-	
-	.bandModifyBtn {
-		float:right;
-	}
-</style>
 	
 	<div class="adminMypageSearchRes">
 		<hr>
 		<div>
 			<p class="bandIntroHeader">밴드소개 리스트</p>
 			<c:if test="${rListRnum > 0 }">
-				<button class="bandIntroPublic" onclick="modifyPublicResumes() ">공개 선택</button>
+				<button class="selectPublicResumes" onclick="modifyPublicResumes() ">공개 선택</button>
 			</c:if>
 			<c:if test="${rListRnum < 5 }">
-				<button class="bandIntroInsert" onclick="viewNewResumes() ">+</button>
-			</c:if>
-			<table class="table table-hover table-striped table-condensed">
-				
+				<button class="addResumesList" onclick="viewNewResumes() ">+</button>
+			</c:if><br>
+			<table class="type10">
+				<thead>
 				<tr>
 					<th>공개</th>
 					<th>밴드소개 제목</th>
 					<th>첨부파일번호</th>
 				</tr>
+				</thead>
+				<tbody>
 				<c:forEach items="${resumesList }" var="i" varStatus="status">
 					<tr>
-						<td>
-						<c:if test="${i.publicResumes eq 1}"> 
-							<input type="checkbox" name="publicResumes" value="${status.count }" checked="checked" onclick="oneCheckbox(this)">
+						<c:if test="${status.count % 2 eq 1 }">
+							<td class="tdSize100">
+								<c:if test="${i.publicResumes eq 1}"> 
+									<input type="checkbox" name="publicResumes" value="${status.count }" checked="checked" onclick="oneCheckbox(this)">
+								</c:if>
+								<c:if test="${i.publicResumes eq 0}"> 
+									<input type="checkbox" name="publicResumes" value="${status.count }" onclick="oneCheckbox(this)">
+								</c:if>
+							</td>
 						</c:if>
-						<c:if test="${i.publicResumes eq 0}"> 
-							<input type="checkbox" name="publicResumes" value="${status.count }" onclick="oneCheckbox(this)">
+						<c:if test="${status.count % 2 eq 0 }">
+							<td class="even tdSize100">
+								<c:if test="${i.publicResumes eq 1}"> 
+									<input type="checkbox" name="publicResumes" value="${status.count }" checked="checked" onclick="oneCheckbox(this)">
+								</c:if>
+								<c:if test="${i.publicResumes eq 0}"> 
+									<input type="checkbox" name="publicResumes" value="${status.count }" onclick="oneCheckbox(this)">
+								</c:if>
+							</td>
 						</c:if>
 						
-						</td>
-						<td>
-							<b class="mousePointer" onclick="viewResumes${status.count }()"> ${i.resumesTitle } </b>
-								<input type="hidden" name="resumesNo[]" value="${i.resumesNo }">
-								<button class="searchBtn" onclick="deleteResumes${status.count }()">삭제</button>
-						</td>
-						<td>${i.musicNo }</td>
+						<c:if test="${status.count % 2 eq 1 }">
+							<td class="tdSize500">
+								<b class="mousePointer" onclick="viewResumesAppNo(${i.resumesNo })"> ${i.resumesTitle } </b>
+									<input type="hidden" name="resumesNo[]" value="${i.resumesNo }">
+									<button class="searchBtn" onclick="deleteResumes(${i.resumesNo })">삭제</button>
+							</td>
+						</c:if>
+						<c:if test="${status.count % 2 eq 0 }">
+							<td class="even tdSize500">
+								<b class="mousePointer" onclick="viewResumesAppNo(${i.resumesNo })"> ${i.resumesTitle } </b>
+									<input type="hidden" name="resumesNo[]" value="${i.resumesNo }">
+									<button class="searchBtn" onclick="deleteResumes(${i.resumesNo })">삭제</button>
+							</td>
+						</c:if>
+						
+						<c:if test="${status.count % 2 eq 1 }">
+							<td class="tdSize100">${i.musicNo }</td>
+						</c:if>
+						<c:if test="${status.count % 2 eq 0 }">
+							<td class="even tdSize100">${i.musicNo }</td>
+						</c:if>
 					</tr>
 					
 				</c:forEach>
+				</tbody>
 			</table>
 		</div>
 	</div>
@@ -389,28 +421,52 @@ $(document).ready(function(){
 				<b class="bandIntroHeader">첨부파일 리스트</b>
 				<input class="bandIntroInsert" type="file" name="file" id="soundFile"/>
 				<c:if test="${mListRnum < 5 }">
-					<button type="button" class="bandIntroInsert" onclick="uploadSoundIntro() ">파일 첨부</button>
+					<button type="button" class="searchBtn" onclick="uploadSoundIntro() ">파일 첨부</button>
 				</c:if>
 			</form>
 			
 <!-- 			</form> -->
-			<table class="table table-hover table-striped table-condensed">
-				
+			<table class="type10">
+				<thead>
 				<tr>
-					<th>첨부파일번호</th>
+					<th>번호</th>
 					<th>파일명</th>
 					<th>등록/수정일</th>
 				</tr>
-			
+				</thead>
 				<c:forEach items="${musicList }" var="i" varStatus="status">
 						<tr>
-							<td>${i.musicNo }</td>
-							<td><a href="">${i.musicTitle }</a>
+							<c:if test="${status.count % 2 eq 1 }">
+							<td class="tdSize100">${i.musicNo }</td>
+							</c:if>
+							<c:if test="${status.count % 2 eq 0 }">
+							<td  class="even tdSize100">${i.musicNo }</td>
+							</c:if>
+							
+							<c:if test="${status.count % 2 eq 1 }">
+							<td class="tdSize500 "><a href="">${i.musicTitle }</a>
 								<input type="hidden" name="musicNo" value="${i.musicNo }">
 								<input type="hidden" name="bandNo" value="${i.musicNo }">
 								<button class="searchBtn" onclick="deleteSound${status.count}() ">삭제</button>
 							</td>
-							<td>${i.writtenDate }</td>
+							</c:if>
+							<c:if test="${status.count % 2 eq 0 }">
+							<td class="even"><a href="">${i.musicTitle }</a>
+								<input type="hidden" name="musicNo" value="${i.musicNo }">
+								<input type="hidden" name="bandNo" value="${i.musicNo }">
+								<button class="searchBtn" onclick="deleteSound${status.count}() ">삭제</button>
+							</td>
+							</c:if>
+							
+							<c:if test="${status.count % 2 eq 1 }">
+							<td class="tdSize100">${i.writtenDate }</td>
+							</c:if>
+							<c:if test="${status.count % 2 eq 0 }">
+							<td class="even">${i.writtenDate }</td>
+							</c:if>
+							
+							
+							
 						</tr>
 				</c:forEach>
 			</table>

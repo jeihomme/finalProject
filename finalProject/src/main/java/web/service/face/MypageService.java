@@ -92,7 +92,7 @@ public interface MypageService {
 	public Resumes getResumesByBandNoWithPublic(Resumes resumes);
 	public List<Application> appView(Paging paging, Member member);
 	
-	public List<Application> appView(Paging paging, Bar bar, String startDate, String endDate);
+	
 	public void appDelete(Application app);
 	public Location getLocation(Location location);
 	public ProfilePic getProfilePic(ProfilePic pPic);
@@ -106,15 +106,30 @@ public interface MypageService {
 	public void uploadPicture(ServletContext context, ProfilePic pPic, MultipartFile file);
 	public void insertBarProfile(Bar bar);
 	public void insertBandProfile(Band band);
-	public List<Application> appView(Paging paging, Band band);
-	public List<Application> appView(Paging paging, Bar bar);
 	
-	public List<Application> appView(Paging paging, Band band, String startDate, String endDate);
+	public List<Application> appViewAppliedBar(Paging paging, Band band);
+	public List<Application> appViewAppliedBar(Paging paging, Band band, String startDate, String endDate);
 	
-	public int getAppTotalCount(Bar bar);
-	public int getAppTotalCount(Bar bar, String startDate, String endDate);
-	public int getAppTotalCount(Band band);
-	public int getAppTotalCount(Band band, String startDate, String endDate);
+	public List<Application> appViewAppliedBand(Paging paging, Band band);
+	public List<Application> appViewAppliedBand(Paging paging, Band band, String startDate, String endDate);
+	
+	public List<Application> appViewAppliedBar(Paging paging, Bar bar);
+	public List<Application> appViewAppliedBar(Paging paging, Bar bar, String startDate, String endDate);
+	
+	public List<Application> appViewAppliedBand(Paging paging, Bar bar);
+	public List<Application> appViewAppliedBand(Paging paging, Bar bar, String startDate, String endDate);
+	
+	public int getAppTotalCountAppliedBar(Bar bar);
+	public int getAppTotalCountAppliedBand(Bar bar);
+	
+	public int getAppTotalCountAppliedBar(Bar bar, String startDate, String endDate);
+	public int getAppTotalCountAppliedBand(Bar bar, String startDate, String endDate);
+	
+	public int getAppTotalCountAppliedBar(Band band);
+	public int getAppTotalCountAppliedBand(Band band);
+	
+	public int getAppTotalCountAppliedBar(Band band, String startDate, String endDate);
+	public int getAppTotalCountAppliedBand(Band band, String startDate, String endDate);
 	
 	
 	
