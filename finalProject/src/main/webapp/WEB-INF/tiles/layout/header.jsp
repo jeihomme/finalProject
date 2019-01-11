@@ -402,14 +402,9 @@ $(document).ready(function() {
 		// 아이디 / 비밀번호 찾기 선택 모달일 경우
 		} else if(idx==8) {
 		
-		// 아이디 찾기 모달일 경우
-		} else if(idx==9) {
 			
 		// 비밀번호 찾기 모달일 경우
 		} else if(idx==10) {
-		
-		// 아이디 / 비밀번호 찾기 이메일 전송 완료 모달일 경우
-		} else if(idx==11) {
 			
 		}
 		
@@ -439,18 +434,31 @@ $(document).ready(function() {
 			data: formData,
 			success: function(res) {
 				alert("회원 탈퇴 성공");
-				opener.location.reload();
-				location.reload();
-				window.location.reload();
+				$(".modal-content:eq("+Number(idx+12)+")").hide();
+// 				opener.location.reload();
+// 				location.reload();
+// 				window.location.reload();
+// 				top.document.framname.location.reload();
+				location.href="/main";
+
+
 			},
 			error: function() {
-				// 회원 탈퇴 실패
-				alert("회원 탈퇴 실패.");
+				alert("회원 탈퇴 성공");
+				$(".modal-content:eq("+Number(idx+12)+")").hide();
+// 				opener.location.reload();
+// 				location.reload();
+// 				window.location.reload();
+// 				top.document.framname.location.reload();
+				location.href="/main";
+
 			}
 		});
-			opener.location.reload();
-			window.location.reload();
+		$(".modal-content:eq("+Number(idx+12)+")").hide();
+// 			opener.location.reload();
+// 			window.location.reload();
 			location.href="/main";
+			top.document.framname.location.reload();
 
 	});
 	
@@ -465,12 +473,14 @@ $(document).ready(function() {
 	$(".backBtn").click(function() {
 		console.log("이전 버튼 클릭 "+idx);
 		
-		if(idx<=4 || idx>8 && idx<=11) {
+		if(idx<=4 || idx==9) {
 			// Form 안의 내용 초기화
 			document.getElementById("loginForm").reset();
 			document.getElementById("joinAgreePost1").reset();
 			document.getElementById("joinAgreePost2").reset();
 			document.getElementById("joinForm1").reset();
+			document.getElementById("findIdForm").reset();
+			document.getElementById("findPwForm").reset();
 			
 			$(".modal-content:eq("+idx+")").hide();
 			$(".modal-content:eq("+Number(idx-1)+")").show();
@@ -508,6 +518,14 @@ $(document).ready(function() {
 			idx=idx-8;
 			
 			console.log("인덱스 -- "+idx);
+			
+		} else if(idx==10) {
+			document.getElementById("findIdForm").reset();
+			document.getElementById("findPwForm").reset();
+			
+			$(".modal-content:eq("+idx+")").hide();
+			$(".modal-content:eq("+Number(idx-2)+")").show();
+			idx=idx-2;
 		}
 		
 	});
@@ -550,8 +568,195 @@ $(document).ready(function() {
 		idx+=2;		
 	});
 	
+	// 아이디 찾기 확인 버튼
+	$(".findIdConfirmBtn").click(function() {
+		
+		var findIdEmailCheck = $("#findUserIdEmail2").val();
+		var findIdTelcom = $("#findIdTelcom").val();
+		var findIdContact = $("#findIdContact1").val()+$("#findIdContact2").val()+$("#findIdContact3").val();
+		var findIdEmail = $("#findUserIdEmail1").val()+"@"+$("#findUserIdEmail2").val();
+		
+		// 이메일을 입력하지 않은 경우
+		if(findIdForm.findUserIdEmail1.value.length==0) {
+			alert("이메일을 입력해 주세요.");
+			findIdForm.findUserIdEmail1.focus();
+			return;
+		
+		// 전화번호를 입력하지 않은 경우
+		} else if(findIdForm.findIdContact1.value.length==0) {
+			alert("전화번호를 입력해 주세요.");
+			findIdForm.findIdContact1.focus();
+			return;
+			
+		} else if(findIdForm.findIdContact2.value.length==0) {
+			alert("전화번호를 입력해 주세요.");
+			findIdForm.findIdContact2.focus();
+			return;
+			
+		} else if(findIdForm.findIdContact3.value.length==0) {	
+			alert("전화번호를 입력해 주세요.");
+			findIdForm.findIdContact3.focus();
+			return;
+		}
+		
+		// 전화번호 형식이 제대로 되지 않았을 때
+		if(findIdForm.findIdContact1.value.length<3) {
+			alert("전화번호가 너무 짧습니다.");
+			findIdForm.findIdContact1.focus();
+			return;
+		} else if(findIdForm.findIdContact1.value.length>=5) {
+			alert("전화번호가 너무 깁니다.");
+			findIdForm.findIdContact1.focus();
+			return;
+		} else if(findIdForm.findIdContact2.value.length<3) {
+			alert("전화번호가 너무 짧습니다.");
+			findIdForm.findIdContact2.focus();
+			return;
+		} else if(findIdForm.findIdContact2.value.length>=5) {
+			alert("전화번호가 너무 깁니다.");
+			findIdForm.findIdContact2.focus();
+			return;
+		} else if(findIdForm.findIdContact3.value.length<4) {
+			alert("전화번호가 너무 짧습니다.");
+			findIdForm.findIdContact3.focus();
+			return;
+		} else if(findIdForm.findIdContact3.value.length>=5) {
+			alert("전화번호가 너무 깁니다.");
+			findIdForm.findIdContact3.focus();
+			return;
+		}
+		
+		// 이메일 형식이 잘못된 경우
+		if(findIdEmailCheck.indexOf(".")<0) {
+			alert("올바른 이메일 형식이 아닙니다.");
+			$("input[name=findUserIdEmail2]").val("");
+			findIdForm.findUserIdEmail2.focus();
+			return;
+		} else if(findIdForm.findUserIdEmail1.value.length<3) {
+			alert("이메일 길이가 너무 짧습니다.");
+			$("input[name=findUserIdEmail1]").val("");
+			findIdForm.findUserIdEmail1.focus();
+			return;
+		
+		// 이메일에 공백이 들어갔을 경우
+		} else if(findIdEmailCheck.indexOf(" ")>=0) {
+			alert("이메일에 공백이 들어가면 안 됩니다.");
+			$("input[name=findUserIdEmail1]").val("");
+			$("input[name=findUserIdEmail2]").val("");
+			findIdForm.findIdEmailCheck1.focus();
+			return;			
+		}
+		
+		var formData = {
+			telcom: findIdTelcom,
+			contact: findIdContact,
+			email: findIdEmail
+		}
+		
+		$.ajax({
+			type: "POST",
+			url: "/mail/findId",
+			dataType: "json",
+			data: formData,
+			success: function(res) {
+				
+				// Find Your Id form submit
+				$("findIdForm").submit();
+				alert("이메일 전송 성공!");
+				
+				$(".modal-content:eq("+idx+")").hide();
+				$(".modal-content:eq("+Number(idx+2)+")").show();
+				idx+=2;
+				
+				console.log("인덱스 +2 "+idx);	
+			},
+			error: function() {
+				alert("등록되지 않은 이메일 혹은 전화번호입니다.");
+			}
+			
+		});
+			
+	});
+	
+	// 비밀번호 찾기 확인 버튼
+	$(".findPwConfirmBtn").click(function() {
+		var findPasswordEmailCheck = $("#findPasswordEmail2").val();
+		var findPasswordUserId = $("#findPasswordUserId").val();
+		var findPasswordEmail = $("#findPasswordEmail1").val()+"@"+$("#findPasswordEmail2").val();
+		
+		// 이메일을 입력하지 않은 경우
+		if(findPwForm.findPasswordEmail1.value.length==0) {
+			alert("이메일을 입력해 주세요.");
+			findPwForm.findPasswordEmail1.focus();
+			return;
+			
+		// 아이디를 입력하지 않은 경우
+		} else if(findPwForm.findPasswordUserId.value.length==0) {
+			alert("아이디를 입력해 주세요.");
+			findPwForm.findPasswordUserId.focus();
+			return;
+		}
+	
+		// 이메일 형식이 잘못된 경우
+		if(findPasswordEmailCheck.indexOf(".")<0) {
+			alert("올바른 이메일 형식이 아닙니다.");
+			$("input[name=findPasswordEmail2]").val("");
+			findPwForm.findPasswordEmail2.focus();
+			return;
+		} else if(findPwForm.findPasswordEmail1.value.length<3) {
+			alert("이메일 길이가 너무 짧습니다.");
+			$("input[name=findPasswordEmail1]").val("");
+			findPwForm.findPasswordEmail1.focus();
+			return;
+		
+		// 이메일에 공백이 들어갔을 경우
+		} else if(findPasswordEmailCheck.indexOf(" ")>=0) {
+			alert("이메일에 공백이 들어가면 안 됩니다.");
+			$("input[name=findPasswordEmail1]").val("");
+			$("input[name=findPasswordEmail2]").val("");
+			findPwForm.findPasswordEmail1.focus();
+			return;		
+			
+		// 아이디에 공백이 들어갔을 경우
+		} else if(findPasswordUserId.indexOf(" ")>=0) {
+			alert("이메일에 공백이 들어가면 안 됩니다.");
+			$("input[name=findPasswordUserId]").val("");
+			findPwForm.findPasswordUserId.focus();
+			return;
+		}
+		
+		var formData = {
+				userId: findPasswordUserId,
+				email: findPasswordEmail
+			}
+		
+		$.ajax({
+			type: "POST",
+			url: "/mail/findPw",
+			dataType: "json",
+			data: formData,
+			success: function(res) {
+				
+				// Find Your Id form submit
+				$("findPwForm").submit();
+				alert("이메일 전송 성공!");
+				
+				$(".modal-content:eq("+idx+")").hide();
+				$(".modal-content:eq("+Number(idx+1)+")").show();
+				idx++;
+				
+				console.log("인덱스 ++ "+idx);		
+			},
+			error: function() {
+				alert("등록되지 않은 아이디 혹은 이메일입니다.");
+			}
+			
+		});
+	});
+	
+	// bar 가입 버튼 눌렀을 때
 	$(".btnBarJoin").click(function() {
-		var roleId = 1;
+		var roleId = 1; // roleId를 1로 줌
 		var genreNo = $("#barGenre").val();
 		
 		console.log(genreNo);
@@ -660,6 +865,8 @@ $(document).ready(function() {
 			$("#joinBandPicform").get(0).reset();
 			document.getElementById("joinBandPicform").reset();
 			document.getElementById("joinForm3").reset();
+			document.getElementById("findIdForm").reset();
+			document.getElementById("findPwForm").reset();
 		
 		idx=0;
 	});
@@ -676,6 +883,38 @@ $(document).ready(function() {
 			} else {
 				$("#joinEmail2").val($(this).text()); // 선택값 입력
 				$("#joinEmail2").attr("disabled", true) // 비활성화
+			}
+		});
+	});
+	
+	// 아이디 찾기 당시 이메일 뒷부분 처리
+	$("#findIdEmailCheck").change(function() {
+		$("#findIdEmailCheck option:selected").each(function() {
+			if($(this).val() == '0') { // 아무것도 선택 안 되어 있을 경우
+				$("#findUserIdEmail2").val(''); // 값 초기화
+				$("#findUserIdEmail2").attr("disabled", true); // 비활성화
+			} else if($(this).val() == '9') { // 직접 입력일 경우
+				$("#findUserIdEmail2").val(''); // 값 초기화
+				$("#findUserIdEmail2").attr("disabled", false); // 활성화
+			} else {
+				$("#findUserIdEmail2").val($(this).text()); // 선택값 입력
+				$("#findUserIdEmail2").attr("disabled", true) // 비활성화
+			}
+		});
+	});
+	
+	// 비밀번호 찾기 당시 이메일 뒷부분 처리
+	$("#findPwEmailCheck").change(function() {
+		$("#findPwEmailCheck option:selected").each(function() {
+			if($(this).val() == '0') { // 아무것도 선택 안 되어 있을 경우
+				$("#findPasswordEmail2").val(''); // 값 초기화
+				$("#findPasswordEmail2").attr("disabled", true); // 비활성화
+			} else if($(this).val() == '9') { // 직접 입력일 경우
+				$("#findPasswordEmail2").val(''); // 값 초기화
+				$("#findPasswordEmail2").attr("disabled", false); // 활성화
+			} else {
+				$("#findPasswordEmail2").val($(this).text()); // 선택값 입력
+				$("#findPasswordEmail2").attr("disabled", true) // 비활성화
 			}
 		});
 	});
@@ -855,7 +1094,8 @@ input {
 	border-radius: 50px;
 }
 
-#btnLogin, .btnBarJoin, .btnBandJoin, .findIdBtn, .findPwBtn, .deleteMember {
+#btnLogin, .btnBarJoin, .btnBandJoin, .findIdBtn, .findPwBtn, .deleteMember,
+		.findIdConfirmBtn, .findPwConfirmBtn {
 	border: none;
 	outline: none;
 	color: gold;
@@ -1306,14 +1546,35 @@ input {
         <button class="backBtn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       <div class="modal-body text-center"  style="height: 300px;">
-         <h3 class="modal-title text-center" style="color: black;"><b>Find Your ID/PW</b></h3>
-		      <table style="border: none; height: 150px; width: 100%; color: black; margin-left: 33px; margin-top: 20px;" >
+         <h3 class="modal-title text-center" style="color: black;"><b>Find Your ID</b></h3>
+		      <form id="findIdForm" name="findIdForm" class="findIdForm">
+		      <table style="border: none; height: 150px; width: 100%; color: black; margin-top: 20px;" >
+				<tr class="text-center"><td><font style="font-size: 13px;">가입한 계정의 <b>이메일</b>과 <b>전화번호</b>를 입력해 주세요</font></td></tr>
 				<tr><td>
-				<button type="button" class="findIdBtn"><b>Find ID</b></button>
+				<font color="red">*</font>&nbsp;
+				<input type="text" id="findUserIdEmail1" name="findUserIdEmail1" style="width: 100px;" placeholder=" 이메일"/> @ 
+				<input type="text" name="findUserIdEmail2" id="findUserIdEmail2" style="color: black; width: 80px" disabled value=""/>
+					<select name="findIdEmailCheck" id="findIdEmailCheck" style="color: black; width: 90px; height: 30px;">
+						<option value="0" selected> ::: 선택 :::</option>
+						<option value="naver.com">naver.com</option>
+						<option value="daum.net">daum.net</option>
+						<option value="gmail.com">gmail.com</option>
+						<option value="9">직접 입력</option>
+					</select>
 				</td></tr>
 				<tr><td style="padding-top: 10px;">
-				<button type="button" class="findPwBtn"><b>Find PW</b></button>
-			  </table><br>
+					<font color="red">*</font>&nbsp;
+					<select id="findIdTelcom" name="findIdTelcom" style="color: black; width: 20%; height: 28px">
+						<option value="SK" selected>SKT</option>
+						<option value="KT">KT</option>
+						<option value="LG">LGT</option>
+					</select>&nbsp;
+					<input type="text" style="width: 50px" name="findIdContact1" id="findIdContact1" onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/> -
+					<input type="text" style="width: 50px" name="findIdContact2" id="findIdContact2" onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/> -
+					<input type="text" style="width: 50px" name="findIdContact3" id="findIdContact3" onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/>
+				</td></tr>
+			  </table><br></form>
+				<button type="button" class="findIdConfirmBtn"><b>Find ID</b></button>
       		<br>
       </div>
     </div>
@@ -1323,21 +1584,31 @@ input {
         <button class="backBtn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       <div class="modal-body text-center"  style="height: 300px;">
-         <h3 class="modal-title text-center" style="color: black;"><b>Find Your ID/PW</b></h3>
-		      <table style="border: none; height: 150px; width: 100%; color: black; margin-left: 33px; margin-top: 20px;" >
+         <h3 class="modal-title text-center" style="color: black;"><b>Find Your PW</b></h3>
+		      <form id="findPwForm" name="findPwForm" class="findPwForm">
+		      <table style="border: none; height: 150px; width: 100%; color: black; margin-top: 20px;" >
+				<tr class="text-center"><td><font style="font-size: 13px;">가입한 계정의 <b>아이디</b>와 <b>이메일</b>을 입력해 주세요</font></td></tr>
 				<tr><td>
-				<button type="button" class="findIdBtn"><b>Find ID</b></button>
-				</td></tr>
+				<font color="red">*</font>&nbsp;<input type="text" name="findPasswordUserId" id="findPasswordUserId" placeholder=" 아이디"/>				</td></tr>
 				<tr><td style="padding-top: 10px;">
-				<button type="button" class="findPwBtn"><b>Find PW</b></button>
-			  </table><br>
+				<font color="red">*</font>&nbsp;
+				<input type="text" id="findPasswordEmail1" name="findPasswordEmail1" style="width: 100px;" placeholder=" 이메일"/> @ 
+				<input type="text" name="findPasswordEmail2" id="findPasswordEmail2" style="color: black; width: 80px" disabled value=""/>
+					<select name="findPwEmailCheck" id="findPwEmailCheck" style="color: black; width: 90px; height: 30px;">
+						<option value="0" selected> ::: 선택 :::</option>
+						<option value="naver.com">naver.com</option>
+						<option value="daum.net">daum.net</option>
+						<option value="gmail.com">gmail.com</option>
+						<option value="9">직접 입력</option>
+					</select>				</td></tr>
+			  </table><br></form>
+				<button type="button" class="findPwConfirmBtn"><b>Find PW</b></button>
       		<br>
       </div>
     </div>
     
 <!-- 아이디 / 비밀번호 찾기 완료 모달, ID/PW 확인 완료 #11 -->
     <div class="modal-content">
-        <button class="backBtn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       <div class="modal-body text-center"  style="height: 150px;">
          <h3 class="modal-title text-center" style="color: black;"><b>Find Your ID/PW</b></h3>
@@ -1348,7 +1619,7 @@ input {
  </div>
 </div>
     
-<!-- 계정 탈퇴 모달 -->
+<!-- 계정 탈퇴 모달 #12 -->
 <div class="modal modal-center fade" id="deleteMemberModal" tabindex="12" role="dialog" aria-hidden="true" style="display: none">
   <div class="modal-dialog modal-lg" style="width: 30%;">
     <div class="modal-content">

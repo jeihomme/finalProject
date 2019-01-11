@@ -63,16 +63,53 @@
  	</select>
  	
  	<select id="selectUserId" parameterType="web.dto.Member" resultType="int">
- 		SELECT userId
- 		FROM member
- 		WHERE email=#{email } 
+ 		SELECT COUNT(*) CNT
+ 		FROM (
+ 			SELECT userId
+	 		FROM member
+	 		WHERE email=#{email }
+	 			AND telcom=#{telcom }
+	 			AND contact=#{contact }
+ 		) 		
+ 	</select>
+ 	
+ 	<select id="getUserId" parameterType="web.dto.Member" resultType="web.dto.Member">
+ 	 	SELECT  			
+ 	 		userId,
+ 			roleId,
+ 			password,
+ 			email,
+ 			telcom,
+ 			contact,
+ 			userName
+	 	FROM member
+	 	WHERE email=#{email }
+	 		AND telcom=#{telcom }
+	 		AND contact=#{contact }
  	</select>
  	
  	<select id="selectUserPw" parameterType="web.dto.Member" resultType="int">
- 		SELECT password
+ 		SELECT COUNT(*) CNT
+ 		FROM (
+ 		 	SELECT password
+ 			FROM member
+ 			WHERE userId=#{userId }
+ 				AND email=#{email }
+ 		)
+ 	</select>
+ 	
+ 	<select id="getPassword" parameterType="web.dto.Member" resultType="web.dto.Member">
+ 		SELECT 
+ 	 		userId,
+ 			roleId,
+ 			password,
+ 			email,
+ 			telcom,
+ 			contact,
+ 			userName
  		FROM member
- 		WHERE email=#{email }
- 			AND userId=#{userId }
+ 		WHERE userId=#{userId }
+ 			AND email=#{email }
  	</select>
  	
  	<select id="selectRoleId" parameterType="web.dto.Member" resultType="int">

@@ -118,13 +118,19 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public boolean checkUserId(Member member) {
-		// 이메일이 일치하는 아이디가 있을 경우 
+		// 이메일과 통신사, 전화번호가 일치하는 아이디가 있을 경우 
 		if(memberDao.selectUserId(member)==1) {
 			return true;
 		}
 		
 		// 없을 경우
 		return false;
+	}
+	
+	@Override
+	public Member getUserId(Member member) {
+		// 아이디 찾기 때 아이디 반환
+		return memberDao.getUserId(member);
 	}
 
 	@Override
@@ -136,6 +142,11 @@ public class MemberServiceImpl implements MemberService {
 		
 		// 없을 경우
 		return false;
+	}
+	
+	@Override
+	public Member getPassword(Member member) {
+		return memberDao.getPassword(member);
 	}
 	
 	@Override

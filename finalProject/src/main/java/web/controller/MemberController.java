@@ -171,6 +171,8 @@ public class MemberController {
 	@RequestMapping(value="/member/login", method=RequestMethod.POST)
 	public void loginProc(
 			Member member,
+			Bar bar,
+			Band band,
 			HttpSession session,
 			Writer out) {
 		
@@ -189,6 +191,24 @@ public class MemberController {
 				
 				// loginInfo로 member의 정보 보내기
 				session.setAttribute("loginInfo", member);
+				
+				// bar 회원일 경우
+				if(member.getRoleId()==1) {
+					// bar 정보 가져오기
+					bar = memberService.checkBarInfo(member);
+					logger.info(bar.toString());
+					
+					// barInfo로 bar 정보 보내기
+					session.setAttribute("barInfo", bar);
+					
+				} else if(member.getRoleId()==2) {
+					// band 정보 가져오기
+					band = memberService.checkBandInfo(member);
+					logger.info(band.toString());
+					
+					// bandInfo로 band 정보 보내기
+					session.setAttribute("bandInfo", band);
+				}
 			
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -198,34 +218,6 @@ public class MemberController {
 		} 
 		
 		
-	}
-	
-	@RequestMapping(value="/member/checkuserid", method=RequestMethod.GET)
-	public String checkUserId(Member member) {
-		
-		String redirectUrl = null;
-		
-		// 이메일과 일치하는 아이디가 있을 경우 (유저가 입력한 정보가 회원 정보와 일치)
-		if(memberService.checkUserId(member)) {
-			
-			redirectUrl = "/member/findidmailsend";
-		}
-	
-		return "redirect:"+redirectUrl;
-	}
-	
-	@RequestMapping(value="/member/checkuserpw", method=RequestMethod.GET)
-	public String checkUserPw(Member member) {
-		
-		String redirectUrl = null;
-		
-		// 이메일과 일치하는 아이디가 있을 경우 (유저가 입력한 정보가 회원 정보와 일치)
-		if(memberService.checkPassword(member)) {
-			
-			redirectUrl = "/member/findpwmailsend";
-		}
-	
-		return "redirect:"+redirectUrl;
 	}
 	
 	@RequestMapping(value="/member/logout", method=RequestMethod.GET)
