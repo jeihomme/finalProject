@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import web.dto.Band;
+import web.dto.BandMember;
 import web.dto.Music;
 import web.dto.ProfilePic;
 import web.dto.Resumes;
@@ -48,8 +49,6 @@ public interface BandDao {
 	// 멤버 삭제
 	public void delBMember(String codes);
 	
-	
-	// 밴드 일정표
-	public List getSchedule(String bandName);
-	
+	// 멤버 추가
+	public void addBMember(BandMember bMem);
 }

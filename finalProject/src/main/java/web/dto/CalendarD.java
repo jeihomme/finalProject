@@ -5,14 +5,16 @@ public class CalendarD {
 	private String calendarNo;
 	private String calendarDate;
 	private String barNo;
+	private String barName;
 	private String bandNo;
+	private String bandName;
 	private String startTime;
 	private String endTime;
-	
 	@Override
 	public String toString() {
-		return "CalendarDTO [calendarNo=" + calendarNo + ", calendarDate=" + calendarDate + ", barNo=" + barNo
-				+ ", bandNo=" + bandNo + ", startTime=" + startTime + ", endTime=" + endTime + "]";
+		return "CalendarD [calendarNo=" + calendarNo + ", calendarDate=" + calendarDate + ", barNo=" + barNo
+				+ ", barName=" + barName + ", bandNo=" + bandNo + ", bandName=" + bandName + ", startTime=" + startTime
+				+ ", endTime=" + endTime + "]";
 	}
 	public String getCalendarNo() {
 		return calendarNo;
@@ -32,11 +34,23 @@ public class CalendarD {
 	public void setBarNo(String barNo) {
 		this.barNo = barNo;
 	}
+	public String getBarName() {
+		return barName;
+	}
+	public void setBarName(String barName) {
+		this.barName = barName;
+	}
 	public String getBandNo() {
 		return bandNo;
 	}
 	public void setBandNo(String bandNo) {
 		this.bandNo = bandNo;
+	}
+	public String getBandName() {
+		return bandName;
+	}
+	public void setBandName(String bandName) {
+		this.bandName = bandName;
 	}
 	public String getStartTime() {
 		return startTime;
@@ -50,5 +64,6 @@ public class CalendarD {
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
+	
 	
 }

@@ -146,4 +146,14 @@
 	<delete id="delBMember" parameterType="String">
 		DELETE FROM bandMember WHERE bandMemberNo IN #{codes}
 	</delete>
+	
+	<insert id="addBMember" parameterType="web.dto.BandMember">
+		<selectKey resultType="int" keyProperty="bandMemberNo" order="BEFORE">
+			SELECT bandmember_seq.nextval
+			FROM dual
+		</selectKey>
+		INSERT INTO bandmember
+		VALUES(#{bandMemberNo}, #{bandMemName}, #{mPosition}, #{bandNo} )
+	</insert>
+	
 </mapper>

@@ -4,16 +4,86 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="web.dao.face.CalendarDao">
 	<select id="schedule" parameterType="Map" resultType="web.dto.CalendarD" >
-		SELECT 
-			calendarNo, EXTRACT(DAY FROM calendarDate) calendarDate, barNo, bandNo, startTime, endTime
-		FROM
-			calendar
-		WHERE
-			calendarDate BETWEEN 
-				to_date(#{firstDayOfMonth }, 'DD-MM-YY')
+		Select
+    		calendarNO,
+    		EXTRACT(DAY FROM calendarDate) calendarDate,
+		    a.bandNo,
+    		CASE WHEN a.bandNo = b.bandNo THEN bandName
+        		END bandName,
+    		a.barNo,
+    		CASE WHEN a.barNo = c.barNo THEN barName
+        		END barName,
+    		startTime,
+    		endTime
+		from calendar a, band b, bar c
+		where a.bandNo = b.bandNo AND
+    		a.barNo = c.barNo AND
+    		a.bandNo = #{bandNo } AND
+            calendarDate BETWEEN 
+				to_date(#{map.firstDayOfMonth }, 'DD-MM-YY')
 			AND 
-				to_date(#{firstDayOfNextMonth }, 'DD-MM-YY')
-		ORDER BY
-			calendarNo
+				to_date(#{map.firstDayOfNextMonth }, 'DD-MM-YY')
+		ORDER BY startTime
 	</select>
+	
+	<select id="getTime" resultType="web.dto.PTime">
+		SELECT
+			timeId, hourM
+		FROM ptime
+		ORDER BY timeId
+	</select>
+	
+	<select id="getInfoBand" resultType="web.dto.CalendarD">
+		Select
+    		calendarNO,
+    		EXTRACT(DAY FROM calendarDate) calendarDate,
+		    a.bandNo,
+    		CASE WHEN a.bandNo = b.bandNo THEN bandName
+        		END bandName,
+    		a.barNo,
+    		CASE WHEN a.barNo = c.barNo THEN barName
+        		END barName,
+    		startTime,
+    		endTime
+		from calendar a, band b, bar c
+		where a.bandNo = b.bandNo AND
+    		a.barNo = c.barNo AND
+    		a.bandNo = #{bandNo} AND
+    		calendarDate = to_date(#{tDate }, 'YYYY-MM-DD')
+		ORDER BY startTime
+	</select>
+	
+	<select id="getBars" resultType="web.dto.Bar">
+		SELECT *
+		FROM bar
+		ORDER BY barNo
+	</select>
+	
+	<insert id="insertBar">
+		<selectKey resultType="String" keyProperty="calNo" order="BEFORE">
+			SELECT calendar_seq.nextval
+			FROM dual
+		</selectKey>
+		INSERT INTO calendar
+		values (#{calNo}, to_date(#{thisDate}, 'YY-MM-DD' ), #{barNo}, #{bandNo}, #{stTime}, #{edTime})
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

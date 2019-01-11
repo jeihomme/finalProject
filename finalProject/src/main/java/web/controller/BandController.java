@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Band;
+import web.dto.BandMember;
 import web.service.face.BandService;
 import web.utils.AddItems;
 
@@ -123,7 +124,6 @@ public class BandController {
 		Map general = bandService.bandView(bandNo);
 		
 		model.addAttribute("general", general);
-		
 	}
 	
 	// 밴드 history 삭제
@@ -162,17 +162,28 @@ public class BandController {
 		
 	}
 	
+	@RequestMapping(value="/band/addMember", method=RequestMethod.POST)
+	public void addMember(
+			BandMember bMem
+			) {
+		
+		logger.info(bMem.getBandMemName());
+		logger.info(bMem.getmPosition());
+//		logger.info(bMem.getBandNo());
+		
+		bandService.addBMember(bMem);
+		
+	}
+	
 	// 밴드 소개 수정 진행
 	public String bandEditProc(Band band) {
+		
+		// 아직
 		
 		return null;
 		
 	}
 	
-	// 밴드 일정표
-	public String bandSchedule(String bandName) {
-		
-		return null;
-	}
+	
 	
 }

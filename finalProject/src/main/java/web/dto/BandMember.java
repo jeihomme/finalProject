@@ -5,6 +5,7 @@ public class BandMember {
 	private String bandMemName;
 	private int bandNo;
 	private String mPosition;
+	
 	@Override
 	public String toString() {
 		return "BandMember [bandMemberNo=" + bandMemberNo + ", bandMemName=" + bandMemName + ", bandNo=" + bandNo
@@ -34,4 +35,5 @@ public class BandMember {
 	public void setmPosition(String mPosition) {
 		this.mPosition = mPosition;
 	}
+	
 }

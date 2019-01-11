@@ -5,30 +5,38 @@
 <style>
 
 TABLE {
-	FONT-SIZE: 9pt; COLOR: black; FONT-FAMILY: tahoma;
+	FONT-SIZE: 9pt; 
+	COLOR: black; 
+	FONT-FAMILY: tahoma;
 }
 
 a {
-	COLOR: #999999; TEXT-DECORATION: none;
+	COLOR: #999999;
+	TEXT-DECORATION: none;
 	cursor: pointer;
 }
 
 A:hover {
-	COLOR: red; TEXT-DECORATION: none;
+	COLOR: red; 
+	TEXT-DECORATION: none;
 }
 
 TD.main {
-	FONT-WEIGHT: bold; TEXT-ALIGN: right;
+	FONT-WEIGHT: bold; 
+	TEXT-ALIGN: right;
+	margin: 2px;
 }
 
 TD.uline {
     FONT-SIZE: 7pt;
-    COLOR: #999999;
+    COLOR: black;
     BACKGROUND-COLOR: #ffffff;
 }
 
 TD.r_uline {
-	FONT-SIZE: 7pt; COLOR: #999999; BACKGROUND-COLOR: #f4f4f4;
+	FONT-SIZE: 7pt; 
+	COLOR: #999999; 
+	BACKGROUND-COLOR: #f4f4f4;
 }
 
 td.leftB{
@@ -54,6 +62,23 @@ INPUT {
 /*     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+.text_gray{
+	background-color: white;
+	border: none;
+	text-align: right;
+	height: 15px;
+	width: 30px;
+	margin-left: 2px;
+}
+
+.bbName{
+	border: none;
+	height: 15px;
+	margin-left: 2px;
+	width: auto;
+	background-color: white;
+}
+
 </style>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript">
@@ -61,31 +86,110 @@ INPUT {
 $(document).ready(function(){
 	
 	// 밴드넘버, 바넘버 넘겨줄 값 설정 필요
-	var bandNo;
-	var barNo;
+	var bandNo = ${param.bandNo};
+// 	var barNo = ${param.barNo};
+
+	console.log(map);
 	
 	$(".getDay").click(function(){
 		
-		// 데이터 안 넘어감. 
-		// 404
-		
 		var tDate = $(this).attr("id");
-		console.log(tDate);
+// 		console.log(tDate);
+		
+		// 선택 날짜
+		var selDay = tDate.split('.');
 		
 		$.ajax({
 			type: "get",
 			url: "/calendar/info",
-			data: { tDate : tDate} ,
+			data: { tDate : tDate ,
+				bandNo : bandNo} ,
 			dataType: "json",
 			success: function(data) {
-				
+
 				document.getElementById("wow").style.display="block";
 				
-				console.log("");
-				console.log(data);
+				// 선택 날짜 표시
+				$("#date_D").val(selDay[2]);
+				
+				// 해당 날짜 정보 리스트
+				var lists = data.datedInfo;
+				// 시간 리스트
+				var setTime = data.pTime;
+				
+				$("#ddInfo").empty();
+				
+				// 시간 설정
+				$("#selSt").empty();
+				$("#selEd").empty();
+				$(".bbName").remove();
+				
+				var checking = 0;
+				
+				
+				
+				// 공연 시간 옆의 td에 시간, 바 이름 넣어야함
+				// ddInfo
+				
+				// 새 줄 만듦
+// 				$newLine = "" +
+// 					"<tr><td>"
+// 					"<select id='selSt'>" +
+// 					"</select> ~ " +
+// 					"<select id='selSt'>" +
+// 					"</select>" +
+// 					"<input type='text' class='bbName' id='" + lists[0].barNo + "' value='" + lists[0].barName +"' disabled />" +
+// 					"</td></tr>";				
+					
+				// 새 줄 적용
+// 				$("#ddInfo:last").append($newLine);
+				
+// 				$("#ddInfo > tr:last > td:last").append($("#selSt"));
+			
+// 				$("#ddInfo > tbody").append($newTr);
+				
+				
+				
+				//////////////////////////////////////
+// 				for(var i=0; i < lists.length; i++) {
+					
+// 					var curItem = lists[i];
+					
+// 					for(var j=0; j < setTime.length; j++) {
+						
+// 						// 시간 설정
+// 						if(curItem.startTime == setTime[j].timeId) {
+							
+// 							// 시간이 같으면  option selected 생성
+// 							$("#selSt").append("<option class='stTime' id='" + curItem.timeId + "'' selected >" + setTime[j].hourM + "</option>");
+							
+// 						} else{
+							
+// 							$("#selSt").append("<option class='stTime' id='" + curItem.timeId + "''>" + setTime[j].hourM + "</option>");
+// 						}
+						
+// 						if(curItem.startTime == setTime[j].timeId) {
+							
+// 							// 시간이 같으면  option selected 생성
+// 							$("#selEd").append("<option class='edTime' id='" + curItem.timeId + "'' selected >" + setTime[j].hourM + "</option>");
+							
+// 						} else{
+							
+// 							$("#selEd").append("<option class='edTime' id='" + curItem.timeId + "''>" + setTime[j].hourM + "</option>");
+// 						}
+// 					}
+					
+// 					$("#selSt").attr("disabled", true);
+// 					$("#selEd").attr("disabled", true);
+					
+// 					// 밴드 이름
+// 					$("#ddInfo").append("<input type='text' class='bbName' id='" + curItem.barNo + "' value='" + curItem.barName +"' disabled />");
+						
+// 				}
+				//////////////////////////////////////
 				
 			}, error: function() {
-				alert("마마마망함 ㅋ");
+				alert("하 ㅅㅂ");
 			}
 			
 		});
@@ -96,17 +200,110 @@ $(document).ready(function(){
 		document.getElementById("wow").style.display = "none";
 	});
 	
+	// 모달 끄기
+	$("#backView").click(function(){
+
+		var bandNo = ${param.bandNo};
+		
+		$.ajax({
+			type: "get",
+			url: "/band/bandView",
+			data: { bandNo : bandNo } ,
+			context: document.body,
+			success: function(data) {
+					
+				// 모달 끄기
+				$("#body").html(data);
+				
+			}, error: function() {
+				alert("망함");
+			}
+		});
+		
+	});
+	
+	// 수정버튼
+	$("#editPfmc").click(function(){
+		
+		if($(this).html() == "수정") {
+			
+			$(this).html("저장");
+			$("#addPfmc").css("display", "block");
+			$(".bbName").attr("disabled", false);
+			$("select").attr("disabled", false);
+			
+			
+			$("#editInfo").css("display", "block");
+			
+		} else{
+			
+			$(this).html("수정");
+			$("#addPfmc").css("display", "none");
+			$(".bbName").attr("disabled", true);
+			$("select").attr("disabled", true);
+			
+			$("#editInfo").css("display", "none");
+		}
+	});
+	
+	// 추가버튼
+	$("#addItem").click(function(){
+		
+		var $date_Y = $("#date_Y").val();
+		var $date_M = $("#date_M").val();
+		var $date_D = $("#date_D").val();
+	
+		var thisDate = $date_Y +"."+ $date_M +"."+ $date_D;
+		
+		console.log(thisDate);
+		
+		var stTime = $("#addSt option:selected").val();
+		var edTime = $("#addEd option:selected").val();
+		var barN = $("#addBar option:selected").val();
+		
+// 		console.log(stTime);
+// 		console.log(edTime);
+// 		console.log(barN);
+		
+		$.ajax({
+			type: "post",
+			url: "/calendar/addBar",
+			data: { thisDate : thisDate,
+				stTime : stTime,
+				edTime : edTime,
+				barNo : barN,
+				bandNo : bandNo} ,
+			context: document.body,
+			success: function(res) {
+			
+				location.href="/band/bandView?bandNo=" + bandNo;
+				
+// 				$("#body").html(data)
+				
+// 				$newLine = "" +
+// 				"<tr><td>"
+// 				"<select id='selSt'>" +
+// 				"<option>aaaa</option>" +
+// 				"</select> ~ " +
+// 				"<select id='selSt'>" +
+// 				"<option>bbbb</option>" +
+// 				"</select>" +
+// 				"<input type='text' class='bbName' id='addBar' value='" + barN +"' disabled />" +
+// 				"</td></tr>";	
+				
+// 				$("#ddInfo:last").append($newLine);
+// 				$("#ddInfo:last").append("<tr><td>하 씨발 이제 쫌 되는듯하네</td></tr>");
+				
+			}, error: function(){
+				alert("하 ㅆㅂ");
+			}
+		});
+		
+		
+	});
+	
 });
 
-// console.log("${map.today}");
-// console.log("year: " + "${map.curYear }");
-// console.log("month: " + "${map.curMonth}");
-// console.log("date: " + "${map.curDay}");
-// console.log("firstDayOfMonth: " + "${map.firstDayOfMonth}");
-// console.log("firstDayOfWeek: " + "${map.firstDayOfWeek}");
-// console.log("lastDayOfMonth: " + "${map.lastDayOfMonth}");
-// console.log("lastDayOfLastWeek: " + "${map.lastDayOfLastWeek}");
-// console.log("firstDayOfNextMonth: " + "${map.firstDayOfNextMonth}");
 
 function view(str){
 	OpenWin("Update.jsp?type=SELECT&schedule_id="+str,480,360);
@@ -122,8 +319,6 @@ function OpenWin(URL, width, height){
 
 </script>
 
-
-
 <c:set var="curYear" value="${map.curYear }" />
 <c:set var="curMonth" value="${map.curMonth }" />
 <c:set var="curDay" value="${map.curDay }" />
@@ -134,19 +329,16 @@ function OpenWin(URL, width, height){
 
 <!-- -------------------------------- -->
 
-
 <div style="margin:0 auto">
 <form name="theForm">
 <%-- base table --%>
 <table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" width="620" height="665">
 	<tr>
-  		<td align="center" width="365">
-  			<c:out value="${curYear}"/> 年 &nbsp;&nbsp;  <c:out value="${curMonth}"/> 月 
-  			<a href="View.jsp?type=MONTH&curYear=<c:out value="${curYear}"/>&curMonth=<c:out value="${curMonth+1}"/>&curDay=<c:out value="${curDay}"/>">▶</a>
+  		<td style="align:center; width:365; font-color:white; text-align:center;">
+  			<h3 style="color:white">${curMonth }. ${curYear }</h3> 
+<%--   			<a href="View.jsp?type=MONTH&curYear=<c:out value="${curYear}"/>&curMonth=<c:out value="${curMonth+1}"/>&curDay=<c:out value="${curDay}"/>">▶</a> --%>
+			<button type="button" id="backView">닫기</button>
   		</td>
-<!--   		<TD align="left"> -->
-<!--   			<IMG src="images/monthly.gif" border=0> -->
-<!--   		</TD> -->
 	</tr>
 	<tr height="3">
 		<td colspan="2"></td>
@@ -156,19 +348,19 @@ function OpenWin(URL, width, height){
   		<%-- body table --%>
   		<table border="0" cellspacing="0" cellpadding="0">
   			<tr>
-  				<td valign="top" style="border:#666666 1px solid;padding:5px" align="center">
+  				<td valign="top" style="border:#666666 1px solid; padding:5px" align="center">
   				<%-- month outline table --%>
    			 	<table border="0" cellspacing="0" cellpadding="0">
     				<tr height="30">
       					<td align=center>
       						<font color=red>일요일</font>
       					</td>
-						<td align=center>월요일</td>
-						<td align=center>화요일</td>
-						<td align=center>수요일</td>
-						<td align=center>목요일</td>
-						<td align=center>금요일</td>
-						<td align=center>토요일</td>
+						<td align=center><font color=white>월요일</font></td>
+						<td align=center><font color=white>화요일</font></td>
+						<td align=center><font color=white>수요일</font></td>
+						<td align=center><font color=white>목요일</font></td>
+						<td align=center><font color=white>금요일</font></td>
+						<td align=center><font color=white>토요일</font></td>
     				</tr>
     				<tr><td colspan=7 bgcolor=#888888 height=1></td></tr>
     				<tr><td colspan=7 bgcolor=#ffffff height=5></td></tr>
@@ -211,13 +403,19 @@ function OpenWin(URL, width, height){
 											<td height="68" width="70" valign="top">
 <%-- 											${(currentDay-(8-map.firstDayOfWeek)) % 7 }<br> --%>
 											<table>
-												<c:forEach var="dayIndex" items="${sched}">
+												<c:forEach var="dayIndex" items="${map.sched}">
 													<c:if test="${currentDay == dayIndex.calendarDate}">
 														<tr><td>
+															<table>
+																<tr>
+																	<td>
 														<a href="javascript:view('${dayIndex.calendarNo}')">
-															${dayIndex.startTime} ~ ${dayIndex.endTime } : ${dayIndex.barNo }<br>
-															${dayIndex.startTime} ~ ${dayIndex.endTime } : ${dayIndex.bandNo }<br><br>
+															${dayIndex.startTime} ~ ${dayIndex.endTime } : ${dayIndex.barName } - ${dayIndex.bandName }<br><br>
 														</a>
+																	</td>
+																</tr>
+															</table>
+														
 														</td></tr>
 													</c:if>
 												</c:forEach>
@@ -241,7 +439,7 @@ function OpenWin(URL, width, height){
 								</c:forEach>
 								</c:if>							
 							</tr>
-						</tabkle>
+						</table>
 						<%-- end month content table --%>
 						</td>
 					</tr>
@@ -272,17 +470,17 @@ function OpenWin(URL, width, height){
         <TR height="10">
             <TD></TD>
         </TR>
-        <TR>
+        <TR style="height: auto;">
             <TD align=center bgcolor="#ffffff">
             <TABLE cellpadding="5" cellspacing="1" border="0" bgcolor="#666666">
                 <TR bgcolor="#ffffff">
                     <TD class="main">
-                        일자
+                        일자 
                     </TD>
                     <TD> 
-                      	<INPUT type="text" id="date_Y" class="text_gray" size="4" maxlength="4">년 
-                        <INPUT type="text" id="date_M" class="text_gray" size="2" maxlength="2">월  
-                        <INPUT type="text" id="date_D" class="text_gray" size="2" maxlength="2">일 
+                      	<INPUT type="text" id="date_Y" class="text_gray" size="4" maxlength="4" value="${curYear }"> 년 
+                        <INPUT type="text" id="date_M" class="text_gray" size="2" maxlength="2" value="${curMonth }"> 월  
+                        <INPUT type="text" id="date_D" class="text_gray" size="2" maxlength="2"> 일 
                     </TD>
                 </TR>
                 <TR bgcolor="#ffffff">
@@ -290,41 +488,65 @@ function OpenWin(URL, width, height){
                       	공연시간
                     </TD>
                     <TD>
-                        <select>
-                        	<option>0800</option>
-                        	<option>0830</option>
-                        	<option>0900</option>
-                        	<option>0930</option>
-                        	<option>1000</option>
-                        </select>
+                    	<table id="ddInfo" style="margin-left:3px">
+							<c:forEach var="timeInfo" items="${map.sched}">
+								<tr>
+								<td>
+									<select id="selSt" disabled >
+	                        			<c:forEach var="pt" items="${map.pTime }" >
+											<option class="stTime" id="${pt.timeId }">${pt.hourM }</option>
+			                        	</c:forEach>
+			                        </select>
 					~
-                        <select>
-                        	<option>0800</option>
-                        	<option>0830</option>
-                        	<option>0900</option>
-                        	<option>0930</option>
-                        	<option>1000</option>
-                        </select>
+    			                    <select id="selEd" disabled >
+                			        	<c:forEach var="pt" items="${map.pTime }" >
+			                        		<option class="edTime" id="${pt.timeId }">${pt.hourM }</option>
+			                        	</c:forEach>
+			                        </select>
                         
-					여기는 바/밴드이름 넣기
-                        
+			                        <input type="text" class="bbName" />
+		                        </td>
+								</tr>
+							</c:forEach>
+	                    </table>
                     </TD>
                 </TR>
             </TABLE>
             </TD>   
         </TR>     
         <TR>
-            <TD colspan="2" height="5"></TD>
+            <TD colspan="2" height="5">
+            	<table id="editInfo" style="display:none;">
+            	<tr>
+            		<td>
+            			<select id="addSt" >
+	                        <c:forEach var="pt" items="${map.pTime }" >
+								<option class="stTime" value="${pt.timeId }">${pt.hourM }</option>
+			                </c:forEach>
+						</select>
+					~
+    			        <select id="addEd" >
+                			<c:forEach var="pt" items="${map.pTime }" >
+			                	<option class="edTime" value="${pt.timeId }">${pt.hourM }</option>
+			                </c:forEach>
+			            </select>
+			           	
+						<select id="addBar">
+							<c:forEach var="bars" items="${bars }">
+								<option class="barId" value="${bars.barNo }">${bars.barName }</option>
+							</c:forEach>
+						</select>
+
+			            <button id="addItem" type="button">추가</button>
+            		</td>
+            	</tr>
+            	</table>
+            </TD>
         </TR>
         <TR>
             <TD align="center">
-            	<button id="enter">확인</button>
+            	<button id="editPfmc" type="button">수정</button>
             	<button id="exit" type="button">닫기</button>
-<%--                 <IMG src="images/save.gif"         style="cursor:hand" border=0 onclick="javascript:submitForm('<c:out value="${type}"/>');"> --%>
-<!--                 <IMG src="images/close.gif"     style="cursor:hand" border=0 onclick="window.close()"> -->
-                <c:if test="${type == 'SELECT'}">
-                    <IMG src="images/delete.gif"     style="cursor:hand" border=0 onclick="javascript:deleteForm();">
-                </c:if>
             </TD>
         </TR>
         <TR>
