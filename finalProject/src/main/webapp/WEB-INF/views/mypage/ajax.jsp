@@ -1913,4 +1913,32 @@ function minHistorylist2(){
 			}
 		});
 	}
+	
+	function viewRecommandBar() {
+		
+		var barNoList = [];
+		
+		for(var i=0;i<document.getElementsByName("barNo").length; i++) {
+			barNoList[i] = document.getElementsByName("barNo")[i].value;
+			
+			var barNo = barNoList[i];
+			
+			$.ajax({
+				type: "post"
+				, url: "/bar/viewbar?barNo="+ barNo
+					, data: {
+						barNo: barNo
+						}
+				, dataType: "html"
+				, success: function(res) {
+					$("#body").html(res);
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			});
+	    }
+		
+		
+	}
 </script>

@@ -91,7 +91,7 @@ public interface MypageService {
 	public List<Bar> barView(BandGenre bandGenre);
 	public Resumes getResumesByBandNoWithPublic(Resumes resumes);
 	public List<Application> appView(Paging paging, Member member);
-	public int getAppTotalCount(Bar bar, String startDate, String endDate);
+	
 	public List<Application> appView(Paging paging, Bar bar, String startDate, String endDate);
 	public void appDelete(Application app);
 	public Location getLocation(Location location);
@@ -99,7 +99,7 @@ public interface MypageService {
 	public void updateBar(Bar bar);
 	public void appReadUpdate(Application app);
 	public void appAcceptUpdate(Application app);
-	public int getAppTotalCount(Bar bar);
+	
 	public void createBandGenre(BandGenre bandGenre);
 	public void deleteBandGenre(Resumes resumes);
 	public void updatePublicResumes(Band band);
@@ -108,9 +108,13 @@ public interface MypageService {
 	public void insertBandProfile(Band band);
 	public List<Application> appView(Paging paging, Band band);
 	public List<Application> appView(Paging paging, Bar bar);
-	public int getAppTotalCount(Band band, String startDate, String endDate);
+	
 	public List<Application> appView(Paging paging, Band band, String startDate, String endDate);
 	
+	public int getAppTotalCount(Bar bar);
+	public int getAppTotalCount(Bar bar, String startDate, String endDate);
+	public int getAppTotalCount(Band band);
+	public int getAppTotalCount(Band band, String startDate, String endDate);
 	
 	
 	

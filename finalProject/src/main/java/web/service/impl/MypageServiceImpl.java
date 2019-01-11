@@ -528,7 +528,7 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public List<Application> appView(Paging paging, Bar bar) {
 		// TODO Auto-generated method stub
-		return mpDao.selectAppListByBandName(paging, bar);
+		return mpDao.selectAppListByBarName(paging, bar);
 	}
 
 	@Override
@@ -541,6 +541,12 @@ public class MypageServiceImpl implements MypageService{
 	public List<Application> appView(Paging paging, Band band, String startDate, String endDate) {
 		// TODO Auto-generated method stub
 		return mpDao.selectApplicationSearchListByBandNo(paging, band, startDate, endDate);
+	}
+
+	@Override
+	public int getAppTotalCount(Band band) {
+		// TODO Auto-generated method stub
+		return mpDao.selectAppListCntByBandNo(band);
 	}
 
 }

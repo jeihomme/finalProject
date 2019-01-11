@@ -933,8 +933,6 @@ public class MypageController {
 			
 //			검색어가 있다면
 			if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
-//				try {
-//					out.write("{\"res\": true}" );
 					
 					logger.info("---getAppTotalCount(bar, startDate, endDate)---");
 					int totalCount = mpService.getAppTotalCount(bar, startDate, endDate);
@@ -949,11 +947,6 @@ public class MypageController {
 					logger.info("---addAttribute---");
 					model.addAttribute("aList", aList);
 					model.addAttribute("paging", paging);
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-				
 			}
 //			검색어가 없다면,
 			else {
@@ -964,7 +957,7 @@ public class MypageController {
 				paging = new Paging(totalCount, CurPage);
 				
 				logger.info("---appView---");
-				List<Application> aList = mpService.appView(paging, member);
+				List<Application> aList = mpService.appView(paging, bar);
 				
 				logger.info("---addAttribute---");
 				model.addAttribute("aList", aList);
@@ -986,8 +979,6 @@ public class MypageController {
 			
 //			검색어가 있다면
 			if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
-//				try {
-//					out.write("{\"res\": true}" );
 					
 					logger.info("---getAppTotalCount(bar, startDate, endDate)---");
 					int totalCount = mpService.getAppTotalCount(band, startDate, endDate);
@@ -1002,22 +993,18 @@ public class MypageController {
 					logger.info("---addAttribute---");
 					model.addAttribute("aList", aList);
 					model.addAttribute("paging", paging);
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
 				
 			}
 //			검색어가 없다면,
 			else {
-				logger.info("---getAppTotalCount(bar)---");
-				int totalCount = mpService.getAppTotalCount(bar);
+				logger.info("---getAppTotalCount(band)---");
+				int totalCount = mpService.getAppTotalCount(band);
 				
 				logger.info("---Paging---");
 				paging = new Paging(totalCount, CurPage);
 				
 				logger.info("---appView---");
-				List<Application> aList = mpService.appView(paging, member);
+				List<Application> aList = mpService.appView(paging, band);
 				
 				logger.info("---addAttribute---");
 				model.addAttribute("aList", aList);
