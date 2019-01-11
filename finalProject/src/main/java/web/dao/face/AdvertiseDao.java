@@ -23,7 +23,7 @@ public interface AdvertiseDao {
 	
 	// 구인구직 상세보기
 	// advertise 가져오기
-	public FindMember selectAdvertise(int findNo);
+	public FindMember selectAdvertise(String findNo);
 	
 	// profileNo 가져오기
 	public int getPicNo(String bandNo);

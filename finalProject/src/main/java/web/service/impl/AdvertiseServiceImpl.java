@@ -28,6 +28,10 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	
 	@Override
 	public List getList(Paging paigng) {
+		
+		FindMember findM = new FindMember();
+		
+		
 		return advertiseDao.selectPagingList(paigng);
 	}
 	
@@ -46,7 +50,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		return advertiseDao.selectAdvertiseCntAll();
 	}
 	@Override
-	public Map view(int findNo ) {
+	public Map view(String findNo ) {
 		
 		Map map = new HashMap();
 		

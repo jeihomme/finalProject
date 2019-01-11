@@ -29,17 +29,36 @@ public class AdvertiseController {
 	@Autowired AdvertiseService advertiseService;
 	
 	@RequestMapping(value="/advertise/list" , method=RequestMethod.GET)
-	public ModelAndView list( 
+	public void list( 
 				Model model,
 				@RequestParam(required=false , defaultValue="0") int curPage,
 				@RequestParam(required=false , defaultValue="10") int listCount,
 				@RequestParam(required=false , defaultValue="10") int pageCount,
-				HttpServletResponse response , HttpServletRequest req
-			
+				HttpServletRequest req 
+				, String searchVal , String search , String searchTxt
 			) {
 
+		searchVal =(req.getParameter("searchVal") == null ) ? "": req.getParameter("searchVal");
+		
+		searchTxt = req.getParameter("searchTxt");
+		search = "";
+		
+		if(searchVal.equals("title")) {
+			search = searchTxt;
+			
+		}
+		else if (searchVal.equals("content")) {
+			search = searchTxt;
+		}
+		else if(searchVal.equals("userId")) {
+			search = searchTxt;
+		}
+		
+		
 		Paging paging = advertiseService.getPaging(curPage, listCount, pageCount);
 		model.addAttribute("paging" , paging);
+		paging.setSearch(search);
+		paging.setSearchVal(searchVal);
 		
 		String adsNo = StringUtils.defaultIfEmpty(req.getParameter("adsNo"), "");
 		
@@ -56,38 +75,117 @@ public class AdvertiseController {
 			paging.setAdsNo("");
 		}
 	
-		ModelAndView mav = new ModelAndView();
 		
 		
 		
 		List<FindMember> list = advertiseService.getList(paging);
-	
-		
 		model.addAttribute("list",list);
 	
 //		req.setAttribute("list", list);
 		
 		logger.info("구인구직 리스트");
 		logger.info("구인구직 리스트");
-		
-		return mav;
+	
 		
 	}
-	@RequestMapping(value="/advertise/list" , method=RequestMethod.POST)
-	public  ModelAndView listInfo(Model model,
-			@RequestParam(required=false , defaultValue="0") int curPage,
-			@RequestParam(required=false , defaultValue="10") int listCount,
-			@RequestParam(required=false , defaultValue="10") int pageCount,
-			HttpServletResponse response , HttpServletRequest req) {
-	
+		@RequestMapping(value="/advertise/adscateCol" , method=RequestMethod.GET)
+		public void adscateCol(Model model,
+				@RequestParam(required=false , defaultValue="0") int curPage,
+				@RequestParam(required=false , defaultValue="10") int listCount,
+				@RequestParam(required=false , defaultValue="10") int pageCount,
+				HttpServletRequest req 
+				, String searchVal , String search , String searchTxt
+			) {
+
+		searchVal =(req.getParameter("searchVal") == null ) ? "": req.getParameter("searchVal");
+		
+		searchTxt = req.getParameter("searchTxt");
+		search = "";
+		
+		if(searchVal.equals("title")) {
+			search = searchTxt;
+			
+		}
+		else if (searchVal.equals("content")) {
+			search = searchTxt;
+		}
+		else if(searchVal.equals("userId")) {
+			search = searchTxt;
+		}
+		
+		
 		Paging paging = advertiseService.getPaging(curPage, listCount, pageCount);
 		model.addAttribute("paging" , paging);
+		paging.setSearch(search);
+		paging.setSearchVal(searchVal);
 		
 		String adsNo = StringUtils.defaultIfEmpty(req.getParameter("adsNo"), "");
 		
 		logger.info(""+adsNo);
 		
 		int totalCount = advertiseService.selectAdvertiseCntAll();
+		
+		
+		FindMember findMember = new FindMember();
+		
+		if(adsNo == "1"){
+			paging.setAdsNo(adsNo);
+		}else {
+			paging.setAdsNo("2");
+		}
+	
+		
+		
+		
+		List<FindMember> list = advertiseService.getList(paging);
+		model.addAttribute("list",list);
+	
+//		req.setAttribute("list", list);
+		
+		logger.info("구인구직 리스트");
+		logger.info("구인구직 리스트");
+			
+		}
+	
+	
+	
+		@RequestMapping(value="/advertise/adscate" , method=RequestMethod.GET)
+		public void adscate(			Model model,
+				@RequestParam(required=false , defaultValue="0") int curPage,
+				@RequestParam(required=false , defaultValue="10") int listCount,
+				@RequestParam(required=false , defaultValue="10") int pageCount,
+				HttpServletRequest req 
+				, String searchVal , String search , String searchTxt
+			) {
+
+		searchVal =(req.getParameter("searchVal") == null ) ? "": req.getParameter("searchVal");
+		
+		searchTxt = req.getParameter("searchTxt");
+		search = "";
+		
+		if(searchVal.equals("title")) {
+			search = searchTxt;
+			
+		}
+		else if (searchVal.equals("content")) {
+			search = searchTxt;
+		}
+		else if(searchVal.equals("userId")) {
+			search = searchTxt;
+		}
+		
+		
+		Paging paging = advertiseService.getPaging(curPage, listCount, pageCount);
+		model.addAttribute("paging" , paging);
+		paging.setSearch(search);
+		paging.setSearchVal(searchVal);
+		
+		String adsNo = StringUtils.defaultIfEmpty(req.getParameter("adsNo"), "");
+		
+		logger.info(""+adsNo);
+		
+		int totalCount = advertiseService.selectAdvertiseCntAll();
+		
 		
 		FindMember findMember = new FindMember();
 		
@@ -96,39 +194,35 @@ public class AdvertiseController {
 		}else {
 			paging.setAdsNo("");
 		}
+	
 		
-	
-	
+		
+		
 		List<FindMember> list = advertiseService.getList(paging);
-//		model.addAttribute("list" ,list);
+		model.addAttribute("list",list);
+	
 //		req.setAttribute("list", list);
 		
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("jsonView");
-		mav.addObject("list" , list);
-		
-		model.addAttribute("list", list);
-		
 		logger.info("구인구직 리스트");
 		logger.info("구인구직 리스트");
-		
-		return mav;
-		
-	}
+		}
+	
 	@RequestMapping(value="/advertise/view" , method=RequestMethod.GET)
 	public ModelAndView view(
-			int findNo
+			@RequestParam String findNo
 			) {
 		
-//		logger.info(""+findNo);
+		logger.info(""+findNo);
 		
 		Map map = advertiseService.view(findNo);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("jsonView");
+		logger.info(map.toString());
+//		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("map", map);
+		mav.setViewName("jsonView");
+		mav.addObject("map" , map);
+		
 		
 		return mav;
 	}
