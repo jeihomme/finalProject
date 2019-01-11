@@ -25,16 +25,6 @@
 		margin: 10px auto;
 	}
 	
-	.adminMypageSearchDiv {
-		border: 2px solid #fff;
-		width:700px;
-		height: 50px;
-		margin: 10px auto;
-		
-		font-size:18px;
-		text-align:center;
-	}
-	
 	.barRandomListRes {
 /* 		border: 2px solid #fff; */
 		width:700px;
@@ -74,6 +64,10 @@
 	
 	.searchBtn {
 		color: black;
+		font-weight: bold;
+		background: gold;
+		border-radius:10px;
+		border-color: gold;
 	}
 	
 	.searchUserinfo {
@@ -131,10 +125,10 @@
 			<c:if test="${not doneLoop}">
 				<td class="backgroundColor">
 					<input type="hidden" name="barNo" value="${i.barNo }"/>
-					<p onclick="viewRecommandBar() ">
+					<p onclick="viewRecommandBar${status.count }() ">
 						<img class="profilePicSize" src="http://${i.path }/${i.originName }">
 					</p>
-					<p onclick="viewRecommandBar() ">
+					<p onclick="viewRecommandBar${status.count }() ">
 						${i.barName }
 					</p>
 					

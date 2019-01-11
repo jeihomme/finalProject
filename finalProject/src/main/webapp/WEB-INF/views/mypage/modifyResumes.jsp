@@ -27,7 +27,7 @@
 	}
 	
 	.adminMypageSearchDiv {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 50px;
 		margin: 10px auto;
@@ -67,7 +67,7 @@
 	}
 	
 	.adminMypageMainImage {
-		border: 1px solid #fff;
+/* 		border: 1px solid #fff; */
 		margin: 10px;
 		width: 290px;
 		height: 280px;
@@ -81,6 +81,10 @@
 	.searchBtn {
 		margin: 0 auto;
 		color: black;
+		font-weight: bold;
+		background: gold;
+		border-radius:10px;
+		border-color: gold;
 	}
 	
 	.searchUserinfo {
@@ -129,26 +133,14 @@
 	}
 	
 	.addHistoryList {
-		color:#000;
+		color: black;
+		font-weight: bold;
+		background: gold;
+		border-radius:10px;
+		border-color: gold;
 		float:right;
 	}
-</style>
-
-<style type="text/css">
 /* tr th:not(:nth-child(2)) { */
-tr th {
-	text-align: center;
-	color:#000;
-	background-color: gold;
-}
-td {
-	border-left: 1px solid white;
-	border-right: 1px solid white;
-	color:#fff;
-	background-color: black;
-}
-</style>
-<style>
 	.bandIntroHeader {
 		font-size:20px;
 	}
@@ -181,7 +173,7 @@ td {
 	<p onclick="viewMypageRecommand() ">Recommand Bar</p>
 	<p onclick="viewMypageCalendar() ">Calendar</p>
 </div><br><br>
-<hr>
+
 <div class="adminMypageMain">
 	<div class="adminMypageMainInfo">
 		<p class="adminDetailTitle">Intro </p>
@@ -224,32 +216,36 @@ td {
 </div>
 	
 	<div class="adminMypageSearchRes">
-		<hr>
+		
 		<div>
 			<b class="bandIntroHeader">밴드소개 제목</b>
-			<table class="table table-hover table-striped table-condensed">
-				
+			<table class="type10">
+				<thead>
 				<tr>
 					<th>제목</th>
 				</tr>
-			
+				</thead>
+				<tbody>
 				<tr>
 					<td><input id="resumesTitle" type="text" class="insertResumesInfo" id="resumesTitle" value="${resumes.resumesTitle }"/></td>
 				</tr>
-				
+				</tbody>
 			</table>
 		</div>
 	</div>
 	
 	<div class="adminMypageSearchRes">
-		<hr>
+		
 		<div>
 			<b class="bandIntroHeader">첨부파일</b>
 			
-			<table class="table table-hover table-striped table-condensed">
+			<table class="type10">
+				<thead>
 				<tr>
 					<th>파일명</th>
 				</tr>
+				</thead>
+				<tbody>
 				<tr>
 					<td>
 					<select class="insertResumesInfo" id="musicNo">
@@ -264,33 +260,47 @@ td {
 					</select>
 					</td>
 				</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>
 	
 	<div class="adminMypageSearchRes">
-		<hr>
+		
 		<div>
 			<b class="bandIntroHeader">History</b>
 			<c:if test="${hList < 5}">
 				<button class="addHistoryList" onclick="addHistorylist() ">+</button>
 			</c:if>
-			<table id="table" class="table table-hover table-striped table-condensed">
-				
+			<table class="type10">
+				<thead>
 				<tr>
 					<th>이력</th>
 				</tr>
+				</thead>
 				<tbody>
 					<c:forEach items="${historyList }" var="i" varStatus="status">
-							<tr>
-								<td>
-									<input type="hidden" class="insertResumesHistory" name="historyNo[]" value="${i.historyNo }"/>
-									<input type="hidden" class="insertResumesHistory" id="resumesNo" value="${resumes.resumesNo }"/>
-									<input type="month" class="insertResumesHistory" name="year[]" value="${i.year }"/>년, 
-									<input type="text" class="insertResumesHistory" name="historyInfo[]" value="${i.historyInfo }"/>
-									<button class="modifyBtn" onclick="minHistorylist${status.count }() ">-</button>
-								</td>
-							</tr>
+						<tr>
+						<c:if test="${status.count %2 eq 1}">
+							<td >
+								<input type="hidden" id="rnum" value="${status.count }"/>
+								<input type="hidden" class="insertResumesHistory" name="historyNo[]" value="${i.historyNo }"/>
+								<input type="month" class="insertResumesHistory" name="year[]" value="${i.year }"/>년, 
+								<input type="text" class="insertResumesHistory" name="historyInfo[]" value="${i.historyInfo }"/>
+								<button class="addHistoryList" onclick="minHistorylist(${i.historyNo }) ">-</button>
+							</td>
+						</c:if>
+						<c:if test="${status.count %2 eq 0}">
+							<td class="even">
+								<input type="hidden" id="rnum" value="${status.count }"/>
+								<input type="hidden" class="insertResumesHistory" name="historyNo[]" value="${i.historyNo }"/>
+								<input type="month" class="insertResumesHistory" name="year[]" value="${i.year }"/>년, 
+								<input type="text" class="insertResumesHistory" name="historyInfo[]" value="${i.historyInfo }"/>
+								<button class="addHistoryList" onclick="minHistorylist(${i.historyNo }) ">-</button>
+							</td>
+						</c:if>
+							
+						</tr>
 							
 					</c:forEach>
 				</tbody>
@@ -299,22 +309,22 @@ td {
 	</div>
 	
 	<div class="adminMypageSearchRes">
-		<hr>
+		
 			<p class="adminDetailTitle">밴드 소개 </p>
-			<table class="table table-hover table-striped table-condensed">
+			<table class="type10">
 				<tr>
 					<th>소개</th>
 				</tr>
 				<tr>
 					<td>
-					<textArea class="insertResumesBandInfo" id="bandInfo" >${resumes.bandInfo }</textArea>
+						<textArea class="insertResumesBandInfo" id="bandInfo" >${resumes.bandInfo }</textArea>
 					</td>
 				</tr>
 			</table>
 	</div>
 	
 	<div class="resumesViewDiv">
-		<hr>
+		
 			<button class="searchBtn" onclick="viewResumes() ">취소</button>
 			<input type="hidden" id="resumesNo" value="${resumes.resumesNo }"/>
 			<input type="hidden" id="bandNo" value="${resumes.bandNo }"/>

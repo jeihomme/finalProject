@@ -340,7 +340,10 @@ public class MypageServiceImpl implements MypageService{
 		resumes.setResumesTitle(req.getParameter("resumesTitle"));
 		resumes.setBandNo(Integer.parseInt(req.getParameter("bandNo")) );
 		resumes.setBandInfo(req.getParameter("bandInfo"));
-		resumes.setMusicNo(Integer.parseInt(req.getParameter("musicNo")) );
+		if( !req.getParameter("musicNo").equals("") && req.getParameter("musicNo") != null ) {
+			resumes.setMusicNo(Integer.parseInt(req.getParameter("musicNo")) );
+		}
+		
 //		resumes.setPublicResumes(Integer.parseInt(req.getParameter("publicResumes")) );
 		
 		resumes.toString();
@@ -388,15 +391,15 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public int getAppTotalCount(Bar bar, String startDate, String endDate) {
+	public List<Application> appViewAppliedBand(Paging paging, Bar bar, String startDate, String endDate) {
 		// TODO Auto-generated method stub
-		return mpDao.selectAppDateSearchCntByBarName(bar, startDate, endDate);
+		return mpDao.selectApplicationSearchListByBarNameAppliedBand(paging, bar, startDate, endDate);
 	}
-
+	
 	@Override
-	public List<Application> appView(Paging paging, Bar bar, String startDate, String endDate) {
+	public List<Application> appViewAppliedBar(Paging paging, Bar bar, String startDate, String endDate) {
 		// TODO Auto-generated method stub
-		return mpDao.selectApplicationSearchListByBarName(paging, bar, startDate, endDate);
+		return mpDao.selectApplicationSearchListByBarNameAppliedBar(paging, bar, startDate, endDate);
 	}
 
 	@Override
@@ -433,12 +436,6 @@ public class MypageServiceImpl implements MypageService{
 	public void appAcceptUpdate(Application app) {
 		// TODO Auto-generated method stub
 		mpDao.updateAcceptByAppNo(app);
-	}
-
-	@Override
-	public int getAppTotalCount(Bar bar) {
-		// TODO Auto-generated method stub
-		return mpDao.selectAppListCntByBarName(bar);
 	}
 
 	@Override
@@ -514,39 +511,97 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public List<Application> appView(Paging paging, Band band) {
-		// TODO Auto-generated method stub
-		return mpDao.selectAppListByBandNo(paging, band);
-	}
-
-	@Override
 	public int getResumesTotalCount(Bar bar) {
 		// TODO Auto-generated method stub
 		return mpDao.selectAppListCntByBarName(bar);
 	}
 
 	@Override
-	public List<Application> appView(Paging paging, Bar bar) {
+	public List<Application> appViewAppliedBand(Paging paging, Bar bar) {
 		// TODO Auto-generated method stub
-		return mpDao.selectAppListByBarName(paging, bar);
+		return mpDao.selectAppListByBarNameAppliedBand(paging, bar);
+	}
+	
+	@Override
+	public List<Application> appViewAppliedBar(Paging paging, Bar bar) {
+		// TODO Auto-generated method stub
+		return mpDao.selectAppListByBarNameAppliedBar(paging, bar);
 	}
 
 	@Override
-	public int getAppTotalCount(Band band, String startDate, String endDate) {
+	public int getAppTotalCountAppliedBar(Band band) {
 		// TODO Auto-generated method stub
-		return mpDao.selectAppDateSearchCntByBandNo(band, startDate, endDate);
+		return mpDao.selectAppListCntByBandNoAppliedBar(band);
+	}
+	
+	@Override
+	public int getAppTotalCountAppliedBand(Band band) {
+		// TODO Auto-generated method stub
+		return mpDao.selectAppListCntByBandNoAppliedBand(band);
+	}
+	
+	@Override
+	public List<Application> appViewAppliedBar(Paging paging, Band band, String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return mpDao.selectApplicationSearchListByBandNoAppliedBar(paging, band, startDate, endDate);
 	}
 
 	@Override
-	public List<Application> appView(Paging paging, Band band, String startDate, String endDate) {
+	public List<Application> appViewAppliedBar(Paging paging, Band band) {
 		// TODO Auto-generated method stub
-		return mpDao.selectApplicationSearchListByBandNo(paging, band, startDate, endDate);
+		return mpDao.selectAppListByBandNoAppliedBar(paging, band);
+	}
+	
+	@Override
+	public List<Application> appViewAppliedBand(Paging paging, Band band, String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return mpDao.selectApplicationSearchListByBandNoAppliedBand(paging, band, startDate, endDate);
 	}
 
 	@Override
-	public int getAppTotalCount(Band band) {
+	public List<Application> appViewAppliedBand(Paging paging, Band band) {
 		// TODO Auto-generated method stub
-		return mpDao.selectAppListCntByBandNo(band);
+		return mpDao.selectAppListByBandNoAppliedBand(paging, band);
 	}
+
+	
+	@Override
+	public int getAppTotalCountAppliedBar(Bar bar) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getAppTotalCountAppliedBand(Bar bar) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getAppTotalCountAppliedBar(Bar bar, String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getAppTotalCountAppliedBand(Bar bar, String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getAppTotalCountAppliedBar(Band band, String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getAppTotalCountAppliedBand(Band band, String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
+	
 
 }

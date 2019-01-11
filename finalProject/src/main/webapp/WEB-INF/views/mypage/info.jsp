@@ -125,12 +125,12 @@
 		<div class="adminMypageMainInfo">
 			<p class="adminDetailTitle">Mypage </p>
 			<hr>
-			<p class="adminDetailInfo">계정 : ${member.userId }</p>
-			<p class="adminDetailInfo">이름 : ${member.userName }</p>
-			<p class="adminDetailInfo">이메일 : ${member.email }</p>
-			<p class="adminDetailInfo">연락처 : ${member.contact }</p><br>
-			<p class="adminDetailInfo">밴드 : ${band.bandName }</p>
-			<p class="adminDetailInfo">멤버</p>
+			<b class="adminDetailInfo">계정</b> ${member.userId }<br>
+			<b class="adminDetailInfo">이름</b> ${member.userName }<br>
+			<b class="adminDetailInfo">이메일</b> ${member.email }<br>
+			<b class="adminDetailInfo">연락처</b>${member.contact }<br><br>
+			<b class="adminDetailInfo">밴드</b>${band.bandName }<br>
+			<b class="adminDetailInfo">멤버</b><br>
 			
 			<ul>
 				<c:forEach items="${bandMemberList }" var="i">

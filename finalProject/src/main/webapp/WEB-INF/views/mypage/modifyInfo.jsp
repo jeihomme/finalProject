@@ -67,7 +67,17 @@
 	}
 	
 	.modifyBtn {
-		color:#000;
+		color: black;
+		font-weight: bold;
+		background: gold;
+		border-radius:10px;
+		border-color: gold;
+	}
+	
+	.modifySelectBtn {
+		color: black;
+		font-weight: bold;
+		border-radius:10px;
 	}
 
 	.modifyBandValue {
@@ -157,9 +167,8 @@ $(document).ready(function() {
 			
 			<p class="adminDetailTitle">Modify </p>
 			<hr>
-			<p class="adminDetailInfo">계정</p> ${member.userId }
-			<p class="adminDetailInfo">이름</p> ${member.userName }
-			<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><br>
+			<b class="adminDetailInfo">계정</b> ${member.userId }<br>
+			<b class="adminDetailInfo">이름</b> ${member.userName }<br>
 			
 <!-- 			<form class="modifyInfoDone" action="/mypage/modifyPw" method="post"> -->
 				<!-- The Modal -->
@@ -181,7 +190,7 @@ $(document).ready(function() {
 			
 <!-- 			<form class="modifyInfoDone" action="/mypage/modifyInfo" method="post"> -->
 				<b class="adminDetailInfo">이메일</b> <input id="email" name="email" value="${member.email }"/><br>
-				<b class="adminDetailInfo">통신사</b>
+				<b class="adminDetailInfo">통신사</b> 
 				
 				<select class="modifyBtn" id="telcom" name="telcom" >
 					<c:if test="${member.telcom eq null}">
@@ -196,9 +205,9 @@ $(document).ready(function() {
 					<option value="SK">SK</option>
 					<option value="LG">LG</option>
 					
-				</select><br>
+				</select><br><br>
 				<b class="adminDetailInfo">연락처</b> <input id="contact" name="contact" value="${member.contact }"/><br>
-				<button class="modifyBtn" onclick="modifyMypageInfo()">수정</button>
+				<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><button class="modifyBtn" onclick="modifyMypageInfo()">수정</button>
 <!-- 			</form> -->
 		</div>
 		<div class="adminMypageMainImage">
@@ -226,8 +235,6 @@ $(document).ready(function() {
 			<b class="adminDetailInfo">아이디</b> ${member.userId }<br>
 			<b class="adminDetailInfo">닉네임</b> ${member.userName }<br>
 			
-			<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><br>
-			
 				<!-- The Modal -->
 				<div id="myModal" class="modal-pw">
 				  <!-- Modal content -->
@@ -249,7 +256,7 @@ $(document).ready(function() {
 					<input id="email" name="email" value="${member.email }" /><br>
 				<b class="adminDetailInfo">통신사</b>
 				
-				<select class="modifyBtn" id="telcom" name="telcom" >
+				<select class="modifySelectBtn" id="telcom" name="telcom" >
 					<c:if test="${member.telcom eq null}">
 						<option value="">선택</option>
 					</c:if>
@@ -263,8 +270,8 @@ $(document).ready(function() {
 					<option value="LG">LG</option>
 					
 				</select><br>
-				<b class="adminDetailInfo">연락처</b><input id="contact" name="contact"value="${member.contact }" /><br>
-				<button class="modifyBtn" onclick="modifyMypageInfo()">수정</button>
+				<b class="adminDetailInfo">연락처</b><input id="contact" name="contact"value="${member.contact }" /><br><br><br>
+				<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button> <button class="modifyBtn" onclick="modifyMypageInfo()">수정</button>
 
 		</div>
 
@@ -290,9 +297,9 @@ $(document).ready(function() {
 			
 			<p class="adminDetailTitle">Modify</p>
 			<hr>
-			<p class="adminDetailInfo">계정 : ${member.userId }</p>
-			<p class="adminDetailInfo">이름 : ${member.userName }</p>
-			<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><br>
+			<b class="adminDetailInfo">계정</b> ${member.userId }<br>
+			<b class="adminDetailInfo">이름</b> ${member.userName }<br>
+			
 			
 			<!-- The Modal -->
 			<div id="myModal" class="modal-pw">
@@ -310,12 +317,12 @@ $(document).ready(function() {
 			  </div>
 			</div>
 				
-				<p class="adminDetailInfo">밴드 : ${band.bandName }</p>
+				<b class="adminDetailInfo">밴드</b> ${band.bandName }<br>
 				
 				<b class="adminDetailInfo">이메일 : </b><input id="email" name="email" value="${member.email }"/><br>
 				<b class="adminDetailInfo">통신사 : </b>
 				
-				<select class="modifyBtn" id="telcom" name="telcom" >
+				<select class="modifySelectBtn" id="telcom" name="telcom" >
 					<c:if test="${member.telcom eq null}">
 						<option value="">선택</option>
 					</c:if>
@@ -351,7 +358,8 @@ $(document).ready(function() {
 					</li>
 					</c:forEach>
 				</ul>
-				<button type="submit" class="modifyBtn" onclick="modifyMypageInfo()">수정</button>
+				<br><br>
+				<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><button type="submit" class="modifyBtn" onclick="modifyMypageInfo()">수정</button>
 		</div>
 		<div class="adminMypageMainImage">
 			<img src="../resources/BandMainImage.gif" class="myPageMainImage">

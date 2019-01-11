@@ -256,11 +256,10 @@
 <hr>
 <div class="resumesViewDiv">
 	<c:if test="${loginInfo.roleId eq 1 }">
-		<button class="resumesBtn" onclick="viewMypageAppToBand() ">확인</button>
+		<button class="searchBtn" onclick="viewMypageAppToBar() ">확인</button>
 	</c:if>
 	<c:if test="${loginInfo.roleId eq 2 }">
-		<button class="resumesBtn" onclick="viewMypageIntro() ">뒤로가기</button>
-		<input type="hidden" id="resumesNo" value="${resumes.resumesNo }"/>
-		<button class="resumesBtn" onclick="viewModifyResumes() ">수정</button>
+		<button class="acceptBtnRed" onclick="viewMypageIntro() ">뒤로가기</button>
+		<button class="acceptBtnBlue" onclick="viewModifyResumes(${resumes.resumesNo }) ">수정</button>
 	</c:if>
 </div>

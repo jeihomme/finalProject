@@ -210,13 +210,169 @@
 		});
 	}
 	
-	function appToBandAccept(){
+	function appToBandAccept1(){
 		//AJAX 처리하기
 		
+		var appNoList = [];
+		var accList = [];
+		var j = 0;
+		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
+			appNoList[j] = document.getElementsByName("appNo")[i].value;
+			j++;
+	    }
+		console.log(appNoList);
+		
+		var appNo = appNoList[0];
+		
 		var appToBandData = {
-				appNo: $("#acceptAppNo").val()
-				, accept: $("#acceptAcc").val()
+				appNo: appNo
+				, accept: 1
 		    };
+		
+		console.log(appToBandData);
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/applicationToBandAccept"
+			, data: appToBandData
+			, dataType: "json"
+			, success: function( res ) {
+				console.log(res);
+				viewMypageAppToBand();
+			}
+			, error: function() {
+				console.log(appToBandData);
+				alert("실패");
+			}
+		});
+	}
+	
+	function appToBandAccept2(){
+		//AJAX 처리하기
+		
+		var appNoList = [];
+		var accList = [];
+		var j = 0;
+		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
+			appNoList[j] = document.getElementsByName("appNo")[i].value;
+			j++;
+	    }
+		console.log(appNoList);
+		
+		var appNo = appNoList[1];
+		
+		var appToBandData = {
+				appNo: appNo
+				, accept: 1
+		    };
+		
+		console.log(appToBandData);
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/applicationToBandAccept"
+			, data: appToBandData
+			, dataType: "json"
+			, success: function( res ) {
+				console.log(res);
+				viewMypageAppToBand();
+			}
+			, error: function() {
+				console.log(appToBandData);
+				alert("실패");
+			}
+		});
+	}
+	
+	function appToBandAccept3(){
+		//AJAX 처리하기
+		
+		var appNoList = [];
+		var accList = [];
+		var j = 0;
+		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
+			appNoList[j] = document.getElementsByName("appNo")[i].value;
+			j++;
+	    }
+		console.log(appNoList);
+		
+		var appNo = appNoList[2];
+		
+		var appToBandData = {
+				appNo: appNo
+				, accept: 1
+		    };
+		
+		console.log(appToBandData);
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/applicationToBandAccept"
+			, data: appToBandData
+			, dataType: "json"
+			, success: function( res ) {
+				console.log(res);
+				viewMypageAppToBand();
+			}
+			, error: function() {
+				console.log(appToBandData);
+				alert("실패");
+			}
+		});
+	}
+	
+	function appToBandAccept4(){
+		//AJAX 처리하기
+		
+		var appNoList = [];
+		var accList = [];
+		var j = 0;
+		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
+			appNoList[j] = document.getElementsByName("appNo")[i].value;
+			j++;
+	    }
+		console.log(appNoList);
+		
+		var appNo = appNoList[3];
+		
+		var appToBandData = {
+				appNo: appNo
+				, accept: 1
+		    };
+		
+		console.log(appToBandData);
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/applicationToBandAccept"
+			, data: appToBandData
+			, dataType: "json"
+			, success: function( res ) {
+				console.log(res);
+				viewMypageAppToBand();
+			}
+			, error: function() {
+				console.log(appToBandData);
+				alert("실패");
+			}
+		});
+	}
+	
+	function appToBandAccept5(){
+		//AJAX 처리하기
+		
+		var appNoList = [];
+		var accList = [];
+		var j = 0;
+		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
+			appNoList[j] = document.getElementsByName("appNo")[i].value;
+			j++;
+	    }
+		console.log(appNoList);
+		
+		var appNo = appNoList[4];
+		
+		var appToBandData = {
+				appNo: appNo
+				, accept: 1
+		    };
+		
 		console.log(appToBandData);
 		$.ajax({ 	
 			type: "post"
@@ -234,13 +390,169 @@
 		});
 	}
 
-	function appToBandReject(){
+	function appToBandReject1(){
 		//AJAX 처리하기
 		
+		var appNoList = [];
+		var accList = [];
+		var j = 0;
+		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
+			appNoList[j] = document.getElementsByName("appNo")[i].value;
+			j++;
+	    }
+		console.log(appNoList);
+		
+		var appNo = appNoList[0];
+		
 		var appToBandData = {
-				appNo: $("#rejectAppNo").val()
-				, accept: $("#rejectAcc").val()
+				appNo: appNo
+				, accept: 2
 		    };
+		
+		console.log(appToBandData);
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/applicationToBandAccept"
+			, data: appToBandData
+			, dataType: "json"
+			, success: function( res ) {
+				console.log(res);
+				viewMypageAppToBand();
+			}
+			, error: function() {
+				console.log(appToBandData);
+				alert("실패");
+			}
+		});
+	}
+	
+	function appToBandReject2(){
+		//AJAX 처리하기
+		
+		var appNoList = [];
+		var accList = [];
+		var j = 0;
+		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
+			appNoList[j] = document.getElementsByName("appNo")[i].value;
+			j++;
+	    }
+		console.log(appNoList);
+		
+		var appNo = appNoList[1];
+		
+		var appToBandData = {
+				appNo: appNo
+				, accept: 2
+		    };
+		
+		console.log(appToBandData);
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/applicationToBandAccept"
+			, data: appToBandData
+			, dataType: "json"
+			, success: function( res ) {
+				console.log(res);
+				viewMypageAppToBand();
+			}
+			, error: function() {
+				console.log(appToBandData);
+				alert("실패");
+			}
+		});
+	}
+	
+	function appToBandReject3(){
+		//AJAX 처리하기
+		
+		var appNoList = [];
+		var accList = [];
+		var j = 0;
+		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
+			appNoList[j] = document.getElementsByName("appNo")[i].value;
+			j++;
+	    }
+		console.log(appNoList);
+		
+		var appNo = appNoList[2];
+		
+		var appToBandData = {
+				appNo: appNo
+				, accept: 2
+		    };
+		
+		console.log(appToBandData);
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/applicationToBandAccept"
+			, data: appToBandData
+			, dataType: "json"
+			, success: function( res ) {
+				console.log(res);
+				viewMypageAppToBand();
+			}
+			, error: function() {
+				console.log(appToBandData);
+				alert("실패");
+			}
+		});
+	}
+	
+	function appToBandReject4(){
+		//AJAX 처리하기
+		
+		var appNoList = [];
+		var accList = [];
+		var j = 0;
+		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
+			appNoList[j] = document.getElementsByName("appNo")[i].value;
+			j++;
+	    }
+		console.log(appNoList);
+		
+		var appNo = appNoList[3];
+		
+		var appToBandData = {
+				appNo: appNo
+				, accept: 2
+		    };
+		
+		console.log(appToBandData);
+		$.ajax({ 	
+			type: "post"
+			, url: "/mypage/applicationToBandAccept"
+			, data: appToBandData
+			, dataType: "json"
+			, success: function( res ) {
+				console.log(res);
+				viewMypageAppToBand();
+			}
+			, error: function() {
+				console.log(appToBandData);
+				alert("실패");
+			}
+		});
+	}
+	
+	function appToBandReject5(){
+		//AJAX 처리하기
+		
+		var appNoList = [];
+		var accList = [];
+		var j = 0;
+		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
+			appNoList[j] = document.getElementsByName("appNo")[i].value;
+			j++;
+	    }
+		console.log(appNoList);
+		
+		var appNo = appNoList[4];
+		
+		var appToBandData = {
+				appNo: appNo
+				, accept: 2
+		    };
+		
 		console.log(appToBandData);
 		$.ajax({ 	
 			type: "post"
@@ -258,7 +570,7 @@
 		});
 	}
 
-	function viewAppFromBand(){
+	function viewAppFromBand( ){
 		//AJAX 처리하기
 		
 		var appNo = $("#appNo").val();
@@ -272,6 +584,24 @@
 				"appNo": appNo
 				, "resumesNo": resumesNo
 				, "read": read
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				alert("실패");
+			}
+		});
+	}
+	
+	function viewAppFromBand( bandNo ){
+		//AJAX 처리하기
+		
+		$.ajax({ 	
+			type: "get"
+			, url: "/band/bandView?bandNo=" + bandNo
+			, data: {
 			}
 			, dataType: "html"
 			, success: function( res ) {
@@ -977,7 +1307,7 @@
 		});
 	}
 	
-function viewResumes(){
+	function viewResumes(){
 		
 		var resumesNo = document.getElementById("resumesNo").value;
 		var musicNo = document.getElementById("musicNo").value;
@@ -1005,148 +1335,14 @@ function viewResumes(){
 		});
 	}
 	
-	function viewResumes1(){
-		
-		var resumesNoList = [];
-		
-		for(var i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
-			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
-	    }
-		
-		var resumesNo = resumesNoList[0];
-		console.log(resumesNo);
-		$.ajaxSettings.traditional = true
+	function viewResumesAppNo(resumesNo, appNo){
 		
 		//AJAX 처리하기
 		$.ajax({ 	
 			type: "get"
 			, url: "/mypage/resumes?resumesNo=" + resumesNo
 			, data: {
-				resumesNo: resumesNo
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function viewResumes2(){
-		
-		var resumesNoList = [];
-		
-		for(var i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
-			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
-	    }
-		
-		var resumesNo = resumesNoList[1];
-		
-		console.log(resumesNo);
-		
-		$.ajaxSettings.traditional = true
-		
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/resumes?resumesNo=" + resumesNo
-			, data: {
-				resumesNo: resumesNo
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function viewResumes3(){
-		
-		var resumesNoList = [];
-		
-		for(var i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
-			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
-	    }
-		
-		var resumesNo = resumesNoList[2];
-		
-		console.log(resumesNo);
-		
-		$.ajaxSettings.traditional = true
-		
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/resumes?resumesNo=" + resumesNo
-			, data: {
-				resumesNo: resumesNo
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function viewResumes4(){
-		
-		var resumesNoList = [];
-		
-		for(var i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
-			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
-	    }
-		
-		var resumesNo = resumesNoList[3];
-		
-		console.log(resumesNo);
-		
-		$.ajaxSettings.traditional = true
-		
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/resumes?resumesNo=" + resumesNo
-			, data: {
-				resumesNo: resumesNo
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function viewResumes5(){
-		
-		var resumesNoList = [];
-		
-		for(var i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
-			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
-	    }
-		
-		var resumesNo = resumesNoList[4];
-		
-		console.log(resumesNo);
-		
-		$.ajaxSettings.traditional = true
-		
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "get"
-			, url: "/mypage/resumes?resumesNo=" + resumesNo
-			, data: {
-				resumesNo: resumesNo
+				appNo: appNo
 			}
 			, dataType: "html"
 			, success: function( res ) {
@@ -1176,22 +1372,14 @@ function viewResumes(){
 		});
 	}
 	
-	function viewModifyResumes(){
-		
-		var resumesNoList = [];
-		
-		for(var i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
-			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
-	    }
-		
-		var resumesNo = resumesNoList[0];
+	function viewModifyResumes(resumesNo){
 		
 		//AJAX 처리하기
 		$.ajax({ 	
 			type: "get"
 			, url: "/mypage/modifyResumes"
 			, data: {
-				"resumesNo": resumesNo
+				resumesNo: resumesNo
 			}
 			, dataType: "html"
 			, success: function( res ) {
@@ -1203,14 +1391,7 @@ function viewResumes(){
 		});
 	}
 	
-	function deleteResumes1(){
-		var resumesNoList = [];
-		
-		for(var i=0;i<document.getElementsByName("resumesNo[]").length; i++) {
-			resumesNoList[i] = document.getElementsByName("resumesNo[]")[i].value;
-	    }
-		
-		var resumesNo = resumesNoList[0];
+	function deleteResumes(resumesNo){
 		
 		//AJAX 처리하기
 		$.ajax({ 	
@@ -1407,19 +1588,18 @@ function viewResumes(){
 		});
 	}
 	
-	function minHistorylist1(){
+	function minHistorylist(resumesNo){
 		
 		var resumesNo = document.getElementById("resumesNo").value;
-		
-		var rnum = 1;
+		var rnum = document.getElementById("rnum").value;
 		
 		//AJAX 처리하기
 		$.ajax({ 	
 			type: "post"
 			, url: "/mypage/minHistorylist"
 			, data: {
-				"resumesNo": resumesNo
-				, "rnum": rnum
+				resumesNo: resumesNo
+				, rnum: rnum
 			}
 			, dataType: "html"
 			, success: function( res ) {
@@ -1430,102 +1610,7 @@ function viewResumes(){
 			}
 		});
 	}
-	
-function minHistorylist2(){
-		
-		var resumesNo = document.getElementById("resumesNo").value;
-		
-		var rnum = 2;
-		
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/minHistorylist"
-			, data: {
-				"resumesNo": resumesNo
-				, "rnum": rnum
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function minHistorylist3(){
-		
-		var resumesNo = document.getElementById("resumesNo").value;
-		
-		var rnum = 3;
-		
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/minHistorylist"
-			, data: {
-				"resumesNo": resumesNo
-				, "rnum": rnum
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function minHistorylist4(){
-		
-		var resumesNo = document.getElementById("resumesNo").value;
-		
-		var rnum = 4;
-		
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/minHistorylist"
-			, data: {
-				"resumesNo": resumesNo
-				, "rnum": rnum
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
-	
-	function minHistorylist5(){
-		
-		var resumesNo = document.getElementById("resumesNo").value;
-		
-		var rnum = 5;
-		
-		//AJAX 처리하기
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/minHistorylist"
-			, data: {
-				"resumesNo": resumesNo
-				, "rnum": rnum
-			}
-			, dataType: "html"
-			, success: function( res ) {
-				$("#body").html(res);
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		});
-	}
+
 	
 	function oneCheckbox(a){
         var obj = document.getElementsByName("publicResumes");
@@ -1914,31 +1999,223 @@ function minHistorylist2(){
 		});
 	}
 	
-	function viewRecommandBar() {
-		
+	function viewRecommandBar1() {
 		var barNoList = [];
-		
 		for(var i=0;i<document.getElementsByName("barNo").length; i++) {
 			barNoList[i] = document.getElementsByName("barNo")[i].value;
-			
-			var barNo = barNoList[i];
-			
-			$.ajax({
-				type: "post"
-				, url: "/bar/viewbar?barNo="+ barNo
-					, data: {
-						barNo: barNo
-						}
-				, dataType: "html"
-				, success: function(res) {
-					$("#body").html(res);
-				}
-				, error: function() {
-					console.log("실패");
-				}
-			});
-	    }
-		
-		
+		}
+		var barNo = barNoList[0];
+		$.ajax({
+			type: "get"
+			, url: "/bar/viewbar?barNo="+ barNo
+				, data: {
+					barNo: barNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewRecommandBar2() {
+		var barNoList = [];
+		for(var i=0;i<document.getElementsByName("barNo").length; i++) {
+			barNoList[i] = document.getElementsByName("barNo")[i].value;
+		}
+		var barNo = barNoList[1];
+		$.ajax({
+			type: "get"
+			, url: "/bar/viewbar?barNo="+ barNo
+				, data: {
+					barNo: barNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewRecommandBar3() {
+		var barNoList = [];
+		for(var i=0;i<document.getElementsByName("barNo").length; i++) {
+			barNoList[i] = document.getElementsByName("barNo")[i].value;
+		}
+		var barNo = barNoList[2];
+		$.ajax({
+			type: "get"
+			, url: "/bar/viewbar?barNo="+ barNo
+				, data: {
+					barNo: barNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewRecommandBar4() {
+		var barNoList = [];
+		for(var i=0;i<document.getElementsByName("barNo").length; i++) {
+			barNoList[i] = document.getElementsByName("barNo")[i].value;
+		}
+		var barNo = barNoList[3];
+		$.ajax({
+			type: "get"
+			, url: "/bar/viewbar?barNo="+ barNo
+				, data: {
+					barNo: barNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewRecommandBar5() {
+		var barNoList = [];
+		for(var i=0;i<document.getElementsByName("barNo").length; i++) {
+			barNoList[i] = document.getElementsByName("barNo")[i].value;
+		}
+		var barNo = barNoList[4];
+		$.ajax({
+			type: "get"
+			, url: "/bar/viewbar?barNo="+ barNo
+				, data: {
+					barNo: barNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewRecommandBar6() {
+		var barNoList = [];
+		for(var i=0;i<document.getElementsByName("barNo").length; i++) {
+			barNoList[i] = document.getElementsByName("barNo")[i].value;
+		}
+		var barNo = barNoList[5];
+		$.ajax({
+			type: "get"
+			, url: "/bar/viewbar?barNo="+ barNo
+				, data: {
+					barNo: barNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewRecommandBar7() {
+		var barNoList = [];
+		for(var i=0;i<document.getElementsByName("barNo").length; i++) {
+			barNoList[i] = document.getElementsByName("barNo")[i].value;
+		}
+		var barNo = barNoList[6];
+		$.ajax({
+			type: "get"
+			, url: "/bar/viewbar?barNo="+ barNo
+				, data: {
+					barNo: barNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewRecommandBar8() {
+		var barNoList = [];
+		for(var i=0;i<document.getElementsByName("barNo").length; i++) {
+			barNoList[i] = document.getElementsByName("barNo")[i].value;
+		}
+		var barNo = barNoList[7];
+		$.ajax({
+			type: "get"
+			, url: "/bar/viewbar?barNo="+ barNo
+				, data: {
+					barNo: barNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewRecommandBar9() {
+		var barNoList = [];
+		for(var i=0;i<document.getElementsByName("barNo").length; i++) {
+			barNoList[i] = document.getElementsByName("barNo")[i].value;
+		}
+		var barNo = barNoList[8];
+		$.ajax({
+			type: "get"
+			, url: "/bar/viewbar?barNo="+ barNo
+				, data: {
+					barNo: barNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function viewRecommandBar10() {
+		var barNoList = [];
+		for(var i=0;i<document.getElementsByName("barNo").length; i++) {
+			barNoList[i] = document.getElementsByName("barNo")[i].value;
+		}
+		var barNo = barNoList[9];
+		$.ajax({
+			type: "get"
+			, url: "/bar/viewbar?barNo="+ barNo
+				, data: {
+					barNo: barNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
 	}
 </script>

@@ -8,10 +8,12 @@ public class Application {
 	private int accept;
 	private int read;
 	private int decliend;
+	private int applied;
 	@Override
 	public String toString() {
 		return "Application [appNo=" + appNo + ", resumesNo=" + resumesNo + ", barName=" + barName + ", appDate="
-				+ appDate + ", accept=" + accept + ", read=" + read + ", decliend=" + decliend + "]";
+				+ appDate + ", accept=" + accept + ", read=" + read + ", decliend=" + decliend + ", applied=" + applied
+				+ "]";
 	}
 	public int getAppNo() {
 		return appNo;
@@ -54,5 +56,11 @@ public class Application {
 	}
 	public void setDecliend(int decliend) {
 		this.decliend = decliend;
+	}
+	public int getApplied() {
+		return applied;
+	}
+	public void setApplied(int applied) {
+		this.applied = applied;
 	}
 }

@@ -76,6 +76,10 @@
 	
 	.searchBtn {
 		color: black;
+		font-weight: bold;
+		background: gold;
+		border-radius:10px;
+		border-color: gold;
 	}
 	
 	.searchUserinfo {

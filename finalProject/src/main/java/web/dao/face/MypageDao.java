@@ -125,9 +125,23 @@ public interface MypageDao {
 	public void insertBandProfileNo(Band band);
 	public int selectResumesTotalCount(Band band);
 	public int selectAppListCntByBandNo(Band band);
-	public List<Application> selectAppListByBandNo(@Param("paging")Paging paging, @Param("band")Band band);
-	public List<Application> selectAppListByBarName(@Param("paging")Paging paging, @Param("bar")Bar bar);
 	public int selectAppDateSearchCntByBandNo(@Param("band")Band band, @Param("startDate")String startDate, @Param("endDate")String endDate);
-	public List<Application> selectApplicationSearchListByBandNo(@Param("paging")Paging paging, @Param("band")Band band, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	
+	public List<Application> selectApplicationSearchListByBandNoAppliedBar(@Param("paging")Paging paging, @Param("band")Band band, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	public List<Application> selectApplicationSearchListByBandNoAppliedBand(@Param("paging")Paging paging, @Param("band")Band band, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	public List<Application> selectAppListByBandNoAppliedBar(@Param("paging")Paging paging, @Param("band")Band band);
+	public List<Application> selectAppListByBandNoAppliedBand(@Param("paging")Paging paging, @Param("band")Band band);
+	
+	public List<Application> selectAppListByBarNameAppliedBand(@Param("paging")Paging paging, @Param("bar")Bar bar);
+	public List<Application> selectApplicationSearchListByBarNameAppliedBand(@Param("paging")Paging paging, @Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	public List<Application> selectAppListByBarNameAppliedBar(@Param("paging")Paging paging, @Param("bar")Bar bar);
+	public List<Application> selectApplicationSearchListByBarNameAppliedBar(@Param("paging")Paging paging, @Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	public int selectAppListCntByBandNoAppliedBar(Band band);
+	public int selectAppListCntByBandNoAppliedBand(Band band);
+	public int selectAppListCntByBarNameAppliedBar(Bar bar);
+	public int selectAppListCntByBarNameAppliedBar(Band band);
+	
+	
+	
 	
 }

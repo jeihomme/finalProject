@@ -3,6 +3,7 @@ package web.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -398,7 +399,6 @@ public class MypageController {
 		if ( member.getRoleId() == 1 && req.getParameter("appNo") != null && !"".equals(req.getParameter("appNo")) ) {
 			Application app = new Application();
 			app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
-			app.setRead(Integer.parseInt(req.getParameter("read") ));
 			
 			logger.info(app.toString());
 			mpService.appReadUpdate(app);
@@ -635,10 +635,6 @@ public class MypageController {
 			mpService.updateBandGenre(bandGenre);
 		}
 		
-//		사진 저장
-//		
-//		장르저장
-//		resumeView
 		return "redirect:/mypage/resumes?resumesNo="+resumes.getResumesNo();
 	}
 	
@@ -786,103 +782,225 @@ public class MypageController {
 			bar = mpService.getBar(bar);
 			logger.info(bar.toString());
 			
+			String startDate = req.getParameter("appStartDate");
+			String endDate = req.getParameter("appEndDate");
+			
+			System.out.println(startDate + " ~ " + endDate);
+			
 			int CurPage = mpService.getCurPage(req);
-			logger.info("---getAppTotalCount---");
 			
-			int totalCount = mpService.getResumesTotalCount(bar);
+			Paging paging;
 			
-			logger.info("---Paging---");
-			Paging paging = new Paging(totalCount, CurPage);
+//			검색어가 있다면
+			if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
+				logger.info("---getAppTotalCount---");
+				int totalCount = mpService.getAppTotalCountAppliedBar(bar, startDate, endDate);
+				logger.info("---totalCount String : "+totalCount);
+				
+				logger.info("---Paging---");
+				paging = new Paging(totalCount, CurPage);
+				
+				logger.info("---appView---");
+				List<Application> aList = mpService.appViewAppliedBand(paging, bar, startDate, endDate);
+				List<Band> bandNoList = new ArrayList<>();
+				
+				for(Application app : aList) {
+					
+					Resumes resumes = new Resumes();
+					resumes.setResumesNo(app.getResumesNo());
+					
+					resumes = mpService.getResumes(resumes);
+					logger.info(resumes.toString());
+					
+					System.out.println(resumes.getBandNo());
+					Band addBand = new Band();
+					addBand.setBandNo(resumes.getBandNo());
+					addBand = mpService.getBandByBandNo(addBand);
+					
+					bandNoList.add(addBand);
+				}
+				logger.info("---addAttribute---");
+				model.addAttribute("aList", aList);
+				model.addAttribute("bandNoList", bandNoList);
+				model.addAttribute("paging", paging);
 			
-			logger.info("---appView---");
-			List<Application> aList = mpService.appView(paging, bar);
+			} else {
+//				검색어가 없다면,
+				int totalCount = mpService.getResumesTotalCount(bar);
+				
+				logger.info("---Paging---");
+				paging = new Paging(totalCount, CurPage);
+				
+				logger.info("---appView---");
+				List<Application> aList = mpService.appViewAppliedBand(paging, bar);
+				List<Band> bandNoList = new ArrayList<>();
+				
+				for(Application app : aList) {
+					
+					Resumes resumes = new Resumes();
+					resumes.setResumesNo(app.getResumesNo());
+					
+					resumes = mpService.getResumes(resumes);
+					logger.info(resumes.toString());
+					
+					System.out.println(resumes.getBandNo());
+					Band addBand = new Band();
+					addBand.setBandNo(resumes.getBandNo());
+					addBand = mpService.getBandByBandNo(addBand);
+					
+					bandNoList.add(addBand);
+				}
+				
+				logger.info("---addAttribute---");
+				model.addAttribute("aList", aList);
+				model.addAttribute("bandNoList", bandNoList);
+				model.addAttribute("paging", paging);
+			}
 			
-			logger.info("---addAttribute---");
-			model.addAttribute("aList", aList);
-			model.addAttribute("paging", paging);
+			
 			
 		} else if ( member.getRoleId() == 2 ) {
 			band.setUserId(member.getUserId());
 			band = mpService.getBand(band);
 			logger.info(band.toString());
 			
+			String startDate = req.getParameter("appStartDate");
+			String endDate = req.getParameter("appEndDate");
+			
+			System.out.println(startDate + " ~ " + endDate);
+			
 			int CurPage = mpService.getCurPage(req);
-			logger.info("---getAppTotalCount---");
 			
-			int totalCount = mpService.getResumesTotalCount(band);
+			Paging paging;
 			
-			logger.info("---Paging---");
-			Paging paging = new Paging(totalCount, CurPage);
+//			검색어가 있다면
+			if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
+				logger.info("---getAppTotalCount---");
+				int totalCount = mpService.getAppTotalCountAppliedBand(band, startDate, endDate);
+				logger.info("---totalCount String : "+totalCount);
+				
+				logger.info("---Paging---");
+				paging = new Paging(totalCount, CurPage);
+				
+				logger.info("---appView---");
+				List<Application> aList = mpService.appViewAppliedBand(paging, band, startDate, endDate);
+				List<Band> bandNoList = new ArrayList<>();
+				
+				for(Application app : aList) {
+					
+					Resumes resumes = new Resumes();
+					resumes.setResumesNo(app.getResumesNo());
+					
+					resumes = mpService.getResumes(resumes);
+					logger.info(resumes.toString());
+					
+					System.out.println(resumes.getBandNo());
+					Band addBand = new Band();
+					addBand.setBandNo(resumes.getBandNo());
+					addBand = mpService.getBandByBandNo(addBand);
+					
+					bandNoList.add(addBand);
+				}
+				logger.info("---addAttribute---");
+				model.addAttribute("aList", aList);
+				model.addAttribute("bandNoList", bandNoList);
+				model.addAttribute("paging", paging);
 			
-			logger.info("---appView---");
-			List<Application> aList = mpService.appView(paging, band);
-			
-			logger.info("---addAttribute---");
-			model.addAttribute("aList", aList);
-			model.addAttribute("paging", paging);
+			} else {
+//				검색어가 없다면,
+				int totalCount = mpService.getResumesTotalCount(band);
+				
+				logger.info("---Paging---");
+				paging = new Paging(totalCount, CurPage);
+				
+				logger.info("---appView---");
+				List<Application> aList = mpService.appViewAppliedBand(paging, band);
+				List<Band> bandNoList = new ArrayList<>();
+				
+				for(Application app : aList) {
+					
+					Resumes resumes = new Resumes();
+					resumes.setResumesNo(app.getResumesNo());
+					
+					resumes = mpService.getResumes(resumes);
+					logger.info(resumes.toString());
+					
+					System.out.println(resumes.getBandNo());
+					Band addBand = new Band();
+					addBand.setBandNo(resumes.getBandNo());
+					addBand = mpService.getBandByBandNo(addBand);
+					
+					bandNoList.add(addBand);
+				}
+				
+				logger.info("---addAttribute---");
+				model.addAttribute("aList", aList);
+				model.addAttribute("bandNoList", bandNoList);
+				model.addAttribute("paging", paging);
+			}
 		}
 		
 		
 	}
 	
-	@RequestMapping(value = "/mypage/applicationToBar", method=RequestMethod.POST)
-	public void applicationToBarSearch(
-			HttpServletRequest req
-			, Model model
-			, HttpSession session
-			) {
-		logger.info("---applicationToBarSearch---");
-//		searchApplicationUser
-		
-		Member member = (Member) session.getAttribute("loginInfo");
-		member = mbService.loginInfo(member);
-		logger.info(member.toString());
-		
-		Bar bar = new Bar();
-		bar.setUserId(member.getUserId());
-		bar = mpService.getBar(bar);
-		
-		String startDate = req.getParameter("appStartDate");
-		String endDate = req.getParameter("appEndDate");
-		
-		System.out.println(startDate + " ~ " + endDate);
-		
-		int CurPage = mpService.getCurPage(req);
-		
-		Paging paging;
-		
-//		검색어가 있다면
-		if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
-			logger.info("---getAppTotalCount---");
-			int totalCount = mpService.getAppTotalCount(bar, startDate, endDate);
-			logger.info("---totalCount String : "+totalCount);
-			
-			logger.info("---Paging---");
-			paging = new Paging(totalCount, CurPage);
-			
-			logger.info("---appView---");
-			List<Application> aList = mpService.appView(paging, bar, startDate, endDate);
-			
-			logger.info("---addAttribute---");
-			model.addAttribute("aList", aList);
-			model.addAttribute("paging", paging);
-		}
-//		검색어가 없다면,
-		else {
-			logger.info("---getTotalCount---");
-			int totalCount = mpService.getUserTotalCount();
-			
-			logger.info("---Paging---");
-			paging = new Paging(totalCount, CurPage);
-			
-			logger.info("---appView---");
-			List<Application> aList = mpService.appView(paging, member);
-			
-			logger.info("---addAttribute---");
-			model.addAttribute("aList", aList);
-			model.addAttribute("paging", paging);
-		}
-	}
+//	@RequestMapping(value = "/mypage/applicationToBar", method=RequestMethod.POST)
+//	public void applicationToBarSearch(
+//			HttpServletRequest req
+//			, Model model
+//			, HttpSession session
+//			) {
+//		logger.info("---applicationToBarSearch---");
+////		searchApplicationUser
+//		
+//		Member member = (Member) session.getAttribute("loginInfo");
+//		member = mbService.loginInfo(member);
+//		logger.info(member.toString());
+//		
+//		Bar bar = new Bar();
+//		bar.setUserId(member.getUserId());
+//		bar = mpService.getBar(bar);
+//		
+//		String startDate = req.getParameter("appStartDate");
+//		String endDate = req.getParameter("appEndDate");
+//		
+//		System.out.println(startDate + " ~ " + endDate);
+//		
+//		int CurPage = mpService.getCurPage(req);
+//		
+//		Paging paging;
+//		
+////		검색어가 있다면
+//		if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
+//			logger.info("---getAppTotalCount---");
+//			int totalCount = mpService.getAppTotalCount(bar, startDate, endDate);
+//			logger.info("---totalCount String : "+totalCount);
+//			
+//			logger.info("---Paging---");
+//			paging = new Paging(totalCount, CurPage);
+//			
+//			logger.info("---appView---");
+//			List<Application> aList = mpService.appView(paging, bar, startDate, endDate);
+//			
+//			logger.info("---addAttribute---");
+//			model.addAttribute("aList", aList);
+//			model.addAttribute("paging", paging);
+//		}
+////		검색어가 없다면,
+//		else {
+//			logger.info("---getTotalCount---");
+//			int totalCount = mpService.getUserTotalCount();
+//			
+//			logger.info("---Paging---");
+//			paging = new Paging(totalCount, CurPage);
+//			
+//			logger.info("---appView---");
+//			List<Application> aList = mpService.appView(paging, member);
+//			
+//			logger.info("---addAttribute---");
+//			model.addAttribute("aList", aList);
+//			model.addAttribute("paging", paging);
+//		}
+//	}
 	
 	
 	@RequestMapping(value = "/mypage/applicationToBarCancel", method=RequestMethod.POST)
@@ -913,8 +1031,6 @@ public class MypageController {
 		logger.info(member.toString());
 		
 		Bar bar = new Bar();
-		
-		
 		Band band = new Band();
 		
 		
@@ -935,38 +1051,75 @@ public class MypageController {
 			if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
 					
 					logger.info("---getAppTotalCount(bar, startDate, endDate)---");
-					int totalCount = mpService.getAppTotalCount(bar, startDate, endDate);
+					int totalCount = mpService.getAppTotalCountAppliedBar(bar, startDate, endDate);
 					logger.info("---totalCount String : "+totalCount);
 					
 					logger.info("---Paging---");
 					paging = new Paging(totalCount, CurPage);
 					
 					logger.info("---appView---");
-					List<Application> aList = mpService.appView(paging, bar, startDate, endDate);
+					List<Application> aList = mpService.appViewAppliedBar(paging, bar, startDate, endDate);
+					List<Band> bandNoList = new ArrayList<>();
+					
+					for(Application app : aList) {
+						
+						Resumes resumes = new Resumes();
+						resumes.setResumesNo(app.getResumesNo());
+						
+						resumes = mpService.getResumes(resumes);
+						logger.info(resumes.toString());
+						
+						System.out.println(resumes.getBandNo());
+						Band addBand = new Band();
+						addBand.setBandNo(resumes.getBandNo());
+						addBand = mpService.getBandByBandNo(addBand);
+						
+						bandNoList.add(addBand);
+					}
 					
 					logger.info("---addAttribute---");
 					model.addAttribute("aList", aList);
+					model.addAttribute("bandNoList", bandNoList);
 					model.addAttribute("paging", paging);
 			}
 //			검색어가 없다면,
 			else {
 				logger.info("---getAppTotalCount(bar)---");
-				int totalCount = mpService.getAppTotalCount(bar);
+				int totalCount = mpService.getAppTotalCountAppliedBar(bar);
 				
 				logger.info("---Paging---");
 				paging = new Paging(totalCount, CurPage);
 				
 				logger.info("---appView---");
-				List<Application> aList = mpService.appView(paging, bar);
+				List<Application> aList = mpService.appViewAppliedBar(paging, bar);
+				List<Band> bandNoList = new ArrayList<>();
+				
+				for(Application app : aList) {
+					
+					Resumes resumes = new Resumes();
+					resumes.setResumesNo(app.getResumesNo());
+					
+					resumes = mpService.getResumes(resumes);
+					logger.info(resumes.toString());
+					
+					System.out.println(resumes.getBandNo());
+					Band addBand = new Band();
+					addBand.setBandNo(resumes.getBandNo());
+					addBand = mpService.getBandByBandNo(addBand);
+					
+					bandNoList.add(addBand);
+				}
 				
 				logger.info("---addAttribute---");
 				model.addAttribute("aList", aList);
+				model.addAttribute("bandNoList", bandNoList);
 				model.addAttribute("paging", paging);
 			}
 			
 		} else if ( member.getRoleId() == 2 ) {
 			band.setUserId(member.getUserId());
 			band = mpService.getBand(band);
+			
 			
 			int CurPage = mpService.getCurPage(req);
 			
@@ -981,33 +1134,67 @@ public class MypageController {
 			if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
 					
 					logger.info("---getAppTotalCount(bar, startDate, endDate)---");
-					int totalCount = mpService.getAppTotalCount(band, startDate, endDate);
+					int totalCount = mpService.getAppTotalCountAppliedBand(band, startDate, endDate);
 					logger.info("---totalCount String : "+totalCount);
 					
 					logger.info("---Paging---");
 					paging = new Paging(totalCount, CurPage);
 					
 					logger.info("---appView---");
-					List<Application> aList = mpService.appView(paging, band, startDate, endDate);
+					List<Application> aList = mpService.appViewAppliedBar(paging, band, startDate, endDate);
+					List<Band> bandNoList = new ArrayList<>();
+					
+					for(Application app : aList) {
+						
+						Resumes resumes = new Resumes();
+						resumes.setResumesNo(app.getResumesNo());
+						
+						resumes = mpService.getResumes(resumes);
+						logger.info(resumes.toString());
+						
+						System.out.println(resumes.getBandNo());
+						Band addBand = new Band();
+						addBand.setBandNo(resumes.getBandNo());
+						addBand = mpService.getBandByBandNo(addBand);
+						
+						bandNoList.add(addBand);
+					}
 					
 					logger.info("---addAttribute---");
 					model.addAttribute("aList", aList);
+					model.addAttribute("bandNoList", bandNoList);
 					model.addAttribute("paging", paging);
 				
 			}
 //			검색어가 없다면,
 			else {
 				logger.info("---getAppTotalCount(band)---");
-				int totalCount = mpService.getAppTotalCount(band);
+				int totalCount = mpService.getAppTotalCountAppliedBand(band);
 				
 				logger.info("---Paging---");
 				paging = new Paging(totalCount, CurPage);
 				
 				logger.info("---appView---");
-				List<Application> aList = mpService.appView(paging, band);
+				List<Application> aList = mpService.appViewAppliedBar(paging, band);
+				List<Band> bandNoList = new ArrayList<Band>();
 				
+				for(Application app : aList) {
+					
+					Resumes resumes = new Resumes();
+					resumes.setResumesNo(app.getResumesNo());
+					
+					resumes = mpService.getResumes(resumes);
+					
+					Band addBand = new Band();
+					addBand.setBandNo(resumes.getBandNo());
+					addBand = mpService.getBandByBandNo(band);
+					bandNoList.add(addBand);
+				}
+				System.out.println(bandNoList);
 				logger.info("---addAttribute---");
 				model.addAttribute("aList", aList);
+				model.addAttribute("bandNoList", bandNoList);
+				
 				model.addAttribute("paging", paging);
 			}
 		}
