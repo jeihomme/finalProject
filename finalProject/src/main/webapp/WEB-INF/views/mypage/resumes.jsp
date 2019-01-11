@@ -19,7 +19,7 @@
 	}
 	
 	.adminMypageMain {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 300px;
 		margin: 10px auto;
@@ -128,24 +128,41 @@
 		color:#fff;
 		background-color: black;
 	}
+	
+	.profilePicSize {
+		width: 220px;
+		height: 200px;
+	}
 </style>
 
-<div class="adminMenu">
-	<p onclick="viewMypageInfo() ">Mypage</p>
-	<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-	<p class="selectMenu" onclick="viewMypageIntro() ">밴드 소개</p>
-	<p onclick="viewMypageAppToBar() ">지원 현황</p>
-	<p onclick="viewMypageRecommand() ">추천 Bar</p>
-	<p onclick="viewMypageCalendar() ">일정표</p>
-</div><br><br>
-<hr>
+<c:if test="${loginInfo.roleId eq 1 }">
+	<div class="adminMenu">
+		<p onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">Modify</p>
+		<p class="selectMenu" onclick="viewMypageIntro() ">Intro</p>
+		<p onclick="viewMypageAppToBar() ">Application</p>
+		<p onclick="viewMypageCalendar() ">Calendar</p>
+	</div><br><br>
+	<hr>
+</c:if>
+<c:if test="${loginInfo.roleId eq 2 }">
+	<div class="adminMenu">
+		<p onclick="viewMypageInfo() ">Mypage</p>
+		<p onclick="viewMypageModifyInfo() ">Modify</p>
+		<p class="selectMenu" onclick="viewMypageIntro() ">Intro</p>
+		<p onclick="viewMypageAppToBar() ">Application</p>
+		<p onclick="viewMypageRecommand() ">Recommand Bar</p>
+		<p onclick="viewMypageCalendar() ">Calendar</p>
+	</div><br><br>
+	<hr>
+</c:if>
 
 <div class="adminMypageMain">
 	<div class="adminMypageMainInfo">
 		<p class="adminDetailTitle">기본정보 </p>
 		
 		<div class="adminMypageMainInfo">
-			<input type="file" name="profileNo"/>
+			<img src="../resources/${pPic.originName }" id="profileImage" class="profilePicSize img-rounded" />
 		</div>
 		<div class="adminMypageMainInfo">
 			<b class="adminDetailInfo">밴드명</b><p class="adminDetailMust">(필수) </p><br>
@@ -238,7 +255,12 @@
 
 <hr>
 <div class="resumesViewDiv">
-	<button class="resumesBtn" onclick="viewMypageIntro() ">뒤로가기</button>
-	<input type="hidden" id="resumesNo" value="${resumes.resumesNo }"/>
-	<button class="resumesBtn" onclick="viewModifyResumes() ">수정</button>
+	<c:if test="${loginInfo.roleId eq 1 }">
+		<button class="resumesBtn" onclick="viewMypageAppToBand() ">확인</button>
+	</c:if>
+	<c:if test="${loginInfo.roleId eq 2 }">
+		<button class="resumesBtn" onclick="viewMypageIntro() ">뒤로가기</button>
+		<input type="hidden" id="resumesNo" value="${resumes.resumesNo }"/>
+		<button class="resumesBtn" onclick="viewModifyResumes() ">수정</button>
+	</c:if>
 </div>

@@ -141,7 +141,7 @@
 				$("#body").html(res);
 			}
 			, error: function() {
-				console.log("실패");
+				alert("실패");
 			}
 		});
 	}
@@ -447,8 +447,8 @@
 	}
 	
 	function modifyIntro(){
-		//AJAX 처리하기
 		
+		//AJAX 처리하기
 		$.ajax({ 	
 			type: "get"
 			, url: "/mypage/modifyIntro"
@@ -540,6 +540,7 @@
 			}
 			, dataType: "html"
 			, success: function( res ) {
+				alert("수정 완료!");
 				$("#body").html(res);
 			}
 			, error: function() {
@@ -608,6 +609,32 @@
 	function modifyIntro(){
 		//AJAX 처리하기
 		
+// 		var introData = {
+// 				locationNo: $("#locationNo").val()
+// 				, genreNo: $("#genreNo").val()
+// 				, barAddress: $("#barAddress").val()
+// 				, barInfo: $("#modifyBarInfo").val()
+// 				, barNo: $("#barNo").val()
+// 		    };
+		
+		$.ajax({ 	
+			type: "get"
+			, url: "/mypage/modifyIntro"
+			, data: {}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+// 				viewMypageIntro();
+			}
+			, error: function() {
+				alert("실패");
+			}
+		});
+	}
+
+	function modifyIntroProc(){
+		//AJAX 처리하기
+		
 		var introData = {
 				locationNo: $("#locationNo").val()
 				, genreNo: $("#genreNo").val()
@@ -620,7 +647,7 @@
 			type: "post"
 			, url: "/mypage/modifyIntro"
 			, data: introData
-			, dataType: "json"
+			, dataType: "html"
 			, success: function( res ) {
 				console.log(res);
 				viewMypageIntro();
@@ -631,7 +658,7 @@
 			}
 		});
 	}
-
+	
 	function viewMypageUserAdmin(){
 		//AJAX 처리하기
 		$.ajax({ 	
@@ -1538,17 +1565,18 @@ function minHistorylist2(){
 	function uploadSoundIntro() {
 			
 		var form = $('#soundFileForm')[0];
-                var formData = new FormData(form);
-                formData.append("fileObj", $("#soundFile")[0].files[0]);
+		var formData = new FormData(form);
+		formData.append("fileObj", $("#soundFile")[0].files[0]);
 
 		$.ajax({
-			type: 'POST'
+			type: "post"
 			, url: "/mypage/uploadSoundIntro"
 				, data: formData
 	        , processData: false
 	        , contentType: false
 	        , success: function(res){
 	            viewMypageIntro();
+	            alert("선택된 이력서를 공개합니다.");
 	        }
 			, error: function() {
 				alert("실패");
@@ -1558,22 +1586,52 @@ function minHistorylist2(){
 	
 	function uploadProfilePicIntro() {
 		var form = $('#profileFileForm')[0];
-                var formData = new FormData(form);
-                formData.append("fileObj", $("#profileFile")[0].files[0]);
+		var formData = new FormData(form);
+		formData.append("fileObj", $("#profileFile")[0].files[0]);
 
 		$.ajax({
-			type: 'POST'
+			type: "post"
 			, url: "/mypage/uploadProfilePicIntro"
 				, data: formData
 	        , processData: false
 	        , contentType: false
 	        , success: function(res){
-	            viewMypageIntro();
+	        	viewMypageIntro();
 	        }
 			, error: function() {
 				alert("실패");
 			}
 		});
+		
+// 		$.post( "/mypage/uploadProfilePicIntro", {
+// 			data: formData
+// 			, processData: false
+// 			, contentType: false
+// 		}, function(jqXHR) {
+// 			viewMypageIntro();
+// 		}, 'json' /* xml, text, script, html */)
+// 		.done(function(jqXHR) {
+// 		    console.log( "second success" );
+// 		})
+// 		.fail(function(jqXHR) {
+// 			console.log( "error" );
+// 		})
+// 		.always(function(jqXHR) {
+// 			console.log( "finished" );
+// 		});
+		
+// 		$.get( "example.php?Name=ajax&Age=10", function(jqXHR) {
+// 		    alert( "success" );
+// 		}, 'json' /* xml, text, script, html */)
+// 		.done(function(jqXHR) {
+// 		    alert( "second success" );
+// 		})
+// 		.fail(function(jqXHR) {
+// 		    alert( "error" );
+// 		})
+// 		.always(function(jqXHR) {
+// 		    alert( "finished" );
+// 		});
 	}
 	
 	function deleteSound1() {
@@ -1715,6 +1773,136 @@ function minHistorylist2(){
 				, data: {
 					musicNo: musicNo
 					, bandNo: bandNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function applicationToBarCancel1() {
+		
+		var appNoList = [];
+		
+		for(var i=0;i<document.getElementsByName("appNo").length; i++) {
+			appNoList[i] = document.getElementsByName("appNo")[i].value;
+	    }
+		
+		var appNo = appNoList[0];
+		
+		$.ajax({
+			type: "post"
+			, url: "/mypage/applicationToBarCancel"
+				, data: {
+					appNo: appNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function applicationToBarCancel2() {
+		
+		var appNoList = [];
+		
+		for(var i=0;i<document.getElementsByName("appNo").length; i++) {
+			appNoList[i] = document.getElementsByName("appNo")[i].value;
+	    }
+		
+		var appNo = appNoList[1];
+		
+		$.ajax({
+			type: "post"
+			, url: "/mypage/applicationToBarCancel"
+				, data: {
+					appNo: appNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function applicationToBarCancel3() {
+		
+		var appNoList = [];
+		
+		for(var i=0;i<document.getElementsByName("appNo").length; i++) {
+			appNoList[i] = document.getElementsByName("appNo")[i].value;
+	    }
+		
+		var appNo = appNoList[2];
+		
+		$.ajax({
+			type: "post"
+			, url: "/mypage/applicationToBarCancel"
+				, data: {
+					appNo: appNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function applicationToBarCancel4() {
+		
+		var appNoList = [];
+		
+		for(var i=0;i<document.getElementsByName("appNo").length; i++) {
+			appNoList[i] = document.getElementsByName("appNo")[i].value;
+	    }
+		
+		var appNo = appNoList[3];
+		
+		$.ajax({
+			type: "post"
+			, url: "/mypage/applicationToBarCancel"
+				, data: {
+					appNo: appNo
+					}
+			, dataType: "html"
+			, success: function(res) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		});
+	}
+	
+	function applicationToBarCancel5() {
+		
+		var appNoList = [];
+		
+		for(var i=0;i<document.getElementsByName("appNo").length; i++) {
+			appNoList[i] = document.getElementsByName("appNo")[i].value;
+	    }
+		
+		var appNo = appNoList[4];
+		
+		$.ajax({
+			type: "post"
+			, url: "/mypage/applicationToBarCancel"
+				, data: {
+					appNo: appNo
 					}
 			, dataType: "html"
 			, success: function(res) {

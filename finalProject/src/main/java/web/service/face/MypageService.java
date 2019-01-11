@@ -43,6 +43,8 @@ public interface MypageService {
 	public int getUserTotalCount();
 	
 	public int getResumesTotalCount(String search, int category);
+	public int getResumesTotalCount(Band band);
+	public int getResumesTotalCount(Bar bar);
 	public int getResumesTotalCount();
 	
 	
@@ -54,7 +56,7 @@ public interface MypageService {
 	public List<Resumes> boardSearch(Paging paging, int category);
 	public void boardDelete(Resumes resumes);
 	
-	public Band getBandByUserId(Band band);
+	public Band getBand(Band band);
 	public Band getBandByBandNo(Band band);
 	public List<BandMember>  getBandMember(BandMember bandMember);
 	public void addMemberList(BandMember bandMember);
@@ -87,7 +89,7 @@ public interface MypageService {
 	public Bar getBar(Bar bar);
 	
 	public List<Bar> barView(BandGenre bandGenre);
-	public Resumes getResumesByBandNo(Resumes resumes);
+	public Resumes getResumesByBandNoWithPublic(Resumes resumes);
 	public List<Application> appView(Paging paging, Member member);
 	public int getAppTotalCount(Bar bar, String startDate, String endDate);
 	public List<Application> appView(Paging paging, Bar bar, String startDate, String endDate);
@@ -102,6 +104,13 @@ public interface MypageService {
 	public void deleteBandGenre(Resumes resumes);
 	public void updatePublicResumes(Band band);
 	public void uploadPicture(ServletContext context, ProfilePic pPic, MultipartFile file);
+	public void insertBarProfile(Bar bar);
+	public void insertBandProfile(Band band);
+	public List<Application> appView(Paging paging, Band band);
+	public List<Application> appView(Paging paging, Bar bar);
+	public int getAppTotalCount(Band band, String startDate, String endDate);
+	public List<Application> appView(Paging paging, Band band, String startDate, String endDate);
+	
 	
 	
 	

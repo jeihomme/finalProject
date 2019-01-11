@@ -42,12 +42,6 @@ public interface MypageDao {
 	public void insertResume();
 	public void updateResume(Resumes resumes);
 	
-	public void selectVolunteerListByUserId();
-	public void selectVolunteerToBarListByVolunteerId();
-	public void deleteVolunteerToBar();
-	public void selectVolunteerToBandListByVolunteerId();
-	public void deleteVolunteerToBand();
-	
 	public void selectRecommandBarViewByUserId();
 	
 	public void selectCalendarViewByUserId();
@@ -58,7 +52,10 @@ public interface MypageDao {
 	public int selectUserListCnt();
 	public int selectUserCntAll(@Param("search")String search, @Param("category")int category);
 	
+	public int selectResumesListCnt(Band band);
+	
 	public int selectResumesListCnt();
+	
 	public int selectResumesCntAll(@Param("search")String search, @Param("category")int category);
 	
 	public List<Member> selectUserList(Paging paging);
@@ -75,7 +72,8 @@ public interface MypageDao {
 	public void insertBandMemberList(BandMember bandMember);
 	public void deleteBandMemberList(@Param("bandMember")BandMember bandMember, @Param("rnum")int rnum);
 	
-	public Resumes selectResumesByBandNo(Resumes resumes);
+	public Resumes selectResumesByBandNoWithPublic(Resumes resumes);
+	public int[] selectResumesByBandNo(Resumes resumes);
 	public List<Resumes> selectResumesListByBandName(Resumes resumes);
 	public List<Music> selectMusicListByBandName(Music music);
 	
@@ -108,8 +106,8 @@ public interface MypageDao {
 	public List<Bar> selectBarList(@Param("bandGenre") BandGenre bandGenre);
 	
 	public List<Application> selectApplicationList(@Param("paging")Paging paging, @Param("member")Member member);
-	public int selectAppDateSearch(@Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
-	public List<Application> selectApplicationSearchList(@Param("paging")Paging paging, @Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	public int selectAppDateSearchCntByBarName(@Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	public List<Application> selectApplicationSearchListByBarName(@Param("paging")Paging paging, @Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
 	public void deleteAppByAppNo(Application app);
 	
 	public Bar selectBarByUserId(Bar bar);
@@ -118,10 +116,18 @@ public interface MypageDao {
 	public void updateBar(Bar bar);
 	public void updateReadByAppNo(Application app);
 	public void updateAcceptByAppNo(Application app);
-	public int selectAppListCnt(Bar bar);
+	public int selectAppListCntByBarName(Bar bar);
 	public void insertBandGenreByBandNo(BandGenre bandGenre);
 	public void deleteBandGenre(Resumes resumes);
 	public void updatePublicResumes(Band band);
 	public void updateProfilePic(ProfilePic pPic);
+	public void insertBarProfileNo(Bar bar);
+	public void insertBandProfileNo(Band band);
+	public int selectResumesTotalCount(Band band);
+	public int selectAppListCntByBandNo(Band band);
+	public List<Application> selectAppListByBandNo(@Param("paging")Paging paging, @Param("band")Band band);
+	public List<Application> selectAppListByBandName(@Param("paging")Paging paging, @Param("bar")Bar bar);
+	public int selectAppDateSearchCntByBandNo(@Param("band")Band band, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	public List<Application> selectApplicationSearchListByBandNo(@Param("paging")Paging paging, @Param("band")Band band, @Param("startDate")String startDate, @Param("endDate")String endDate);
 	
 }

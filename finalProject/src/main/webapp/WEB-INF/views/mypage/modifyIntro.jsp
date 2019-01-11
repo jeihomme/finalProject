@@ -19,7 +19,7 @@
 	}
 	
 	.adminMypageMain {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 300px;
 		margin: 10px auto;
@@ -151,19 +151,19 @@
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
 		<p onclick="viewMypageInfo() ">Mypage</p>
-		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-		<p class="selectMenu" onclick="viewMypageIntro() ">바 소개</p>
-		<p onclick="viewMypageAppToBand() ">지원 현황</p>
-		<p onclick="viewMypageCalendar() ">일정표</p>
+		<p onclick="viewMypageModifyInfo() ">Modify</p>
+		<p class="selectMenu" onclick="viewMypageIntro() ">Intro</p>
+		<p onclick="viewMypageAppToBand() ">Application</p>
+		<p onclick="viewMypageCalendar() ">Calendar</p>
 	</div><br><br>
 	<hr>
 	
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">기본정보 </p>
+			<p class="adminDetailTitle">Intro </p>
 			
 			<div class="adminMypageMainInfo">
-				<img class="profilePicSize" src="http://${pPic.path }/${pPic.originName }">
+				<img src="../resources/${pPic.originName }" id="profileImage" class="profilePicSize img-rounded" />
 				<input type="hidden" name="profileNo" value="${pPic.profileNo }"/>
 				<input type="hidden" name="path" value="${pPic.path }"/>
 				<input type="hidden" name="originName" value="${pPic.originName }"/>
@@ -204,9 +204,9 @@
 							<option value="${genre.genreNo }" selected="selected">${genre.genreName }</option>
 						</c:if>
 						
-						<option value="1">비밥</option><option value="2">스윙</option>
-						<option value="3">펑크</option><option value="4">모던</option>
-						<option value="5">보사노바</option><option value="6">부기우기</option>
+						<option value="1">bebob</option><option value="2">swing</option>
+						<option value="3">punk</option><option value="4">modern</option>
+						<option value="5">bosa nova</option><option value="6">boogie woogie</option>
 						
 					</select>
 						<input type="hidden" id="barNo" name="barNo" value="${bar.barNo }"/>
@@ -220,7 +220,7 @@
 	<div class="adminMypageSearchRes">
 		<hr>
 		<div>
-			<b class="bandIntroHeader">주소</b>
+			<b class="adminDetailTitle">Address</b>
 			<table class="table table-hover table-striped table-condensed">
 				
 				<tr>
@@ -269,7 +269,7 @@
 	<div class="adminMypageSearchRes">
 		<hr>
 		<div >
-			<p class="adminDetailTitle">바 소개 </p>
+			<p class="adminDetailTitle">Intro </p>
 			<table class="table table-hover table-striped table-condensed">
 				<tr>
 					<th>소개</th>
@@ -288,7 +288,7 @@
 		<div class="resumesViewDiv">
 			<button class="resumesBtn" onclick="viewMypageIntro() ">뒤로가기</button>
 			<input type="hidden" name="barNo" value="${bar.barNo }"/>
-			<button class="resumesBtn" onclick="modifyIntro() ">완료</button>
+			<button class="resumesBtn" onclick="modifyIntroProc() ">완료</button>
 		</div>
 		
 </c:if>

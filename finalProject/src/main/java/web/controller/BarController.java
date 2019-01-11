@@ -1,6 +1,7 @@
 package web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,8 +30,6 @@ public class BarController {
 	private static final Logger logger
 		= LoggerFactory.getLogger(BarController.class);
 	
-	int value = 0;
-	
 	// 바 리스트
 	@RequestMapping(value="/bar/barlist", method=RequestMethod.GET)
 	public void barList(
@@ -41,7 +40,6 @@ public class BarController {
 		ProfilePic profilePic = new ProfilePic();
 		Member member = (Member) session.getAttribute("loginInfo"); 
 		String contact = member.getContact();
-		value+=12;
 		
 		
 		logger.info(">> barList");
@@ -52,7 +50,6 @@ public class BarController {
 		logger.info("list size : " + list.size());
 		
 		model.addAttribute("contact", contact);
-		model.addAttribute("value", value);
 		model.addAttribute("list", list);
 		model.addAttribute("location", location);
 		
@@ -103,16 +100,10 @@ public class BarController {
 	@RequestMapping(value="/bar/updatebarinfo", method=RequestMethod.POST)
 	public String updateInfoProc(Bar bar, Model model, HttpSession session
 			, HttpServletRequest req
-//			, @RequestParam (value="contact") String contact
 			) {
 		
-		/*
-		 * bar.setBarInfo(bar.getBarInfo()); bar.setManager(bar.getManager());
-		 * bar.setContact(bar.getContact());
-		 */
 
 		Member member = (Member) session.getAttribute("loginInfo");
-//		contact = member.getContact();
 		
 		member.setContact(req.getParameter("contact"));
 		
@@ -120,23 +111,21 @@ public class BarController {
 		int b = bar.getBarNo();
 		logger.info("updateProc //" + b);
 		
-//		try {
+		try {
 			barService.barUpdate(bar);
 			
 			logger.info(member.toString());
 			barService.memberContactUpdate(member);
 			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} 
-		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
 		
 		return "redirect:/bar/viewbar?barNo=" + bar.getBarNo();
 		
 	}
 
 	// 지역번호(이름)으로 검색
-
 	@RequestMapping(value="/bar/barlocation", method=RequestMethod.POST)
 	public ModelAndView barlocation(
 			@RequestParam(value = "paramMap[]")List<String> paramMap
@@ -160,8 +149,10 @@ public class BarController {
 		
 	}
 	
+	// 더보기 버튼 클릭
 	@RequestMapping(value="/bar/listmore", method=RequestMethod.POST)
 	public ModelAndView listMore(
+			@RequestParam Map<String, Object> paramMap,
 			Model model,
 			HttpSession session
 			) {
@@ -170,6 +161,15 @@ public class BarController {
 		ProfilePic profilePic = new ProfilePic();
 		
 		logger.info("listMore");
+		
+		int startNo = 0;
+		int  endNo = 0;
+		
+		startNo = Integer.parseInt(paramMap.get("page").toString())  * Integer.parseInt(paramMap.get("cnt").toString()) + 1;
+		endNo = startNo + Integer.parseInt(paramMap.get("cnt").toString()) - 1;
+		
+		bar.setStartNo(startNo);
+		bar.setEndNo(endNo);
 		
 		List<Bar> listMore = barService.barListMore(bar, profilePic);
 		

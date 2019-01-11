@@ -19,7 +19,7 @@
 	}
 	
 	.adminMypageMain {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 300px;
 		margin: 10px auto;
@@ -57,13 +57,17 @@
 	}
 	
 	.adminMypageMainImage {
-		border: 1px solid #fff;
+/* 		border: 1px solid #fff; */
 		margin: 10px;
 		width: 335px;
 		height: 280px;
 		float:right;
 	}
 	
+	.adminBoardManage{ 
+		width: 340px;
+		height: 275px;
+	}
 	.selectMenu {
 		color: gold;
 	}
@@ -91,19 +95,19 @@
 
 <div class="adminMenu">
 	<p onclick="viewMypageInfo() ">Mypage</p>
-		<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-		<p onclick="viewMypageUserAdmin() ">회원 관리</p>
-		<p class="selectMenu" onclick="viewMypageBoardAdmin() ">게시글 관리</p>
+		<p onclick="viewMypageModifyInfo() ">Modify</p>
+		<p onclick="viewMypageUserAdmin() ">Users</p>
+		<p class="selectMenu" onclick="viewMypageBoardAdmin() ">Boards</p>
 </div><br><br>
 <hr>
 <div class="adminMypageMain">
 	<div class="adminMypageMainInfo">
-		<p class="adminDetailTitle">관리자 게시글 관리 </p>
+		<p class="adminDetailTitle">Boards </p>
 		<hr>
 		<p class="adminDetailInfo">게시글을 검색하여 강제 삭제할 수 있는 공간입니다.</p>
 	</div>
 	<div class="adminMypageMainImage">
-		<p >이미지 넣어주세요 </p>
+		<img src="../resources/adminBoardManage.gif" class="adminBoardManage">
 	</div>
 </div>
 <div class="adminMypageSearchDiv">

@@ -9,7 +9,6 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <!-- Daum 지도 -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-
 <!-- 자바스크립트 -->
 <script type="text/javascript">
 
@@ -1172,10 +1171,15 @@ input {
 	float:none;
 	text-align:left; /* 글 왼쪽 정렬 */
 }
+
+.mainImage {
+	width:300px;
+	height:150px;
+}
 </style>
 <!-- 헤더 타이틀 -->
 <div >
-	<h1 class="headerTitle" onclick="location.href='/main' ">Insert Image</h1>
+	<img src="../resources/mainImage.png" class="mainImage" onclick="location.href='/main' ">
 </div>
 
 <!-- 헤더 메뉴 -->

@@ -7,80 +7,124 @@
 
 <style type="text/css">
 	
-	.container2{
-		display:inline;
-		background-color:gray;
-	}
-	.topleft{
-		display:inline;
-		width:100px;
-		height:100px;
-/* 		border:1px solid white; */
-	}
 	.back{
-		padding-right:150px
+/* 		width: 20%; */
+	    height: 100%;
+	    display: inline-table;
+	    float: left;
+	    color: black;
+	    margin-top: 15px;
 	}
 	.barName{
-		padding-left:150px;
-		text-align:center;
-		font-size:38px;
+		width: 75%;
+	    height: 100%;
+	    display: inline-table;
+	    position: relative;
+	    float: left;
+/* 	    margin-left: 10%; */
+	    text-align: center;
+	    font-size: 38px;
+	}
+	.modify{
+/* 		width: 20%; */
+	    height: 100%;
+/* 	    display: inline-table; */
+	    position: relative;
+	    float: left;
+/* 	    margin-left: 10%; */
+/* 	    text-align: right; */
+	    color: black;
+	    margin-top: 15px;
+	}
+	
+	.calendar{
+		position: relative;
+  		float: left;
+  	 	margin-top: 15px;
+	}
+	
+	.barImg{
+		width: 400px;
+		position: relative;
+		float: left;
+		margin-right: 25px;
+	}
+	
+	.barInfo{
+		position: relative;
+		float: left;
+	}
+	
+	.barGenre{
+		position: relative;
+		float: left;
+		margin-right: 100px;
+	}
+	#map{
+		width: 500px; 
+		height: 400px; 
+		float: left; 
+		width: 50%; 
+		position: relative;
+	}
+	.mapAddress{
+		float: left; 
+		width: 50%; 
+		position: relative; 
+		padding: 0 25px;
 	}
 
 </style>
 
 
-<div class="container1">
-	<div class="back topleft" onclick="location.href= '/bar/barlist' ">뒤로가기</div>
-	<div class="barName topleft"> ${view.barName }</div>
-</div>
+<div class="back"><input type="button" onclick="location.href= '/bar/barlist'" value="<Prep"></div>
+
+<div class="barName"> ${view.barName }</div>
 
 <form action="/bar/updatebarinfo" method="get">
-	<div class="update">
-		<p onclick="location.href='/bar/updatebarinfo?barNo=${view.barNo}'">수정하기</p>
-	</div>
+	<div class="modify"><input type="button" onclick="location.href='/bar/updatebarinfo?barNo=${view.barNo}'" value="Modify"></div>
 </form>
-<div>
-	<div class="calendar">
-		<p onclick="location.href='/bar/calendar'">스케줄보기</p>
-	</div>
-	<div class="map">
-		<p onclick="location.href='/bar/map'">위치보기</p>
-	</div>
-</div> <br><br><br><br><br>
 
-<div id="body">
+<div class="calendar"><input type="button" onclick="location.href='/bar/calendar'" value="Calendar"></div><br><br><br><hr>
+
+<div class="barImg"><img class="barImg" src="http://${view.path }/${view.originName }"></div>
+
+<div id="barInformation">
 <form name="view" method="get">
 <!-- 	<div id="barInfo"> -->
 			
 			<div id="barInfo">
+				<h3>Information</h3>
 				${view.barInfo }<br>
 			</div>
 			
 			<div id="barInfo">
+				<h3>Manager</h3>
 				${view.manager }<br>
 			</div>
 			
-			<div id="barInfo">
-				${view.barAddress}<br>
-			</div>
-			
-			<div id="barInfo">
+			<div class="barGenre">
+				<h3>Genre</h3>
 				${view.genreName }<br>
 			</div>
 			
-			<div id="barInfo">
+			<div class="barContact">
+				<h3>Bar Contact</h3>
 				${contact }<br>
 			</div>
 		
 <!-- 	</div> -->
 </form>
 
-</div><br>
+</div><br><br>
 <hr><br>
 
 <div style="position: relative; height: 410px">
-	<div id="map" style="width: 500px; height: 400px; float: left; width: 50%; position: relative;"></div>
-	<div class="mapAddress" style="float: left; width: 50%; position: relative; padding: 0 50px;">${view.barAddress }</div>
+	<div id="map"></div>
+	<div class="mapAddress">
+		<h3>Bar Address</h3><br>
+		${view.barAddress }
+	</div>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
@@ -121,5 +165,5 @@
 </div>
 <hr>
 <div class="test">
-	<p onclick="location.href= '/bar/barlist' "> 바 리스트로 </p>
+	<p onclick="location.href= '/bar/barlist' "> Bar List </p>
 </div>    

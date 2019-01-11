@@ -20,7 +20,7 @@
 	}
 	
 	.adminMypageMain {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 300px;
 		margin: 10px auto;
@@ -162,23 +162,32 @@ td {
 	.bandModifyBtn {
 		float:right;
 	}
+	
+	.bandProfileImage {
+		cursor:pointer;	
+	}
+	
+	.profilePicSize {
+		width: 220px;
+		height: 200px;
+	}
 </style>
 
 <div class="adminMenu">
 	<p onclick="viewMypageInfo() ">Mypage</p>
-	<p onclick="viewMypageModifyInfo() ">회원 정보수정</p>
-	<p class="selectMenu" onclick="viewMypageIntro() ">밴드 소개</p>
-	<p onclick="viewMypageAppToBar() ">지원 현황</p>
-	<p onclick="viewMypageRecommand() ">추천 Bar</p>
-	<p onclick="viewMypageCalendar() ">일정표</p>
+	<p onclick="viewMypageModifyInfo() ">Modify</p>
+	<p class="selectMenu" onclick="viewMypageIntro() ">Intro</p>
+	<p onclick="viewMypageAppToBar() ">Application</p>
+	<p onclick="viewMypageRecommand() ">Recommand Bar</p>
+	<p onclick="viewMypageCalendar() ">Calendar</p>
 </div><br><br>
 <hr>
 <div class="adminMypageMain">
 	<div class="adminMypageMainInfo">
-		<p class="adminDetailTitle">기본정보 </p>
+		<p class="adminDetailTitle">Intro </p>
 		
 		<div class="adminMypageMainInfo">
-			<input type="file" name="profileNo"/>
+			<img src="../resources/${pPic.originName }" id="profileImage" class="profilePicSize img-rounded" />
 		</div>
 		<div class="adminMypageMainInfo">
 			<b class="adminDetailInfo">밴드명</b><p class="adminDetailMust">(필수) </p><br>
