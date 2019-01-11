@@ -21,7 +21,6 @@ public class FindMember {
 	private String userId;
 	
 	
-	
 
 
 	

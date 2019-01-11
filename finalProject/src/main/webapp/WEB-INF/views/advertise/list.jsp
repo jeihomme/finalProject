@@ -66,7 +66,7 @@ td {
     border-radius:20px;
 /*     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */ 
 	margin-left: 20%;
-    margin-top: 8%;
+    margin-top: 9%;
 
 
 
@@ -95,7 +95,7 @@ td {
 
 }
 .modal-info{
-/*  	border: 1px solid white;  */
+/* 	border: 1px solid white;   */
 	float: right;
     width: 40%;
     height: 100%;
@@ -124,6 +124,12 @@ td {
             text-decoration: none;
             cursor: pointer;
         }
+input[type=text]{
+	border: none;
+	background-color: gray;
+	color:black;
+	
+}
 
 
 </style>
@@ -145,7 +151,8 @@ td {
 
 <div id="list" style="margin-left: 30%; margin-bottom: 5%;">
 <form>
-<h4><a href="#" id="memberCk" href="adsNo"><input type="hidden" id="member" value="1">맴버</a>   /   <a href="#" id="collaboration" href="adsNo"> <input type="hidden" id="collabo" value="2"/>콜라보</a></h4>
+
+<h4><a href="/advertise/adscate" id="memberCk" href="adsNo"><input type="hidden" id="adsNo" value="1">맴버</a>   /   <a href="/advertise/adscate" id="collaboration" href="adsNo"> <input type="hidden" id="collabo" value="2"/>콜라보</a></h4>
 
 </form>
 </div>
@@ -174,168 +181,224 @@ td {
 </tr>
 </c:forEach>
 </table>
-
-
+<div id="searchBox" class="text-center">
+	
+			
+				<select id="searchVal" name="searchVal" style="color: black">
+						<option value="title" selected="selected">제목</option>
+						<option value="content">내용</option>
+						<option value="userid">작성자</option>
+				</select>
+			<input style="color:black" type="search"  id="searchTxt" name="searchTxt" />
+			<button id="btnSearch">검색</button>
+		</div>
 </div>
 
 <div class="modal-ads" id="advertiseView"> 
 </div>
+<script type="text/javascript">
+function noticeBoardno(notice) {
 
+	location.href = "/advertise/list?findNo=" + findNo;
+}
+
+function search(frm) {
+	if (frm.keyWord.value == "") {
+		alert("검색 단어를 입력하세요");
+		frm.keyWord.focus();
+		return;
+	}
+	frm.sumbit();
+}
+</script>
 
 <script type="text/javascript">
+$(document).ready(
+		function() { 
+
+			var result = '${result}';
+			var successMsg = '${successMsg}';
+			var failMsg = '${failMsg}';
+
+			if (result == 'success') {
+				alert(successMsg);
+			} else if (result == 'fali') {
+				alert(failMsg);
+			}
+
+
+			$("#btnSearch").click(
+					function() {
+
+						var searchVal = $("#searchVal").val();
+						var searchTxt = $("#searchTxt").val();
+						
+						$(location).attr(
+								"href",
+								"/advertise/list?searchVal="
+										+ searchVal+"&"+"searchTxt="
+										+ searchTxt);
+
+					});
+
+		});
+
+</script>
+
+<script type="text/javascript">
+
 $(document).ready(function(){
-// $("#member").click(function() {
-	var modal = document.getElementById("advertiseView");
-	
-
-	$(".view").click(function() {
-	var findNo = $(this).attr("id");
-	
-	
-	
-	console.log("findNo =" + findNo);
-	
-	$.ajax({ 
-		type: 'GET' 
-		, url: '/advertise/view'
-		, dataType : "json" 
-		, data : {findNo : findNo}
-		, success: function(data){
-
-			
-		 modal.style.display = "block";
-		 
-			var findM = data.map.findM;
-			var proPic = data.map.proPic;
-			var bandMember = data.map.bandMember;
-// 			var bandgenre = data.map.bandGenre;
-			var member = data.map.member;
-// 			var mem = data.map.list;
-			
-			console.log(data.map);
-			
-			$("#advertiseView").empty();
+	// $("#member").click(function() {
+		var modal = document.getElementById("advertiseView");
 		
 
-			$newadvertiseView = $(
-					     "<div class='modal-img' ><img src='http://" + proPic.path + "/" + proPic.originName + "' width='100%' height='100%'/></div><div class='modal-info'>"
-					     +"<div style='margin-left:10%; margin-top:1%;'><p>· Member</p><div class='member-div'><input type='text'style='width: 220px' value='"+bandMember.bandMemName+"'/></div>"
-					     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' value='"+findM.genre+"'/></p></div>"
-					     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' value='"+findM.position+"' type='text''/></p></div>"
-					     +"<div style='margin-top: 10%'><p>· Contact Number<input style='margin-left: 5%' type='text' value='"+member.contact+"' /></p></div>"
-					     +"<div style='margin-top: 10%'><p>· Etc.<input style='margin-left: 5%; height: 185px; width:88%;'  type='text' name='content' value='"+findM.content+"''/></p></div>"
-					     +"</div></div>"
-					     +"<audio controls class='modal-music'><source type='audio/ogg'><source type='audio/mpeg'></audio><button type='button' id='close' class='btn btn-default'>Close</button>"
-					      );
-			$("#advertiseView").append($newadvertiseView);
-	
-			
-			
-			
-		}, error:function(){
-			alert("ㅋㅋ 망함");
-		}
+		$(".view").click(function() {
+		var findNo = $(this).attr("id");
 		
-	
 		
-	});
-});
+		
+		console.log("findNo =" + findNo);
+		
+		$.ajax({ 
+			type: 'GET' 
+			, url: '/advertise/view'
+			, dataType : "json" 
+			, data : {findNo : findNo}
+			, success: function(data){
 
-	
-
-	
-	
-	 $("#memberCk").click(function(){
-		
-
-		
-		 var adsNo = $("#member").val();
-			
-			$("#subTable").empty();
-			$.ajax({ 
-				type: 'POST' 
-				, url: '/advertise/list'
-				, dataType : "json" 
-				, data : {adsNo : adsNo}
-				, success: function(data){
-					
-						var ads = data.list;
-					
-						console.log(data);
-						
-						
-						$("#advertiseView").empty();
-// 						$newlist = $("<tr><th>번호</th>"+"<th>분류</th><th>제목</th><th>"
-// 								+"작성자</th><th>작성일</th>");
-// 						$("#advertiseTable").append($newlist);
 				
-						$.each(ads , function(index , advertise){
-							$newAdvertiseTable = $("<tr><td style='width:7%'>"+advertise.findNo+"</td><td style='width:14%'>"+advertise.ads+"</td><td>"+"</td><td style='width:28%'><a href='#advertiseView' ' data-toggle='modal' class='view' id='"+advertise.findNo+"'>"+advertise.title+"</a></td><td>"
-									+"</td><td>"+advertise.bandName+"</td><td>"+advertise.writtenDate+"</td></tr>");
-							 
-									$("#subTable").append($newAdvertiseTable);
-									
-						})
+				 modal.style.display = "block";
+			 
+				var findM = data.map.findM;
+				var proPic = data.map.proPic;
+				var bandMember = data.map.bandMember;
+//	 			var bandgenre = data.map.bandGenre;
+				var member = data.map.member;
+//	 			var mem = data.map.list;
+				
+				console.log(data.map);
+				
+				$("#advertiseView").empty();
+			
 
-									$newadvertiseView = $(
-											     "<div class='modal-img' ></div><div class='modal-info'>"
-											     +"<div style='margin-left:10%; margin-top:1%;'><p>· Member</p><div class='member-div'><input type='text'style='width: 220px'/></div>"
-											     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' /></p></div>"
-											     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' ' type='text''/></p></div>"
-											     +"<div style='margin-top: 10%'><p>· Contact Number<input style='margin-left: 5%' type='text' ' /></p></div>"
-											     +"<div style='margin-top: 10%'><p>· Etc.<input style='margin-left: 5%; height: 185px; width:88%;'  type='text' name='content'/></p></div>"
-											     +"</div></div>"
-											     +"<audio controls class='modal-music'><source type='audio/ogg'><source type='audio/mpeg'></audio><button type='button' id='close' class='btn btn-default'>Close</button>"
-											      );
-									$("#advertiseView").append($newadvertiseView);
+				$newadvertiseView = $(
+						     "<div class='modal-img' ><img src='http://" + proPic.path + "/" + proPic.originName + "' width='100%' height='100%'/></div><div class='modal-info'>"
+						     +"<div style='margin-left:10%; margin-top:1%;'><p>· Member</p><div class='member-div'><input type='text'style='width: 220px' value='"+bandMember.bandMemName+"'/></div>"
+						     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' value='"+findM.genre+"'/></p></div>"
+						     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' value='"+findM.position+"' type='text''/></p></div>"
+						     +"<div style='margin-top: 10%'><p>· Contact Number<input style='margin-left: 5%' type='text' value='"+member.contact+"' /></p></div>"
+						     +"<div class='etc' style='margin-top: 10% ,'><p>· Etc.<input style='margin-left: 5%; height: 185px; width:88%;' maxlength='12' type='text' name='content' value='"+findM.content+"''/></p></div>"
+						     +"</div></div>"
+						     +"<audio controls class='modal-music'><source type='audio/ogg'><source type='audio/mpeg'></audio><button type='button' id='close' class='btn btn-default'>Close</button>"
+						      );
+				$("#advertiseView").append($newadvertiseView);
+		
+				
+				
+				
+			}, error:function(){
+				alert("ㅋㅋ 망함");
+			}
+			
+		
+			
+		});
+	});
+	
+
+	
+	
+// 	 $("#memberCk").click(function(){
+		
+
+		
+// 		 var adsNo = $("#member").val();
+			
+// 			$("#subTable").empty();
+// 			$.ajax({ 
+// 				type: 'POST' 
+// 				, url: '/advertise/adscate'
+// 				, dataType : "json" 
+// 				, data : {adsNo : adsNo}
+// 				, success: function(data){
+					
+// 						var ads = data.list;
+					
+// 						console.log(data);
+						
+						
+// 						$("#advertiseView").empty();
+// // 						$newlist = $("<tr><th>번호</th>"+"<th>분류</th><th>제목</th><th>"
+// // 								+"작성자</th><th>작성일</th>");
+// // 						$("#advertiseTable").append($newlist);
+				
+// 						$.each(ads , function(index , advertise){
+// 							$newAdvertiseTable = $("<tr><td style='width:7%'>"+advertise.findNo+"</td><td style='width:14%'>"+advertise.ads+"</td><td>"+"</td><td style='width:28%'><a href='#advertiseView' ' data-toggle='modal' class='view' id='"+advertise.findNo+"'>"+advertise.title+"</a></td><td>"
+// 									+"</td><td>"+advertise.bandName+"</td><td>"+advertise.writtenDate+"</td></tr>");
+							 
+// 									$("#subTable").append($newAdvertiseTable);
+									
+// 						})
+
+// 									$newadvertiseView = $(
+// 											     "<div class='modal-img' ></div><div class='modal-info'>"
+// 											     +"<div style='margin-left:10%; margin-top:1%;'><p>· Member</p><div class='member-div'><input type='text'style='width: 220px'/></div>"
+// 											     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' /></p></div>"
+// 											     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' ' type='text''/></p></div>"
+// 											     +"<div style='margin-top: 10%'><p>· Contact Number<input style='margin-left: 5%' type='text' ' /></p></div>"
+// 											     +"<div style='margin-top: 10%'><p>· Etc.<input style='margin-left: 5%; height: 185px; width:88%;'  type='text' name='content'/></p></div>"
+// 											     +"</div></div>"
+// 											     +"<audio controls class='modal-music'><source type='audio/ogg'><source type='audio/mpeg'></audio><button type='button' id='close' class='btn btn-default'>Close</button>"
+// 											      );
+// 									$("#advertiseView").append($newadvertiseView);
 							
 									
 					
 							 
-				}
+// 				}
 				
-			});	
+// 			});	
 			
 		
 			
 		
 			
-		})	
+// 		})	
 
 
-$("#collaboration").click(function() {
-	var adsNo = $("#collabo").val();
+// $("#collaboration").click(function() {
+// 	var adsNo = $("#collabo").val();
 	
-	$("#subTable").empty();
-	$.ajax({ 
-		type: 'POST' 
-		, url: '/advertise/list'
-		, dataType : "json" 
-		, data : {adsNo : adsNo}
-		, success: function(data){
+// 	$("#subTable").empty();
+// 	$.ajax({ 
+// 		type: 'POST' 
+// 		, url: '/advertise/adscate'
+// 		, dataType : "json" 
+// 		, data : {adsNo : adsNo}
+// 		, success: function(data){
 
-			var ads = data.list;
+// 			var ads = data.list;
 
-// 			$newlist = $("<tr><th>번호</th>"+"<th>분류</th><th>제목</th><th>"
-// 					+"작성자</th><th>작성일</th>");
-// 			$("#advertiseTable").append($newlist);
+// // 			$newlist = $("<tr><th>번호</th>"+"<th>분류</th><th>제목</th><th>"
+// // 					+"작성자</th><th>작성일</th>");
+// // 			$("#advertiseTable").append($newlist);
 	
-			$.each(ads , function(index , advertise){
-				$newAdvertiseTable = $("<tr><td style='width:7%'>"+advertise.findNo+"</td><td style='width:14%'>"+advertise.ads+"</td><td>"+"</td><td style='width:28%'>"+advertise.title+"</td><td>"
-						+"</td><td>"+advertise.bandName+"</td><td>"+advertise.writtenDate+"</td></tr>");
+// 			$.each(ads , function(index , advertise){
+// 				$newAdvertiseTable = $("<tr><td style='width:7%'>"+advertise.findNo+"</td><td style='width:14%'>"+advertise.ads+"</td><td>"+"</td><td style='width:28%'>"+advertise.title+"</td><td>"
+// 						+"</td><td>"+advertise.bandName+"</td><td>"+advertise.writtenDate+"</td></tr>");
 			
-						$("#subTable").append($newAdvertiseTable);
+// 						$("#subTable").append($newAdvertiseTable);
 			
 					
-				})
+// 				})
 		
-		}
+// 		}
 				
-})
+// })
 
 
 	
-});
+// });
 	 
 	
 	window.onclick = function(event) {

@@ -13,7 +13,7 @@ public interface AdvertiseService {
 	public List getList(Paging paigng);
 
 	// 구인구직 상세 보기
-	public Map view(int findNo );
+	public Map view(String findNo );
 	
 	//구인구직 쓰기
 	public void write();

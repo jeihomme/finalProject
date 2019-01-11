@@ -23,8 +23,17 @@ SELECT b.findNo
      , CASE WHEN B.adsNo = '1' THEN '맴버'
          ELSE '콜라보'
          END ADS
-FROM BAND A , FINDMEMBER B 
+FROM  FINDMEMBER B , Band A
 WHERE a.bandNo = b.bandNo
+<if test="search != null and search != '' and searchVal == ('title')"> 
+	AND title LIKE '%' || #{search} || '%'
+</if>
+<if test="search != null and search != '' and searchVal == ('content')">
+	AND content LIKE '%' || #{search} || '%'
+</if>
+<if test="search != null and search != '' and searchVal == ('userId')">
+	AND userId LIKE '%' || #{search} || '%'
+</if>
   <if test="adsNo != null and adsNo != '' ">
 	 AND b.adsNo = #{adsNo}
 	 </if>
@@ -54,8 +63,13 @@ SELECT COUNT(*) CNT FROM (
 	         ELSE '콜라보'
 	         END ads
 	     , a.profileNo
-	FROM BAND A , FINDMEMBER B 
+	     , c.profileNo
+	     , c.path
+	     , c.ORIGINNAME
+	     , c.STOREDNAME
+	FROM BAND A , FINDMEMBER B , ProfilePic c
 	WHERE a.bandNo = b.bandNo
+	AND a.profileNo = c.profileNo
  	  <if test="adsNo != null and adsNo != '' "> 
 	 AND b.adsNo = #{adsNo}
 	 </if> 
@@ -66,18 +80,8 @@ SELECT COUNT(*) CNT FROM (
 
 </select>
 
-<select id="selectAdvertise" parameterType="int" resultType="web.dto.FindMember">
-	SELECT a.findNo, a.bandNo, a.positionNo, a.title, a.content, a.writtenDate,  a.musicNo, a.adsNo,
-		CASE WHEN positionNo = '1' THEN '보컬'
-			WHEN positionNo = '2' THEN '기타'
-			WHEN positionNo = '3' THEN '드러머'
-		ELSE '콜라보'
-		END position
-		,CASE WHEN b.genreNo = a.genre THEN b.genreName
-		END genre
-	 FROM findMember A ,genre B
-	 WHERE a.findNo = #{findNo}
-	 AND b.genreNo = #{genre}
+<select id="selectAdvertise" parameterType="String" resultType="web.dto.FindMember">
+		SELECT * FROM findmember WHERE findNo = #{findNo}
 </select>
 
 <select id="getPicNo" parameterType="String" resultType="int">
