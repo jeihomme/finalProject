@@ -29,11 +29,17 @@ public interface MemberDao {
 	// 로그인한 멤버 정보 확인
 	public Member checkLoginInfo(Member member);
 	
-	// 이메일이 일치하는 유저 아이디가 있을 경우 확인
+	// 이메일, 통신사, 전화번호가 일치하는 유저 아이디가 있을 경우 확인
 	public int selectUserId(Member member);
+	
+	// 아이디 찾기 할 때 아이디 반환
+	public Member getUserId(Member member);
 	
 	// 이메일과 아이디가 일치하는 유저 아이디가 있을 경우 확인
 	public int selectUserPw(Member member);
+	
+	// 비밀번호 찾기 할 때 비밀번호 반환
+	public Member getPassword(Member member);
 	
 	// 멤버 유형 확인
 	public int selectRoleId(Member member);
