@@ -659,8 +659,8 @@
 		select count(*) from resumes
 		where resumesNo is not null
 	</select>
-<!-- 	public List<Application> selectAppListByBandName(@Param("paging")Paging paging, @Param("bar")Bar bar); -->
-	<select id="selectAppListByBandName" resultType="web.dto.Application">
+<!-- 	public List<Application> selectAppListByBarName(@Param("paging")Paging paging, @Param("bar")Bar bar); -->
+	<select id="selectAppListByBarName" resultType="web.dto.Application">
 <!-- 		parameterType="web.utils.Paging" -->
 		SELECT * FROM (
 		    SELECT rownum rnum, A.* FROM (

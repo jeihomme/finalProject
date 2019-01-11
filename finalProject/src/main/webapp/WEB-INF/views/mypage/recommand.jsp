@@ -36,7 +36,7 @@
 	}
 	
 	.barRandomListRes {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: auto;
 		margin: 10px auto;
@@ -125,27 +125,27 @@
 </div>
 
 <div class="barRandomListRes">
-	<div>
-		<table class="table table-hover table-striped table-condensed">
-			<c:set var="doneLoop" value="false"/>
-			
-			<c:forEach items="${barList }" var="i" varStatus="status">
-				<c:if test="${not doneLoop}">
-					<td class="backgroundColor">
-						<p onclick=" location.href='/bar/viewbar?barNo=${i.barNo}' ">
-							<img class="profilePicSize" src="http://${i.path }/${i.originName }">
-						</p>
-						<p onclick=" location.href= '/bar/viewbar?barNo=${i.barNo}' "> ${i.barName } </p>
-						
-						<c:if test="${status.count % 5 eq 0 }">
-							<tr></tr>
-						</c:if>
-					</td>
-					<c:if test="${status.count == 10}">
-						<c:set var="doneLoop" value="true"/>
+	<table class="table table-hover table-striped table-condensed">
+		<c:set var="doneLoop" value="false"/>
+		<c:forEach items="${barList }" var="i" varStatus="status">
+			<c:if test="${not doneLoop}">
+				<td class="backgroundColor">
+					<input type="hidden" name="barNo" value="${i.barNo }"/>
+					<p onclick="viewRecommandBar() ">
+						<img class="profilePicSize" src="http://${i.path }/${i.originName }">
+					</p>
+					<p onclick="viewRecommandBar() ">
+						${i.barName }
+					</p>
+					
+					<c:if test="${status.count % 5 eq 0 }">
+						<tr></tr>
 					</c:if>
+				</td>
+				<c:if test="${status.count == 10}">
+					<c:set var="doneLoop" value="true"/>
 				</c:if>
-			</c:forEach>
-		</table>
-	</div>
+			</c:if>
+		</c:forEach>
+	</table>
 </div>

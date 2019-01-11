@@ -935,6 +935,7 @@ input {
 .mainImage {
 	width:300px;
 	height:150px;
+	cursor:pointer;
 }
 </style>
 <!-- 헤더 타이틀 -->

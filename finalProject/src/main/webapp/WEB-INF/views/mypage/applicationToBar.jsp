@@ -529,7 +529,7 @@
 	<hr>
 	<div class="adminMypageMain">
 		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">Bar to Band</p>
+			<p class="adminDetailTitle">Band to Bar</p>
 			<hr>
 			<ul class="adminDetailInfo">
 				<li>Application 검색 페이지입니다.</li>
@@ -559,7 +559,8 @@
 		color:#000;
 		background-color: gold;
 	}
-	td {
+	tr td {
+		text-align: center;
 		border-left: 1px solid white;
 		border-right: 1px solid white;
 		color:#fff;
@@ -843,9 +844,9 @@
 				<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
 		    </c:forEach>
 			
-			<c:if test="${paging.curPage % 5 ne 1}">
+<%-- 			<c:if test="${paging.curPage % 5 ne 1}"> --%>
 				<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
-			</c:if>
+<%-- 			</c:if> --%>
 			
 		    </ul>
 		</div>

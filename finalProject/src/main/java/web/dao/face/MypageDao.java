@@ -126,7 +126,7 @@ public interface MypageDao {
 	public int selectResumesTotalCount(Band band);
 	public int selectAppListCntByBandNo(Band band);
 	public List<Application> selectAppListByBandNo(@Param("paging")Paging paging, @Param("band")Band band);
-	public List<Application> selectAppListByBandName(@Param("paging")Paging paging, @Param("bar")Bar bar);
+	public List<Application> selectAppListByBarName(@Param("paging")Paging paging, @Param("bar")Bar bar);
 	public int selectAppDateSearchCntByBandNo(@Param("band")Band band, @Param("startDate")String startDate, @Param("endDate")String endDate);
 	public List<Application> selectApplicationSearchListByBandNo(@Param("paging")Paging paging, @Param("band")Band band, @Param("startDate")String startDate, @Param("endDate")String endDate);
 	

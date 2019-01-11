@@ -16,10 +16,10 @@
 	</logger>
 	
 	<!-- Java Loggers -->
-	<logger name="java.sql" additivity="false">
-        <level value="DEBUG"/>
-        <appender-ref ref="console"/>
-    </logger>
+<!-- 	<logger name="java.sql" additivity="false"> -->
+<!--         <level value="DEBUG"/> -->
+<!--         <appender-ref ref="console"/> -->
+<!--     </logger> -->
     
 	<!-- jdbc log 추가 -->
 	<logger name="jdbc.connection" additivity="false">

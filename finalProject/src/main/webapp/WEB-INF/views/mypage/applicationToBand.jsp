@@ -41,6 +41,7 @@
 		width:700px;
 		height: auto;
 		margin: 10px auto;
+		text-align:center;
 	}
 	
 	.adminMypageMainInfo {
@@ -154,63 +155,15 @@
 	.selectMenuli:hover {
 		color: white;
 	}
-</style>
-<c:if test="${loginInfo.roleId eq 1 }">
-	<div class="adminMenu">
-		<p onclick="viewMypageInfo() ">Mypage</p>
-			<p onclick="viewMypageModifyInfo() ">Modify</p>
-			<p onclick="viewMypageIntro() ">Intro</p>
-	<!-- 		<p class="selectMenu" onclick="viewMypageAppToBand() ">Application</p> -->
-	<!-- 	<p class="selectMenu" onclick="viewMypageAppToBar() ">Application</p> -->
-	</div>
 	
-	<div class="applicationTab">
-		<ul >
-			<li class="selectMenu" >Application
-				<ul >
-					<li><p class="selectMenuli" onclick="viewMypageAppToBand() ">Bar to Band</p></li>
-					<li><p class="selectMenuli" onclick="viewMypageAppToBar() ">Band to Bar</p></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-	
-	<div class="adminMenu">
-			<p onclick="viewMypageCalendar() ">Calendar</p>
-	</div><br><br>
-	<hr>
-	<div class="adminMypageMain">
-		<div class="adminMypageMainInfo">
-			<p class="adminDetailTitle">Band to Bar</p>
-			<hr>
-			<ul class="adminDetailInfo">
-				<li>Application 검색 페이지입니다.</li>
-				<li>최근 6개월 간 지원내역에 대해 확인합니다.</li>
-				<li>지원 확정, 취소 등  최근 1년 이내 입니다.</li>
-			</ul>
-		</div>
-		<div class="applicationImage">
-			<img src="../resources/bandAppImage.gif" class="appImage">
-		</div>
-	</div>
-	<div class="adminMypageSearchDiv">
-		<div class="searchUserinfo">
-	<!-- 		<form action="/mypage/applicationToBar" method="post"> -->
-				
-				<input type="date" class="insertResumesHistory" id="appStartDate" name="appStartDate" value=""/> ~ 
-				<input type="date" class="insertResumesHistory" id="appEndDate" name="appEndDate" value=""/>
-				<button class="searchBtn" onclick="searchAppFromBand() "> 검색 </button>
-	<!-- 		</form> -->
-		</div>
-	</div>
-	<style type="text/css">
 	/* tr th:not(:nth-child(2)) { */
 	tr th {
 		text-align: center;
 		color:#000;
 		background-color: gold;
 	}
-	td {
+	tr td {
+		text-align: center;
 		border-left: 1px solid white;
 		border-right: 1px solid white;
 		color:#fff;
@@ -417,6 +370,55 @@
 	
 	</script>
 	
+<c:if test="${loginInfo.roleId eq 1 }">
+	<div class="adminMenu">
+		<p onclick="viewMypageInfo() ">Mypage</p>
+			<p onclick="viewMypageModifyInfo() ">Modify</p>
+			<p onclick="viewMypageIntro() ">Intro</p>
+	<!-- 		<p class="selectMenu" onclick="viewMypageAppToBand() ">Application</p> -->
+	<!-- 	<p class="selectMenu" onclick="viewMypageAppToBar() ">Application</p> -->
+	</div>
+	
+	<div class="applicationTab">
+		<ul >
+			<li class="selectMenu" >Application
+				<ul >
+					<li><p class="selectMenuli" onclick="viewMypageAppToBand() ">Bar to Band</p></li>
+					<li><p class="selectMenuli" onclick="viewMypageAppToBar() ">Band to Bar</p></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="adminMenu">
+			<p onclick="viewMypageCalendar() ">Calendar</p>
+	</div><br><br>
+	<hr>
+	<div class="adminMypageMain">
+		<div class="adminMypageMainInfo">
+			<p class="adminDetailTitle">Band to Bar</p>
+			<hr>
+			<ul class="adminDetailInfo">
+				<li>Application 검색 페이지입니다.</li>
+				<li>최근 6개월 간 지원내역에 대해 확인합니다.</li>
+				<li>지원 확정, 취소 등  최근 1년 이내 입니다.</li>
+			</ul>
+		</div>
+		<div class="applicationImage">
+			<img src="../resources/bandAppImage.gif" class="appImage">
+		</div>
+	</div>
+	<div class="adminMypageSearchDiv">
+		<div class="searchUserinfo">
+	<!-- 		<form action="/mypage/applicationToBar" method="post"> -->
+				
+				<input type="date" class="insertResumesHistory" id="appStartDate" name="appStartDate" value=""/> ~ 
+				<input type="date" class="insertResumesHistory" id="appEndDate" name="appEndDate" value=""/>
+				<button class="searchBtn" onclick="searchAppFromBand() "> 검색 </button>
+	<!-- 		</form> -->
+		</div>
+	</div>
+	
 	<div class="adminMypageSearchRes">
 		<div>
 			<table class="table table-hover table-striped table-condensed">
@@ -429,6 +431,7 @@
 		</tr>
 		
 			<c:forEach items="${aList }" var="i">
+				<tr>
 					<td>
 						<input type="hidden" id="resumesNo" name="resumesNo" value="${i.resumesNo }">
 						<input type="hidden" id="appNo" name="appNo" value="${i.appNo }">
@@ -529,219 +532,6 @@
 				<button class="searchBtn" onclick="searchAppFromBand() "> 검색 </button>
 		</div>
 	</div>
-	<style type="text/css">
-	/* tr th:not(:nth-child(2)) { */
-	tr th {
-		text-align: center;
-		color:#000;
-		background-color: gold;
-	}
-	td {
-		border-left: 1px solid white;
-		border-right: 1px solid white;
-		color:#fff;
-		background-color: black;
-	}
-	
-	#pagingBox {
-		position: relative;
-	}
-	#btnBox {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		right: 0;
-		height: 30px;
-		margin: auto;
-	}
-	#btnWrite {
-		height: 25px;
-	}
-	
-	#memberView{
-		cursor:pointer;
-	}
-	
-	#memberView:hover {
-		background: #dadada;
-	}
-	
-	#listTitle {
-		cursor:pointer;
-	}
-	</style>
-	
-	<script type="text/javascript">
-	$(document).ready(function() {
-		
-		var selectPage = 0;
-		
-	// 	var curPage = "${paging.curPage }";
-		${paging.startPage }
-	// 	console.log("curPage : " +curPage);
-	// 	console.log("selectPage : " +selectPage);
-		
-		$("#ajaxBtn1").click( function() {
-			
-			selectPage = $("button[name='ajaxBtn1']").val();
-			console.log("selectPage : " +selectPage);
-			
-			$.ajax({
-				type: "get"
-				, url: "/mypage/applicationToBand?curPage="+selectPage
-					, data: {
-						curPage : selectPage
-						}
-				, dataType: "html"
-				, success: function(res) {
-					$("#body").html(res);
-				}
-				, error: function() {
-					console.log("실패");
-				}
-			});
-		});
-		
-		$("#ajaxBtn2").click( function() {
-					
-			selectPage = $("button[name='ajaxBtn2']").val();
-			console.log("selectPage : " +selectPage);
-			
-			$.ajax({
-				type: "get"
-				, url: "/mypage/applicationToBand?curPage="+selectPage
-					, data: {
-						curPage : selectPage
-						}
-				, dataType: "html"
-				, success: function(res) {
-					$("#body").html(res);
-				}
-				, error: function() {
-					console.log("실패");
-				}
-			});
-		});
-				
-		$("#ajaxBtn3").click( function() {
-			
-			selectPage = $("button[name='ajaxBtn3']").val();
-			console.log("selectPage : " +selectPage);
-			
-			$.ajax({
-				type: "get"
-				, url: "/mypage/applicationToBand?curPage="+selectPage
-					, data: {
-						curPage : selectPage
-						}
-				, dataType: "html"
-				, success: function(res) {
-					console.log("성공");
-		//				console.log(res);
-					$("#body").html(res);
-				}
-				, error: function() {
-					console.log("실패");
-				}
-			});
-		});
-		
-		$("#ajaxBtn4").click( function() {
-			
-			selectPage = $("button[name='ajaxBtn4']").val();
-			console.log("selectPage : " +selectPage);
-			
-			$.ajax({
-				type: "get"
-				, url: "/mypage/applicationToBand?curPage="+selectPage
-					, data: {
-						curPage : selectPage
-						}
-				, dataType: "html"
-				, success: function(res) {
-					console.log("성공");
-		//				console.log(res);
-					$("#body").html(res);
-				}
-				, error: function() {
-					console.log("실패");
-				}
-			});
-		});
-		
-		$("#ajaxBtn5").click( function() {
-			
-			selectPage = $("button[name='ajaxBtn5']").val();
-			console.log("selectPage : " +selectPage);
-			
-			$.ajax({
-				type: "get"
-				, url: "/mypage/applicationToBand?curPage="+selectPage
-					, data: {
-						curPage : selectPage
-						}
-				, dataType: "html"
-				, success: function(res) {
-					console.log("성공");
-		//				console.log(res);
-					$("#body").html(res);
-				}
-				, error: function() {
-					console.log("실패");
-				}
-			});
-		});
-		
-		$("#ajaxBtnNext").click( function() {
-			
-			var nextStartPage = "${paging.startPage }"+1;
-				
-				
-			$.ajax({
-				type: "get"
-				, url: "/mypage/applicationToBand?curPage="+nextStartPage
-					, data: {
-						curPage : nextStartPage
-						}
-				, dataType: "html"
-				, success: function(res) {
-					console.log("성공");
-		//				console.log(res);
-					$("#body").html(res);
-				}
-				, error: function() {
-					console.log("실패");
-				}
-			});
-		});
-		
-		$("#ajaxBtnPrev").click( function() {
-			
-			var prevStartPage = "${paging.startPage }"-1;
-				if( prevStartPage < 0 ) {
-					prevStartPage = 1;
-				}
-				console.log("prevStartPage : " +prevStartPage)
-				
-			$.ajax({
-				type: "get"
-				, url: "/mypage/applicationToBand?curPage="+prevStartPage
-					, data: {
-						curPage : prevStartPage
-						}
-				, dataType: "html"
-				, success: function(res) {
-					console.log("성공");
-					$("#body").html(res);
-				}
-				, error: function() {
-					console.log("실패");
-				}
-			});
-		});
-	});
-	
-	</script>
 	
 	<div class="adminMypageSearchRes">
 		<div>
@@ -858,9 +648,7 @@
 	<%-- 	    	</c:if> --%>
 				<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
 		    </c:forEach>
-			<c:if test="${paging.curPage % 5 ne 1}">
 				<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
-			</c:if>
 		    </ul>
 		</div>
 		</div>
