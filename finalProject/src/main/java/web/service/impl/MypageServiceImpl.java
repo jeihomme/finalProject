@@ -568,37 +568,36 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public int getAppTotalCountAppliedBar(Bar bar) {
 		// TODO Auto-generated method stub
-		return 0;
+		return mpDao.selectAppListCntByBarNameAppliedBar(bar);
 	}
 
 	@Override
 	public int getAppTotalCountAppliedBand(Bar bar) {
 		// TODO Auto-generated method stub
-		return 0;
+		return mpDao.selectAppListCntByBarNameAppliedBand(bar);
 	}
 
 	@Override
 	public int getAppTotalCountAppliedBar(Bar bar, String startDate, String endDate) {
 		// TODO Auto-generated method stub
-		return 0;
+		return mpDao.selectAppDateSearchCntByBarNameAppliedBar(bar, startDate, endDate);
 	}
 
 	@Override
 	public int getAppTotalCountAppliedBand(Bar bar, String startDate, String endDate) {
 		// TODO Auto-generated method stub
-		return 0;
+		return mpDao.selectAppDateSearchCntByBarNameAppliedBand(bar, startDate, endDate);
 	}
 
 	@Override
 	public int getAppTotalCountAppliedBar(Band band, String startDate, String endDate) {
 		// TODO Auto-generated method stub
-		return 0;
+		return mpDao.selectAppDateSearchCntByBandNoAppliedBar(band, startDate, endDate);
 	}
-
 	@Override
 	public int getAppTotalCountAppliedBand(Band band, String startDate, String endDate) {
 		// TODO Auto-generated method stub
-		return 0;
+		return mpDao.selectAppDateSearchCntByBandNoAppliedBand(band, startDate, endDate);
 	}
 	
 	
