@@ -794,7 +794,7 @@ public class MypageController {
 //			검색어가 있다면
 			if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
 				logger.info("---getAppTotalCount---");
-				int totalCount = mpService.getAppTotalCountAppliedBar(bar, startDate, endDate);
+				int totalCount = mpService.getAppTotalCountAppliedBand(bar, startDate, endDate);
 				logger.info("---totalCount String : "+totalCount);
 				
 				logger.info("---Paging---");
@@ -826,7 +826,7 @@ public class MypageController {
 			
 			} else {
 //				검색어가 없다면,
-				int totalCount = mpService.getResumesTotalCount(bar);
+				int totalCount = mpService.getAppTotalCountAppliedBand(bar);
 				
 				logger.info("---Paging---");
 				paging = new Paging(totalCount, CurPage);
@@ -875,14 +875,14 @@ public class MypageController {
 			
 //			검색어가 있다면
 			if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
-				logger.info("---getAppTotalCount---");
+				logger.info("---getAppTotalCountAppliedBand(band, startDate, endDate)---");
 				int totalCount = mpService.getAppTotalCountAppliedBand(band, startDate, endDate);
 				logger.info("---totalCount String : "+totalCount);
 				
 				logger.info("---Paging---");
 				paging = new Paging(totalCount, CurPage);
 				
-				logger.info("---appView---");
+				logger.info("---appViewAppliedBand(paging, band, startDate, endDate)---");
 				List<Application> aList = mpService.appViewAppliedBand(paging, band, startDate, endDate);
 				List<Band> bandNoList = new ArrayList<>();
 				
@@ -908,7 +908,7 @@ public class MypageController {
 			
 			} else {
 //				검색어가 없다면,
-				int totalCount = mpService.getResumesTotalCount(band);
+				int totalCount = mpService.getAppTotalCountAppliedBand(band);
 				
 				logger.info("---Paging---");
 				paging = new Paging(totalCount, CurPage);
@@ -1050,7 +1050,7 @@ public class MypageController {
 //			검색어가 있다면
 			if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
 					
-					logger.info("---getAppTotalCount(bar, startDate, endDate)---");
+					logger.info("---getAppTotalCountAppliedBar(bar, startDate, endDate)---");
 					int totalCount = mpService.getAppTotalCountAppliedBar(bar, startDate, endDate);
 					logger.info("---totalCount String : "+totalCount);
 					
@@ -1133,8 +1133,8 @@ public class MypageController {
 //			검색어가 있다면
 			if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
 					
-					logger.info("---getAppTotalCount(bar, startDate, endDate)---");
-					int totalCount = mpService.getAppTotalCountAppliedBand(band, startDate, endDate);
+					logger.info("---getAppTotalCountAppliedBar(band, startDate, endDate)---");
+					int totalCount = mpService.getAppTotalCountAppliedBar(band, startDate, endDate);
 					logger.info("---totalCount String : "+totalCount);
 					
 					logger.info("---Paging---");
@@ -1169,7 +1169,7 @@ public class MypageController {
 //			검색어가 없다면,
 			else {
 				logger.info("---getAppTotalCount(band)---");
-				int totalCount = mpService.getAppTotalCountAppliedBand(band);
+				int totalCount = mpService.getAppTotalCountAppliedBar(band);
 				
 				logger.info("---Paging---");
 				paging = new Paging(totalCount, CurPage);

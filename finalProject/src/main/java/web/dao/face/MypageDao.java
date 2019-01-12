@@ -106,7 +106,6 @@ public interface MypageDao {
 	public List<Bar> selectBarList(@Param("bandGenre") BandGenre bandGenre);
 	
 	public List<Application> selectApplicationList(@Param("paging")Paging paging, @Param("member")Member member);
-	public int selectAppDateSearchCntByBarName(@Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
 	public List<Application> selectApplicationSearchListByBarName(@Param("paging")Paging paging, @Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
 	public void deleteAppByAppNo(Application app);
 	
@@ -136,10 +135,17 @@ public interface MypageDao {
 	public List<Application> selectApplicationSearchListByBarNameAppliedBand(@Param("paging")Paging paging, @Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
 	public List<Application> selectAppListByBarNameAppliedBar(@Param("paging")Paging paging, @Param("bar")Bar bar);
 	public List<Application> selectApplicationSearchListByBarNameAppliedBar(@Param("paging")Paging paging, @Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
-	public int selectAppListCntByBandNoAppliedBar(Band band);
+	
 	public int selectAppListCntByBandNoAppliedBand(Band band);
 	public int selectAppListCntByBarNameAppliedBar(Bar bar);
-	public int selectAppListCntByBarNameAppliedBar(Band band);
+	public int selectAppListCntByBarNameAppliedBand(Bar bar);
+	public int selectAppListCntByBandNoAppliedBar(Band band);
+	
+	public int selectAppDateSearchCntByBandNoAppliedBar(@Param("band")Band band, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	public int selectAppDateSearchCntByBarNameAppliedBar(@Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	public int selectAppDateSearchCntByBandNoAppliedBand(@Param("band")Band band, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	public int selectAppDateSearchCntByBarNameAppliedBand(@Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	
 	
 	
 	
