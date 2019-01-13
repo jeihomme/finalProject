@@ -110,8 +110,12 @@
 	<div class="adminMypageMainInfo">
 		<p class="adminDetailTitle">Recommand Bar</p>
 		<hr>
-		<p class="adminDetailInfo">회원님의 대표 장르와 맞는 Bar를 추천합니다.</p>
-		<p class="adminDetailInfo">등록하신 음악 장르에 미리 분류됩니다.</p>
+		<ul class="adminDetailInfo">
+				<li>회원님의 대표 장르와 맞는 Bar를 추천합니다.</li>
+				<li>등록하신 음악 장르에 미리 분류됩니다.</li>
+			</ul>
+		<p class="adminDetailInfo"></p>
+		<p class="adminDetailInfo"></p>
 	</div>
 	<div class="adminMypageMainImage">
 		<img src="../resources/bandRecomm.gif" class="bandRecomm">

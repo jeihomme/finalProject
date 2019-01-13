@@ -135,6 +135,51 @@
 	}
 	
 </style>
+<script type="text/javascript">
+
+   var setTime = 0;      // 최초 설정 시간(기본 : 초)
+   var song = new Audio('/resources/${music.musicTitle }');
+</script>
+
+<script type="text/javascript">
+
+   function msg_time() {   // 1초씩 카운트
+       
+      m = Math.floor(setTime / 60) + "분 " + (setTime % 60) + "초";   // 남은 시간 계산
+      
+      var msg = "현재 남은 시간은 <font color='red'>" + m + "</font> 입니다.";
+      
+//       document.all.ViewTimer.innerHTML = msg;      // div 영역에 보여줌 
+            
+//       setTime--;               // 1초씩 감소
+      
+//       if (setTime < 0) {         // 시간이 종료 되었으면..
+//          song.pause();
+//          song.currentTime = 0;
+//          clearInterval(tid);
+//       }
+   }
+   
+   function timerStart(){ 
+      tid=setInterval('msg_time()',1000);
+   }
+   
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+   window.stop();
+   $("#preSound").click( function() {
+//       timerStart();
+      song.play();
+   });
+   
+   $("#stopSound").click( function() {
+// 	      timerStart();
+	      song.pause();
+	   });
+});
+</script>
 
 <c:if test="${loginInfo.roleId eq 1 }">
 	<div class="adminMenu">
@@ -215,8 +260,14 @@
 			</tr>
 			</thead>
 			<tbody>
+			
+			
 			<tr>
-				<td>${music.musicTitle }</td>
+				<td>
+					
+					${music.musicTitle }<br>
+						<button id="preSound" class="searchBtn">재생</button><button id="stopSound" class="searchBtn">정지</button>
+				</td>
 				<td>
 				${music.writtenDate }
 				</td>

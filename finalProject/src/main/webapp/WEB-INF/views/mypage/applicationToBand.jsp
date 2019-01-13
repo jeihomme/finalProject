@@ -424,8 +424,8 @@
 					<th scope="col">밴드소개글</th>
 					<th scope="col">지원일</th>
 					<th scope="col">공연</th>
-					<th scope="col">열람여부</th>
-					<th scope="col">수락 여부</th>
+					<th scope="col">열람</th>
+					<th scope="col">수락</th>
 					<th scope="col">지원</th>
 				</tr>
 				</thead>
@@ -451,10 +451,13 @@
 					</c:if>
 					
 					<c:if test="${status.count % 2 eq 0 }">
-					<td class="even">${calList[status.count-1].calendarDate }, ${calList[status.count-1].startTime } ~ ${calList[status.count-1].endTime }</td>
+					<td class="even">
+					${calList[status.count-1].calendarDate },<br>
+					${stList[status.count-1].hourM } ~ ${enList[status.count-1].hourM }</td>
 					</c:if>
 					<c:if test="${status.count % 2 eq 1 }">
-					<td>${calList[status.count-1].calendarDate }, ${calList[status.count-1].startTime } ~ ${calList[status.count-1].endTime }</td>
+					<td>${calList[status.count-1].calendarDate },<br>
+					${stList[status.count-1].hourM } ~ ${enList[status.count-1].hourM }</td>
 					</c:if>
 					
 					<c:if test="${status.count % 2 eq 0 }">
@@ -614,10 +617,13 @@
 					</c:if>
 					
 					<c:if test="${status.count % 2 eq 0 }">
-					<td class="even">${calList[status.count-1].calendarDate }, ${calList[status.count-1].startTime } ~ ${calList[status.count-1].endTime }</td>
+					<td class="even">
+					${calList[status.count-1].calendarDate },<br>
+					${stList[status.count-1].hourM } ~ ${enList[status.count-1].hourM }</td>
 					</c:if>
 					<c:if test="${status.count % 2 eq 1 }">
-					<td>${calList[status.count-1].calendarDate }, ${calList[status.count-1].startTime } ~ ${calList[status.count-1].endTime }</td>
+					<td>${calList[status.count-1].calendarDate },<br>
+					${stList[status.count-1].hourM } ~ ${enList[status.count-1].hourM }</td>
 					</c:if>
 					
 					<c:if test="${status.count % 2 eq 0 }">
