@@ -47,7 +47,7 @@ INPUT {
 	MARGIN: -5px
 }
 .modal-dateView {
-	border: 3px solid cyan;
+/* 	border: 3px solid cyan; */
 	display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -87,7 +87,21 @@ $(document).ready(function(){
 	
 	// 밴드넘버, 바넘버 넘겨줄 값 설정 필요
 	var bandNo = ${param.bandNo};
-// 	var barNo = ${param.barNo};
+	var login = "${sessionScope.login}";
+	var barNo;
+	
+	if(login == true){
+// 		var barNo = ${sessionScope.barInfo.barNo};
+		console.log("로그인 되어있음");
+		
+		barNo = "${sessionScope.barInfo.barNo}";
+		
+		if(barNo != ""){
+			console.log("바 계정 로그인");
+			console.log(barNo);
+		}
+	}
+	
 	
 	$(".getDay").click(function(){
 		
@@ -110,14 +124,14 @@ $(document).ready(function(){
 				document.getElementById("wow").style.display="block";
 				
 // 				// 선택 날짜 표시
-// 				$("#date_D").val(selDay[2]);
+				$("#date_D").val(selDay[2]);
 				
 // 				// 해당 날짜 정보 리스트
-// 				var lists = data.datedInfo;
+				var lists = data.datedInfo;
 // 				// 시간 리스트
-// 				var setTime = data.pTime;
+				var setTime = data.pTime;
 				
-// 				$("#ddInfo").empty();
+				$("#ddInfo").empty();
 				
 // 				// 시간 설정
 // 				$(".selSt").empty();
@@ -131,62 +145,69 @@ $(document).ready(function(){
 				// 공연 시간 옆의 td에 시간, 바 이름 넣어야함
 				// ddInfo
 				
-				// 새 줄 만듦
-// 				$newLine = "" +
-// 					"<tr><td>"
-// 					"<select id='selSt'>" +
-// 					"</select> ~ " +
-// 					"<select id='selSt'>" +
-// 					"</select>" +
-// 					"<input type='text' class='bbName' id='" + lists[0].barNo + "' value='" + lists[0].barName +"' disabled />" +
-// 					"</td></tr>";				
+				for(var j=0; j<lists.length; j++) {
+				
+					// tr
+					var newTr = $("<tr></tr>");
+					$("#ddInfo").append(newTr);
 					
-				// 새 줄 적용
-// 				$("#ddInfo:last").append($newLine);
-				
-// 				$("#ddInfo > tr:last > td:last").append($("#selSt"));
-			
-// 				$("#ddInfo > tbody").append($newTr);
-				
-				
-				
-				//////////////////////////////////////
-// 				for(var i=0; i < lists.length; i++) {
+					// td
+					var newTd = $("<td></td>");
+					$("#ddInfo").find("tr:last").append(newTd);
 					
-// 					var curItem = lists[i];
+					// stTime
+					var newStTime = $("<select class='selSt' disabled ></select>");
+					$("#ddInfo").find("tr:last").find("td:last").append(newStTime);
 					
-// 					for(var j=0; j < setTime.length; j++) {
+					//stTime option
+					for(var i=0; i<setTime.length; i++) {
 						
-// 						// 시간 설정
-// 						if(curItem.startTime == setTime[j].timeId) {
-							
-// 							// 시간이 같으면  option selected 생성
-// 							$("#selSt").append("<option class='stTime' id='" + curItem.timeId + "'' selected >" + setTime[j].hourM + "</option>");
-							
-// 						} else{
-							
-// 							$("#selSt").append("<option class='stTime' id='" + curItem.timeId + "''>" + setTime[j].hourM + "</option>");
-// 						}
+						if(lists[j].startTime == setTime[i].timeId) {
 						
-// 						if(curItem.startTime == setTime[j].timeId) {
-							
-// 							// 시간이 같으면  option selected 생성
-// 							$("#selEd").append("<option class='edTime' id='" + curItem.timeId + "'' selected >" + setTime[j].hourM + "</option>");
-							
-// 						} else{
-							
-// 							$("#selEd").append("<option class='edTime' id='" + curItem.timeId + "''>" + setTime[j].hourM + "</option>");
-// 						}
-// 					}
-					
-// 					$("#selSt").attr("disabled", true);
-// 					$("#selEd").attr("disabled", true);
-					
-// 					// 밴드 이름
-// 					$("#ddInfo").append("<input type='text' class='bbName' id='" + curItem.barNo + "' value='" + curItem.barName +"' disabled />");
+							var newOption = $("<option class='stTime' value='"+ setTime[i].timeId +"' selected >"+ setTime[i].hourM +"</option>");
 						
-// 				}
-				//////////////////////////////////////
+							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
+							
+						} else {
+							
+							var newOption = $("<option class='stTime' value='"+ setTime[i].timeId +"'>"+ setTime[i].hourM +"</option>");
+							
+							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
+						}
+						
+					}
+					
+					// 시간 중간 ~
+					$("#ddInfo").find("tr:last").find("td:last").append("~");
+					
+					// edTime
+					var newEdTime = $("<select class='selEd' disabled ><option>aaaa</option></select>");
+					$("#ddInfo").find("tr:last").find("td:last").append(newEdTime);
+					
+					// edTime option
+					for(var i=0; i<setTime.length; i++) {
+						
+						if(lists[j].startTime == setTime[i].timeId) {
+							
+							var newOption = $("<option class='edTime' value='"+ setTime[i].timeId +"' selected>"+ setTime[i].hourM +"</option>");
+						
+							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
+							
+						} else {
+							
+							var newOption = $("<option class='edTime' value='"+ setTime[i].timeId +"'>"+ setTime[i].hourM +"</option>");
+							
+							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
+							
+						}
+						
+					}
+					
+					// barName
+					var newBarName = $("<input type='text' class='bbName' value='"+ lists[j].barName +"' />")
+					$("#ddInfo").find("tr:last").find("td:last").append(newBarName);
+						
+				}
 				
 			}, error: function() {
 				alert("하 ㅅㅂ");
@@ -231,8 +252,6 @@ $(document).ready(function(){
 			$("#addPfmc").css("display", "block");
 			$(".bbName").attr("disabled", false);
 			$("select").attr("disabled", false);
-			
-			
 			$("#editInfo").css("display", "block");
 			
 		} else{
@@ -241,8 +260,9 @@ $(document).ready(function(){
 			$("#addPfmc").css("display", "none");
 			$(".bbName").attr("disabled", true);
 			$("select").attr("disabled", true);
-			
 			$("#editInfo").css("display", "none");
+			
+			
 		}
 	});
 	
@@ -323,10 +343,6 @@ function OpenWin(URL, width, height){
 <c:set var="curYear" value="${calendar.curYear }" />
 <c:set var="curMonth" value="${calendar.curMonth }" />
 <c:set var="curDay" value="${calendar.curDay }" />
-<%-- Parameter Setting --%>
-
-<%-- <c:set var="type" value="${map.type }" /> --%>
-
 
 <!-- -------------------------------- -->
 
@@ -384,6 +400,14 @@ function OpenWin(URL, width, height){
 										<table cellpadding="0" cellsping="0" border="0" width="70">
 										<tr>
 											<td height="10" width="70" class="uline" valign="top" align="right">
+											<c:choose>
+												<c:when test="${sessionScope.loginInfo.roleId eq 1 }">
+													<a class="getDay" id="${curYear }.${curMonth }.${currentDay }">
+												</c:when>
+												<c:otherwise>
+													<a>
+												</c:otherwise>
+											</c:choose>
 												<a class="getDay" id="${curYear }.${curMonth }.${currentDay }">
 												<c:choose>
 													<c:when test="${((currentDay-(8-calendar.firstDayOfWeek)) % 7) == 1}">
@@ -411,8 +435,8 @@ function OpenWin(URL, width, height){
 																<tr>
 																	<td>
 <%-- 														<a class="getSched" id="${bars.barNo }"> --%>
-														<a href="javascript:view('${month_query.rows[dbIndex].schedule_id}')">
-															${dayIndex.startTime} ~ ${dayIndex.endTime } : ${dayIndex.barName } - ${dayIndex.bandName }<br><br>
+														<a href="http://localhost:8088/bar/viewbar?barNo=${dayIndex.barNo }">
+															${dayIndex.startTime} ~ ${dayIndex.endTime } : ${dayIndex.barName }<br><br>
 														</a>
 																	</td>
 																</tr>
@@ -480,9 +504,9 @@ function OpenWin(URL, width, height){
                         일자 
                     </TD>
                     <TD> 
-                      	<INPUT type="text" id="date_Y" class="text_gray" size="4" maxlength="4" value="${curYear }"> 년 
-                        <INPUT type="text" id="date_M" class="text_gray" size="2" maxlength="2" value="${curMonth }"> 월  
-                        <INPUT type="text" id="date_D" class="text_gray" size="2" maxlength="2"> 일 
+                      	<INPUT type="text" id="date_Y" class="text_gray" size="4" maxlength="4" value="${curYear }" disabled /> 년 
+                        <INPUT type="text" id="date_M" class="text_gray" size="2" maxlength="2" value="${curMonth }" disabled /> 월  
+                        <INPUT type="text" id="date_D" class="text_gray" size="2" maxlength="2" disabled /> 일 
                     </TD>
                 </TR>
                 <TR bgcolor="#ffffff">
@@ -491,7 +515,8 @@ function OpenWin(URL, width, height){
                     </TD>
                     <TD>
                     	<table id="ddInfo" style="margin-left:3px">
-							<c:forEach var="timeInfo" items="${sched.pTime}">
+							<c:forEach var="timeInfo" items="${sched.sched}">
+							<c:if test="${curDay eq timeInfo.calendarDate }">
 								<tr>
 								<td>
 									<select class="selSt" disabled >
@@ -506,9 +531,10 @@ function OpenWin(URL, width, height){
 			                        	</c:forEach>
 			                        </select>
                         
-			                        <input type="text" class="bbName" />
+			                        <input type="text" class="bbName" value=""/>
 		                        </td>
 								</tr>
+							</c:if>
 							</c:forEach>
 	                    </table>
                     </TD>
