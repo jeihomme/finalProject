@@ -43,11 +43,10 @@ public class FAQController {
 	
 	
 	@RequestMapping(value="/faq/write" , method=RequestMethod.GET)
-	public String write() {
+	public void write() {
 		
 		logger.info("글쓰기 폼");
 		
-		return "/faq/write";
 	}
 	
 	@RequestMapping(value="/faq/write" , method=RequestMethod.POST)
@@ -60,5 +59,37 @@ public class FAQController {
 		
 		return "redirect:/faq/list";
 	}
+	
+	@RequestMapping(value="/faq/update" , method=RequestMethod.GET)
+	public void update(
+				int faqNo,
+				Model model
+			
+			) {
+		
+		FAQ faq = faqService.view(faqNo);
+		model.addAttribute("faq" ,faq);
+		
+		logger.info("글수정 폼");
+		
+	}
+	@RequestMapping(value="/faq/update" , method=RequestMethod.POST)
+	public String updateProc(
+					FAQ faq
+			) {
+		
+		faqService.modify(faq);
+		
+		
+		return "redirect:/faq/list";
+		
+	}
+	@RequestMapping(value="/faq/delete" , method=RequestMethod.GET)
+	public String delete(int faqNo) {
+		faqService.delete(faqNo);
+		
+		return "redirect:/faq/list";
+	}
+	
 	
 }

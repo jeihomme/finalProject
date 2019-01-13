@@ -43,9 +43,7 @@ cursor:pointer;
 	background-color: #848484;
 	color:white;
 }
-th, td:not(:nth-child(2)) {
-	text-align: center;
-}
+
 td {
 
 	background-color: black;
@@ -150,16 +148,16 @@ input[type=text]{
 
 
 <div id="list" style="margin-left: 30%; margin-bottom: 5%;">
-<form>
+<form style="margin-left: -5%">
 
-<h4><a href="/advertise/adscate" id="memberCk" href="adsNo"><input type="hidden" id="adsNo" value="1">맴버</a>   /   <a href="/advertise/adscate" id="collaboration" href="adsNo"> <input type="hidden" id="collabo" value="2"/>콜라보</a></h4>
+<h4><a href="/advertise/list" id="memberCk" href="adsNo">리스트</a>  /  <a href="/advertise/adscate" id="memberCk" href="adsNo">맴버</a>   /   <a href="/advertise/adscateCol" id="collaboration" href="adsNo">콜라보</a></h4>
 
 </form>
 </div>
 <table id="advertiseTable" class="table table-striped table-hover">
 <tr>
-	<th style="width: 11%">번호</th>
-	<th style="width: 24%">분류</th>
+	<th style="width: 12%">번호</th>
+	<th style="width: 23%">분류</th>
 	<th style="width: 26%">제목</th>
 	<th style="width: 23%">작성자</th>
 	<th >작성일</th>
@@ -168,18 +166,15 @@ input[type=text]{
 <table id="subTable" class="table table-striped table-hover">
 <c:forEach items="${list }" var="advertise">
 <tr>
-	<c:if test="${advertise.findNo != null}">
-		<td>${advertise.findNo }</td>
-	</c:if>
-	<c:if test="${advertise.ads != null}">
-		<td>${advertise.ads }</td>
-	
-	<td><a href="#" data-toggle="modal" class="view" id="${advertise.findNo }">${advertise.title }</a></td>
-	<td>${advertise.bandName }</td>
-	<td><fmt:formatDate value="${advertise.writtenDate }" pattern="yyyy-MM-dd"/></td>
-	</c:if>
+		<td style="text-align: left;">${advertise.findNo }</td>
+		<td style="text-align: center;">${advertise.ads }</td>
+	<td style="text-align: center;"><a href="#" data-toggle="modal" class="view" id="${advertise.findNo }">${advertise.title }</a></td>
+	<td style="text-align: center;">${advertise.bandName }</td>
+	<td style="text-align: center;"><fmt:formatDate value="${advertise.writtenDate }" pattern="yyyy-MM-dd"/></td>
+
 </tr>
 </c:forEach>
+
 </table>
 <div id="searchBox" class="text-center">
 	
@@ -192,6 +187,7 @@ input[type=text]{
 			<input style="color:black" type="search"  id="searchTxt" name="searchTxt" />
 			<button id="btnSearch">검색</button>
 		</div>
+		<button id="write" onclick="location.href='/advertise/write'">글쓰기</button>
 </div>
 
 <div class="modal-ads" id="advertiseView"> 
@@ -274,7 +270,7 @@ $(document).ready(function(){
 				var bandMember = data.map.bandMember;
 //	 			var bandgenre = data.map.bandGenre;
 				var member = data.map.member;
-//	 			var mem = data.map.list;
+				var part = data.map.part;
 				
 				console.log(data.map);
 				
@@ -285,7 +281,7 @@ $(document).ready(function(){
 						     "<div class='modal-img' ><img src='http://" + proPic.path + "/" + proPic.originName + "' width='100%' height='100%'/></div><div class='modal-info'>"
 						     +"<div style='margin-left:10%; margin-top:1%;'><p>· Member</p><div class='member-div'><input type='text'style='width: 220px' value='"+bandMember.bandMemName+"'/></div>"
 						     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' value='"+findM.genre+"'/></p></div>"
-						     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' value='"+findM.position+"' type='text''/></p></div>"
+						     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' value='"+part.pTitle+"' type='text''/></p></div>"
 						     +"<div style='margin-top: 10%'><p>· Contact Number<input style='margin-left: 5%' type='text' value='"+member.contact+"' /></p></div>"
 						     +"<div class='etc' style='margin-top: 10% ,'><p>· Etc.<input style='margin-left: 5%; height: 185px; width:88%;' maxlength='12' type='text' name='content' value='"+findM.content+"''/></p></div>"
 						     +"</div></div>"
@@ -413,7 +409,7 @@ $(document).ready(function(){
 
 
 
-<jsp:include page="../util/paging.jsp" />
+<jsp:include page="../util/pagingAds.jsp" />
 
 
 

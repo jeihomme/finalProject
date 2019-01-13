@@ -1199,19 +1199,18 @@ input {
 		</ul>
 	</li>
 	
-	<li><a href="/advertise/list">Ad</a>
+	<li><a href="/advertise/list">Advertise</a>
 		<ul>
-			<li><a href="#">Sub Menu 1</a></li>
-			<li><a href="#">Sub Menu 2</a></li>
-			<li><a href="#">Sub Menu 3</a></li>
+			<li><a href="/advertise/list">ALL List</a></li>
+			<li><a href="/advertise/adscate">MemBer</a></li>
+			<li><a href="/advertise/adscateCol">Collaboration</a></li>
 		</ul>
 	</li>
 	
-	<li><a href="/notice/list">Notice</a>
+	<li><a href="/notice/list">Board</a>
 		<ul>
-			<li><a href="#">Sub Menu 1</a></li>
-			<li><a href="#">Sub Menu 2</a></li>
-			<li><a href="#">Sub Menu 3</a></li>
+			<li><a href="/notice/list">Notice</a></li>
+			<li><a href="/faq/list">FAQ</a></li>		
 		</ul>
 	</li>
 	

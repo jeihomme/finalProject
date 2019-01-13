@@ -14,6 +14,10 @@ $(document).ready(function(){
 		$(this).toggleClass("active")
 				.siblings("tr").removeClass("active");
 		});
+	
+	$("#btnDelete").click(function(){
+		$(location).attr("href" , "/faq/delete?faqNo=${faq.faqNo}");
+	})
 });
 
 
@@ -106,13 +110,13 @@ cursor:pointer;
 	</table>
 
 	<p style="color: black; margin-left: -15px;">${faq.answer }
-	<button onclick="location.href='/faq/update?faqNo=${faq.faqNo}';">수정</button></p>
-	
+	<button onclick="location.href='/faq/update?faqNo=${faq.faqNo}';">수정</button>
+	<button id="btnDelete">삭제</button></p>
 </c:forEach>
 <hr>
-	<button onclick="location.href='/faq/write';" style="color: black">글쓰기</button>
+	<button onclick="location.href='/faq/write';" style="color: black; margin-left: 725px;">글쓰기</button>
 </div>
-<jsp:include page="../util/paging.jsp" />
+<jsp:include page="../util/pagingFaq.jsp" />
 
 
 
