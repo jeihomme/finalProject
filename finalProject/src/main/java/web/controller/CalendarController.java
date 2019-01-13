@@ -33,18 +33,21 @@ public class CalendarController {
 		
 		System.out.println("bandNo = " + bandNo);
 		
+		// 달력 구성 필요 데이터
 		Map map = new HashMap();
-		
-//		map.put("map", calendar.getCalendar());
 		map = calendar.getCalendar();
 		
+		// 달력 스케쥴
+		Map sched = new HashMap();
+		sched = calendar.getSchedule(map, bandNo);
 		
-		Map map2 = calendar.getSchedule(map, bandNo);
+		// 바 리스트
 		List list3 = calendar.getInfoBar();
 		
 		model.addAttribute("bars", list3);
-		model.addAttribute("map", map);
-//		model.addAttribute("sched", map2); // jsp에서 ${sched }로 불러올 수 없음
+		model.addAttribute("calendar", map);
+		model.addAttribute("sched", sched);
+		
 		return "/calendar/calendar";
 		
 	}

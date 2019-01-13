@@ -12,16 +12,16 @@ $(document).ready(function(){
 	});
 	$("#btnDelete").click(function() {
 		
-		var userid = '${notice.userId}'; // 글을 작성한 사용자 
-		var loginId = '${loginId}'; // 실제로 로그인 한 사용자 
+// 		var userid = '${notice.userId}'; // 글을 작성한 사용자 
+// 		var loginId = '${loginId}'; // 실제로 로그인 한 사용자 
 		
-		if(userid == loginId){
-			$(location).attr("href", "/notice/delete?boardno=${qnaView.boardno}&userid=${qnaView.userid}");
-		}
-		else{
-			alert("글을 삭제할수 없습니다.");
-			return false;
-		}
+// 		if(userid == loginId){
+			$(location).attr("href", "/notice/delete?noticeNo=${notice.noticeNo}");
+// 		}
+// 		else{
+// 			alert("글을 삭제할수 없습니다.");
+// 			return false;
+// 		}
 		
 	});
 	

@@ -156,4 +156,54 @@
 		VALUES(#{bandMemberNo}, #{bandMemName}, #{mPosition}, #{bandNo} )
 	</insert>
 	
+	<select id="getBMember" parameterType="web.dto.BandMember" resultType="web.dto.BandMember">
+		SELECT bandMemberNo, bandMemName, mPosition
+		FROM bandMember
+		WHERE bandMemName = #{bandMemName} AND
+				bandNo = #{bandNo} AND
+				mPosition = #{mPosition}
+	</select>
+	
+	<insert id="addHistory" parameterType="web.dto.History">
+		INSERT INTO history
+		VALUES((SELECT max(historyNo)+1 historyNo FROM history), #{resumesNo}, #{year}, #{historyInfo})
+	</insert>
+	
+	<select id="getHis" parameterType="web.dto.History" resultType="web.dto.History">
+		SELECT HistoryNo, resumesNo, year, historyInfo
+		FROM history
+		WHERE resumesNo = #{resumesNo }
+		ORDER BY year DESC
+	</select>
+	
+	<update id="editHistory">
+		UPDATE history
+		SET year = #{year},
+			historyInfo = #{historyInfo}
+		WHERE historyNo = #{historyNo}
+	</update>
+	
+	<update id="editBandMember">
+		UPDATE bandMember
+		SET bandMemName = #{bandMemName},
+			mPosition = #{mPosition}
+		WHERE bandMemberNo = #{bandMemberNo}
+	</update>
+	
+	<update id="editBandInfo">
+		UPDATE resumes
+		SET bandInfo = #{bandInfo}
+		WHERE resumesNo = #{resumesNo} AND
+				bandNo = #{bandNo} AND
+				publicResumes = 1
+	</update>
+	
+	<select id="getBandInfo" resultType="String">
+		SELECT bandInfo
+		FROM resumes
+		WHERE resumesNo = #{resumesNo} AND
+				bandNo = #{bandNo} AND
+				publicResumes = 1
+	</select>
+	
 </mapper>

@@ -103,16 +103,27 @@ public class NoticeController {
 		
 		logger.info("수정하기 페이지");
 	
+		
 	}
 	
 	@RequestMapping(value="/notice/update" , method=RequestMethod.POST)
-	public String updateProc(Notice notice, Model model , int noticeNo) {
+	public String updateProc(Model model, Notice notice) {
 		
 		
 		
 		noticeService.modify(notice);
 		
 		logger.info("수정하기 처리");
+		
+		return "redirect:/notice/list";
+	}
+	
+	@RequestMapping(value="/notice/delete" , method=RequestMethod.GET)
+	public String delete (
+			
+			int noticeNo) {
+		
+		noticeService.delete(noticeNo);
 		
 		return "redirect:/notice/list";
 	}

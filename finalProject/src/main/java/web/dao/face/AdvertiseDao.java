@@ -1,9 +1,12 @@
 package web.dao.face;
 
 import java.util.List;
+import java.util.Map;
 
+import web.dto.Advertise;
 import web.dto.FindMember;
 import web.dto.Member;
+import web.dto.Part;
 import web.dto.ProfilePic;
 import web.utils.Paging;;
 
@@ -13,7 +16,7 @@ public interface AdvertiseDao {
 	public List selectPagingList(Paging paigng);
 	
 	// 구인구직 글쓰기
-	public void insertAdvertise();
+	public Map insertAdvertise(Advertise advertise);
 	
 	// 구인구직 수정 
 	public void updateAdvertise();
@@ -34,6 +37,9 @@ public interface AdvertiseDao {
 	// 밴드 멤버 가져오기
 	public List getBMember(String bandNo);
 	
+	// 포지션 가져오기
+	public String getPositionNo(String bandNo);
+	public Part getPtitle(String positionNo);
 	
 	// 장르 가져오기
 	public List getGenre(String bandNo);
@@ -56,6 +62,8 @@ public interface AdvertiseDao {
 
 	public ProfilePic getProfile();
 
+	
+	
 	/*public List getList(FindMember findMember);*/
 	
 	

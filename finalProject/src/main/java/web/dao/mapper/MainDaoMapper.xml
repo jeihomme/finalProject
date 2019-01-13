@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.dao.face.MainDao">
+
+<select id="selectNoticeList" resultType="web.dto.Notice">
+	SELECT
+		noticeNo,
+		userId,
+		title,
+		content,
+		writtenDate
+	FROM (
+			SELECT 
+				noticeNo,
+				userId,
+				title,
+				content,
+				writtenDate
+			FROM notice
+			ORDER BY noticeNo DESC
+	) WHERE ROWNUM BETWEEN 1 AND 5
+</select>
+
+<select id="selectBarList" resultType="web.dto.Bar">
+	SELECT *
+	FROM (
+		SELECT *
+		FROM bar
+		ORDER BY DBMS_random.value
+	) WHERE ROWNUM BETWEEN 1 AND 4
+</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
