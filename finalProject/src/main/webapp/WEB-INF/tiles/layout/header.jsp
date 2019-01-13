@@ -84,6 +84,8 @@ $(document).ready(function() {
 		$("#joinBarPic").click();
 		return false;
 	});
+	
+	
 
 	// 이미지 파일 확장자 확인 (이미지가 아닐 경우 반환)
 	$("#joinBarPic").change(function() {
@@ -108,7 +110,7 @@ $(document).ready(function() {
 			data: formData,
 			contentType: false,
 			success: function(data) {
-				alert("파일 업로드 성공");
+// 				alert("파일 업로드 성공");
 			},
 			error: function() {
 				alert("파일 업로드 실패");
@@ -126,7 +128,8 @@ $(document).ready(function() {
 			}
 			
 			reader.readAsDataURL(input.files[0]);
-		}
+			
+		} 
 	}
 	
 	
@@ -151,7 +154,7 @@ $(document).ready(function() {
 			data: formData,
 			contentType: false,
 			success: function(data) {
-				alert("파일 업로드 성공");
+// 				alert("파일 업로드 성공");
 			},
 			error: function() {
 				alert("파일 업로드 실패");
@@ -547,6 +550,7 @@ $(document).ready(function() {
 		console.log("인덱스 +=2 "+idx);	
 	});
 	
+	// 탈퇴 버튼 클릭했을 때 모달 띄우기
 	$(".deleteMemberBtn").click(function() {
 		$(".modal-content:eq("+Number(idx+12)+")").show();
 	});
@@ -1422,7 +1426,8 @@ $(document).ready(function() {
     <div class="modal-content" id="joinModal1">
         <button class="backBtn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <div class="modal-body text-center"  style="height: 450px;">
+      <div class="modal-body text-center"  style="height: 480px;">
+      ㅏ
         <h3 class="modal-title text-center" style="color: black; padding-top: 8px;"><b>Join</b></h3>
         	<div class="joinInfo text-right" style="color: black; font-size: 11px;"><br>
       			<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
@@ -1485,7 +1490,7 @@ $(document).ready(function() {
 					<td>
 						<a data-toggle="modal" class="nextBtn1" style="cursor: pointer;" id="barJoin"><img class="barJoinImg" src="${pageContext.request.contextPath}/resources/joinImg/barJoin.JPG"></a>
 					</td>
-					<td style="padding-left: 20px;">
+					<td style="padding-left: 15px;">
 						<a data-toggle="modal" class="nextBtn2" style="cursor: pointer;" id="bandJoin"><img class="bandJoinImg" src="${pageContext.request.contextPath}/resources/joinImg/bandJoin.JPG"></a>
 					</td>
 					</tr>
@@ -1509,13 +1514,13 @@ $(document).ready(function() {
     	 </div> 
 		        <br>
 		        <form id="joinBarPicform" name="joinBarPicform" class="joinBarPicform" enctype="multipart/form-data">
-      			<table style="border: none; height: 100px; width: 100%; color: black;"><tr><td>
-      			<img id="previewBarPic" src="#"/>
-      			<button class="barPicAdd" style="border: 1px solid white; background-color: white;"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></button>
+      			<font color="red" style="vertical-align: top;">*</font>
+      			<img class="text-center" id="previewBarPic" src="../resources/joinImg/profileBasic.jpg">
+      			<button class="barPicAdd" style="border: 1px solid white; color: black; margin-bottom: 50px; background-color: white;"><span class="glyphicon glyphicon-picture" style="top: 40px; right: 10px;" aria-hidden="true"></span></button>
       			<input type="file" id="joinBarPic" style="display: none;">
-      			</td></tr></table></form>
+      			</form>
       			<form id="joinForm2" name="joinPost2" class="joinForm">
-		        <table style="border: none; height: 400px; width: 100%; color: black;">
+		        <table style="border: none; height: 300px; width: 100%; color: black;">
 				<tr>
 				<td>
 				<input type="text" name="barRoleId" id="barRoleId" value="1" style="display: none;">
@@ -1557,16 +1562,14 @@ $(document).ready(function() {
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       <div class="modal-body text-center"  style="height: 500px;">
          <h3 class="modal-title text-center" style="color: black; padding-top: 8px;"><b>Band</b></h3>
-         <div class="joinInfo text-right" style="color: black; font-size: 11px;"><br>
+         <div class="joinInfo text-right" style="color: black; font-size: 11px; padding-bottom: 15px;"><br>
       		<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
     	 </div> 
       			<form id="joinBandPicform" name="joinBandPicform" class="joinBandPicform" enctype="multipart/form-data">
-      		<br><table style="border: none; height: 100px; width: 100%; color: black;">
-      			<tr><td>
-      			<img id="previewBandPic" src="#"/>
-      			<button class="bandPicAdd" style="border: 1px solid white; background-color: white;"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></button>
-      			<input type="file" id="joinBandPic" style="display: none;"></td></tr>
-      			</table>
+      		    <font color="red" style="vertical-align: top;">*</font>
+      			<img id="previewBandPic" src="../resources/joinImg/profileBasic.jpg">
+      			<button class="bandPicAdd" style="color: black; border: 1px solid white; background-color: white;"><span class="glyphicon glyphicon-picture" style="top: 40px; right: 10px;" aria-hidden="true"></span></button>
+      			<input type="file" id="joinBandPic" style="display: none;">
       			</form>
       	    <form id="joinForm3" name="joinPost3" class="joinForm">
       		<table style="border: none; height: 200px; width: 100%; color: black;" >
@@ -1681,7 +1684,7 @@ $(document).ready(function() {
 						<option value="daum.net">daum.net</option>
 						<option value="gmail.com">gmail.com</option>
 						<option value="9">직접 입력</option>
-					</select>				</td></tr>
+					</select></td></tr>
 			  </table><br></form>
 				<button type="button" class="findPwConfirmBtn"><b>Find PW</b></button>
       		<br>
