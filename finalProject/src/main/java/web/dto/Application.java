@@ -9,11 +9,13 @@ public class Application {
 	private int read;
 	private int decliend;
 	private int applied;
+	private int calendarNo;
+	
 	@Override
 	public String toString() {
 		return "Application [appNo=" + appNo + ", resumesNo=" + resumesNo + ", barName=" + barName + ", appDate="
 				+ appDate + ", accept=" + accept + ", read=" + read + ", decliend=" + decliend + ", applied=" + applied
-				+ "]";
+				+ ", calendarNo=" + calendarNo + "]";
 	}
 	public int getAppNo() {
 		return appNo;
@@ -62,5 +64,11 @@ public class Application {
 	}
 	public void setApplied(int applied) {
 		this.applied = applied;
+	}
+	public int getCalendarNo() {
+		return calendarNo;
+	}
+	public void setCalendarNo(int calendarNo) {
+		this.calendarNo = calendarNo;
 	}
 }

@@ -119,13 +119,13 @@
 <div class="adminMypageSearchDiv">
 	<div class="searchUserinfo">
 		검색조건 <select class="searchBtn" id="searchCategory" name="searchCategory">
-			<option class="searchBtn" value="">카테고리</option>
-		    <option class="searchBtn" value="1">아이디</option>
-		    <option class="searchBtn" value="2">연락처</option>
-		    <option class="searchBtn" value="3">이름</option>
+			<option value="">카테고리</option>
+		    <option value="1">아이디</option>
+		    <option value="2">연락처</option>
+		    <option value="3">이름</option>
 		</select>
 		
-		검색어 입력 <input id="searchKeyowrd"class="searchBtn" type="text" name="searchKeyowrd" />
+		검색어 입력 <input id="searchKeyowrd" type="text" name="searchKeyowrd" value="${search }"/>
 		<button class="searchBtn" onclick="searchUserInfo()"> 검색 </button>
 	</div>
 </div>

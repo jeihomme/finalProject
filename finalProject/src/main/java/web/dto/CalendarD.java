@@ -65,5 +65,4 @@ public class CalendarD {
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
-	
 }

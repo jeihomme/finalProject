@@ -181,6 +181,7 @@
 	.bandIntroInsert {
 		color: black;
 		background-color:gold;
+		border-radius:10px;
 		float:right;
 	}
 	
@@ -208,12 +209,29 @@
 		float:left;
 	}
 	
+	tr th {
+	text-align: center;
+	color:#000;
+	background-color: gold;
+	}
+	
+	td {
+/* 		border-left: 1px solid white; */
+/* 		border-right: 1px solid white; */
+		color:#fff;
+		background-color: black;
+	}
+	
 	table.type10 td.tdSize100 {
 		width:100px;
 	}
 	
 	table.type10 td.tdSize500 {
 		width:500px;
+	}
+	
+	.barAddress {
+		width:600px;
 	}
 </style>
 
@@ -277,16 +295,19 @@ $(document).ready(function(){
 		<hr>
 		<div>
 			<b class="adminDetailTitle">Address</b>
-			<table class="table table-hover table-striped table-condensed">
-				
+			<table class="type10">
+				<thead>
 				<tr>
 					<th>지역</th>
 					<th>상세주소</th>
 				</tr>
+				</thead>
+				<tbody class="barAddress">
 				<tr>
 					<td>${location.locationName }</td>
-					<td>${bar.barAddress }</td>
+					<td><p class="barAddress">${bar.barAddress }</p></td>
 				</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>
@@ -295,13 +316,17 @@ $(document).ready(function(){
 		<hr>
 		<div >
 			<p class="adminDetailTitle">Intro </p>
-			<table class="table table-hover table-striped table-condensed">
+			<table class="type10">
+				<thead>
 				<tr>
 					<th>소개</th>
 				</tr>
+				</thead>
+				<tbody>
 				<tr>
 					<td>${bar.barInfo }</td>
 				</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>
@@ -328,7 +353,7 @@ $(document).ready(function(){
 		<div class="barIntroInfo">
 			<p class="adminDetailTitle">Intro </p>
 			<hr>
-			<ul class="introDetailInfo">
+			<ul class="adminDetailInfo">
 				<li>이력서는 최대 5개까지 작성 가능합니다.</li>
 				<li>지원하고자 하는 Bar마다 내용을 다르게 할 수 있습니다.</li>
 				<li>사진을 눌러 수정이 가능합니다.</li>
@@ -358,7 +383,7 @@ $(document).ready(function(){
 				<tr>
 					<th>공개</th>
 					<th>밴드소개 제목</th>
-					<th>첨부파일번호</th>
+					<th>첨부파일</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -419,10 +444,10 @@ $(document).ready(function(){
 		<div>
 			<form id="soundFileForm" action="" method="post" enctype="multipart/form-data">
 				<b class="bandIntroHeader">첨부파일 리스트</b>
-				<input class="bandIntroInsert" type="file" name="file" id="soundFile"/>
 				<c:if test="${mListRnum < 5 }">
 					<button type="button" class="searchBtn" onclick="uploadSoundIntro() ">파일 첨부</button>
 				</c:if>
+				<input class="bandIntroInsert" type="file" name="file" id="soundFile"/>
 			</form>
 			
 <!-- 			</form> -->

@@ -809,4 +809,90 @@
 		WHERE
 			rnum between #{paging.startNo } AND #{paging.endNo }
 	</select>
+<!-- public List scheduleBybarNo(@Param("map")Map map, @Param("barNo")int barNo); -->
+	<select id="scheduleBybarNo" resultType="web.dto.CalendarD" >
+	<!-- 	parameterType="Map"  -->
+		Select
+    		calendarNO,
+    		EXTRACT(DAY FROM calendarDate) calendarDate,
+		    a.bandNo,
+    		CASE WHEN a.bandNo = b.bandNo THEN bandName
+        		END bandName,
+    		a.barNo,
+    		CASE WHEN a.barNo = c.barNo THEN barName
+        		END barName,
+    		startTime,
+    		endTime
+		from calendar a, band b, bar c
+		where a.bandNo = b.bandNo AND
+    		a.barNo = c.barNo AND
+    		a.barNo = #{barNo } AND
+            calendarDate BETWEEN 
+				to_date(#{map.firstDayOfMonth }, 'DD-MM-YY')
+			AND 
+				to_date(#{map.firstDayOfNextMonth }, 'DD-MM-YY')
+		ORDER BY startTime
+	</select>
+<!-- 	public List scheduleBybandNo(@Param("map")Map map, @Param("bandNo")int bandNo); -->
+	<select id="scheduleBybandNo" resultType="web.dto.CalendarD" >
+<!-- 	parameterType="Map"  -->
+		Select
+    		calendarNO,
+    		EXTRACT(DAY FROM calendarDate) calendarDate,
+		    a.bandNo,
+    		CASE WHEN a.bandNo = b.bandNo THEN bandName
+        		END bandName,
+    		a.barNo,
+    		CASE WHEN a.barNo = c.barNo THEN barName
+        		END barName,
+    		startTime,
+    		endTime
+		from calendar a, band b, bar c
+		where a.bandNo = b.bandNo AND
+    		a.barNo = c.barNo AND
+    		a.bandNo = #{bandNo } AND
+            calendarDate BETWEEN 
+				to_date(#{map.firstDayOfMonth }, 'DD-MM-YY')
+			AND 
+				to_date(#{map.firstDayOfNextMonth }, 'DD-MM-YY')
+		ORDER BY startTime
+	</select>
+	
+<!-- 	public Application selectAppByAppNo(Application app); -->
+	<select id="selectAppByAppNo" parameterType="web.dto.Application" resultType="web.dto.Application" >
+<!-- 	parameterType="Map"  -->
+		select * from application
+			where appNo = #{appNo }
+	</select>
+	
+<!-- 	public void updateCalendarByBandNo(CalendarD cal); -->
+	<update id="updateCalendarByBandNo"
+		parameterType="web.dto.CalendarD">
+			update calendar set bandNo=#{bandNo }
+			where calendarNo = #{calendarNo }
+	</update>
+<!-- 	public Bar selectBarByBarName(Bar bar); -->
+	<select id="selectBarByBarName" parameterType="web.dto.Bar" resultType="web.dto.Bar" >
+<!-- 	parameterType="Map"  -->
+		select * from bar
+			where barName = #{barName }
+	</select>
+<!-- 	public void updateCalendarByBarNo(CalendarD cal); -->
+	<update id="updateCalendarByBarNo"
+		parameterType="web.dto.CalendarD">
+			update calendar set barNo=#{barNo }
+			where calendarNo = #{calendarNo }
+	</update>
+<!-- 	public CalendarD selectCalendarByCalendarNo(CalendarD cal); -->
+	<select id="selectCalendarByCalendarNo" parameterType="web.dto.CalendarD" resultType="web.dto.CalendarD" >
+	<!-- 	parameterType="Map"  -->
+		select * from calendar
+			where calendarNo = #{calendarNo }
+	</select>
+<!-- 	public PTime selectPTimeByTimeId(PTime startTime); -->
+	<select id="selectPTimeByTimeId" parameterType="web.dto.PTime" resultType="web.dto.PTime" >
+	<!-- 	parameterType="Map"  -->
+		select * from pTime
+			where timeId = #{timeId }
+	</select>
 </mapper>

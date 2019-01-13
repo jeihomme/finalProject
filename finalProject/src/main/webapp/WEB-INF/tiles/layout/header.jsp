@@ -1224,20 +1224,21 @@ $(document).ready(function() {
 	    border-collapse: collapse;
 	    text-align: left;
 	    line-height: 1.5;
-	    border-top: 1px solid #ccc;
-	    border-bottom: 1px solid #ccc;
-	    margin: 20px 10px;
+/* 	    border-top: 1px solid #ccc; */
+/* 	    border-bottom: 1px solid #ccc; */
+/* 	    margin: 20px 10px; */
 	    width: 700px;
 	}
 	
 	table.type10 thead th {
 /*  	    width: 700px; */
-/* 	    padding: 10px; */
+ 	    padding: 10px;
 	    font-weight: bold;
 	    vertical-align: top;
 	    color: black;
 	    background: gold;
 	    margin: 20px 10px;
+	    border-radius:200px;
 	}
 	table.type10 tbody th {
  	    width: 150px; 

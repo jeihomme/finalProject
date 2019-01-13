@@ -407,8 +407,8 @@
 		<div class="searchUserinfo">
 	<!-- 		<form action="/mypage/applicationToBar" method="post"> -->
 				
-				<input type="date" class="insertResumesHistory" id="appStartDate" name="appStartDate" value=""/> ~ 
-				<input type="date" class="insertResumesHistory" id="appEndDate" name="appEndDate" value=""/>
+				<input type="date" class="insertResumesHistory" id="appStartDate" value="${startDate }"/> ~ 
+				<input type="date" class="insertResumesHistory" id="appEndDate" value="${endDate }"/>
 				<button class="searchBtn" onclick="searchAppFromBand() "> 검색 </button>
 	<!-- 		</form> -->
 		</div>
@@ -425,6 +425,7 @@
 					<th scope="col">지원일</th>
 					<th scope="col">공연</th>
 					<th scope="col">열람여부</th>
+					<th scope="col">수락 여부</th>
 					<th scope="col">지원</th>
 				</tr>
 				</thead>
@@ -450,10 +451,10 @@
 					</c:if>
 					
 					<c:if test="${status.count % 2 eq 0 }">
-					<td class="even">지원날짜 / 시간</td>
+					<td class="even">${calList[status.count-1].calendarDate }, ${calList[status.count-1].startTime } ~ ${calList[status.count-1].endTime }</td>
 					</c:if>
 					<c:if test="${status.count % 2 eq 1 }">
-					<td>지원날짜 / 시간</td>
+					<td>${calList[status.count-1].calendarDate }, ${calList[status.count-1].startTime } ~ ${calList[status.count-1].endTime }</td>
 					</c:if>
 					
 					<c:if test="${status.count % 2 eq 0 }">
@@ -466,6 +467,25 @@
 					<td>
 						<c:if test="${i.read eq 0}">미열람</c:if>
 						<c:if test="${i.read eq 1}">열람</c:if>
+					</td>
+					</c:if>
+					
+					<c:if test="${status.count % 2 eq 0 }">
+					<td class="even">
+						<c:if test="${i.accept eq 0}">
+							대기
+						</c:if>
+						<c:if test="${i.accept eq 1}">수락</c:if>
+						<c:if test="${i.accept eq 2}">거절</c:if>
+					</td>
+					</c:if>
+					<c:if test="${status.count % 2 eq 1 }">
+					<td>
+						<c:if test="${i.accept eq 0}">
+							대기
+						</c:if>
+						<c:if test="${i.accept eq 1}">수락</c:if>
+						<c:if test="${i.accept eq 2}">거절</c:if>
 					</td>
 					</c:if>
 					
@@ -553,8 +573,8 @@
 	</div>
 	<div class="adminMypageSearchDiv">
 		<div class="searchUserinfo">
-				<input type="date" class="insertResumesHistory" id="appStartDate" name="appStartDate" value=""/> ~ 
-				<input type="date" class="insertResumesHistory" id="appEndDate" name="appEndDate" value=""/>
+				<input type="date" class="insertResumesHistory" id="appStartDate" value="${startDate }"/> ~ 
+				<input type="date" class="insertResumesHistory" id="appEndDate" value="${endDate }"/>
 				<button class="searchBtn" onclick="searchAppFromBand() "> 검색 </button>
 		</div>
 	</div>
@@ -594,25 +614,17 @@
 					</c:if>
 					
 					<c:if test="${status.count % 2 eq 0 }">
-					<td class="even">지원날짜 / 시간</td>
+					<td class="even">${calList[status.count-1].calendarDate }, ${calList[status.count-1].startTime } ~ ${calList[status.count-1].endTime }</td>
 					</c:if>
 					<c:if test="${status.count % 2 eq 1 }">
-					<td>지원날짜 / 시간</td>
+					<td>${calList[status.count-1].calendarDate }, ${calList[status.count-1].startTime } ~ ${calList[status.count-1].endTime }</td>
 					</c:if>
 					
 					<c:if test="${status.count % 2 eq 0 }">
 					<td class="even">
 						<c:if test="${i.accept eq 0}">
-	<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
-									<input type="hidden" id="acceptAppNo" name="appNo" value="${i.appNo }">
-									<input type="hidden" id="acceptAcc" name="accept" value="1">
-									<button class="acceptBtnBlue" onclick="appToBandAccept() ">수락</button>
-	<!-- 						</form> -->
-	<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
-									<input type="hidden" id="rejectAppNo" name="appNo" value="${i.appNo }">
-									<input type="hidden" id="rejectAcc" name="accept" value="2">
-									<button class="acceptBtnRed" onclick="appToBandReject() ">거절</button>
-	<!-- 						</form> -->
+							<button class="acceptBtnBlue" onclick="appToBandAccept(${i.appNo }) ">수락</button>
+							<button class="acceptBtnRed" onclick="appToBandReject(${i.appNo }) ">거절</button>
 						</c:if>
 						<c:if test="${i.accept eq 1}">수락</c:if>
 						<c:if test="${i.accept eq 2}">거절</c:if>
@@ -621,16 +633,8 @@
 					<c:if test="${status.count % 2 eq 1 }">
 					<td>
 						<c:if test="${i.accept eq 0}">
-	<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
-									<input type="hidden" id="acceptAppNo" name="appNo" value="${i.appNo }">
-									<input type="hidden" id="acceptAcc" name="accept" value="1">
-									<button class="acceptBtnBlue" onclick="appToBandAccept() ">수락</button>
-	<!-- 						</form> -->
-	<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
-									<input type="hidden" id="rejectAppNo" name="appNo" value="${i.appNo }">
-									<input type="hidden" id="rejectAcc" name="accept" value="2">
-									<button class="acceptBtnRed" onclick="appToBandReject() ">거절</button>
-	<!-- 						</form> -->
+							<button class="acceptBtnBlue" onclick="appToBandAccept(${i.appNo }) ">수락</button>
+							<button class="acceptBtnRed" onclick="appToBandReject(${i.appNo }) ">거절</button>
 						</c:if>
 						<c:if test="${i.accept eq 1}">수락</c:if>
 						<c:if test="${i.accept eq 2}">거절</c:if>

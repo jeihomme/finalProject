@@ -110,18 +110,7 @@
 		color: black;
 	}
 	
-	tr th {
-	text-align: center;
-	color:#000;
-	background-color: gold;
-	}
 	
-	td {
-		border-left: 1px solid white;
-		border-right: 1px solid white;
-		color:#fff;
-		background-color: black;
-	}
 	
 	.resumesViewDiv {
 		text-align:center;
@@ -148,7 +137,7 @@
 	}
 	
 	.barAddress {
-		width:300px;
+		width:600px;
 	}
 </style>
 						
@@ -225,12 +214,14 @@
 		<hr>
 		<div>
 			<b class="adminDetailTitle">Address</b>
-			<table class="table table-hover table-striped table-condensed">
-				
+			<table class="type10">
+				<thead>
 				<tr>
 					<th>지역</th>
 					<th>상세주소</th>
 				</tr>
+				</thead>
+				<tbody>
 				<tr>
 					<td>
 <!-- 						<form action="/mypage/modifyIntro" method="post"> -->
@@ -266,6 +257,7 @@
 						
 					</td>
 				</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>
@@ -274,25 +266,27 @@
 		<hr>
 		<div >
 			<p class="adminDetailTitle">Intro </p>
-			<table class="table table-hover table-striped table-condensed">
+			<table class="type10">
+				<thead>
 				<tr>
 					<th>소개</th>
 				</tr>
+				</thead>
+				<tbody>
 				<tr>
 					<td>
 						<textArea class="insertBarInfo" id="modifyBarInfo" name="barInfo" >${bar.barInfo }</textArea>
 					</td>
 				</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>
 	
-	<hr>
-<!-- 	<form action="/mypage/modifyIntro" method="post"> -->
-		<div class="resumesViewDiv">
-			<button class="resumesBtn" onclick="viewMypageIntro() ">뒤로가기</button>
-			<input type="hidden" name="barNo" value="${bar.barNo }"/>
-			<button class="resumesBtn" onclick="modifyIntroProc() ">완료</button>
-		</div>
+	<div class="resumesViewDiv">
+		<button class="searchBtn" onclick="viewMypageIntro() ">뒤로가기</button>
+		<input type="hidden" name="barNo" value="${bar.barNo }"/>
+		<button class="searchBtn" onclick="modifyIntroProc() ">완료</button>
+	</div><br><br>
 		
 </c:if>

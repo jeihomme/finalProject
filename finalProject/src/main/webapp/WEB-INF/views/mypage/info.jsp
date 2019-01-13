@@ -28,6 +28,7 @@
 	
 	.adminMypageMainInfo {
 		margin: 10px;
+		width:300px;
 		float:left;
 	}
 	
@@ -40,6 +41,11 @@
 		font-size:20px;
 		color:gold;
 /* 		float:left; */
+	}
+	
+	.adminDetailInfo2 {
+		font-size:15px;
+ 		float:right;
 	}
 	
 	.adminMypageMainImage {
@@ -73,10 +79,10 @@
 		<div class="adminMypageMainInfo">
 			<p class="adminDetailTitle">Mypage </p>
 			<hr>
-			<p class="adminDetailInfo">계정 : ${member.userId }</p>
-			<p class="adminDetailInfo">이름 : ${member.userName }</p>
-			<p class="adminDetailInfo">이메일 : ${member.email }</p>
-			<p class="adminDetailInfo">연락처 : ${member.contact }</p>
+			<b class="adminDetailInfo">계정</b> <b class="adminDetailInfo2">${member.userId }</b><br>
+			<b class="adminDetailInfo">이름</b> <b class="adminDetailInfo2">${member.userName }</b><br>
+			<b class="adminDetailInfo">이메일</b> <b class="adminDetailInfo2">${member.email }</b><br>
+			<b class="adminDetailInfo">연락처</b> <b class="adminDetailInfo2">${member.contact }</b><br>
 		</div>
 		<div class="adminMypageMainImage">
 			<img src="../resources/adminMainImage.png" class="myPageMainImage">
@@ -89,7 +95,7 @@
 	<div class="adminMenu">
 		<p class="selectMenu" onclick="viewMypageInfo() ">Mypage</p>
 		<p onclick="viewMypageModifyInfo() ">Modify</p>
-		<p onclick="viewMypageCaldendar() ">Intro</p>
+		<p onclick="viewMypageIntro() ">Intro</p>
 		<p onclick="viewMypageAppToBand() ">Application</p>
 		<p onclick="viewMypageCalendar() ">Calendar</p>
 	</div><br><br>
@@ -99,11 +105,11 @@
 		<div class="adminMypageMainInfo">
 			<p class="adminDetailTitle">Mypage </p>
 			<hr>
-			<b class="adminDetailInfo">계정</b> ${member.userId }<br>
-			<b class="adminDetailInfo">이름</b> ${member.userName }<br>
-			<b class="adminDetailInfo">이메일</b> ${member.email }<br>
-			<b class="adminDetailInfo">연락처</b> ${member.contact }<br>
-			<b class="adminDetailInfo">바</b> ${bar.barName }<br>
+			<b class="adminDetailInfo">계정</b> <b class="adminDetailInfo2">${member.userId }</b><br>
+			<b class="adminDetailInfo">이름</b> <b class="adminDetailInfo2">${member.userName }</b><br>
+			<b class="adminDetailInfo">이메일</b> <b class="adminDetailInfo2">${member.email }</b><br>
+			<b class="adminDetailInfo">연락처</b> <b class="adminDetailInfo2">${member.contact }</b><br>
+			<b class="adminDetailInfo">바</b> <b class="adminDetailInfo2">${bar.barName }</b><br>
 		</div>
 		<div class="adminMypageMainImage">
 			<img src="../resources/barMainImage.jpg" class="myPageMainImage">
@@ -125,12 +131,12 @@
 		<div class="adminMypageMainInfo">
 			<p class="adminDetailTitle">Mypage </p>
 			<hr>
-			<b class="adminDetailInfo">계정</b> ${member.userId }<br>
-			<b class="adminDetailInfo">이름</b> ${member.userName }<br>
-			<b class="adminDetailInfo">이메일</b> ${member.email }<br>
-			<b class="adminDetailInfo">연락처</b>${member.contact }<br><br>
-			<b class="adminDetailInfo">밴드</b>${band.bandName }<br>
-			<b class="adminDetailInfo">멤버</b><br>
+			<b class="adminDetailInfo">계정</b> <b class="adminDetailInfo2">${member.userId }</b><br>
+			<b class="adminDetailInfo">이름</b> <b class="adminDetailInfo2">${member.userName }</b><br>
+			<b class="adminDetailInfo">이메일</b> <b class="adminDetailInfo2">${member.email }</b><br>
+			<b class="adminDetailInfo">연락처</b> <b class="adminDetailInfo2">${member.contact }</b><br>
+			<b class="adminDetailInfo">밴드</b> <b class="adminDetailInfo2">${band.bandName }</b><br>
+			<b class="adminDetailInfo">멤버</b> <br>
 			
 			<ul>
 				<c:forEach items="${bandMemberList }" var="i">

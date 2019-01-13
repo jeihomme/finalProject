@@ -210,361 +210,42 @@
 		});
 	}
 	
-	function appToBandAccept1(){
+	function appToBandAccept(appNo){
 		//AJAX 처리하기
-		
-		var appNoList = [];
-		var accList = [];
-		var j = 0;
-		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
-			appNoList[j] = document.getElementsByName("appNo")[i].value;
-			j++;
-	    }
-		console.log(appNoList);
-		
-		var appNo = appNoList[0];
-		
-		var appToBandData = {
-				appNo: appNo
-				, accept: 1
-		    };
-		
-		console.log(appToBandData);
+		console.log(appNo);
 		$.ajax({ 	
 			type: "post"
 			, url: "/mypage/applicationToBandAccept"
-			, data: appToBandData
-			, dataType: "json"
+			, data: {
+				appNo:appNo
+				, accept:1
+				}
+			, dataType: "html"
 			, success: function( res ) {
-				console.log(res);
-				viewMypageAppToBand();
+				$("#body").html(res);
 			}
 			, error: function() {
-				console.log(appToBandData);
-				alert("실패");
-			}
-		});
-	}
-	
-	function appToBandAccept2(){
-		//AJAX 처리하기
-		
-		var appNoList = [];
-		var accList = [];
-		var j = 0;
-		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
-			appNoList[j] = document.getElementsByName("appNo")[i].value;
-			j++;
-	    }
-		console.log(appNoList);
-		
-		var appNo = appNoList[1];
-		
-		var appToBandData = {
-				appNo: appNo
-				, accept: 1
-		    };
-		
-		console.log(appToBandData);
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/applicationToBandAccept"
-			, data: appToBandData
-			, dataType: "json"
-			, success: function( res ) {
-				console.log(res);
-				viewMypageAppToBand();
-			}
-			, error: function() {
-				console.log(appToBandData);
-				alert("실패");
-			}
-		});
-	}
-	
-	function appToBandAccept3(){
-		//AJAX 처리하기
-		
-		var appNoList = [];
-		var accList = [];
-		var j = 0;
-		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
-			appNoList[j] = document.getElementsByName("appNo")[i].value;
-			j++;
-	    }
-		console.log(appNoList);
-		
-		var appNo = appNoList[2];
-		
-		var appToBandData = {
-				appNo: appNo
-				, accept: 1
-		    };
-		
-		console.log(appToBandData);
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/applicationToBandAccept"
-			, data: appToBandData
-			, dataType: "json"
-			, success: function( res ) {
-				console.log(res);
-				viewMypageAppToBand();
-			}
-			, error: function() {
-				console.log(appToBandData);
-				alert("실패");
-			}
-		});
-	}
-	
-	function appToBandAccept4(){
-		//AJAX 처리하기
-		
-		var appNoList = [];
-		var accList = [];
-		var j = 0;
-		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
-			appNoList[j] = document.getElementsByName("appNo")[i].value;
-			j++;
-	    }
-		console.log(appNoList);
-		
-		var appNo = appNoList[3];
-		
-		var appToBandData = {
-				appNo: appNo
-				, accept: 1
-		    };
-		
-		console.log(appToBandData);
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/applicationToBandAccept"
-			, data: appToBandData
-			, dataType: "json"
-			, success: function( res ) {
-				console.log(res);
-				viewMypageAppToBand();
-			}
-			, error: function() {
-				console.log(appToBandData);
-				alert("실패");
-			}
-		});
-	}
-	
-	function appToBandAccept5(){
-		//AJAX 처리하기
-		
-		var appNoList = [];
-		var accList = [];
-		var j = 0;
-		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
-			appNoList[j] = document.getElementsByName("appNo")[i].value;
-			j++;
-	    }
-		console.log(appNoList);
-		
-		var appNo = appNoList[4];
-		
-		var appToBandData = {
-				appNo: appNo
-				, accept: 1
-		    };
-		
-		console.log(appToBandData);
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/applicationToBandAccept"
-			, data: appToBandData
-			, dataType: "json"
-			, success: function( res ) {
-				console.log(res);
-				viewMypageAppToBand();
-			}
-			, error: function() {
-				console.log(appToBandData);
+				console.log(appNo);
 				alert("실패");
 			}
 		});
 	}
 
-	function appToBandReject1(){
+	function appToBandReject(appNo){
+		console.log(appNo);
 		//AJAX 처리하기
-		
-		var appNoList = [];
-		var accList = [];
-		var j = 0;
-		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
-			appNoList[j] = document.getElementsByName("appNo")[i].value;
-			j++;
-	    }
-		console.log(appNoList);
-		
-		var appNo = appNoList[0];
-		
-		var appToBandData = {
-				appNo: appNo
-				, accept: 2
-		    };
-		
-		console.log(appToBandData);
 		$.ajax({ 	
 			type: "post"
 			, url: "/mypage/applicationToBandAccept"
-			, data: appToBandData
-			, dataType: "json"
+			, data: {
+				appNo:appNo
+				, accept:2
+			}
+			, dataType: "html"
 			, success: function( res ) {
-				console.log(res);
-				viewMypageAppToBand();
+				$("#body").html(res);
 			}
 			, error: function() {
-				console.log(appToBandData);
-				alert("실패");
-			}
-		});
-	}
-	
-	function appToBandReject2(){
-		//AJAX 처리하기
-		
-		var appNoList = [];
-		var accList = [];
-		var j = 0;
-		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
-			appNoList[j] = document.getElementsByName("appNo")[i].value;
-			j++;
-	    }
-		console.log(appNoList);
-		
-		var appNo = appNoList[1];
-		
-		var appToBandData = {
-				appNo: appNo
-				, accept: 2
-		    };
-		
-		console.log(appToBandData);
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/applicationToBandAccept"
-			, data: appToBandData
-			, dataType: "json"
-			, success: function( res ) {
-				console.log(res);
-				viewMypageAppToBand();
-			}
-			, error: function() {
-				console.log(appToBandData);
-				alert("실패");
-			}
-		});
-	}
-	
-	function appToBandReject3(){
-		//AJAX 처리하기
-		
-		var appNoList = [];
-		var accList = [];
-		var j = 0;
-		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
-			appNoList[j] = document.getElementsByName("appNo")[i].value;
-			j++;
-	    }
-		console.log(appNoList);
-		
-		var appNo = appNoList[2];
-		
-		var appToBandData = {
-				appNo: appNo
-				, accept: 2
-		    };
-		
-		console.log(appToBandData);
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/applicationToBandAccept"
-			, data: appToBandData
-			, dataType: "json"
-			, success: function( res ) {
-				console.log(res);
-				viewMypageAppToBand();
-			}
-			, error: function() {
-				console.log(appToBandData);
-				alert("실패");
-			}
-		});
-	}
-	
-	function appToBandReject4(){
-		//AJAX 처리하기
-		
-		var appNoList = [];
-		var accList = [];
-		var j = 0;
-		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
-			appNoList[j] = document.getElementsByName("appNo")[i].value;
-			j++;
-	    }
-		console.log(appNoList);
-		
-		var appNo = appNoList[3];
-		
-		var appToBandData = {
-				appNo: appNo
-				, accept: 2
-		    };
-		
-		console.log(appToBandData);
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/applicationToBandAccept"
-			, data: appToBandData
-			, dataType: "json"
-			, success: function( res ) {
-				console.log(res);
-				viewMypageAppToBand();
-			}
-			, error: function() {
-				console.log(appToBandData);
-				alert("실패");
-			}
-		});
-	}
-	
-	function appToBandReject5(){
-		//AJAX 처리하기
-		
-		var appNoList = [];
-		var accList = [];
-		var j = 0;
-		for(var i=0;i<document.getElementsByName("appNo").length; i+=2) {
-			appNoList[j] = document.getElementsByName("appNo")[i].value;
-			j++;
-	    }
-		console.log(appNoList);
-		
-		var appNo = appNoList[4];
-		
-		var appToBandData = {
-				appNo: appNo
-				, accept: 2
-		    };
-		
-		console.log(appToBandData);
-		$.ajax({ 	
-			type: "post"
-			, url: "/mypage/applicationToBandAccept"
-			, data: appToBandData
-			, dataType: "json"
-			, success: function( res ) {
-				console.log(res);
-				viewMypageAppToBand();
-			}
-			, error: function() {
-				console.log(appToBandData);
 				alert("실패");
 			}
 		});
@@ -2218,4 +1899,6 @@
 			}
 		});
 	}
+	
+	
 </script>
