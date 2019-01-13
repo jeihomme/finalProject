@@ -12,6 +12,7 @@ import web.dao.face.GenreDao;
 import web.dao.face.MusicDao;
 import web.dto.Band;
 import web.dto.BandMember;
+import web.dto.History;
 import web.dto.Music;
 import web.dto.Resumes;
 import web.service.face.BandService;
@@ -171,16 +172,75 @@ public class BandServiceImpl implements BandService {
 	}
 	
 	@Override
-	public void addBMember(BandMember bMem) {
+	public BandMember addBMember(BandMember bMem) {
 
 		bandDao.addBMember(bMem);
+		
+		return bandDao.getBMember(bMem);
 		
 	}
 	
 	@Override
-	public void bandEdit(Band band) {
-		// TODO Auto-generated method stub
+	public List addHistory(History history) {
+
+		bandDao.addHistory(history);
+		
+		return bandDao.getHistory(history);
 		
 	}
+
+	@Override
+	public String bandEdit(String bandNo, String historyNo, String year,
+			String historyInfo, String bandMemberNo, String bandMemName, String mPosition, Resumes resumes) {
+		
+		if(bandNo != "" && historyNo != "" && year != "" &&
+				historyInfo != "" && bandMemberNo != "" && bandMemName != "" && mPosition != "") {
+			
+			BandMember bandMember = new BandMember();
+			History history = new History();
+			
+			bandMember.setBandNo(Integer.parseInt(bandNo));
+			
+			String[] array2 = historyNo.split(",");
+			String[] array4 = year.split(",");
+			String[] array5 = historyInfo.split(",");
+			
+			String[] array6 = bandMemberNo.split(",");
+			String[] array7 = bandMemName.split(",");
+			String[] array8 = mPosition.split(",");
+			
+			// history 업데이트
+			for(int i=0; i<array2.length; i++) {
+				
+				history.setHistoryNo(Integer.parseInt(array2[i]));
+				history.setYear(array4[i]);
+				history.setHistoryInfo(array5[i]);
+				
+				bandDao.editHistory(history);
+			}
+			
+			// bandMember 업데이트
+			for(int i=0; i<array6.length; i++) {
+				
+				bandMember.setBandMemberNo(Integer.parseInt(array6[i]));
+				bandMember.setBandMemName(array7[i]);
+				bandMember.setmPosition(array8[i]);
+				
+				bandDao.editBandMember(bandMember);
+			}
+			
+			bandDao.editBandInfo(resumes);
+		}
+		
+		bandDao.editBandInfo(resumes);
+		String bandInfo = bandDao.getBandInfo(resumes);
+		
+		return bandInfo;
+		
+	}
+	
+
+
+
 
 }

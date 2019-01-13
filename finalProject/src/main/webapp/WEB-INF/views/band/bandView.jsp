@@ -42,42 +42,49 @@
 .divA{
 	background-color: gray; 
 	border-radius: 20px;
-}
-
-.photoIn{
-    border-radius: 10px;
-    width: 350px;
-    height: 80%;
-    margin-top: -22%;
-    margin-left: 5%;
-    position: fixed;
-}
-
-.div-common{
-	display: inline-block;
-	width: 100%;
+	display: table-cell;
 }
 
 .div-left{
-    transform: translateY(-25%);
 	width: 49%;
-    margin: 10px;
+    height: 100%;
+    
+    padding: 10px;
+/*     margin-top: 26%; */
 }
 
 .div-right{
 	width: 45%;
+	height: 100%;
+	padding: 10px;
+/* 	vertical-align: middle; */
+}
+
+.photoIn{
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    
+/*     margin-top: -22%; */
+/*     margin-left: 5%; */
+    
+}
+
+.div-common{
+  	display: inline-block;
 }
 
 .div-photo{
 /* 	border: 1px solid DarkGoldenRod; */
     height: 320px;
     text-align: center;
-    display: flex;
+    
+    
 }
 
 .div-music{
 /* 	border: 1px solid Aqua; */
-        margin-top: -18%;
+/*     margin-top: 24%; */
     position: fixed;
 }
 
@@ -144,15 +151,8 @@ th{
 $(document).ready(function(){
 	
 	var bandNo = "${general.band.bandNo}"
-
-	// 세션에서 barNo 가져오기
-// 	var barNo = "@Request.RequestContext.HttpContext.Session['someKey']";
-	
-	var general = "${general}";
+	var resumesNo = "${general.resumes.resumesNo}";
 	var musicFile = "${general.music}";
-// 	console.log(general);
-	
-// 	console.log("${general.music}");
 	
 	// 음악파일 처리
 // 	window.stop();
@@ -196,13 +196,7 @@ $(document).ready(function(){
    
    // 달력 불러오기
    $("#calendarBtn").click(function(){
-	   
-	    // 밴드 번호 가져오기
-		var bandNo = ${general.band.bandNo };
-	   
-	   	var calendarDiv = document.getElementById("calendarDiv");
-	   	var calDiv = document.getElementById("calDiv"); 
-	    
+	   	
 		$.ajax({
 			type: "post",
 			url: "/calendar",
@@ -218,7 +212,6 @@ $(document).ready(function(){
 			}
 		});
 		   
-	   
    });
    
    // 수정버튼 조정
@@ -241,48 +234,126 @@ $(document).ready(function(){
 			document.getElementById("addMForm").style.display="inline-block";
 			document.getElementById("mP").style.display="inline-block";
 			document.getElementById("mName").style.display="inline-block";
+			
 			document.getElementById("hY").style.display="inline-block";
+			
 			document.getElementById("hisInfo").style.display="inline-block";
 			document.getElementById("addHForm").style.display="inline-block";
 			
+			$("#infoTb").find("tr:last").find("td:last").empty();
+			$("#infoTb").find("tr:last").find("td:last").append("<textarea style='color:black;'>" + "${general.resumes.bandInfo}" + "</textarea>");
+			
 		} else {
-			
-			$(this).html("수정");
-			$("input[type=text]").attr("disabled", true);
-			$("input[type=text]").css({"background-color" : "gray"});
-			$("input[type=text]").css({"border" : "none"});
-			$("input[type=checkbox]").css({"display" : "none"});
-			
-			document.getElementById("rmMember").style.display="none";
-			document.getElementById("addMember").style.display="none";
-			document.getElementById("rmHistory").style.display="none";
-			document.getElementById("addHistory").style.display="none";
-			document.getElementById("addMForm").style.display="none";
-			document.getElementById("mP").style.display="none";
-			document.getElementById("mName").style.display="none";
-			document.getElementById("hY").style.display="none";
-			document.getElementById("hisInfo").style.display="none";
-			document.getElementById("addHForm").style.display="none";
-			
-			// 수정된거 저장하기
-			
-// 			var year = 
-			
-			
-// 			$.ajax({
-// 				type: "get",
-// 				url: "/calendar",
-// 				data: { bandNo : bandNo } ,
-// //		 		dataType: "html",
-// 				context: document.body,
-// 				success: function(data) {
 						
-
-// 				}, error: function() {
-// 					alert("망함");
-// 				}
-// 			});
+			// 수정된거 저장하기
+			////////////////////////////////////////////////////////////////////////////////////
 			
+			// history 값 가져오기
+			// historyNo
+			var $checkedHis = $("input:checkbox[name='hisChk']");
+	   		var map = $checkedHis.map(function(){
+		   		return $(this).val();
+	   		});
+	   		var hisNo = map.get().join(",");
+	   		
+// 	   		console.log(hisNo);
+	   		
+	   		// Year
+	   		var $hisYear = $("input:text[name='hisYr']");
+	   		var map2 = $hisYear.map(function(){
+	   			return $(this).val();
+	   		});
+	   		var hisYr = map2.get().join(",");
+			
+// 	   		console.log(hisYr);
+	   		
+	   		// historyInfo
+	   		var $hisIf = $("input:text[name='hisInfo']");
+	   		var map3 = $hisIf.map(function(){
+	   			return $(this).val();
+	   		});
+	   		var hisIf = map3.get().join(",");
+	   		
+// 	   		console.log(hisIf);
+	   		
+			// 멤버 값 가져오기
+			var $checkedMem = $("input:checkbox[name='memChk']");
+			var map4 = $checkedMem.map(function(){
+				return $(this).val();
+			});
+			var mNo = map4.get().join(",");
+// 			console.log(mNo);
+
+			// mPosition
+	   		var $mPosition = $("input:text[name='memPo']");
+	   		var map5 = $mPosition.map(function(){
+	   			return $(this).val();
+	   		});
+	   		var mPo = map5.get().join(",");
+			
+// 	   		console.log(mPo);
+	   		
+	   		// mName
+	   		var $mNam = $("input:text[name='memName']");
+	   		var map6 = $mNam.map(function(){
+	   			return $(this).val();
+	   		});
+	   		var mName = map6.get().join(",");
+	   		
+// 	   		console.log(mName);
+
+			// bandInfo
+			var bandInfo = $("#infoTb").find("tr:last").find("td:last").find("textarea").val();
+
+			/////////////////////////////////////////////////////////////////////////////////////////////
+			
+			$.ajax({
+				type : "POST",
+				url : "/band/updateBandInfo",
+				data : { bandNo : bandNo,
+					historyNo : hisNo,
+					resumesNo : resumesNo,
+					year : hisYr,
+					historyInfo : hisIf,
+					bandMemberNo : mNo,
+					bandMemName : mName,
+					mPosition : mPo,
+					bandInfo : bandInfo
+					},
+				dataType : "json",
+				success: function(data){
+					
+					bandInfo = data.bandInfo;
+					
+					$("#infoTb").find("tr:last").find("td:last").empty();
+					$("#infoTb").find("tr:last").find("td:last").append(bandInfo);
+					
+					// 속성들 재조정
+					
+					$(this).html("수정");
+					$("input[type=text]").attr("disabled", true);
+					$("input[type=text]").css({"background-color" : "gray"});
+					$("input[type=text]").css({"border" : "none"});
+					$("input[type=checkbox]").css({"display" : "none"});
+						
+					document.getElementById("rmMember").style.display="none";
+					document.getElementById("addMember").style.display="none";
+					document.getElementById("rmHistory").style.display="none";
+					document.getElementById("addHistory").style.display="none";
+					document.getElementById("addMForm").style.display="none";
+					document.getElementById("mP").style.display="none";
+					document.getElementById("mName").style.display="none";
+					document.getElementById("hY").style.display="none";
+					document.getElementById("hisInfo").style.display="none";
+					document.getElementById("addHForm").style.display="none";
+					
+// 					alert("밴드 수정이 완료되었습니다");
+					
+				}, error : function(){
+					alert("개망했다");
+				}
+				
+			});
 			
 		}
 
@@ -346,46 +417,95 @@ $(document).ready(function(){
 	   
    });
    
-   $("#applyBtn").click(function(){
-
-   });
-   
    // 멤버 추가
    $("#addMember").click(function(){
 	  var mP = $("#mP").val();
 	  var mName = $("#mName").val();
 	  
-// 	  console.log(mP);
-// 	  console.log(mName);
-	  
 	  $.ajax({
 			type: "post",
 			url: "/band/addMember",
 			data: { mPosition : mP,
-				bandMemName : mName,
+					bandMemName : mName,
 					bandNo : bandNo } ,
-			context: document.body,
+			dataType : "json",
 			success: function(data) {
-							
-// 				$(first).insertBefore(second) // first 객체를 second 객체의 앞쪽에 붙인다.
 				
-// 				리스트에 새로 생성해서 붙이기
+				var newMem = data.newMem;
+				
+				$newMem = $("<tr>" +
+						"<td><input name='memChk' type='checkbox' value='"+ newMem.bandMemberNo +"' /></td>" +
+						"<td><input name='memPo' class='mems' type='text' value='"+ newMem.mPosition +"' /></td>" +
+						"<td><input name='memName' class='mems' type='text' value='"+ newMem.bandMemName +"' /></td>" +
+					"</tr>");
+				
+				$locat = $("#memberTb").find("tr:last");
+				
+				$newMem.insertBefore($locat);
+				
+				$("input[type=text]").attr("disabled", false);
+				$("input[type=text]").css({"background-color" : "white"});
+				$("input[type=text]").css({"border" : "1px solid black"});
+				$("input[type=checkbox]").css({"display" : "block"});
 			
 			}, error: function() {
 				alert("망함");
 			}
 		});
+	  
    });
    
-   var resumesNo = "${general.resumes.resumesNo}";
+   
    
    $("#addHistory").click(function(){
 	   
 	   var hY = $("#hY").val();
 	   var hisInfo = $("#hisInfo").val();
 	   
-	   console.log(hY);
-	   console.log(hisInfo);
+	   
+// 	   var tr = $(".hisChk").parent().parent();
+// 	   tr.remove();
+	   
+	   // 여기 비워지지가 않음.
+	   // 비우고 추가해야함.
+	   // 추가는 됨.
+	   // 비워지지가 않음.
+// 	   $("#historyTb > tr:nth-child(2)").remove();
+	   
+	   $.ajax({
+			type: "post",
+			url: "/band/addHistory",
+			data: { year : hY,
+					historyInfo : hisInfo,
+					resumesNo : resumesNo } ,
+			dataType : "json",
+			success: function(data) {
+				
+				var newHis = data.newHis;
+				
+				for(var i=0; i<newHis.length; i++) {
+					
+					$newHis = $("<tr>" +
+							"<td><input name='hisChk' type='checkbox' value='"+ newHis[i].historyNo +"' /></td>" +
+							"<td><input name='hisYr' class='hist' type='text' value='"+ newHis[i].year +"' /></td>" + 
+							"<td><input name='hisInfo' class='hist' type='text' value='"+ newHis[i].historyInfo+"' /></td>" +
+						"</tr>");
+					
+					$locat = $("#historyTb").find("tr:last");
+					
+					$newHis.insertBefore($locat);
+					
+				}
+				
+				$("input[type=text]").attr("disabled", false);
+				$("input[type=text]").css({"background-color" : "white"});
+				$("input[type=text]").css({"border" : "1px solid black"});
+				$("input[type=checkbox]").css({"display" : "block"});
+			
+			}, error: function() {
+				alert("망함");
+			}
+		});
 	   
    });
    
@@ -403,13 +523,20 @@ $(document).ready(function(){
 	<div class="leftDiv"><input type="button" value="<Prev" onclick="history.back(-1);" /></div>
 	<div class="centerDiv"><font style="font-size:25px;">${general.band.bandName }</font></div>
 	<div class="rightDiv">
-		<button id="editBtn" style="height:30px;" class="right" type="button">수정</button>
+		<c:choose>
+			<c:when test="${sessionScope.bandInfo.bandNo eq general.band.bandNo }">
+				<button id="editBtn" style="height:30px;" class="right" type="button">수정</button>
+			</c:when>
+			<c:otherwise>
+				<button id="editBtn" style="height:30px; display:none;" class="right" type="button">수정</button>
+			</c:otherwise>
+		</c:choose>
+		
 		<button id="calendarBtn" style="height:30px;" class="right" type="button">달력</button>
 	</div>
 	
 <div class="divA">
 	<!-- 왼쪽 -->
-	
 	<div class="div-common div-left">
 		<!-- 밴드 사진 -->
 		<div class="div-photo div-common">
@@ -418,7 +545,7 @@ $(document).ready(function(){
 	
 		<!-- 음악 파일 -->
 		<div class="div-music div-common">
-			<h3>음악 파일</h3><br>
+			<h4>음악 파일</h4><br>
 			<audio src="" autoplay controls>
 			</audio>
 		</div>
@@ -427,23 +554,25 @@ $(document).ready(function(){
 	<!-- 오른쪽 -->
 	<div class="div-common div-right">
 		<div>
+		
+		<!-- 밴드 History -->
 		<div class="div-history div-common">
 			<table>
-				<th><h3>History</h3></th>
+			<tr>
+				<th style="width:80px;"><h4>History</h4></th>
 				<th>
-					<table id="div-history">
-						<c:set var="histNo" value="0" />
+					<table id="historyTb">
+						<tr>
+							<th></th>
+							<th>연도</th>
+							<th>내용</th>
+						</tr>
 						<c:forEach var="hist" items="${history }">
-						<c:set var="histNo" value="${histNo + 1 }" />
-							<tr>
-								<td>
-									<input type="checkbox" name="hisChk" value="${hist.historyNo }" />
-								</td>
-								<td> 
-									<input id="${hist.historyNo }" class="hist" type="text" value="${hist.year }" disabled /> : 
-									<input class="hist" type="text" value="${hist.historyInfo }" disabled />
-								</td>
-							</tr>
+						<tr>
+							<td><input name="hisChk" type="checkbox" value="${hist.historyNo }" /></td>
+							<td><input name="hisYr" class="hist" type="text" value="${hist.year }" disabled /></td> 
+							<td><input name="hisInfo" class="hist" type="text" value="${hist.historyInfo }" disabled /></td>
+						</tr>
 						</c:forEach>
 						<tr>
 							<td id="addHForm" colspan="2" style="display:none;">
@@ -457,6 +586,7 @@ $(document).ready(function(){
 						</tr>
 					</table>
 				</th>
+			</tr>
 			</table>
 		</div>
 		
@@ -464,9 +594,9 @@ $(document).ready(function(){
 		<div class="div-member div-common">
 			<table>
 			<tr>
-				<th><h3>Member</h3></th>
+				<th style="width:80px;"><h4>Member</h4></th>
 				<th>
-					<table>
+					<table id="memberTb">
 						<tr>
 							<th></th>
 							<th>포지션</th>
@@ -475,9 +605,9 @@ $(document).ready(function(){
 						
 						<c:forEach var="mem" items="${member }">
 						<tr>
-							<td><input type="checkbox" name="memChk" value="${mem.bandMemberNo }" /></td>
-							<td><input class="mems" type="text" value="${mem.mPosition }" disabled /></td>
-							<td><input class="mems" type="text" value="${mem.bandMemName }" disabled /></td>
+							<td><input name="memChk" type="checkbox" value="${mem.bandMemberNo }" /></td>
+							<td><input name="memPo" class="mems" type="text" value="${mem.mPosition }" disabled /></td>
+							<td><input name="memName" class="mems" type="text" value="${mem.bandMemName }" disabled /></td>
 						</tr>
 						</c:forEach>
 						<tr>
@@ -499,12 +629,11 @@ $(document).ready(function(){
 		
 		<!-- 밴드 소개 -->
 		<div class="div-info div-common">
-			<table>
+			<table id="infoTb">
 				<tr>
-					<th><h3>소개</h3></th>
+					<th><h4>소개</h4></th>
 				</tr>
 				<tr>
-<%-- 				<td><input type="text" name="bInfo" value="${resumes.bandInfo }"/></td> --%>
 					<td>${resumes.bandInfo }</td>
 					
 				</tr>
@@ -514,4 +643,3 @@ $(document).ready(function(){
 	</div>
 	
 </div>
-<button type="button" id="applyBtn">초청하기</button>

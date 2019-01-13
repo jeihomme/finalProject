@@ -88,8 +88,6 @@ $(document).ready(function(){
 	// 밴드넘버, 바넘버 넘겨줄 값 설정 필요
 	var bandNo = ${param.bandNo};
 // 	var barNo = ${param.barNo};
-
-	console.log(map);
 	
 	$(".getDay").click(function(){
 		
@@ -107,24 +105,26 @@ $(document).ready(function(){
 			dataType: "json",
 			success: function(data) {
 
+				console.log(selDay);
+				
 				document.getElementById("wow").style.display="block";
 				
-				// 선택 날짜 표시
-				$("#date_D").val(selDay[2]);
+// 				// 선택 날짜 표시
+// 				$("#date_D").val(selDay[2]);
 				
-				// 해당 날짜 정보 리스트
-				var lists = data.datedInfo;
-				// 시간 리스트
-				var setTime = data.pTime;
+// 				// 해당 날짜 정보 리스트
+// 				var lists = data.datedInfo;
+// 				// 시간 리스트
+// 				var setTime = data.pTime;
 				
-				$("#ddInfo").empty();
+// 				$("#ddInfo").empty();
 				
-				// 시간 설정
-				$("#selSt").empty();
-				$("#selEd").empty();
-				$(".bbName").remove();
+// 				// 시간 설정
+// 				$(".selSt").empty();
+// 				$(".selEd").empty();
+// 				$(".bbName").remove();
 				
-				var checking = 0;
+// 				var checking = 0;
 				
 				
 				
@@ -302,12 +302,13 @@ $(document).ready(function(){
 		
 	});
 	
+	
+	$(".getSched").click(function(){
+		var barNo = $(".getSched").attr("id");
+		
+		console.log(barNo);
+	});
 });
-
-
-function view(str){
-	OpenWin("Update.jsp?type=SELECT&schedule_id="+str,480,360);
-}
 
 function OpenWin(URL, width, height){
 	var str, width, height;
@@ -319,9 +320,9 @@ function OpenWin(URL, width, height){
 
 </script>
 
-<c:set var="curYear" value="${map.curYear }" />
-<c:set var="curMonth" value="${map.curMonth }" />
-<c:set var="curDay" value="${map.curDay }" />
+<c:set var="curYear" value="${calendar.curYear }" />
+<c:set var="curMonth" value="${calendar.curMonth }" />
+<c:set var="curDay" value="${calendar.curDay }" />
 <%-- Parameter Setting --%>
 
 <%-- <c:set var="type" value="${map.type }" /> --%>
@@ -369,23 +370,23 @@ function OpenWin(URL, width, height){
       					<%-- month content table --%>
       					<table border='0' cellspacing='1' cellpadding='0' bgcolor=#dddddd>
       						<tr>
-								<c:if test="${map.firstDayOfWeek != '1'}">
+								<c:if test="${map.calendar.firstDayOfWeek != '1'}">
       							<%-- 해당 월의 가장 첫째줄에 있는 공백부분을 셈해서 처리한다.--%>
-      							<c:forEach var="i" begin="1" end="${map.firstDayOfWeek-1}">
+      							<c:forEach var="i" begin="1" end="${calendar.firstDayOfWeek-1}">
 									<td width="70" height="78" class="uline" valign="top" align="right" style="padding:5">
 									</td>
 								</c:forEach>
 								</c:if>
 								
 								<%-- 이 달의 끝날까지 메모의 제목과 날짜(숫자)를 출력한다 --%>
-      							<c:forEach var="currentDay" begin="1" end="${map.lastDayOfMonth}">									
+      							<c:forEach var="currentDay" begin="1" end="${calendar.lastDayOfMonth}">									
 									<td bgcolor="#ffffff" style="padding:5">
 										<table cellpadding="0" cellsping="0" border="0" width="70">
 										<tr>
 											<td height="10" width="70" class="uline" valign="top" align="right">
 												<a class="getDay" id="${curYear }.${curMonth }.${currentDay }">
 												<c:choose>
-													<c:when test="${((currentDay-(8-map.firstDayOfWeek)) % 7) == 1}">
+													<c:when test="${((currentDay-(8-calendar.firstDayOfWeek)) % 7) == 1}">
 														<%-- 일요일 --%>
 														<FONT color="red">													
 															<c:out value="${currentDay}"/>  
@@ -403,13 +404,14 @@ function OpenWin(URL, width, height){
 											<td height="68" width="70" valign="top">
 <%-- 											${(currentDay-(8-map.firstDayOfWeek)) % 7 }<br> --%>
 											<table>
-												<c:forEach var="dayIndex" items="${map.sched}">
+												<c:forEach var="dayIndex" items="${sched.sched}">
 													<c:if test="${currentDay == dayIndex.calendarDate}">
 														<tr><td>
 															<table>
 																<tr>
 																	<td>
-														<a href="javascript:view('${dayIndex.calendarNo}')">
+<%-- 														<a class="getSched" id="${bars.barNo }"> --%>
+														<a href="javascript:view('${month_query.rows[dbIndex].schedule_id}')">
 															${dayIndex.startTime} ~ ${dayIndex.endTime } : ${dayIndex.barName } - ${dayIndex.bandName }<br><br>
 														</a>
 																	</td>
@@ -422,18 +424,18 @@ function OpenWin(URL, width, height){
 											</table>
 											</td>
 										</tr>
-										</table>		
+										</table>
 									</td>
 									<%-- 만약 한주의 마지막날(토요일)이고 이 달의 마지막 날이 아니라면 다음 줄로 넘어간다. --%>
-									<c:if test="${((currentDay-(8-map.firstDayOfWeek)) % 7) == 0}">
+									<c:if test="${((currentDay-(8-calendar.firstDayOfWeek)) % 7) == 0}">
 										</tr>
 										<tr>
 									</c:if>
 								</c:forEach>
 
 								<%-- 해당 월의 가장 마지막 줄에 있는 공백부분을 셈해서 처리한다.--%>
-								<c:if test="${map.lastDayOfLastWeek != '7'}">
-								<c:forEach var="i" begin="1" end="${7-map.lastDayOfLastWeek}">
+								<c:if test="${calendar.lastDayOfLastWeek != '7'}">
+								<c:forEach var="i" begin="1" end="${7-calendar.lastDayOfLastWeek}">
 									<td width=70 height=78 class=uline valign=top align=right style='padding:5'>
 									</td>
 								</c:forEach>
@@ -489,18 +491,18 @@ function OpenWin(URL, width, height){
                     </TD>
                     <TD>
                     	<table id="ddInfo" style="margin-left:3px">
-							<c:forEach var="timeInfo" items="${map.sched}">
+							<c:forEach var="timeInfo" items="${sched.pTime}">
 								<tr>
 								<td>
-									<select id="selSt" disabled >
-	                        			<c:forEach var="pt" items="${map.pTime }" >
-											<option class="stTime" id="${pt.timeId }">${pt.hourM }</option>
+									<select class="selSt" disabled >
+	                        			<c:forEach var="pt" items="${sched.pTime }" >
+											<option class="stTime" value="${pt.timeId }">${pt.hourM }</option>
 			                        	</c:forEach>
 			                        </select>
 					~
-    			                    <select id="selEd" disabled >
-                			        	<c:forEach var="pt" items="${map.pTime }" >
-			                        		<option class="edTime" id="${pt.timeId }">${pt.hourM }</option>
+    			                    <select class="selEd" disabled >
+                			        	<c:forEach var="pt" items="${sched.pTime }" >
+			                        		<option class="edTime" value="${pt.timeId }">${pt.hourM }</option>
 			                        	</c:forEach>
 			                        </select>
                         
@@ -520,13 +522,13 @@ function OpenWin(URL, width, height){
             	<tr>
             		<td>
             			<select id="addSt" >
-	                        <c:forEach var="pt" items="${map.pTime }" >
+	                        <c:forEach var="pt" items="${sched.pTime }" >
 								<option class="stTime" value="${pt.timeId }">${pt.hourM }</option>
 			                </c:forEach>
 						</select>
 					~
     			        <select id="addEd" >
-                			<c:forEach var="pt" items="${map.pTime }" >
+                			<c:forEach var="pt" items="${sched.pTime }" >
 			                	<option class="edTime" value="${pt.timeId }">${pt.hourM }</option>
 			                </c:forEach>
 			            </select>
