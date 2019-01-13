@@ -1,6 +1,7 @@
 package web.service.face;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +13,13 @@ import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
 import web.dto.Bar;
+import web.dto.CalendarD;
 import web.dto.Genre;
 import web.dto.History;
 import web.dto.Location;
 import web.dto.Member;
 import web.dto.Music;
+import web.dto.PTime;
 import web.dto.ProfilePic;
 import web.dto.Resumes;
 import web.utils.Paging;
@@ -130,6 +133,16 @@ public interface MypageService {
 	
 	public int getAppTotalCountAppliedBar(Band band, String startDate, String endDate);
 	public int getAppTotalCountAppliedBand(Band band, String startDate, String endDate);
+	
+	public List getHours();
+	public Application getApp(Application app);
+	public void updateCalendarByBandNo(CalendarD cal);
+	public Bar getBarByBarName(Bar bar);
+	public void updateCalendarByBarNo(CalendarD cal);
+	public Map getScheduleByBarNo(Map map, int barNo);
+	public Map getScheduleByBandNo(Map map, int bandNo);
+	public CalendarD getCalendar(CalendarD cal);
+	public PTime getPTime(PTime startTime);
 	
 	
 	

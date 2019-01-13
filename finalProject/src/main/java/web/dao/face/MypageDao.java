@@ -1,6 +1,7 @@
 package web.dao.face;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -9,11 +10,13 @@ import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
 import web.dto.Bar;
+import web.dto.CalendarD;
 import web.dto.Genre;
 import web.dto.History;
 import web.dto.Location;
 import web.dto.Member;
 import web.dto.Music;
+import web.dto.PTime;
 import web.dto.ProfilePic;
 import web.dto.Resumes;
 import web.utils.Paging;
@@ -145,6 +148,16 @@ public interface MypageDao {
 	public int selectAppDateSearchCntByBarNameAppliedBar(@Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
 	public int selectAppDateSearchCntByBandNoAppliedBand(@Param("band")Band band, @Param("startDate")String startDate, @Param("endDate")String endDate);
 	public int selectAppDateSearchCntByBarNameAppliedBand(@Param("bar")Bar bar, @Param("startDate")String startDate, @Param("endDate")String endDate);
+	
+	public Application selectAppByAppNo(Application app);
+	public void updateCalendarByBandNo(CalendarD cal);
+	public Bar selectBarByBarName(Bar bar);
+	public void updateCalendarByBarNo(CalendarD cal);
+	public List scheduleBybarNo(@Param("map")Map map, @Param("barNo")int barNo);
+	public List scheduleBybandNo(@Param("map")Map map, @Param("bandNo")int bandNo);
+	
+	public CalendarD selectCalendarByCalendarNo(CalendarD cal);
+	public PTime selectPTimeByTimeId(PTime startTime);
 	
 	
 	

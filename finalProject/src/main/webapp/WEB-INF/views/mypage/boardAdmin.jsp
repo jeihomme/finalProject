@@ -117,12 +117,12 @@
 <div class="adminMypageSearchDiv">
 	<div class="searchUserinfo">
 			검색조건 <select class="searchBtn" id = "searchCategory" name="searchCategory">
-				<option class="searchBtn" value="">카테고리</option>
-			    <option class="searchBtn" value="1">밴드 이름</option>
-			    <option class="searchBtn" value="2">제목</option>
+				<option value="">카테고리</option>
+			    <option value="1">밴드 이름</option>
+			    <option value="2">제목</option>
 			</select>
 			
-			검색어 입력 <input class="searchBtn" type="text" id="searchKeyowrd" name="searchKeyowrd" />
+			검색어 입력 <input type="text" id="searchKeyowrd" name="searchKeyowrd" value="${search }"/>
 			<button class="searchBtn" onclick="searchBoardInfo()"> 검색 </button>
 	</div>
 </div>

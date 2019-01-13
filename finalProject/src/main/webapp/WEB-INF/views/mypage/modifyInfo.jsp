@@ -27,6 +27,7 @@
 	
 	.adminMypageMainInfo {
 		margin: 10px;
+		width:300px;
 		float:left;
 	}
 	
@@ -127,6 +128,11 @@
 		color: black;
 		font-size: 15px;
 	}
+	
+	.adminDetailInfo2 {
+		font-size:15px;
+ 		float:right;
+	}
 </style>
 
 <script type="text/javascript">
@@ -167,11 +173,10 @@ $(document).ready(function() {
 			
 			<p class="adminDetailTitle">Modify </p>
 			<hr>
-			<b class="adminDetailInfo">계정</b> ${member.userId }<br>
-			<b class="adminDetailInfo">이름</b> ${member.userName }<br>
 			
-<!-- 			<form class="modifyInfoDone" action="/mypage/modifyPw" method="post"> -->
-				<!-- The Modal -->
+			<b class="adminDetailInfo">계정</b> <b class="adminDetailInfo2">${member.userId }</b><br>
+			<b class="adminDetailInfo">이름</b> <b class="adminDetailInfo2">${member.userName }</b><br>
+			
 				<div id="myModal" class="modal-pw">
 				  <!-- Modal content -->
 				  <div class="modal-content-pw">
@@ -186,9 +191,7 @@ $(document).ready(function() {
 					
 				  </div>
 				</div>
-<!-- 			</form> -->
-			
-<!-- 			<form class="modifyInfoDone" action="/mypage/modifyInfo" method="post"> -->
+
 				<b class="adminDetailInfo">이메일</b> <input id="email" name="email" value="${member.email }"/><br>
 				<b class="adminDetailInfo">통신사</b> 
 				
@@ -208,7 +211,6 @@ $(document).ready(function() {
 				</select><br><br>
 				<b class="adminDetailInfo">연락처</b> <input id="contact" name="contact" value="${member.contact }"/><br>
 				<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><button class="modifyBtn" onclick="modifyMypageInfo()">수정</button>
-<!-- 			</form> -->
 		</div>
 		<div class="adminMypageMainImage">
 			<img src="../resources/adminMainImage.png" class="myPageMainImage">
@@ -232,8 +234,8 @@ $(document).ready(function() {
 		<div class="adminMypageMainInfo">
 			<p class="adminDetailTitle">Modify</p>
 			<hr>
-			<b class="adminDetailInfo">아이디</b> ${member.userId }<br>
-			<b class="adminDetailInfo">닉네임</b> ${member.userName }<br>
+			<b class="adminDetailInfo">계정</b> <b class="adminDetailInfo2">${member.userId }</b><br>
+			<b class="adminDetailInfo">이름</b> <b class="adminDetailInfo2">${member.userName }</b><br>
 			
 				<!-- The Modal -->
 				<div id="myModal" class="modal-pw">
@@ -297,8 +299,8 @@ $(document).ready(function() {
 			
 			<p class="adminDetailTitle">Modify</p>
 			<hr>
-			<b class="adminDetailInfo">계정</b> ${member.userId }<br>
-			<b class="adminDetailInfo">이름</b> ${member.userName }<br>
+			<b class="adminDetailInfo">계정</b> <b class="adminDetailInfo2">${member.userId }</b><br>
+			<b class="adminDetailInfo">이름</b> <b class="adminDetailInfo2">${member.userName }</b><br>
 			
 			
 			<!-- The Modal -->

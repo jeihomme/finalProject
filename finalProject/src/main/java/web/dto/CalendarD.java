@@ -2,11 +2,11 @@ package web.dto;
 
 public class CalendarD {
 	
-	private String calendarNo;
+	private int calendarNo;
 	private String calendarDate;
-	private String barNo;
+	private int barNo;
 	private String barName;
-	private String bandNo;
+	private int bandNo;
 	private String bandName;
 	private String startTime;
 	private String endTime;
@@ -16,10 +16,10 @@ public class CalendarD {
 				+ ", barName=" + barName + ", bandNo=" + bandNo + ", bandName=" + bandName + ", startTime=" + startTime
 				+ ", endTime=" + endTime + "]";
 	}
-	public String getCalendarNo() {
+	public int getCalendarNo() {
 		return calendarNo;
 	}
-	public void setCalendarNo(String calendarNo) {
+	public void setCalendarNo(int calendarNo) {
 		this.calendarNo = calendarNo;
 	}
 	public String getCalendarDate() {
@@ -28,10 +28,10 @@ public class CalendarD {
 	public void setCalendarDate(String calendarDate) {
 		this.calendarDate = calendarDate;
 	}
-	public String getBarNo() {
+	public int getBarNo() {
 		return barNo;
 	}
-	public void setBarNo(String barNo) {
+	public void setBarNo(int barNo) {
 		this.barNo = barNo;
 	}
 	public String getBarName() {
@@ -40,10 +40,10 @@ public class CalendarD {
 	public void setBarName(String barName) {
 		this.barName = barName;
 	}
-	public String getBandNo() {
+	public int getBandNo() {
 		return bandNo;
 	}
-	public void setBandNo(String bandNo) {
+	public void setBandNo(int bandNo) {
 		this.bandNo = bandNo;
 	}
 	public String getBandName() {
@@ -64,6 +64,4 @@ public class CalendarD {
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
-	
-	
 }

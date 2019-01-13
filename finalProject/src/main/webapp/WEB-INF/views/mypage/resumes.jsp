@@ -116,23 +116,24 @@
 		float:right;
 	}
 	
-	tr th {
-		text-align: center;
-		color:#000;
-		background-color: gold;
-	}
-	
-	td {
-		border-left: 1px solid white;
-		border-right: 1px solid white;
-		color:#fff;
-		background-color: black;
-	}
-	
 	.profilePicSize {
 		width: 220px;
 		height: 200px;
 	}
+	
+	tr th {
+	text-align: center;
+	color:#000;
+	background-color: gold;
+	}
+	
+	td {
+/* 		border-left: 1px solid white; */
+/* 		border-right: 1px solid white; */
+		color:#fff;
+		background-color: black;
+	}
+	
 </style>
 
 <c:if test="${loginInfo.roleId eq 1 }">
@@ -187,16 +188,17 @@
 	<hr>
 	<div>
 		<b class="bandIntroHeader">밴드소개 제목</b>
-		<table class="table table-hover table-striped table-condensed">
-			
+		<table class="type10">
+			<thead>
 			<tr>
 				<th>제목</th>
 			</tr>
-		
+			</thead>
+			<tbody>
 			<tr>
 				<td>${resumes.resumesTitle }</td>
 			</tr>
-			
+			</tbody>
 		</table>
 	</div>
 </div>
@@ -205,17 +207,21 @@
 	<hr>
 	<div>
 		<b class="bandIntroHeader">첨부파일</b>
-		<table class="table table-hover table-striped table-condensed">
+		<table class="type10">
+			<thead>
 			<tr>
 				<th>파일명</th>
 				<th>등록/수정일</th>
 			</tr>
+			</thead>
+			<tbody>
 			<tr>
 				<td>${music.musicTitle }</td>
 				<td>
 				${music.writtenDate }
 				</td>
 			</tr>
+			</tbody>
 		</table>
 	</div>
 </div>
@@ -224,18 +230,29 @@
 	<hr>
 	<div>
 		<b class="bandIntroHeader">History</b>
-		<table class="table table-hover table-striped table-condensed">
-			
+		<table class="type10">
+			<thead>
 			<tr>
 				<th>이력</th>
 			</tr>
-		
-			<c:forEach items="${historyList }" var="i">
+			</thead>
+			<tbody>
+			<c:forEach items="${historyList }" var="i" varStatus="status">
 	<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
 					<tr>
-						<td>${i.year }년, ${i.historyInfo }</td>
+					<c:if test="${status.count %2 eq 1 }">
+					<td>
+						${i.year }년, ${i.historyInfo }
+					</td>
+					</c:if>
+					<c:if test="${status.count %2 eq 0 }">
+					<td class="even">
+						${i.year }년, ${i.historyInfo }
+					</td>
+					</c:if>
 					</tr>
 			</c:forEach>
+			</tbody>
 		</table>
 	</div>
 </div>
@@ -243,13 +260,17 @@
 <div class="adminMypageSearchRes">
 	<hr>
 		<p class="adminDetailTitle">밴드 소개 </p>
-		<table class="table table-hover table-striped table-condensed fixedTableSize">
+		<table class="type10">
+			<thead>
 			<tr class="fixedTableSize">
 				<th class="fixedTableSize">소개</th>
 			</tr>
+			</thead>
+			<tbody>
 			<tr class="fixedTableSize">
 				<td class="fixedTableSize">${resumes.bandInfo }</td>
 			</tr>
+			</tbody>
 		</table>
 </div>
 

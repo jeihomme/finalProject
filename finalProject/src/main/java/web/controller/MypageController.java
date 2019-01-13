@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -25,14 +27,16 @@ import web.dto.Band;
 import web.dto.BandGenre;
 import web.dto.BandMember;
 import web.dto.Bar;
+import web.dto.CalendarD;
 import web.dto.Genre;
 import web.dto.History;
-import web.dto.HistoryList;
 import web.dto.Location;
 import web.dto.Member;
 import web.dto.Music;
+import web.dto.PTime;
 import web.dto.ProfilePic;
 import web.dto.Resumes;
+import web.service.face.CalendarService;
 import web.service.face.MemberService;
 import web.service.face.MypageService;
 import web.utils.Paging;
@@ -803,6 +807,9 @@ public class MypageController {
 				logger.info("---appView---");
 				List<Application> aList = mpService.appViewAppliedBand(paging, bar, startDate, endDate);
 				List<Band> bandNoList = new ArrayList<>();
+				List<CalendarD> calList = new ArrayList<>();
+				List<PTime> stList = new ArrayList<>();
+				List<PTime> enList = new ArrayList<>();
 				
 				for(Application app : aList) {
 					
@@ -812,17 +819,38 @@ public class MypageController {
 					resumes = mpService.getResumes(resumes);
 					logger.info(resumes.toString());
 					
+					CalendarD cal = new CalendarD();
+					cal.setCalendarNo(app.getCalendarNo());
+					cal = mpService.getCalendar(cal);
+					
+					PTime startTime = new PTime();
+					startTime.setTimeId(cal.getStartTime());
+					startTime = mpService.getPTime(startTime);
+					
+					PTime endTIme = new PTime();
+					endTIme.setTimeId(cal.getEndTime());
+					endTIme = mpService.getPTime(endTIme);
+					
 					System.out.println(resumes.getBandNo());
 					Band addBand = new Band();
 					addBand.setBandNo(resumes.getBandNo());
 					addBand = mpService.getBandByBandNo(addBand);
 					
 					bandNoList.add(addBand);
+					calList.add(cal);
+					stList.add(startTime);
+					enList.add(endTIme);
 				}
 				logger.info("---addAttribute---");
+				model.addAttribute("startDate", startDate);
+				model.addAttribute("endDate", endDate);
 				model.addAttribute("aList", aList);
+				model.addAttribute("calList", calList);
 				model.addAttribute("bandNoList", bandNoList);
 				model.addAttribute("paging", paging);
+				
+				model.addAttribute("stList", stList);
+				model.addAttribute("enList", enList);
 			
 			} else {
 //				검색어가 없다면,
@@ -834,6 +862,7 @@ public class MypageController {
 				logger.info("---appView---");
 				List<Application> aList = mpService.appViewAppliedBand(paging, bar);
 				List<Band> bandNoList = new ArrayList<>();
+				List<CalendarD> calList = new ArrayList<>();
 				
 				for(Application app : aList) {
 					
@@ -843,16 +872,22 @@ public class MypageController {
 					resumes = mpService.getResumes(resumes);
 					logger.info(resumes.toString());
 					
+					CalendarD cal = new CalendarD();
+					cal.setCalendarNo(app.getCalendarNo());
+					cal = mpService.getCalendar(cal);
+					
 					System.out.println(resumes.getBandNo());
 					Band addBand = new Band();
 					addBand.setBandNo(resumes.getBandNo());
 					addBand = mpService.getBandByBandNo(addBand);
 					
 					bandNoList.add(addBand);
+					calList.add(cal);
 				}
 				
 				logger.info("---addAttribute---");
 				model.addAttribute("aList", aList);
+				model.addAttribute("calList", calList);
 				model.addAttribute("bandNoList", bandNoList);
 				model.addAttribute("paging", paging);
 			}
@@ -885,6 +920,7 @@ public class MypageController {
 				logger.info("---appViewAppliedBand(paging, band, startDate, endDate)---");
 				List<Application> aList = mpService.appViewAppliedBand(paging, band, startDate, endDate);
 				List<Band> bandNoList = new ArrayList<>();
+				List<CalendarD> calList = new ArrayList<>();
 				
 				for(Application app : aList) {
 					
@@ -894,15 +930,24 @@ public class MypageController {
 					resumes = mpService.getResumes(resumes);
 					logger.info(resumes.toString());
 					
+					CalendarD cal = new CalendarD();
+					cal.setCalendarNo(app.getCalendarNo());
+					cal = mpService.getCalendar(cal);
+					
 					System.out.println(resumes.getBandNo());
 					Band addBand = new Band();
 					addBand.setBandNo(resumes.getBandNo());
 					addBand = mpService.getBandByBandNo(addBand);
 					
 					bandNoList.add(addBand);
+					calList.add(cal);
 				}
+				
 				logger.info("---addAttribute---");
+				model.addAttribute("startDate", startDate);
+				model.addAttribute("endDate", endDate);
 				model.addAttribute("aList", aList);
+				model.addAttribute("calList", calList);
 				model.addAttribute("bandNoList", bandNoList);
 				model.addAttribute("paging", paging);
 			
@@ -916,6 +961,7 @@ public class MypageController {
 				logger.info("---appView---");
 				List<Application> aList = mpService.appViewAppliedBand(paging, band);
 				List<Band> bandNoList = new ArrayList<>();
+				List<CalendarD> calList = new ArrayList<>();
 				
 				for(Application app : aList) {
 					
@@ -925,96 +971,26 @@ public class MypageController {
 					resumes = mpService.getResumes(resumes);
 					logger.info(resumes.toString());
 					
+					CalendarD cal = new CalendarD();
+					cal.setCalendarNo(app.getCalendarNo());
+					cal = mpService.getCalendar(cal);
+					
 					System.out.println(resumes.getBandNo());
 					Band addBand = new Band();
 					addBand.setBandNo(resumes.getBandNo());
 					addBand = mpService.getBandByBandNo(addBand);
 					
 					bandNoList.add(addBand);
+					calList.add(cal);
 				}
 				
 				logger.info("---addAttribute---");
 				model.addAttribute("aList", aList);
+				model.addAttribute("calList", calList);
 				model.addAttribute("bandNoList", bandNoList);
 				model.addAttribute("paging", paging);
 			}
 		}
-		
-		
-	}
-	
-//	@RequestMapping(value = "/mypage/applicationToBar", method=RequestMethod.POST)
-//	public void applicationToBarSearch(
-//			HttpServletRequest req
-//			, Model model
-//			, HttpSession session
-//			) {
-//		logger.info("---applicationToBarSearch---");
-////		searchApplicationUser
-//		
-//		Member member = (Member) session.getAttribute("loginInfo");
-//		member = mbService.loginInfo(member);
-//		logger.info(member.toString());
-//		
-//		Bar bar = new Bar();
-//		bar.setUserId(member.getUserId());
-//		bar = mpService.getBar(bar);
-//		
-//		String startDate = req.getParameter("appStartDate");
-//		String endDate = req.getParameter("appEndDate");
-//		
-//		System.out.println(startDate + " ~ " + endDate);
-//		
-//		int CurPage = mpService.getCurPage(req);
-//		
-//		Paging paging;
-//		
-////		검색어가 있다면
-//		if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
-//			logger.info("---getAppTotalCount---");
-//			int totalCount = mpService.getAppTotalCount(bar, startDate, endDate);
-//			logger.info("---totalCount String : "+totalCount);
-//			
-//			logger.info("---Paging---");
-//			paging = new Paging(totalCount, CurPage);
-//			
-//			logger.info("---appView---");
-//			List<Application> aList = mpService.appView(paging, bar, startDate, endDate);
-//			
-//			logger.info("---addAttribute---");
-//			model.addAttribute("aList", aList);
-//			model.addAttribute("paging", paging);
-//		}
-////		검색어가 없다면,
-//		else {
-//			logger.info("---getTotalCount---");
-//			int totalCount = mpService.getUserTotalCount();
-//			
-//			logger.info("---Paging---");
-//			paging = new Paging(totalCount, CurPage);
-//			
-//			logger.info("---appView---");
-//			List<Application> aList = mpService.appView(paging, member);
-//			
-//			logger.info("---addAttribute---");
-//			model.addAttribute("aList", aList);
-//			model.addAttribute("paging", paging);
-//		}
-//	}
-	
-	
-	@RequestMapping(value = "/mypage/applicationToBarCancel", method=RequestMethod.POST)
-	public String applicationToBarCancel(
-			HttpServletRequest req
-			) {
-		logger.info("---applicationToBarCancel---");
-		Application app = new Application();
-		app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
-		
-		logger.info(app.toString());
-		mpService.appDelete(app);
-		
-		return "redirect:/mypage/applicationToBar";
 	}
 	
 	@RequestMapping(value = "/mypage/applicationToBand", method=RequestMethod.GET)
@@ -1060,6 +1036,7 @@ public class MypageController {
 					logger.info("---appView---");
 					List<Application> aList = mpService.appViewAppliedBar(paging, bar, startDate, endDate);
 					List<Band> bandNoList = new ArrayList<>();
+					List<CalendarD> calList = new ArrayList<>();
 					
 					for(Application app : aList) {
 						
@@ -1069,16 +1046,24 @@ public class MypageController {
 						resumes = mpService.getResumes(resumes);
 						logger.info(resumes.toString());
 						
+						CalendarD cal = new CalendarD();
+						cal.setCalendarNo(app.getCalendarNo());
+						cal = mpService.getCalendar(cal);
+						
 						System.out.println(resumes.getBandNo());
 						Band addBand = new Band();
 						addBand.setBandNo(resumes.getBandNo());
 						addBand = mpService.getBandByBandNo(addBand);
 						
 						bandNoList.add(addBand);
+						calList.add(cal);
 					}
 					
 					logger.info("---addAttribute---");
+					model.addAttribute("startDate", startDate);
+					model.addAttribute("endDate", endDate);
 					model.addAttribute("aList", aList);
+					model.addAttribute("calList", calList);
 					model.addAttribute("bandNoList", bandNoList);
 					model.addAttribute("paging", paging);
 			}
@@ -1093,6 +1078,7 @@ public class MypageController {
 				logger.info("---appView---");
 				List<Application> aList = mpService.appViewAppliedBar(paging, bar);
 				List<Band> bandNoList = new ArrayList<>();
+				List<CalendarD> calList = new ArrayList<>();
 				
 				for(Application app : aList) {
 					
@@ -1102,16 +1088,22 @@ public class MypageController {
 					resumes = mpService.getResumes(resumes);
 					logger.info(resumes.toString());
 					
+					CalendarD cal = new CalendarD();
+					cal.setCalendarNo(app.getCalendarNo());
+					cal = mpService.getCalendar(cal);
+					
 					System.out.println(resumes.getBandNo());
 					Band addBand = new Band();
 					addBand.setBandNo(resumes.getBandNo());
 					addBand = mpService.getBandByBandNo(addBand);
 					
 					bandNoList.add(addBand);
+					calList.add(cal);
 				}
 				
 				logger.info("---addAttribute---");
 				model.addAttribute("aList", aList);
+				model.addAttribute("calList", calList);
 				model.addAttribute("bandNoList", bandNoList);
 				model.addAttribute("paging", paging);
 			}
@@ -1119,7 +1111,6 @@ public class MypageController {
 		} else if ( member.getRoleId() == 2 ) {
 			band.setUserId(member.getUserId());
 			band = mpService.getBand(band);
-			
 			
 			int CurPage = mpService.getCurPage(req);
 			
@@ -1143,6 +1134,7 @@ public class MypageController {
 					logger.info("---appView---");
 					List<Application> aList = mpService.appViewAppliedBar(paging, band, startDate, endDate);
 					List<Band> bandNoList = new ArrayList<>();
+					List<CalendarD> calList = new ArrayList<>();
 					
 					for(Application app : aList) {
 						
@@ -1152,16 +1144,24 @@ public class MypageController {
 						resumes = mpService.getResumes(resumes);
 						logger.info(resumes.toString());
 						
+						CalendarD cal = new CalendarD();
+						cal.setCalendarNo(app.getCalendarNo());
+						cal = mpService.getCalendar(cal);
+						
 						System.out.println(resumes.getBandNo());
 						Band addBand = new Band();
 						addBand.setBandNo(resumes.getBandNo());
 						addBand = mpService.getBandByBandNo(addBand);
 						
 						bandNoList.add(addBand);
+						calList.add(cal);
 					}
 					
 					logger.info("---addAttribute---");
+					model.addAttribute("startDate", startDate);
+					model.addAttribute("endDate", endDate);
 					model.addAttribute("aList", aList);
+					model.addAttribute("calList", calList);
 					model.addAttribute("bandNoList", bandNoList);
 					model.addAttribute("paging", paging);
 				
@@ -1177,6 +1177,7 @@ public class MypageController {
 				logger.info("---appView---");
 				List<Application> aList = mpService.appViewAppliedBar(paging, band);
 				List<Band> bandNoList = new ArrayList<Band>();
+				List<CalendarD> calList = new ArrayList<>();
 				
 				for(Application app : aList) {
 					
@@ -1184,117 +1185,138 @@ public class MypageController {
 					resumes.setResumesNo(app.getResumesNo());
 					
 					resumes = mpService.getResumes(resumes);
+					logger.info(resumes.toString());
 					
+					CalendarD cal = new CalendarD();
+					cal.setCalendarNo(app.getCalendarNo());
+					cal = mpService.getCalendar(cal);
+					
+					System.out.println(resumes.getBandNo());
 					Band addBand = new Band();
 					addBand.setBandNo(resumes.getBandNo());
-					addBand = mpService.getBandByBandNo(band);
+					addBand = mpService.getBandByBandNo(addBand);
+					
 					bandNoList.add(addBand);
+					calList.add(cal);
 				}
+				
 				System.out.println(bandNoList);
 				logger.info("---addAttribute---");
 				model.addAttribute("aList", aList);
+				model.addAttribute("calList", calList);
 				model.addAttribute("bandNoList", bandNoList);
-				
 				model.addAttribute("paging", paging);
 			}
 		}
 		
 	}
 	
-//	@RequestMapping(value = "/mypage/applicationToBand", method=RequestMethod.POST)
-//	public void applicationToBandSearch(
-//			HttpServletRequest req
-//			, Model model
-//			, HttpSession session
-//			, Writer out
-//			) {
-//		logger.info("---applicationToBandSearch---");
-////		searchApplicationUser
-//		
-//		Member member = (Member) session.getAttribute("loginInfo");
-//		member = mbService.loginInfo(member);
-//		logger.info(member.toString());
-//		
-//		Bar bar = new Bar();
-//		bar.setUserId(member.getUserId());
-//		bar = mpService.getBar(bar);
-//		
-//		int CurPage = mpService.getCurPage(req);
-//		
-//		String startDate = req.getParameter("appStartDate");
-//		String endDate = req.getParameter("appEndDate");
-//		
-//		System.out.println(startDate + " ~ " + endDate);
-//		
-//		Paging paging;
-//		
-////		검색어가 있다면
-//		if( startDate!=null && !"".equals(startDate) || endDate!=null && !"".equals(endDate)) {
-//			try {
-//				out.write("{\"res\": true}" );
-//				
-//				logger.info("---getAppTotalCount---");
-//				int totalCount = mpService.getAppTotalCount(bar, startDate, endDate);
-//				logger.info("---totalCount String : "+totalCount);
-//				
-//				logger.info("---Paging---");
-//				paging = new Paging(totalCount, CurPage);
-//				
-//				logger.info("---appView---");
-//				List<Application> aList = mpService.appView(paging, bar, startDate, endDate);
-//				
-//				logger.info("---addAttribute---");
-//				model.addAttribute("aList", aList);
-//				model.addAttribute("paging", paging);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			
-//		}
-////		검색어가 없다면,
-//		else {
-//			logger.info("---getTotalCount---");
-//			int totalCount = mpService.getUserTotalCount();
-//			
-//			logger.info("---Paging---");
-//			paging = new Paging(totalCount, CurPage);
-//			
-//			logger.info("---appView---");
-//			List<Application> aList = mpService.appView(paging, member);
-//			
-//			logger.info("---addAttribute---");
-//			model.addAttribute("aList", aList);
-//			model.addAttribute("paging", paging);
-//		}
-//	}
-	
 	@RequestMapping(value = "/mypage/applicationToBandAccept", method=RequestMethod.POST)
-	public void applicationToBandAccept(
+	public String applicationToBandAccept(
 			HttpServletRequest req
-			, Writer out
+			, HttpSession session
 			) {
 		logger.info("---applicationToBandAccept---");
 		
-		if( req.getParameter("appNo")!=null && !"".equals(req.getParameter("appNo")) ) {
-			try {
-				out.write("{\"res\": true}" );
-				
-				Application app = new Application();
-				app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
-				app.setAccept(Integer.parseInt(req.getParameter("accept") ));
-				
-				logger.info(app.toString());
-				mpService.appAcceptUpdate(app);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		Member member = (Member) session.getAttribute("loginInfo");
+		member = mbService.loginInfo(member);
+		logger.info(member.toString());
 		
-//		return "redirect:/mypage/applicationToBand";
+		if ( member.getRoleId() == 1 ) {
+			if( req.getParameter("appNo")!=null && !"".equals(req.getParameter("appNo")) ) {
+				if( req.getParameter("accept").equals("1") ) {
+					
+					Application app = new Application();
+					app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
+					app.setAccept(Integer.parseInt(req.getParameter("accept") ));
+					logger.info(app.toString());
+					mpService.appAcceptUpdate(app);
+					
+					app = mpService.getApp(app);
+					
+					Resumes res = new Resumes();
+					res.setResumesNo(app.getResumesNo());
+					res = mpService.getResumes(res);
+					
+					CalendarD cal = new CalendarD();
+					cal.setCalendarNo( app.getCalendarNo() );
+					cal.setBandNo(res.getBandNo());
+					mpService.updateCalendarByBandNo(cal);
+					
+					
+				} else if( req.getParameter("accept").equals("2") ) {
+					Application app = new Application();
+					app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
+					app.setAccept(Integer.parseInt(req.getParameter("accept") ));
+					
+					logger.info(app.toString());
+					mpService.appAcceptUpdate(app);
+				}
+					
+			}
+			
+			return "redirect:/mypage/applicationToBar";
+			
+		} else {
+			if( req.getParameter("appNo")!=null && !"".equals(req.getParameter("appNo")) ) {
+				if( req.getParameter("accept").equals("1") ) {
+					
+					Application app = new Application();
+					app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
+					app.setAccept(Integer.parseInt(req.getParameter("accept") ));
+					logger.info(app.toString());
+					mpService.appAcceptUpdate(app);
+					
+					app = mpService.getApp(app);
+					
+					Bar bar = new Bar();
+					bar.setBarName(app.getBarName());
+					bar = mpService.getBarByBarName(bar);
+					
+					CalendarD cal = new CalendarD();
+					cal.setCalendarNo( app.getCalendarNo() );
+					cal.setBarNo(bar.getBarNo());
+					mpService.updateCalendarByBarNo(cal);
+					
+					
+				} else if( req.getParameter("accept").equals("2") ) {
+					Application app = new Application();
+					app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
+					app.setAccept(Integer.parseInt(req.getParameter("accept") ));
+					
+					logger.info(app.toString());
+					mpService.appAcceptUpdate(app);
+				}
+					
+			}
+			
+			return "redirect:/mypage/applicationToBand";
+			
+		}
 	}
 	
+	@RequestMapping(value = "/mypage/applicationToBarCancel", method=RequestMethod.POST)
+	public String applicationToBarCancel(
+			HttpServletRequest req
+			, HttpSession session
+			) {
+		logger.info("---applicationToBarCancel---");
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		member = mbService.loginInfo(member);
+		logger.info(member.toString());
+		
+		Application app = new Application();
+		app.setAppNo(Integer.parseInt(req.getParameter("appNo") ));
+		
+		logger.info(app.toString());
+		mpService.appDelete(app);
+		if ( member.getRoleId() == 1 ) {
+			return "redirect:/mypage/applicationToBar";
+		} else {
+			return "redirect:/mypage/applicationToBand";
+		}
+	}
 //	--------------------------------------------------------------------------------------------------------------------------------------
 	@RequestMapping(value = "/mypage/recommand", method=RequestMethod.GET)
 	public void recommandBar(
@@ -1330,10 +1352,60 @@ public class MypageController {
 		
 	}
 //	--------------------------------------------------------------------------------------------------------------------------------------
+	
+	@Autowired CalendarService calendar;
+	
 	@RequestMapping(value = "/mypage/calendar", method=RequestMethod.GET)
-	public void calendar() {
+	public void calendar(
+			HttpSession session
+			, Model model
+			) {
 		logger.info("---calendar---");
 //		calendarView
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		member = mbService.loginInfo(member);
+		logger.info(member.toString());
+		
+		Band band = new Band();
+		Bar bar = new Bar();
+		
+		if ( member.getRoleId() == 1 ) {
+			bar.setUserId(member.getUserId());
+			bar = mpService.getBar(bar);
+			
+			Map map = new HashMap();
+			
+//			map.put("map", calendar.getCalendar());
+			map = calendar.getCalendar();
+			
+			
+			Map map2 = mpService.getScheduleByBarNo(map, bar.getBarNo());
+			List list3 = calendar.getInfoBar();
+			
+			model.addAttribute("number", bar.getBarNo());
+			model.addAttribute("bars", list3);
+			model.addAttribute("map", map);
+			
+		} else if ( member.getRoleId() == 2 ) {
+			band.setUserId(member.getUserId());
+			band = mpService.getBand(band);
+			
+			Map map = new HashMap();
+			
+//			map.put("map", calendar.getCalendar());
+			map = calendar.getCalendar();
+			
+			
+			Map map2 = mpService.getScheduleByBandNo(map, band.getBandNo());
+			List list3 = calendar.getInfoBar();
+			
+			model.addAttribute("number", band.getBandNo());
+			model.addAttribute("bars", list3);
+			model.addAttribute("map", map);
+		}
+		
+		
 	}
 	
 	@RequestMapping(value = "/mypage/modifyCalendar", method=RequestMethod.GET)
@@ -1409,6 +1481,7 @@ public class MypageController {
 			List<Member> mbList = mpService.userSearch(paging, category);
 			
 			logger.info("---addAttribute---");
+			model.addAttribute("search", search);
 			model.addAttribute("mbList", mbList);
 			model.addAttribute("paging", paging);
 			
@@ -1501,6 +1574,7 @@ public class MypageController {
 				List<Resumes> rsList = mpService.boardSearch(paging, category);
 				
 				logger.info("---addAttribute---");
+				model.addAttribute("search", search);
 				model.addAttribute("rsList", rsList);
 				model.addAttribute("paging", paging);
 				

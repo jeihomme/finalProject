@@ -302,7 +302,6 @@ $(document).ready(function() {
 	
 	$("#ajaxBtnNext").click( function() {
 		
-		console.log(${paging.curPage });
 		var nextStartPage = "${paging.startPage }"+1;
 			
 			
@@ -413,8 +412,8 @@ $(document).ready(function() {
 		<div class="searchUserinfo">
 	<!-- 		<form action="/mypage/applicationToBar" method="post"> -->
 				
-				<input type="date" class="insertResumesHistory" id="appStartDate" value=""/> ~ 
-				<input type="date" class="insertResumesHistory" id="appEndDate" value=""/>
+				<input type="date" class="insertResumesHistory" id="appStartDate" value="${startDate }"/> ~ 
+				<input type="date" class="insertResumesHistory" id="appEndDate" value="${endDate }"/>
 				<button id="searchBtn" class="searchBtn" onclick="searchAppFromBar() "> 검색 </button>
 	<!-- 		</form> -->
 		</div>
@@ -430,7 +429,6 @@ $(document).ready(function() {
 			<th scope="col">지원일</th>
 			<th scope="col">공연</th>
 			<th scope="col">수락 여부</th>
-<!-- 			<th scope="col">지원취소</th> -->
 		</tr>
 		</thead>
 			<c:forEach items="${aList }" var="i" varStatus="status">
@@ -460,10 +458,10 @@ $(document).ready(function() {
 					</c:if>
 					
 					<c:if test="${status.count % 2 eq 0 }">
-					<td class="even">지원날짜 / 시간</td>
+					<td class="even">${calList[status.count-1].calendarDate }, ${calList[status.count-1].startTime } ~ ${calList[status.count-1].endTime }</td>
 					</c:if>
 					<c:if test="${status.count % 2 eq 1 }">
-					<td>지원날짜 / 시간</td>
+					<td>${calList[status.count-1].calendarDate }, ${calList[status.count-1].startTime } ~ ${calList[status.count-1].endTime }</td>
 					</c:if>
 					
 					<c:if test="${status.count % 2 eq 0 }">
@@ -472,12 +470,12 @@ $(document).ready(function() {
 	<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
 									<input type="hidden" id="acceptAppNo" name="appNo" value="${i.appNo }">
 									<input type="hidden" id="acceptAcc" name="accept" value="1">
-									<button class="acceptBtnBlue" onclick="appToBandAccept() ">수락</button>
+									<button class="acceptBtnBlue" onclick="appToBandAccept(${i.appNo }) ">수락</button>
 	<!-- 						</form> -->
 	<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
 									<input type="hidden" id="rejectAppNo" name="appNo" value="${i.appNo }">
 									<input type="hidden" id="rejectAcc" name="accept" value="2">
-									<button class="acceptBtnRed" onclick="appToBandReject() ">거절</button>
+									<button class="acceptBtnRed" onclick="appToBandReject(${i.appNo }) ">거절</button>
 	<!-- 						</form> -->
 						</c:if>
 						<c:if test="${i.accept eq 1}">수락</c:if>
@@ -490,12 +488,12 @@ $(document).ready(function() {
 	<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
 									<input type="hidden" id="acceptAppNo" name="appNo" value="${i.appNo }">
 									<input type="hidden" id="acceptAcc" name="accept" value="1">
-									<button class="acceptBtnBlue" onclick="appToBandAccept() ">수락</button>
+									<button class="acceptBtnBlue" onclick="appToBandAccept(${i.appNo }) ">수락</button>
 	<!-- 						</form> -->
 	<!-- 						<form action="/mypage/applicationToBandAccept" method="post"> -->
 									<input type="hidden" id="rejectAppNo" name="appNo" value="${i.appNo }">
 									<input type="hidden" id="rejectAcc" name="accept" value="2">
-									<button class="acceptBtnRed" onclick="appToBandReject() ">거절</button>
+									<button class="acceptBtnRed" onclick="appToBandReject(${i.appNo }) ">거절</button>
 	<!-- 						</form> -->
 						</c:if>
 						<c:if test="${i.accept eq 1}">수락</c:if>
@@ -589,12 +587,9 @@ $(document).ready(function() {
 	
 	<div class="adminMypageSearchDiv">
 		<div class="searchUserinfo">
-	<!-- 		<form action="/mypage/applicationToBar" method="post"> -->
-				
-				<input type="date" class="insertResumesHistory" id="appStartDate" value=""/> ~ 
-				<input type="date" class="insertResumesHistory" id="appEndDate" value=""/>
-				<button id="searchBtn" class="searchBtn" onclick="searchAppFromBar() "> 검색 </button>
-	<!-- 		</form> -->
+			<input type="date" class="insertResumesHistory" id="appStartDate" value="${startDate }"/> ~ 
+			<input type="date" class="insertResumesHistory" id="appEndDate" value="${endDate }"/>
+			<button id="searchBtn" class="searchBtn" onclick="searchAppFromBar() "> 검색 </button>
 		</div>
 	</div>
 	
@@ -646,10 +641,10 @@ $(document).ready(function() {
 					</c:if>
 					
 					<c:if test="${status.count % 2 eq 0 }">
-					<td class="even">지원날짜 / 시간</td>
+					<td class="even">${calList[status.count-1].calendarDate }, ${calList[status.count-1].startTime } ~ ${calList[status.count-1].endTime }</td>
 					</c:if>
 					<c:if test="${status.count % 2 eq 1 }">
-					<td>지원날짜 / 시간</td>
+					<td>${calList[status.count-1].calendarDate }, ${calList[status.count-1].startTime } ~ ${calList[status.count-1].endTime }</td>
 					</c:if>
 					
 					<c:if test="${status.count % 2 eq 0 }">
