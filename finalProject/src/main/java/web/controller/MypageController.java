@@ -841,6 +841,7 @@ public class MypageController {
 					stList.add(startTime);
 					enList.add(endTIme);
 				}
+				
 				logger.info("---addAttribute---");
 				model.addAttribute("startDate", startDate);
 				model.addAttribute("endDate", endDate);
