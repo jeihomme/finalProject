@@ -1320,6 +1320,7 @@
 					}
 			, dataType: "html"
 			, success: function(res) {
+				alert("선택된 이력서를 공개합니다.")
 				$("#body").html(res);
 			}
 			, error: function() {
@@ -1342,7 +1343,7 @@
 	        , contentType: false
 	        , success: function(res){
 	            viewMypageIntro();
-	            alert("선택된 이력서를 공개합니다.");
+	            alert("파일등록을 완료하였습니다.");
 	        }
 			, error: function() {
 				alert("실패");

@@ -841,7 +841,6 @@ public class MypageController {
 					stList.add(startTime);
 					enList.add(endTIme);
 				}
-				
 				logger.info("---addAttribute---");
 				model.addAttribute("startDate", startDate);
 				model.addAttribute("endDate", endDate);
@@ -864,6 +863,8 @@ public class MypageController {
 				List<Application> aList = mpService.appViewAppliedBand(paging, bar);
 				List<Band> bandNoList = new ArrayList<>();
 				List<CalendarD> calList = new ArrayList<>();
+				List<PTime> stList = new ArrayList<>();
+				List<PTime> enList = new ArrayList<>();
 				
 				for(Application app : aList) {
 					
@@ -877,6 +878,14 @@ public class MypageController {
 					cal.setCalendarNo(app.getCalendarNo());
 					cal = mpService.getCalendar(cal);
 					
+					PTime startTime = new PTime();
+					startTime.setTimeId(cal.getStartTime());
+					startTime = mpService.getPTime(startTime);
+					
+					PTime endTIme = new PTime();
+					endTIme.setTimeId(cal.getEndTime());
+					endTIme = mpService.getPTime(endTIme);
+					
 					System.out.println(resumes.getBandNo());
 					Band addBand = new Band();
 					addBand.setBandNo(resumes.getBandNo());
@@ -884,6 +893,8 @@ public class MypageController {
 					
 					bandNoList.add(addBand);
 					calList.add(cal);
+					stList.add(startTime);
+					enList.add(endTIme);
 				}
 				
 				logger.info("---addAttribute---");
@@ -891,6 +902,9 @@ public class MypageController {
 				model.addAttribute("calList", calList);
 				model.addAttribute("bandNoList", bandNoList);
 				model.addAttribute("paging", paging);
+				
+				model.addAttribute("stList", stList);
+				model.addAttribute("enList", enList);
 			}
 			
 			
@@ -922,6 +936,8 @@ public class MypageController {
 				List<Application> aList = mpService.appViewAppliedBand(paging, band, startDate, endDate);
 				List<Band> bandNoList = new ArrayList<>();
 				List<CalendarD> calList = new ArrayList<>();
+				List<PTime> stList = new ArrayList<>();
+				List<PTime> enList = new ArrayList<>();
 				
 				for(Application app : aList) {
 					
@@ -935,6 +951,14 @@ public class MypageController {
 					cal.setCalendarNo(app.getCalendarNo());
 					cal = mpService.getCalendar(cal);
 					
+					PTime startTime = new PTime();
+					startTime.setTimeId(cal.getStartTime());
+					startTime = mpService.getPTime(startTime);
+					
+					PTime endTIme = new PTime();
+					endTIme.setTimeId(cal.getEndTime());
+					endTIme = mpService.getPTime(endTIme);
+					
 					System.out.println(resumes.getBandNo());
 					Band addBand = new Band();
 					addBand.setBandNo(resumes.getBandNo());
@@ -942,6 +966,8 @@ public class MypageController {
 					
 					bandNoList.add(addBand);
 					calList.add(cal);
+					stList.add(startTime);
+					enList.add(endTIme);
 				}
 				
 				logger.info("---addAttribute---");
@@ -951,6 +977,9 @@ public class MypageController {
 				model.addAttribute("calList", calList);
 				model.addAttribute("bandNoList", bandNoList);
 				model.addAttribute("paging", paging);
+				
+				model.addAttribute("stList", stList);
+				model.addAttribute("enList", enList);
 			
 			} else {
 //				검색어가 없다면,
@@ -963,6 +992,8 @@ public class MypageController {
 				List<Application> aList = mpService.appViewAppliedBand(paging, band);
 				List<Band> bandNoList = new ArrayList<>();
 				List<CalendarD> calList = new ArrayList<>();
+				List<PTime> stList = new ArrayList<>();
+				List<PTime> enList = new ArrayList<>();
 				
 				for(Application app : aList) {
 					
@@ -976,6 +1007,14 @@ public class MypageController {
 					cal.setCalendarNo(app.getCalendarNo());
 					cal = mpService.getCalendar(cal);
 					
+					PTime startTime = new PTime();
+					startTime.setTimeId(cal.getStartTime());
+					startTime = mpService.getPTime(startTime);
+					
+					PTime endTIme = new PTime();
+					endTIme.setTimeId(cal.getEndTime());
+					endTIme = mpService.getPTime(endTIme);
+					
 					System.out.println(resumes.getBandNo());
 					Band addBand = new Band();
 					addBand.setBandNo(resumes.getBandNo());
@@ -983,6 +1022,8 @@ public class MypageController {
 					
 					bandNoList.add(addBand);
 					calList.add(cal);
+					stList.add(startTime);
+					enList.add(endTIme);
 				}
 				
 				logger.info("---addAttribute---");
@@ -990,6 +1031,9 @@ public class MypageController {
 				model.addAttribute("calList", calList);
 				model.addAttribute("bandNoList", bandNoList);
 				model.addAttribute("paging", paging);
+				
+				model.addAttribute("stList", stList);
+				model.addAttribute("enList", enList);
 			}
 		}
 	}
@@ -1038,6 +1082,8 @@ public class MypageController {
 					List<Application> aList = mpService.appViewAppliedBar(paging, bar, startDate, endDate);
 					List<Band> bandNoList = new ArrayList<>();
 					List<CalendarD> calList = new ArrayList<>();
+					List<PTime> stList = new ArrayList<>();
+					List<PTime> enList = new ArrayList<>();
 					
 					for(Application app : aList) {
 						
@@ -1051,6 +1097,14 @@ public class MypageController {
 						cal.setCalendarNo(app.getCalendarNo());
 						cal = mpService.getCalendar(cal);
 						
+						PTime startTime = new PTime();
+						startTime.setTimeId(cal.getStartTime());
+						startTime = mpService.getPTime(startTime);
+						
+						PTime endTIme = new PTime();
+						endTIme.setTimeId(cal.getEndTime());
+						endTIme = mpService.getPTime(endTIme);
+						
 						System.out.println(resumes.getBandNo());
 						Band addBand = new Band();
 						addBand.setBandNo(resumes.getBandNo());
@@ -1058,6 +1112,8 @@ public class MypageController {
 						
 						bandNoList.add(addBand);
 						calList.add(cal);
+						stList.add(startTime);
+						enList.add(endTIme);
 					}
 					
 					logger.info("---addAttribute---");
@@ -1067,6 +1123,9 @@ public class MypageController {
 					model.addAttribute("calList", calList);
 					model.addAttribute("bandNoList", bandNoList);
 					model.addAttribute("paging", paging);
+					
+					model.addAttribute("stList", stList);
+					model.addAttribute("enList", enList);
 			}
 //			검색어가 없다면,
 			else {
@@ -1080,6 +1139,8 @@ public class MypageController {
 				List<Application> aList = mpService.appViewAppliedBar(paging, bar);
 				List<Band> bandNoList = new ArrayList<>();
 				List<CalendarD> calList = new ArrayList<>();
+				List<PTime> stList = new ArrayList<>();
+				List<PTime> enList = new ArrayList<>();
 				
 				for(Application app : aList) {
 					
@@ -1093,6 +1154,14 @@ public class MypageController {
 					cal.setCalendarNo(app.getCalendarNo());
 					cal = mpService.getCalendar(cal);
 					
+					PTime startTime = new PTime();
+					startTime.setTimeId(cal.getStartTime());
+					startTime = mpService.getPTime(startTime);
+					
+					PTime endTIme = new PTime();
+					endTIme.setTimeId(cal.getEndTime());
+					endTIme = mpService.getPTime(endTIme);
+					
 					System.out.println(resumes.getBandNo());
 					Band addBand = new Band();
 					addBand.setBandNo(resumes.getBandNo());
@@ -1100,6 +1169,8 @@ public class MypageController {
 					
 					bandNoList.add(addBand);
 					calList.add(cal);
+					stList.add(startTime);
+					enList.add(endTIme);
 				}
 				
 				logger.info("---addAttribute---");
@@ -1107,6 +1178,9 @@ public class MypageController {
 				model.addAttribute("calList", calList);
 				model.addAttribute("bandNoList", bandNoList);
 				model.addAttribute("paging", paging);
+				
+				model.addAttribute("stList", stList);
+				model.addAttribute("enList", enList);
 			}
 			
 		} else if ( member.getRoleId() == 2 ) {
@@ -1136,6 +1210,8 @@ public class MypageController {
 					List<Application> aList = mpService.appViewAppliedBar(paging, band, startDate, endDate);
 					List<Band> bandNoList = new ArrayList<>();
 					List<CalendarD> calList = new ArrayList<>();
+					List<PTime> stList = new ArrayList<>();
+					List<PTime> enList = new ArrayList<>();
 					
 					for(Application app : aList) {
 						
@@ -1149,6 +1225,14 @@ public class MypageController {
 						cal.setCalendarNo(app.getCalendarNo());
 						cal = mpService.getCalendar(cal);
 						
+						PTime startTime = new PTime();
+						startTime.setTimeId(cal.getStartTime());
+						startTime = mpService.getPTime(startTime);
+						
+						PTime endTIme = new PTime();
+						endTIme.setTimeId(cal.getEndTime());
+						endTIme = mpService.getPTime(endTIme);
+						
 						System.out.println(resumes.getBandNo());
 						Band addBand = new Band();
 						addBand.setBandNo(resumes.getBandNo());
@@ -1156,6 +1240,8 @@ public class MypageController {
 						
 						bandNoList.add(addBand);
 						calList.add(cal);
+						stList.add(startTime);
+						enList.add(endTIme);
 					}
 					
 					logger.info("---addAttribute---");
@@ -1165,6 +1251,9 @@ public class MypageController {
 					model.addAttribute("calList", calList);
 					model.addAttribute("bandNoList", bandNoList);
 					model.addAttribute("paging", paging);
+					
+					model.addAttribute("stList", stList);
+					model.addAttribute("enList", enList);
 				
 			}
 //			검색어가 없다면,
@@ -1179,6 +1268,8 @@ public class MypageController {
 				List<Application> aList = mpService.appViewAppliedBar(paging, band);
 				List<Band> bandNoList = new ArrayList<Band>();
 				List<CalendarD> calList = new ArrayList<>();
+				List<PTime> stList = new ArrayList<>();
+				List<PTime> enList = new ArrayList<>();
 				
 				for(Application app : aList) {
 					
@@ -1192,6 +1283,14 @@ public class MypageController {
 					cal.setCalendarNo(app.getCalendarNo());
 					cal = mpService.getCalendar(cal);
 					
+					PTime startTime = new PTime();
+					startTime.setTimeId(cal.getStartTime());
+					startTime = mpService.getPTime(startTime);
+					
+					PTime endTIme = new PTime();
+					endTIme.setTimeId(cal.getEndTime());
+					endTIme = mpService.getPTime(endTIme);
+					
 					System.out.println(resumes.getBandNo());
 					Band addBand = new Band();
 					addBand.setBandNo(resumes.getBandNo());
@@ -1199,6 +1298,8 @@ public class MypageController {
 					
 					bandNoList.add(addBand);
 					calList.add(cal);
+					stList.add(startTime);
+					enList.add(endTIme);
 				}
 				
 				System.out.println(bandNoList);
@@ -1207,6 +1308,9 @@ public class MypageController {
 				model.addAttribute("calList", calList);
 				model.addAttribute("bandNoList", bandNoList);
 				model.addAttribute("paging", paging);
+				
+				model.addAttribute("stList", stList);
+				model.addAttribute("enList", enList);
 			}
 		}
 		

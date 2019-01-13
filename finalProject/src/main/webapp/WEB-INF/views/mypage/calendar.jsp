@@ -98,11 +98,16 @@
 		width: 340px;
 		height: 275px;
 	}
+	
+	.anchorSize {
+		width:100px;
+	}
 
 TABLE {
 	FONT-SIZE: 9pt; 
 	COLOR: black; 
 	FONT-FAMILY: tahoma;
+	width:100px;
 }
 
 a {
@@ -120,6 +125,7 @@ TD.main {
 	FONT-WEIGHT: bold; 
 	TEXT-ALIGN: right;
 	margin: 2px;
+	
 }
 
 TD.uline {
@@ -127,12 +133,14 @@ TD.uline {
     font-weight:bold;
     COLOR: black;
     BACKGROUND-COLOR: #ffffff;
+   	width:100px;
 }
 
 TD.r_uline {
 	FONT-SIZE: 7pt; 
 	COLOR: #999999; 
 	BACKGROUND-COLOR: #f4f4f4;
+	
 }
 
 td.leftB{
@@ -540,7 +548,7 @@ function OpenWin(URL, width, height){
 															<table>
 																<tr>
 																	<td>
-														<a href="javascript:view('${dayIndex.calendarNo}')">
+														<a class="anchorSize" href="javascript:view('${dayIndex.calendarNo}')">
 															${dayIndex.startTime} ~ ${dayIndex.endTime } : ${dayIndex.barName } - ${dayIndex.bandName }<br><br>
 														</a>
 																	</td>
