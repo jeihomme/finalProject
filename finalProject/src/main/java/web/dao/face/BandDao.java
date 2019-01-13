@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import web.dto.Band;
 import web.dto.BandMember;
+import web.dto.History;
 import web.dto.Music;
 import web.dto.ProfilePic;
 import web.dto.Resumes;
@@ -51,4 +52,20 @@ public interface BandDao {
 	
 	// 멤버 추가
 	public void addBMember(BandMember bMem);
+	public BandMember getBMember(BandMember bMem);
+	
+	// History 추가
+	public void addHistory(History history);
+	public List getHistory(History history);
+	
+	// History 업데이트
+	public void editHistory(History history);
+	
+	// 멤버 업데이트
+	public void editBandMember(BandMember bandMember);
+	
+	// 밴드 Info 업데이트
+	public void editBandInfo(Resumes resumes);
+	public String getBandInfo(Resumes resumes);
+	
 }

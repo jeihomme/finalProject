@@ -3,9 +3,9 @@ package web.service.face;
 import java.util.List;
 import java.util.Map;
 
-import web.dto.Band;
 import web.dto.BandMember;
-import web.dto.ProfilePic;
+import web.dto.History;
+import web.dto.Resumes;
 import web.utils.AddItems;
 
 public interface BandService {
@@ -36,9 +36,13 @@ public interface BandService {
 	public void delBMember(String codes);
 	
 	// 밴드 멤버 추가
-	public void addBMember(BandMember bMem);
+	public BandMember addBMember(BandMember bMem);
+	
+	// 밴드 history 추가
+	public List addHistory(History history);
 	
 	// 밴드 소개 수정
-	public void bandEdit(Band band);
+	public String bandEdit(String bandNo, String historyNo, String year,
+			String historyInfo, String bandMemberNo, String bandMemName, String mPosition, Resumes resumes);
 	
 }
