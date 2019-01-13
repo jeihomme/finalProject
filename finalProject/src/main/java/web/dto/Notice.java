@@ -3,7 +3,7 @@ package web.dto;
 import java.util.Date;
 
 public class Notice {
-
+	private int rnum;
 	private int noticeNo;
 	private String userId;
 	private String title;
@@ -65,6 +65,16 @@ public class Notice {
 
 	public void setWrittenDate(Date writtenDate) {
 		this.writtenDate = writtenDate;
+	}
+
+
+	public int getRnum() {
+		return rnum;
+	}
+
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 	
 	

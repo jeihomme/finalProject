@@ -28,8 +28,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void delete(Notice notice) {
-		// TODO Auto-generated method stub
+	public void delete(int noticeNo) {
+		noticeDao.deleteNotice(noticeNo);
 		
 	}
 

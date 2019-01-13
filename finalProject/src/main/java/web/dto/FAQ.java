@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class FAQ {
 
+	private int rnum;
 	private int faqNo;
 	private String userId;
 	private String question;
@@ -65,6 +66,16 @@ public class FAQ {
 
 	public void setWrittenDate(Date writtenDate) {
 		this.writtenDate = writtenDate;
+	}
+
+
+	public int getRnum() {
+		return rnum;
+	}
+
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 	
 	

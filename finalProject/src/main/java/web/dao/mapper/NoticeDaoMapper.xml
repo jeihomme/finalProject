@@ -58,6 +58,9 @@ SELECT COUNT(*) CNT FROM (
 
 </update>
 
+<delete id="deleteNotice" parameterType="web.dto.Notice">
+	DELETE FROM notice WHERE noticeNo = #{noticeNo}
+	</delete>
 </mapper>
 
 

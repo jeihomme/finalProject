@@ -14,6 +14,7 @@ import web.dao.face.MusicDao;
 import web.dto.Advertise;
 import web.dto.FindMember;
 import web.dto.Member;
+import web.dto.Part;
 import web.dto.ProfilePic;
 import web.service.face.AdvertiseService;
 import web.utils.Paging;
@@ -68,6 +69,11 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		Member member = advertiseDao.getMemberContact(userId);
 		map.put("member" , member);
 		
+		// 포지션 번호 가져오기
+		String positionNo = advertiseDao.getPositionNo(findM.getPositionNo());
+		Part part = advertiseDao.getPtitle(positionNo);
+		map.put("part", part);
+		
 		// 밴드 멤버 가져오기
 		List list = advertiseDao.getBMember(findM.getBandNo());
 		map.put("bandMember", list);
@@ -87,8 +93,14 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		return map;
 	}
 	@Override
-	public void write() {
-		// TODO Auto-generated method stub
+	public Map write(Advertise advertise) {
+		
+		List bandNo = advertiseDao.getBand();
+		Map map = new HashMap();
+	
+		map.put("bandNo", bandNo);
+		
+		return advertiseDao.insertAdvertise(advertise);
 		
 	}
 	@Override

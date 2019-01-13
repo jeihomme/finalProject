@@ -131,4 +131,22 @@ SELECT COUNT(*) CNT FROM (
 <select id="getProfile" resultType="int">
 SELECT * FROM profilepic WHERE profileNo = #{profileNo}
 </select>
+
+<select id="getPositionNo" resultType="String">
+SELECT * FROM part WHERE positionNo = #{positionNo}
+</select>
+
+<select id="getPtitle" parameterType="String" resultType="web.dto.Part">
+	SELECT positionNo , pTitle FROM part WHERE positionNo = #{postionNo}
+</select>
+
+<insert id="insertAdvertise" parameterType="web.dto.Advertise">
+	<selectKey keyProperty="faqNo" resultType="int" order="BEFORE">
+		SELECT faq_seq.nextval FROM DUAL
+	</selectKey>
+		INSERT INTO findmember 
+		( findNo , bandno , positionno , title , contente , WRITTENDATE , genre  ,musicno , adsno)
+		VALUE(#{findNo} , #{bandNo} , #{positionNo} , #{title} , #{content} , sysdate , #{genre} , #{musicNo} , #{adsNo})
+</insert>
+
 </mapper>

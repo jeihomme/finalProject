@@ -49,14 +49,14 @@ public class FAQServiceImpl  implements FAQService{
 	}
 
 	@Override
-	public void delete(FAQ faq) {
-		// TODO Auto-generated method stub
+	public void delete(int faqNo) {
+		faqDao.deleteFAQ(faqNo);
 		
 	}
 
 	@Override
-	public void modify() {
-		// TODO Auto-generated method stub
+	public void modify(FAQ faq) {
+	faqDao.updateFAQ(faq);
 		
 	}
 
