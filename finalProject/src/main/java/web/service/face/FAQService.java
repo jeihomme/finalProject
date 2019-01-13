@@ -19,8 +19,8 @@ public interface FAQService {
 		public FAQ view(int faqNo);
 		
 		// 글삭제
-		public void delete(FAQ faq);
+		public void delete(int faqNo);
 		
 		// 글수정
-		public void modify();
+		public void modify(FAQ faqNo);
 }

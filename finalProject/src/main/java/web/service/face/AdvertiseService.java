@@ -16,7 +16,7 @@ public interface AdvertiseService {
 	public Map view(String findNo );
 	
 	//구인구직 쓰기
-	public void write();
+	public Map write(Advertise advertise);
 	
 	// 파일 샘플 얻기
 	public Advertise viewMusic(Advertise advertise);

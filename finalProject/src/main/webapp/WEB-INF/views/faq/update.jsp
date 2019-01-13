@@ -7,12 +7,14 @@
 $(document).ready(function(){
 	
 	$("#btnList").click(function() {
-		$(location).attr("href", "/notice/list");
+		$(location).attr("href", "/faq/list");
 	});
 	
 	$("#btnCancel").click(function() {
 		history.go(-1);
 	})
+	
+	
 	
 
 });
@@ -23,13 +25,36 @@ $(document).ready(function(){
 
 <style type="text/css">
 
+button{
+	color:black;
+}
+
+.update{
+    border-collapse: separate;
+    border-spacing: 20px;
+    margin-top: -5%;
+}
+
 .btn{
 	margin-left: 69%;
 }
+#question{
+	border: 1;
+	overflow: visible;
+/* 	text-overflow: ellipsis; */
+ 	color: black;
+ 	resize: none;
+	
+}
 
 
-
-
+#answer{
+	border: 1;
+	overflow: visible;
+	text-overflow: ellipsis;
+ 	color: black;
+    resize: none;
+}
 
 
 </style>
@@ -42,27 +67,26 @@ $(document).ready(function(){
 		<hr>
 
 
-		<form action="/notice/update" method="POST" >
-			<table class="update">
+		<form action="/faq/update" method="POST" >
+			<table class="update" >
 				<tr>
-					<td><input type="hidden" name="noticeNo" value="${notice.noticeNo }">
+					<td><input type="hidden" name="faqNo" value="${faq.faqNo }">
 				
 				</tr>
 				
 			
 				<tr>
-					<th>아이디</th>
-					<td><input style="color: black" name="userId" value="${notice.userId }"
+					<td>아이디 : </td>
+					<td><input style="color: black" name="userId" value="${faq.userId }"
 						readonly="readonly"  /></td>
 				</tr>
 				<tr>
-					<th>제목</th>
-					<td><input style="color: black" type="text" name="title"
-						value="${notice.title}" /></td>
+					
+					<td>제목 : <td colspan="2"><textarea id="question" name="question" cols="85" rows="1">${faq.question}</textarea></td>
 				</tr>
 
 				<tr><td class="info">내용</td></tr>
- 				<tr><td colspan="2"><textarea  id="content" name="content" style="color: black"  >${notice.content}</textarea></td></tr>
+ 				<tr><td colspan="2"><textarea  id="answer" name="answer" cols="100" rows="10" >${faq.answer}</textarea></td></tr>
  
 
 			
@@ -78,3 +102,5 @@ $(document).ready(function(){
 	</div>
 
 	<div></div>
+	
+	

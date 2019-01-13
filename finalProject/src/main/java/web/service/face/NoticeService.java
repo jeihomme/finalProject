@@ -21,10 +21,10 @@ public interface NoticeService {
 			public Notice view(int noticeNo);
 			
 			// 글삭제
-			public void delete(Notice notice);
+			public void delete(int noticeNo);
 			
 			// 글수정
-			public void modify(Notice notice);
+			public void modify(Notice noticeNo);
 
 			public int getTotalCount();
 		

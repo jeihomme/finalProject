@@ -137,7 +137,7 @@ cursor:pointer;
 
 <tr>
 		<td>${board.noticeNo }</td>
-		<td><a href="/notice/view?noticeNo=${board.noticeNo}">${board.content }</a></td>
+		<td><a href="/notice/view?noticeNo=${board.noticeNo}">${board.title }</a></td>
 		<td>${board.userId }</td>
 		<td><fmt:formatDate value="${board.writtenDate }" pattern="yyyy-MM-dd"/></td>
 </tr>

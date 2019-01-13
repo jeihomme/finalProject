@@ -159,37 +159,61 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String profilePicSave(ServletContext context, MultipartFile file, ProfilePic profilePic) {
+		// 파일 첨부가 됐을 때
+		if(file!=null) {
+			// UUID 고유 식별자
+			String uid = UUID.randomUUID().toString().split("-")[0];
+			
+			// 파일이 저장될 경로
+			String stored = context.getRealPath("resources");
+			
+			System.out.println("저장 경로: "+stored);
+			
+			// 저장될 파일의 이름
+			String name = uid+"_"+file.getOriginalFilename();
+			
+			// 파일 객체
+			File dest = new File(stored, name);
+			
+			profilePic.setOriginName(file.getOriginalFilename());
+			profilePic.setStoredName(name);
+			profilePic.setPath(stored);
+			
+			memberDao.insertProfilePic(profilePic);
+			
+			// 파일 저장 (업로드)
+			try {
+				file.transferTo(dest);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return name;
 		
-		// UUID 고유 식별자
-		String uid = UUID.randomUUID().toString().split("-")[0];
-		
-		// 파일이 저장될 경로
-		String stored = context.getRealPath("resources");
-		
-		System.out.println("저장 경로: "+stored);
-		
-		// 저장될 파일의 이름
-		String name = uid+"_"+file.getOriginalFilename();
-		
-		// 파일 객체
-		File dest = new File(stored, name);
-		
-		profilePic.setOriginName(file.getOriginalFilename());
-		profilePic.setStoredName(name);
-		profilePic.setPath(stored);
-		
-		memberDao.insertProfilePic(profilePic);
-		
-		// 파일 저장 (업로드)
-		try {
-			file.transferTo(dest);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		// 파일 첨부를 안 했을 때
+		} else {
+			// UUID 고유 식별자
+			String uid = UUID.randomUUID().toString().split("-")[0];
+			
+			// 파일이 저장될 경로
+			String stored = "../resources";
+			
+			System.out.println("저장 경로: "+stored);
+			
+			// 저장될 파일의 이름
+			String name = "profileBasic.jpg";
+			
+			profilePic.setOriginName("profileBasic.jpg");
+			profilePic.setStoredName(name);
+			profilePic.setPath(stored);
+			
+			memberDao.insertProfilePic(profilePic);
+			
+			return name;
 		}
 		
-		return name;
 	}
 
 	@Override

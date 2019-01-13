@@ -12,7 +12,7 @@ SELECT faqNo, userId, question, answer, writtenDate FROM faq
 <select id="selectPagingList" resultType="web.dto.FAQ" parameterType="web.utils.Paging">
 SELECT * FROM ( SELECT rownum rnum, B.* FROM (
 <include refid="selectFAQ"/>
-) B ORDER BY faqNo DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum DESC
+) B ORDER BY rnum DESC ) R WHERE R.rnum BETWEEN #{startNo } AND #{endNo } ORDER BY rnum DESC
 </select>
 <select id="selectFAQCntAll" resultType="int">
 SELECT COUNT(*) CNT FROM (
@@ -33,9 +33,18 @@ SELECT COUNT(*) CNT FROM (
 		VALUES (#{faqNo} , #{userId} , #{question} , #{answer} , sysdate)				
 </insert>
 
-<select id="selectNotice" resultType="web.dto.Notice">
+<select id="selectFAQ" resultType="web.dto.FAQ">
 	SELECT * FROM faq WHERE faqNo = #{faqNo}
 </select>
+
+<update id="updateFAQ"  parameterType="web.dto.FAQ">
+	UPDATE faq SET question=#{question} , answer=#{answer}
+	WHERE faqNo = #{faqNo} AND userId = #{userId}
+</update>
+
+<delete id="deleteFAQ" parameterType="web.dto.FAQ">
+	DELETE FROM faq WHERE faqNo = #{faqNo}
+</delete>
 
 </mapper>
 

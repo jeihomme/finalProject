@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import web.dto.Advertise;
+import web.dto.Band;
 import web.dto.FindMember;
 import web.service.face.AdvertiseService;
 import web.utils.Paging;
@@ -226,17 +228,29 @@ public class AdvertiseController {
 		
 		return mav;
 	}
-	
-	public void write() {
+
+	@RequestMapping(value="/advertise/write" , method=RequestMethod.GET)
+	public String write(HttpSession session , HttpServletRequest req) {
 		logger.info("글쓰기 폼");
 		
-	}
-	
-	public String writeProc() {
-		logger.info("글쓰기 처리");
+		Band band = (Band) session.getAttribute("bandInfo");
 		
-		return null;
+		
+		req.setAttribute("band", band);
+		
+		return "/advertise/write";
 	}
+//	@RequestMapping(value="/advertise/write" , method=RequestMethod.POST)
+//	public ModelAndView writeProc(Advertise advertise  ) {
+//	
+////		String userid = req.getpar("userid");
+////		
+////		String bandNo = advertiseService.selectBandNo(userid);
+//		
+////		Map map = advertiseService.write(advertise);
+////		
+////		return mav;
+//	}
 	
 	public void update() {
 		logger.info("글수정 폼");

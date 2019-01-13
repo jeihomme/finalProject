@@ -5,6 +5,8 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Band;
 import web.dto.BandMember;
+import web.dto.History;
+import web.dto.Resumes;
 import web.service.face.BandService;
 import web.utils.AddItems;
 
@@ -35,8 +39,9 @@ public class BandController {
 			String genre,
 			Model model) {
 		
-		logger.info("All List Connected"); logger.info("curPage = " + curPage);
-		logger.info("genre : " + genre);
+//		logger.info("All List Connected"); logger.info("curPage = " + curPage);
+//		logger.info("genre : " + genre);
+		
 		Map map = bandService.getPrep(curPage);
 		
 		// 페이징처리처럼 작업
@@ -60,10 +65,10 @@ public class BandController {
 			String genre,
 			Model model) {
 		
-		logger.info("Band By Genre Connected");
+//		logger.info("Band By Genre Connected");
 		
 		// Paging ready
-		logger.info("curPage = " + curPage);
+//		logger.info("curPage = " + curPage);
 		Map map = bandService.getPrep(curPage);
 		
 		items = new AddItems((int)map.get("totalCount"), (int)map.get("curPage"));
@@ -78,7 +83,6 @@ public class BandController {
 		
 		// input Data
 		mav.addObject("band", band);
-//		mav.addObject("genre", genre);
 		mav.addObject("profile", profile);
 		
 		return mav;
@@ -90,10 +94,10 @@ public class BandController {
 			String curPage,
 			String genre) {
 		
-		logger.info("addBand Connected");
+//		logger.info("addBand Connected");
 		
 		// Paging ready
-		logger.info("curPage = " + curPage);
+//		logger.info("curPage = " + curPage);
 		Map map = bandService.getPrep(curPage);
 		
 		items = new AddItems((int)map.get("totalCount"), (int)map.get("curPage"));
@@ -115,15 +119,20 @@ public class BandController {
 	
 	// 밴드 소개 보기
 	@RequestMapping(value="/band/bandView", method=RequestMethod.GET)
-	public void bandView(
+	public String bandView(
 			int bandNo,
-			Model model) {
+			Model model,
+			HttpSession session) {
 		
-		logger.info("bandNo : " + bandNo);
+//		Band band = (Band) session.getAttribute("bandInfo");
+		
+//		logger.info("bandNo : " + bandNo);
 		
 		Map general = bandService.bandView(bandNo);
 		
 		model.addAttribute("general", general);
+		
+		return "/band/bandView";
 	}
 	
 	// 밴드 history 삭제
@@ -132,7 +141,7 @@ public class BandController {
 			String codes,
 			Writer out) {
 		
-		logger.info("codes: " + codes);
+//		logger.info("codes: " + codes);
 		
 		bandService.delHistory(codes);
 		
@@ -150,8 +159,6 @@ public class BandController {
 			String codes,
 			Writer out) {
 		
-		logger.info("codes: " + codes);
-		
 		bandService.delBMember(codes);
 		
 		try {
@@ -163,27 +170,52 @@ public class BandController {
 	}
 	
 	@RequestMapping(value="/band/addMember", method=RequestMethod.POST)
-	public void addMember(
+	public ModelAndView addMember(
 			BandMember bMem
 			) {
 		
-		logger.info(bMem.getBandMemName());
-		logger.info(bMem.getmPosition());
-//		logger.info(bMem.getBandNo());
+		BandMember newMem = bandService.addBMember(bMem);
 		
-		bandService.addBMember(bMem);
+		mav = new ModelAndView();
+		mav.setViewName("jsonView");
+		
+		mav.addObject("newMem", newMem);
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping(value="band/addHistory", method=RequestMethod.POST)
+	public ModelAndView addHistory(
+			History history
+			) {
+		
+		List newHis = bandService.addHistory(history);
+		
+		mav = new ModelAndView();
+		mav.setViewName("jsonView");
+		
+		mav.addObject("newHis", newHis);
+		
+		return mav;
 		
 	}
 	
 	// 밴드 소개 수정 진행
-	public String bandEditProc(Band band) {
+	@RequestMapping(value="/band/updateBandInfo", method=RequestMethod.POST)
+	public ModelAndView bandEditProc(
+			String bandNo, String historyNo, String year, String historyInfo, String bandMemberNo, 
+			String bandMemName, String mPosition, Resumes resumes
+			) {
 		
-		// 아직
+		String bandInfo = bandService.bandEdit(bandNo, historyNo, year, historyInfo, bandMemberNo, bandMemName, mPosition, resumes);
 		
-		return null;
+		mav = new ModelAndView();
+		mav.setViewName("jsonView");
 		
+		mav.addObject("bandInfo", bandInfo);
+		
+		return mav;
 	}
-	
-	
 	
 }

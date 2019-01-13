@@ -15,10 +15,10 @@ public interface FAQDao {
 	public void insertFAQ(FAQ faq);
 	
 	// FAQ 답변 수정 
-	public void updateFAQ();
+	public void updateFAQ(FAQ faq);
 	
 	// FAQ 답변  삭제
-	public void deleteFAQ();
+	public void deleteFAQ(int faqNo);
 	
 	// FAQ 답변  상세보기
 	public FAQ selectFAQ(int faqNo);
