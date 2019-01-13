@@ -20,13 +20,14 @@ import org.springframework.web.servlet.ModelAndView;
 import web.dto.Advertise;
 import web.dto.Band;
 import web.dto.FindMember;
+import web.dto.Member;
 import web.service.face.AdvertiseService;
 import web.utils.Paging;
 
 @Controller
 public class AdvertiseController {
 	
-	private Logger logger = LoggerFactory.getLogger(AdvertiseController.class);
+	private transient Logger logger = LoggerFactory.getLogger(AdvertiseController.class);
 
 	@Autowired AdvertiseService advertiseService;
 	
@@ -37,9 +38,12 @@ public class AdvertiseController {
 				@RequestParam(required=false , defaultValue="10") int listCount,
 				@RequestParam(required=false , defaultValue="10") int pageCount,
 				HttpServletRequest req 
-				, String searchVal , String search , String searchTxt
+				, String searchVal , String search , String searchTxt,
+				HttpSession session
 			) {
-
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+ 
 		searchVal =(req.getParameter("searchVal") == null ) ? "": req.getParameter("searchVal");
 		
 		searchTxt = req.getParameter("searchTxt");
@@ -78,7 +82,7 @@ public class AdvertiseController {
 		}
 	
 		
-		
+		model.addAttribute("member" , member);
 		
 		List<FindMember> list = advertiseService.getList(paging);
 		model.addAttribute("list",list);
@@ -240,26 +244,33 @@ public class AdvertiseController {
 		
 		return "/advertise/write";
 	}
-//	@RequestMapping(value="/advertise/write" , method=RequestMethod.POST)
-//	public ModelAndView writeProc(Advertise advertise  ) {
-//	
-////		String userid = req.getpar("userid");
-////		
-////		String bandNo = advertiseService.selectBandNo(userid);
-//		
-////		Map map = advertiseService.write(advertise);
-////		
-////		return mav;
-//	}
+	@RequestMapping(value="/advertise/write" , method=RequestMethod.POST)
+	public String writeProc(Advertise advertise  ) {
 	
-	public void update() {
-		logger.info("글수정 폼");
+		advertiseService.write(advertise);
+		
+		return "redirect:/advertise/list";
 	}
-	
-	public String updateProc() {
+	@RequestMapping(value="/advertise/update" , method=RequestMethod.GET)
+	public String update(HttpSession session , HttpServletRequest req , String findNo , Model model) {
+		logger.info("글수정 폼");
+		
+		FindMember advertise = advertiseService.viewAds(findNo);
+		/*model.addAttribute("ads" ,advertise );*/
+		req.setAttribute("ads", advertise);
+		
+		Band band = (Band) session.getAttribute("bandInfo");
+		model.addAttribute("band", band);
+		
+		return "/advertise/update";
+	}
+	@RequestMapping(value="/advertise/update" , method=RequestMethod.POST)
+	public String updateProc(Advertise advertise) {
 		logger.info("글수정 처리");
 		
-		return null;
+		advertiseService.modify(advertise);
+		
+		return "redirect:/advertise/update";
 	}
 	
 	public void delete() {

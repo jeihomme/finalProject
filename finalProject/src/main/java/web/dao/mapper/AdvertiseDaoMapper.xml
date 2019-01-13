@@ -140,7 +140,7 @@ SELECT * FROM part WHERE positionNo = #{positionNo}
 	SELECT positionNo , pTitle FROM part WHERE positionNo = #{postionNo}
 </select>
 
-<insert id="insertAdvertise" parameterType="web.dto.Advertise">
+<insert id="insertAdvertise" parameterType="web.dto.FindMember">
 	<selectKey keyProperty="faqNo" resultType="int" order="BEFORE">
 		SELECT faq_seq.nextval FROM DUAL
 	</selectKey>
@@ -148,5 +148,12 @@ SELECT * FROM part WHERE positionNo = #{positionNo}
 		( findNo , bandno , positionno , title , contente , WRITTENDATE , genre  ,musicno , adsno)
 		VALUE(#{findNo} , #{bandNo} , #{positionNo} , #{title} , #{content} , sysdate , #{genre} , #{musicNo} , #{adsNo})
 </insert>
+
+<update id="updateAdvertise" parameterType="web.dto.FindMember">
+	UPDATE findmember SET positionNo = #{positionNo} 
+						, content=#{content} , title=#{title} , genre=#{genre},
+						adsNo=#{adsNo}
+						WHERE findNo = #{findNo} AND bandNo=#{bandNo}
+</update>
 
 </mapper>

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import web.dto.Advertise;
+import web.dto.FindMember;
 import web.dto.ProfilePic;
 import web.utils.Paging;
 
@@ -22,7 +23,7 @@ public interface AdvertiseService {
 	public Advertise viewMusic(Advertise advertise);
 	
 	// 구인 구직 수정
-	public void modify();
+	public void modify(Advertise advertise);
 	public int updateMusic();
 	
 	//이미지 가져오기
@@ -40,6 +41,7 @@ public interface AdvertiseService {
 
 	public ProfilePic getPropic();
 
+	public FindMember viewAds(String findNo);
 
 	
 }

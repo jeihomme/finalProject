@@ -19,7 +19,7 @@ public interface AdvertiseDao {
 	public Map insertAdvertise(Advertise advertise);
 	
 	// 구인구직 수정 
-	public void updateAdvertise();
+	public void updateAdvertise(Advertise advertise);
 	
 	// 구인구직 삭제
 	public void deleteAdvertise();

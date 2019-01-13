@@ -109,8 +109,8 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		return null;
 	}
 	@Override
-	public void modify() {
-		// TODO Auto-generated method stub
+	public void modify(Advertise advertise) {
+		advertiseDao.updateAdvertise(advertise);
 		
 	}
 	@Override
@@ -147,6 +147,12 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 
 		// TODO Auto-generated method stub
 		return advertiseDao.getProfile();
+	}
+
+	@Override
+	public FindMember viewAds(String findNo) {
+		return advertiseDao.selectAdvertise(findNo);
+		
 	}
 
 	
