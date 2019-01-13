@@ -30,6 +30,9 @@ public interface BarService {
 	// 바 소개
 	public Bar barView(Bar bar);
 	
+	// 연락처 가져오기
+	public Member contact(Member member);
+	
 	// 일정 보기 (calendar)
 	public List<CalendarD> barCalendar(Bar bar);
 	

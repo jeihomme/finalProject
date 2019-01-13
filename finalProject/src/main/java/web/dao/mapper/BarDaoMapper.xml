@@ -66,6 +66,12 @@
 	        AND B.BARNO = #{barNo }
 	</select>
 	
+	<select id="contact" parameterType="web.dto.Member" resultType="web.dto.Member">
+		SELECT contact, barname
+		FROM member a, bar b
+		WHERE a.userid = #{userId};
+	</select>
+	
 	<select id="getBarCalendar" parameterType="web.dto.CalendarD" resultType="web.dto.CalendarD">
 	
 	</select>

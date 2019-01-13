@@ -136,6 +136,9 @@
 	.font {
 		text-align:center;
 	}
+	.btn{
+		background-color: #a24040;
+	}
 </style>
 
 <div class="test">
@@ -177,6 +180,6 @@
 </div>
 
 <div>
-	<button id="listMore" class="barMore" onclick="listMore();">+ 더보기</button>
+	<button id="listMore" class="barMore btn" onclick="listMore();">+ 더보기</button>
 </div>
 
