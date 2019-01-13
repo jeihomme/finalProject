@@ -21,6 +21,9 @@ public interface BarDao {
 	// 바 소개
 	public Bar viewBar(Bar bar);
 	
+	// 연락처 가져오기
+	public Member contact(Member member);
+	
 	// 일정보기 (calendar)
 	public List<CalendarD> getBarCalendar(String BarName);
 	

@@ -107,4 +107,10 @@ public class BarServiceImpl implements BarService{
 		barDao.updateMemberContact(member);
 	}
 
+	@Override
+	public Member contact(Member member) {
+		// TODO Auto-generated method stub
+		return barDao.contact(member);
+	}
+
 }

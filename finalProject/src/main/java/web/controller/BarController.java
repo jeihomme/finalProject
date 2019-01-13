@@ -33,13 +33,14 @@ public class BarController {
 	// 바 리스트
 	@RequestMapping(value="/bar/barlist", method=RequestMethod.GET)
 	public void barList(
-			Model model,
-			HttpSession session) {
+//			HttpSession session,
+			Model model
+			) {
 		
 		Bar bar = new Bar();
 		ProfilePic profilePic = new ProfilePic();
-		Member member = (Member) session.getAttribute("loginInfo"); 
-		String contact = member.getContact();
+//		Member member = (Member) session.getAttribute("loginInfo"); 
+//		String contact = member.getContact();
 		
 		
 		logger.info(">> barList");
@@ -49,7 +50,7 @@ public class BarController {
 		
 		logger.info("list size : " + list.size());
 		
-		model.addAttribute("contact", contact);
+//		model.addAttribute("contact", contact);
 		model.addAttribute("list", list);
 		model.addAttribute("location", location);
 		
@@ -61,19 +62,22 @@ public class BarController {
 	@RequestMapping(value="/bar/viewbar", method=RequestMethod.GET)
 	public void viewBar(
 			Bar bar, 
-			Model model,
-			HttpSession session){
+//			HttpSession session,
+			Member member,
+			Model model
+			){
 		
-		Member member = (Member) session.getAttribute("loginInfo");
-		String contact = member.getContact();
+//		Member member = (Member) session.getAttribute("loginInfo");
+//		String contact = member.getContact();
 		
 		logger.info(">> viewBar");
 		
 		logger.info("-----------------------------");
 		model.addAttribute("view", barService.barView(bar));
-		model.addAttribute("contact", contact);
+		model.addAttribute("contact", barService.contact(member));
 		bar = barService.barView(bar);
 		
+		logger.info(member.toString());
 		logger.info(bar.toString()); 
 		logger.info(model.toString()); 
 	}
