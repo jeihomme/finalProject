@@ -41,12 +41,17 @@ public class CalendarController {
 		Map sched = new HashMap();
 		sched = calendar.getSchedule(map, bandNo);
 		
+		// 바 달력 스케줄
+//		Map barSched = new HashMap();
+//		barSched = calendar.getSchedule(map, barNo);
+		
 		// 바 리스트
 		List list3 = calendar.getInfoBar();
 		
 		model.addAttribute("bars", list3);
 		model.addAttribute("calendar", map);
 		model.addAttribute("sched", sched);
+//		model.addAttribute("barSched", barSched);
 		
 		return "/calendar/calendar";
 		

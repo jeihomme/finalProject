@@ -12,11 +12,11 @@
 	    height: 100%;
 	    display: inline-table;
 	    float: left;
-	    color: black;
+/* 	    color: black; */
 	    margin-top: 15px;
 	}
 	.barName{
-		width: 75%;
+		width: 72%;
 	    height: 100%;
 	    display: inline-table;
 	    position: relative;
@@ -29,16 +29,16 @@
 /* 		width: 20%; */
 	    height: 100%;
 /* 	    display: inline-table; */
-	    position: relative;
+/* 	    position: relative; */
 	    float: left;
 /* 	    margin-left: 10%; */
 /* 	    text-align: right; */
-	    color: black;
+/* 	    color: black; */
 	    margin-top: 15px;
 	}
 	
 	.calendar{
-		position: relative;
+/* 		position: relative; */
   		float: left;
   	 	margin-top: 15px;
 	}
@@ -73,19 +73,55 @@
 		position: relative; 
 		padding: 0 25px;
 	}
+	
+	.btn{
+		background-color: #ab4545;
+		color: white;
+	}
 
 </style>
 
+<script type="text/javascript">
 
-<div class="back"><input type="button" onclick="location.href= '/bar/barlist'" value="<Prep"></div>
+$(document).ready(function(){
+	
+	var barNo = ""
+	
+	   // 달력 불러오기
+	   $("#calendarBtn").click(function(){
+		   
+		   	
+			$.ajax({
+				type: "post",
+				url: "/calendar",
+				data: { barNo : bardNo } ,
+				context: document.body,
+				success: function(data) {
+						
+					// 모달 띄우기
+					$("#body").html(data);
+
+				}, error: function() {
+					alert("망함");
+				}
+			});
+			   
+	   });
+});
+
+
+</script>
+
+
+<div class="back"><input type="button" class="btn" onclick="location.href= '/bar/barlist'" value="<Prep"></div>
 
 <div class="barName"> ${view.barName }</div>
 
 <form action="/bar/updatebarinfo" method="get">
-	<div class="modify"><input type="button" onclick="location.href='/bar/updatebarinfo?barNo=${view.barNo}'" value="Modify"></div>
+	<div class="modify"><input type="button" class="btn" onclick="location.href='/bar/updatebarinfo?barNo=${view.barNo}'" value="Modify"></div>
 </form>
 
-<div class="calendar"><input type="button" onclick="location.href='/bar/calendar'" value="Calendar"></div><br><br><br><hr>
+<div class="calendar"><button id="calendarBtn" style="height:30px;" class="btn right" type="button">Calendar</button></div><br><br><br><hr>
 
 <div class="barImg"><img class="barImg" src="http://${view.path }/${view.originName }"></div>
 
