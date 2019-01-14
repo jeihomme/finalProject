@@ -73,20 +73,22 @@
 
 .div-common{
   	display: inline-block;
+  	    position: inherit;
 }
 
 .div-photo{
 /* 	border: 1px solid DarkGoldenRod; */
     height: 320px;
     text-align: center;
+    position: inherit;
     
     
 }
 
 .div-music{
 /* 	border: 1px solid Aqua; */
-/*     margin-top: 24%; */
-    position: fixed;
+     margin-top: 20%;
+   
 }
 
 .div-history{
@@ -94,11 +96,14 @@
 }
 
 .div-member{
-/* 	border: 1px solid Chartreuse; */
+    margin-top: 15%;
+    position: inherit;
+    padding-right: 50px;
 }
 
 .div-info{
 /* 	border: 1px solid CornflowerBlue; */
+    margin-top: 10%;
 }
 
 .calendarDiv{
@@ -134,8 +139,8 @@ input[type=text] {
 }
 
 th{
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: 20px;
+    padding-right: 5px;
 }
 
 .hist{
@@ -542,7 +547,7 @@ $(document).ready(function(){
 		<button id="calendarBtn" style="height:30px;" class="right" type="button">달력</button>
 	</div>
 	
-<div class="divA">
+<div class="divA" style="display: flex;">
 	<!-- 왼쪽 -->
 	<div class="div-common div-left">
 		<!-- 밴드 사진 -->
@@ -553,8 +558,9 @@ $(document).ready(function(){
 		<!-- 음악 파일 -->
 		<div class="div-music div-common">
 			<h4>음악 파일</h4><br>
-			<audio src="" autoplay controls>
-			</audio>
+<!-- 			<audio src="" autoplay controls> -->
+<!-- 			</audio> -->
+			<button id="preSound" >미리듣기</button>
 		</div>
 	</div>
 	
@@ -641,12 +647,11 @@ $(document).ready(function(){
 					<th><h4>소개</h4></th>
 				</tr>
 				<tr>
-					<td>${resumes.bandInfo }</td>
+					<td style="padding-left: 70px;">${resumes.bandInfo }</td>
 					
 				</tr>
 			</table>
 		</div>
 		</div>
 	</div>
-	
-</div>
+</div> 
