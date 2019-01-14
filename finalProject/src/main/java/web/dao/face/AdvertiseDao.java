@@ -5,6 +5,7 @@ import java.util.Map;
 
 import web.dto.Advertise;
 import web.dto.FindMember;
+import web.dto.Genre;
 import web.dto.Member;
 import web.dto.Part;
 import web.dto.ProfilePic;
@@ -19,7 +20,7 @@ public interface AdvertiseDao {
 	public Map insertAdvertise(Advertise advertise);
 	
 	// 구인구직 수정 
-	public void updateAdvertise();
+	public void updateAdvertise(Advertise advertise);
 	
 	// 구인구직 삭제
 	public void deleteAdvertise();
@@ -42,7 +43,8 @@ public interface AdvertiseDao {
 	public Part getPtitle(String positionNo);
 	
 	// 장르 가져오기
-	public List getGenre(String bandNo);
+	public String getGenreNo(String bnadNo);
+	public Genre getGenreName(String genreNo);
 	// 전체 장르 가져오기
 	public List allGenre();
 	

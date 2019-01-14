@@ -129,6 +129,13 @@ input[type=text]{
 	
 }
 
+#btnWrite{
+ 	margin-left: 200px; 
+	background-color: #848484;
+	color:white;
+
+}
+
 
 </style>
 
@@ -176,18 +183,19 @@ input[type=text]{
 </c:forEach>
 
 </table>
-<div id="searchBox" class="text-center">
-	
-			
-				<select id="searchVal" name="searchVal" style="color: black">
+
+<div id="searchBox" class="text-center" style="margin-right: 12%">
+			<select id="searchVal" name="searchVal" style="color: black">
 						<option value="title" selected="selected">제목</option>
 						<option value="content">내용</option>
 						<option value="userid">작성자</option>
 				</select>
 			<input style="color:black" type="search"  id="searchTxt" name="searchTxt" />
 			<button id="btnSearch">검색</button>
+			<c:if test="${member.roleId eq '2'}">
+				<button id="btnWrite" onclick="location.href='/advertise/write'">글쓰기</button>
+			</c:if>
 		</div>
-		<button id="write" onclick="location.href='/advertise/write'">글쓰기</button>
 </div>
 
 <div class="modal-ads" id="advertiseView"> 
@@ -271,6 +279,7 @@ $(document).ready(function(){
 //	 			var bandgenre = data.map.bandGenre;
 				var member = data.map.member;
 				var part = data.map.part;
+				var genre = data.map.genre;
 				
 				console.log(data.map);
 				
@@ -280,12 +289,12 @@ $(document).ready(function(){
 				$newadvertiseView = $(
 						     "<div class='modal-img' ><img src='http://" + proPic.path + "/" + proPic.originName + "' width='100%' height='100%'/></div><div class='modal-info'>"
 						     +"<div style='margin-left:10%; margin-top:1%;'><p>· Member</p><div class='member-div'><input type='text'style='width: 220px' value='"+bandMember.bandMemName+"'/></div>"
-						     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' value='"+findM.genre+"'/></p></div>"
+						     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' value='"+genre.genreName+"'/></p></div>"
 						     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' value='"+part.pTitle+"' type='text''/></p></div>"
 						     +"<div style='margin-top: 10%'><p>· Contact Number<input style='margin-left: 5%' type='text' value='"+member.contact+"' /></p></div>"
 						     +"<div class='etc' style='margin-top: 10% ,'><p>· Etc.<input style='margin-left: 5%; height: 185px; width:88%;' maxlength='12' type='text' name='content' value='"+findM.content+"''/></p></div>"
 						     +"</div></div>"
-						     +"<audio controls class='modal-music'><source type='audio/ogg'><source type='audio/mpeg'></audio><button type='button' id='close' class='btn btn-default'>Close</button>"
+						     +"<audio controls class='modal-music'><source type='audio/ogg'><source type='audio/mpeg'></audio><button onclick='javascript:doUpdate("+findM.findNo+");' type='button' id='btnUpdate' class='btn btn-default'>Update</button><button type='button' id='close' class='btn btn-default'>Close</button>"
 						      );
 				$("#advertiseView").append($newadvertiseView);
 		
@@ -404,6 +413,15 @@ $(document).ready(function(){
     } 
 	
 });
+
+	
+</script>
+<script type="text/javascript">
+	function doUpdate(findNo){
+	
+	alert(findNo);
+		location.href="/advertise/update?findNo="+findNo+"";
+	}
 
 </script>
 

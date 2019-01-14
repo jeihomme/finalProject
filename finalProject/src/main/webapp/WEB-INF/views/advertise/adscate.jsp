@@ -135,6 +135,12 @@ input[type=text]{
 	color:black;
 	
 }
+#btnWrite{
+ 	margin-left: 200px; 
+	background-color: #848484;
+	color:white;
+
+}
 
 
 </style>
@@ -183,9 +189,7 @@ input[type=text]{
 </tr>
 </c:forEach>
 </table>
-<div id="searchBox" class="text-center">
-	
-			
+<div id="searchBox" class="text-center" style="margin-right: 12%">
 				<select id="searchVal" name="searchVal" style="color: black">
 						<option value="title" selected="selected">제목</option>
 						<option value="content">내용</option>
@@ -193,6 +197,7 @@ input[type=text]{
 				</select>
 			<input style="color:black" type="search"  id="searchTxt" name="searchTxt" />
 			<button id="btnSearch">검색</button>
+			<button id="btnWrite" onclick="location.href='/advertise/write'">글쓰기</button>
 		</div>
 </div>
 

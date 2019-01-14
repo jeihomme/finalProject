@@ -106,6 +106,7 @@ select{
 <hr>
 <form  action="/advertise/write" method="POST">
 <h4>USER :<input style="color:black" type="text" name="userId" value="${band.bandName }" readonly="readonly" /></h4>
+<input type="hidden" id="bandNo" name="bandNo" value="${band.bandNo }">
 <h4>Searching for: <select name="adsNo">
 			<option value="1">Member</option>
 			<option value="2">Collaboration</option>
