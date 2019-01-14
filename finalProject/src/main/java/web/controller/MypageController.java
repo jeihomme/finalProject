@@ -1073,6 +1073,7 @@ public class MypageController {
 					logger.info("---appView---");
 					List<Application> aList = mpService.appViewAppliedBar(paging, bar, startDate, endDate);
 					List<Band> bandNoList = new ArrayList<>();
+					List<Bar> barNoList = new ArrayList<Bar>();
 					List<CalendarD> calList = new ArrayList<>();
 					List<PTime> stList = new ArrayList<>();
 					List<PTime> enList = new ArrayList<>();
@@ -1098,10 +1099,15 @@ public class MypageController {
 						endTIme = mpService.getPTime(endTIme);
 						
 						System.out.println(resumes.getBandNo());
+						Bar addBar = new Bar();
+						addBar.setBarName(app.getBarName());
+						addBar = mpService.getBarByBarName(addBar);
+						
 						Band addBand = new Band();
 						addBand.setBandNo(resumes.getBandNo());
 						addBand = mpService.getBandByBandNo(addBand);
 						
+						barNoList.add(addBar);
 						bandNoList.add(addBand);
 						calList.add(cal);
 						stList.add(startTime);
@@ -1111,8 +1117,10 @@ public class MypageController {
 					logger.info("---addAttribute---");
 					model.addAttribute("startDate", startDate);
 					model.addAttribute("endDate", endDate);
+					
 					model.addAttribute("aList", aList);
 					model.addAttribute("calList", calList);
+					model.addAttribute("barNoList", barNoList);
 					model.addAttribute("bandNoList", bandNoList);
 					model.addAttribute("paging", paging);
 					
@@ -1129,6 +1137,7 @@ public class MypageController {
 				
 				logger.info("---appView---");
 				List<Application> aList = mpService.appViewAppliedBar(paging, bar);
+				List<Band> bandNoList = new ArrayList<>();
 				List<Bar> barNoList = new ArrayList<Bar>();
 				List<CalendarD> calList = new ArrayList<>();
 				List<PTime> stList = new ArrayList<>();
@@ -1159,7 +1168,12 @@ public class MypageController {
 					addBar.setBarName(app.getBarName());
 					addBar = mpService.getBarByBarName(addBar);
 					
+					Band addBand = new Band();
+					addBand.setBandNo(resumes.getBandNo());
+					addBand = mpService.getBandByBandNo(addBand);
+					
 					barNoList.add(addBar);
+					bandNoList.add(addBand);
 					calList.add(cal);
 					stList.add(startTime);
 					enList.add(endTIme);
@@ -1170,6 +1184,7 @@ public class MypageController {
 				model.addAttribute("aList", aList);
 				model.addAttribute("calList", calList);
 				model.addAttribute("barNoList", barNoList);
+				model.addAttribute("bandNoList", bandNoList);
 				model.addAttribute("paging", paging);
 				
 				model.addAttribute("stList", stList);
@@ -1410,9 +1425,10 @@ public class MypageController {
 		logger.info(app.toString());
 		mpService.appDelete(app);
 		if ( member.getRoleId() == 1 ) {
-			return "redirect:/mypage/applicationToBar";
-		} else {
 			return "redirect:/mypage/applicationToBand";
+		} else {
+			return "redirect:/mypage/applicationToBar";
+			
 		}
 	}
 //	--------------------------------------------------------------------------------------------------------------------------------------

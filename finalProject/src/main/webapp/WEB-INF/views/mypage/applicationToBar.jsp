@@ -429,7 +429,7 @@ $(document).ready(function() {
 		<tr>
 			<th scope="col">밴드이력서</th>
 			<th scope="col">지원일</th>
-			<th scope="col">공연</th>
+			<th scope="col">신청한 공연일</th>
 			<th scope="col">수락 여부</th>
 		</tr>
 		</thead>
@@ -690,22 +690,20 @@ $(document).ready(function() {
 					</td>
 					</c:if>
 					
-					<input type="hidden" name="appNo" value="${i.appNo }">
 					<c:if test="${status.count % 2 eq 0 }">
 					<td class="even">
 						<c:if test="${i.accept eq 0}">
-						<button class="acceptBtnRed" onclick="applicationToBarCancel${status.count }() ">지원취소</button>
+						<button class="acceptBtnRed" onclick="applicationToBarCancel(${i.appNo }) ">지원취소</button>
 						</c:if>
 					</td>
 					</c:if>
 					<c:if test="${status.count % 2 eq 1 }">
 					<td>
 						<c:if test="${i.accept eq 0}">
-							<button class="acceptBtnRed" onclick="applicationToBarCancel${status.count }() ">지원취소</button>
+							<button class="acceptBtnRed" onclick="applicationToBarCancel(${i.appNo }) ">지원취소</button>
 						</c:if>
 					</td>
 					</c:if>
-					
 				</tr>
 				</tbody>
 			</c:forEach>
