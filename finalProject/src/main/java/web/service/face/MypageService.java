@@ -139,8 +139,8 @@ public interface MypageService {
 	public void updateCalendarByBandNo(CalendarD cal);
 	public Bar getBarByBarName(Bar bar);
 	public void updateCalendarByBarNo(CalendarD cal);
-	public Map getScheduleByBarNo(Map map, int barNo);
-	public Map getScheduleByBandNo(Map map, int bandNo);
+	public Map getScheduleByBarNo(Map map, String string);
+	public Map getScheduleByBandNo(Map map, String string);
 	public CalendarD getCalendar(CalendarD cal);
 	public PTime getPTime(PTime startTime);
 	

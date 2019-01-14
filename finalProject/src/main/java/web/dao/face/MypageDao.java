@@ -153,8 +153,8 @@ public interface MypageDao {
 	public void updateCalendarByBandNo(CalendarD cal);
 	public Bar selectBarByBarName(Bar bar);
 	public void updateCalendarByBarNo(CalendarD cal);
-	public List scheduleBybarNo(@Param("map")Map map, @Param("barNo")int barNo);
-	public List scheduleBybandNo(@Param("map")Map map, @Param("bandNo")int bandNo);
+	public List scheduleBybarNo(@Param("map")Map map, @Param("barNo")String barNo);
+	public List scheduleBybandNo(@Param("map")Map map, @Param("bandNo")String bandNo);
 	
 	public CalendarD selectCalendarByCalendarNo(CalendarD cal);
 	public PTime selectPTimeByTimeId(PTime startTime);

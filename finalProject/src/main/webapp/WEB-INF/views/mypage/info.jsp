@@ -134,11 +134,12 @@
 			<b class="adminDetailInfo">계정</b> <b class="adminDetailInfo2">${member.userId }</b><br>
 			<b class="adminDetailInfo">이름</b> <b class="adminDetailInfo2">${member.userName }</b><br>
 			<b class="adminDetailInfo">이메일</b> <b class="adminDetailInfo2">${member.email }</b><br>
-			<b class="adminDetailInfo">연락처</b> <b class="adminDetailInfo2">${member.contact }</b><br>
-			<b class="adminDetailInfo">밴드</b> <b class="adminDetailInfo2">${band.bandName }</b><br>
-			<b class="adminDetailInfo">멤버</b> <br>
 			
-			<ul>
+			<b class="adminDetailInfo">연락처</b> <b class="adminDetailInfo2">${member.contact }</b><br><br>
+			<b class="adminDetailInfo">밴드</b> <b class="adminDetailInfo2">${band.bandName }</b><br>
+			<b class="adminDetailInfo">멤버</b><br>
+			
+			<ul class="adminDetailInfo2">
 				<c:forEach items="${bandMemberList }" var="i">
 				<li>${i.bandMemName } - ${i.mPosition }</li>
 				</c:forEach>

@@ -1456,6 +1456,8 @@ public class MypageController {
 	public void calendar(
 			HttpSession session
 			, Model model
+			, String barNo
+			, String tDate
 			) {
 		logger.info("---calendar---");
 //		calendarView
@@ -1472,36 +1474,49 @@ public class MypageController {
 			bar = mpService.getBar(bar);
 			
 			Map map = new HashMap();
-			
-//			map.put("map", calendar.getCalendar());
 			map = calendar.getCalendar();
 			
+			Map sched = new HashMap();
+			logger.info("---getScheduleByBarNo---");
+			sched = mpService.getScheduleByBarNo(map, String.valueOf(bar.getBarNo() ));
 			
-			Map map2 = mpService.getScheduleByBarNo(map, bar.getBarNo());
-//			List list3 = calendar.getInfoBar();
+//			Map map2 = mpService.getScheduleByBarNo(map, bar.getBarNo());
+//			Map list3 = calendar.getInfoBar(String.valueOf(bar.getBarNo()), tDate);
 			
-			model.addAttribute("number", bar.getBarNo());
+			List list3 = calendar.getBar();
+			
+//			model.addAttribute("number", bar.getBarNo());
 //			model.addAttribute("bars", list3);
-			model.addAttribute("map", map);
+//			model.addAttribute("map", map);
+			model.addAttribute("bars", list3);
+			model.addAttribute("calendar", map);
+			model.addAttribute("sched", sched);
 			
 		} else if ( member.getRoleId() == 2 ) {
 			band.setUserId(member.getUserId());
 			band = mpService.getBand(band);
 			
 			Map map = new HashMap();
-			
-//			map.put("map", calendar.getCalendar());
 			map = calendar.getCalendar();
 			
+			Map sched = new HashMap();
+			logger.info("---getScheduleByBandNo---");
+			sched = mpService.getScheduleByBandNo(map, String.valueOf(band.getBandNo() ));
 			
-			Map map2 = mpService.getScheduleByBandNo(map, band.getBandNo());
-//			List list3 = calendar.getInfoBar();
+//			logger.info("---getScheduleByBandNo---");
+//			Map map2 = mpService.getScheduleByBandNo(map, band.getBandNo());
+//			List list3 = calendar.getInfoBand(String.valueOf(band.getBandNo()), tDate);
 			
-			model.addAttribute("number", band.getBandNo());
+			List list3 = calendar.getBar();
+			
+//			model.addAttribute("number", band.getBandNo());
 //			model.addAttribute("bars", list3);
-			model.addAttribute("map", map);
+//			model.addAttribute("map", map);
+			model.addAttribute("bars", list3);
+			model.addAttribute("calendar", map);
+			model.addAttribute("sched", sched);
 		}
-		
+
 		
 	}
 	
