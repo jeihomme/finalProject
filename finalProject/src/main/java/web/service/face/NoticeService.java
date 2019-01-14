@@ -27,5 +27,7 @@ public interface NoticeService {
 			public void modify(Notice noticeNo);
 
 			public int getTotalCount();
+			
+	
 		
 }

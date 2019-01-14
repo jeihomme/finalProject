@@ -13,6 +13,7 @@ import web.dao.face.BandGenreDao;
 import web.dao.face.MusicDao;
 import web.dto.Advertise;
 import web.dto.FindMember;
+import web.dto.Genre;
 import web.dto.Member;
 import web.dto.Part;
 import web.dto.ProfilePic;
@@ -79,14 +80,21 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		map.put("bandMember", list);
 		
 		// 밴드 장르 가져오기
-		List list2 = advertiseDao.getGenre(findM.getBandNo());
-		List list3 = advertiseDao.allGenre();
+//		List list2 = advertiseDao.getGenre(findM.getBandNo());
+//		List list3 = advertiseDao.allGenre();
+		String genreNo = advertiseDao.getGenreNo(findM.getGenre());
+		Genre genre = advertiseDao.getGenreName(genreNo);
+		map.put("genre", genre);
 		
-		for(int i=1; i<list2.size(); i++) {
-			for(int j=1; j<list3.size(); j++) {
-				// 여기 작성해야함. 장르 번호에 따라 장르 이름 넣어주기
-			}
-		}
+//		
+//		for(int i=1; i<list2.size(); i++) {
+//			for(int j=1; j<list3.size(); j++) {
+//				// 여기 작성해야함. 장르 번호에 따라 장르 이름 넣어주기
+//				
+//				
+//				
+//			}
+//		}
 		
 		//		map.put("bandGenre", list2);
 		
@@ -152,6 +160,12 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	@Override
 	public FindMember viewAds(String findNo) {
 		return advertiseDao.selectAdvertise(findNo);
+		
+	}
+
+	@Override
+	public Part getPart(String positionNo) {
+	 return	advertiseDao.getPtitle(positionNo);
 		
 	}
 

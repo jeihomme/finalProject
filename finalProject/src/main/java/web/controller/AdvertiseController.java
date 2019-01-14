@@ -21,6 +21,7 @@ import web.dto.Advertise;
 import web.dto.Band;
 import web.dto.FindMember;
 import web.dto.Member;
+import web.dto.Part;
 import web.service.face.AdvertiseService;
 import web.utils.Paging;
 
@@ -218,6 +219,7 @@ public class AdvertiseController {
 			@RequestParam String findNo
 			) {
 		
+		
 		logger.info(""+findNo);
 		
 		Map map = advertiseService.view(findNo);
@@ -252,15 +254,23 @@ public class AdvertiseController {
 		return "redirect:/advertise/list";
 	}
 	@RequestMapping(value="/advertise/update" , method=RequestMethod.GET)
-	public String update(HttpSession session , HttpServletRequest req , String findNo , Model model) {
+	public String update(HttpSession session , HttpServletRequest req , String findNo , Model model ) {
 		logger.info("글수정 폼");
+		
+//		Part part = advertiseService.getPart(positionNo);
+//		req.setAttribute("part", part);
+		Band band = (Band) session.getAttribute("bandInfo");
+		model.addAttribute("band", band);
+		
+		if(band.getBandNo()== )
+		
+		
 		
 		FindMember advertise = advertiseService.viewAds(findNo);
 		/*model.addAttribute("ads" ,advertise );*/
 		req.setAttribute("ads", advertise);
 		
-		Band band = (Band) session.getAttribute("bandInfo");
-		model.addAttribute("band", band);
+	
 		
 		return "/advertise/update";
 	}
@@ -272,7 +282,7 @@ public class AdvertiseController {
 		
 		return "redirect:/advertise/update";
 	}
-	
+	@RequestMapping(value="/advertise/delete" , method=RequestMethod.GET)
 	public void delete() {
 		
 	}

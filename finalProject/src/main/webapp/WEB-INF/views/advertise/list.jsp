@@ -279,6 +279,7 @@ $(document).ready(function(){
 //	 			var bandgenre = data.map.bandGenre;
 				var member = data.map.member;
 				var part = data.map.part;
+				var genre = data.map.genre;
 				
 				console.log(data.map);
 				
@@ -288,7 +289,7 @@ $(document).ready(function(){
 				$newadvertiseView = $(
 						     "<div class='modal-img' ><img src='http://" + proPic.path + "/" + proPic.originName + "' width='100%' height='100%'/></div><div class='modal-info'>"
 						     +"<div style='margin-left:10%; margin-top:1%;'><p>· Member</p><div class='member-div'><input type='text'style='width: 220px' value='"+bandMember.bandMemName+"'/></div>"
-						     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' value='"+findM.genre+"'/></p></div>"
+						     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' value='"+genre.genreName+"'/></p></div>"
 						     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' value='"+part.pTitle+"' type='text''/></p></div>"
 						     +"<div style='margin-top: 10%'><p>· Contact Number<input style='margin-left: 5%' type='text' value='"+member.contact+"' /></p></div>"
 						     +"<div class='etc' style='margin-top: 10% ,'><p>· Etc.<input style='margin-left: 5%; height: 185px; width:88%;' maxlength='12' type='text' name='content' value='"+findM.content+"''/></p></div>"

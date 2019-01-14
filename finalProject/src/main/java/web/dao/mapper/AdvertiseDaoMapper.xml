@@ -23,7 +23,8 @@ SELECT b.findNo
      , CASE WHEN B.adsNo = '1' THEN '맴버'
          ELSE '콜라보'
          END ADS
-FROM  FINDMEMBER B , Band A
+     ,c.genreName    
+FROM  FINDMEMBER B , Band A , genre C
 WHERE a.bandNo = b.bandNo
 <if test="search != null and search != '' and searchVal == ('title')"> 
 	AND title LIKE '%' || #{search} || '%'
@@ -34,6 +35,7 @@ WHERE a.bandNo = b.bandNo
 <if test="search != null and search != '' and searchVal == ('userId')">
 	AND userId LIKE '%' || #{search} || '%'
 </if>
+	AND c.genreNo = b.genre
   <if test="adsNo != null and adsNo != '' ">
 	 AND b.adsNo = #{adsNo}
 	 </if>
@@ -102,14 +104,18 @@ SELECT COUNT(*) CNT FROM (
 	WHERE bandNo = #{bandNo}
 </select>
 
-<select id="getGenre" parameterType="String" resultType="web.dto.BandGenre">
-	SELECT bandNo, genreNo
-	FROM bandGenre
-	WHERE bandNo = #{bandNo}
+<select id="getGenreName" parameterType="String" resultType="web.dto.Genre">
+	SELECT genreNo , genreName
+	FROM Genre
+	WHERE genreNo = #{genreNo}
 </select>
 <select id="allGenre" resultType="web.dto.Genre">
 	SELECT *
 	FROM genre
+</select>
+<select id="getGenreNo" resultType="String">
+	SELECT * FROM genre
+	WHERE genreNo = #{genreNo}
 </select>
 
 <select id="getMemberUserId" resultType="String">

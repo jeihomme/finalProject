@@ -5,6 +5,7 @@ import java.util.Map;
 
 import web.dto.Advertise;
 import web.dto.FindMember;
+import web.dto.Part;
 import web.dto.ProfilePic;
 import web.utils.Paging;
 
@@ -43,5 +44,7 @@ public interface AdvertiseService {
 
 	public FindMember viewAds(String findNo);
 
+	public Part getPart(String positionNo);
 	
+//	public boolean
 }
