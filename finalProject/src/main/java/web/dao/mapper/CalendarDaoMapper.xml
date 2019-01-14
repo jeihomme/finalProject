@@ -68,10 +68,59 @@
 		values (#{calNo}, to_date(#{thisDate}, 'YY-MM-DD' ), #{barNo}, #{bandNo}, #{stTime}, #{edTime})
 	</insert>
 	
+	<select id="getInfoBar" resultType="web.dto.CalendarD">
+		SELECT 
+    		calendarNO,
+    		EXTRACT(DAY FROM calendarDate) calendarDate,
+        	a.bandNo,
+        	CASE WHEN a.bandNo = b.bandNo THEN bandName
+	        	END bandName,
+    		a.barNo,
+    		CASE WHEN a.barNo = c.barNo THEN barName
+	        	END barName,
+    		startTime,
+    		endTime 
+		FROM calendar a, band b, bar c
+		WHERE a.bandNo = b.bandNo AND
+    			a.barNo = c.barNo AND
+    			c.barNo = #{barNo} AND
+    			calendarDate = to_date(#{tDate }, 'YYYY-MM-DD')
+    	ORDER BY startTime
+	</select>
 	
+	<select id="getEmptySched" resultType="web.dto.CalendarD">
+		SELECT 
+    		calendarNO,
+    		EXTRACT(DAY FROM calendarDate) calendarDate,
+    		a.barNo,
+    		CASE WHEN a.barNo = c.barNo THEN barName
+	        	END barName,
+    		startTime,
+    		endTime 
+		FROM calendar a, bar c
+		WHERE a.barNo = c.barNo AND
+    			c.barNo = #{barNo} AND
+                a.bandNo is null AND
+    			calendarDate = to_date(#{tDate }, 'YYYY-MM-DD')
+    	ORDER BY startTime
+	</select>
 	
+	<select id="cntApp" resultType="int">
+		SELECT COUNT(*)
+		FROM application
+		WHERE resumesNo = (select resumesNo from resumes where bandNo = #{bandNo} and publicResumes = 1)
+				AND
+				calendarNo = #{calendarNo} AND
+				barName = (select barName from bar where barNo = #{barNo})
+	</select>
 	
-	
+	<insert id="inviteBand">
+		INSERT INTO application
+		VALUES((SELECT max(appNo)+1 appNo FROM application),
+				(select resumesNo from resumes where bandNo = #{bandNo} and publicResumes=1), 
+                (select barName from bar where barNo = #{barNo}),
+				sysdate, 0, 0, 0, 1, #{calendarNo} )
+	</insert>
 	
 	
 	

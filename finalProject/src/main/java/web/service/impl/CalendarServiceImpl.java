@@ -155,7 +155,7 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override
-	public List getInfoBar() {
+	public List getBar() {
 
 		List list = calendarDao.getBars();
 		
@@ -174,7 +174,38 @@ public class CalendarServiceImpl implements CalendarService {
 
 	}
 
+	@Override
+	public Map getInfoBar(String barNo, String tDate) {
+		
+		//선택된 날짜
+		String[] array = tDate.split("\\.");
 
+		String date = array[0] + "-" + array[1] + "-" + array[2];
 
+		List list = calendarDao.getInfoBar(barNo, date);
+		List list2 = calendarDao.getEmptySched(barNo, date);
 
+		Map map = new HashMap();
+		map.put("barInfo", list);
+		map.put("emptySched", list2);
+				
+		return map;
+	}
+
+	@Override
+	public void inviteBand(String calendarNo, String barNo, String bandNo) {
+
+		int exist = calendarDao.cntApp();
+		
+		if(exist == 1) {
+			
+			logger.info("이미 있음");
+			
+		} else if(exist == 0) {
+			
+			calendarDao.inviteBand(calendarNo, barNo, bandNo);
+		}
+		
+	}
+	
 }

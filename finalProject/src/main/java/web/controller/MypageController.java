@@ -1486,10 +1486,10 @@ public class MypageController {
 			
 			
 			Map map2 = mpService.getScheduleByBarNo(map, bar.getBarNo());
-			List list3 = calendar.getInfoBar();
+//			List list3 = calendar.getInfoBar();
 			
 			model.addAttribute("number", bar.getBarNo());
-			model.addAttribute("bars", list3);
+//			model.addAttribute("bars", list3);
 			model.addAttribute("map", map);
 			
 		} else if ( member.getRoleId() == 2 ) {
@@ -1503,10 +1503,10 @@ public class MypageController {
 			
 			
 			Map map2 = mpService.getScheduleByBandNo(map, band.getBandNo());
-			List list3 = calendar.getInfoBar();
+//			List list3 = calendar.getInfoBar();
 			
 			model.addAttribute("number", band.getBandNo());
-			model.addAttribute("bars", list3);
+//			model.addAttribute("bars", list3);
 			model.addAttribute("map", map);
 		}
 		
