@@ -1258,7 +1258,7 @@ public class MypageController {
 				
 				logger.info("---appView---");
 				List<Application> aList = mpService.appViewAppliedBar(paging, band);
-				List<Band> bandNoList = new ArrayList<Band>();
+				List<Bar> barNoList = new ArrayList<Bar>();
 				List<CalendarD> calList = new ArrayList<>();
 				List<PTime> stList = new ArrayList<>();
 				List<PTime> enList = new ArrayList<>();
@@ -1284,21 +1284,21 @@ public class MypageController {
 					endTIme = mpService.getPTime(endTIme);
 					
 					System.out.println(resumes.getBandNo());
-					Band addBand = new Band();
-					addBand.setBandNo(resumes.getBandNo());
-					addBand = mpService.getBandByBandNo(addBand);
+					Bar addBar = new Bar();
+					addBar.setBarName(app.getBarName());
+					addBar = mpService.getBarByBarName(addBar);
 					
-					bandNoList.add(addBand);
+					barNoList.add(addBar);
 					calList.add(cal);
 					stList.add(startTime);
 					enList.add(endTIme);
 				}
 				
-				System.out.println(bandNoList);
+				System.out.println(barNoList);
 				logger.info("---addAttribute---");
 				model.addAttribute("aList", aList);
 				model.addAttribute("calList", calList);
-				model.addAttribute("bandNoList", bandNoList);
+				model.addAttribute("barNoList", barNoList);
 				model.addAttribute("paging", paging);
 				
 				model.addAttribute("stList", stList);

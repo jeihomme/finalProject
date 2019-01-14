@@ -613,12 +613,12 @@
 				<tr>
 					<c:if test="${status.count % 2 eq 0 }">
 						<td class="even">
-							<button class="searchBtn" onclick="viewAppFromBand(${bandNoList[status.index].bandNo }) ">${bandNoList[status.index].bandName }</button>
+							<button class="searchBtn" onclick="viewAppFromBand(${barNoList[status.index].bandNo }) ">${barNoList[status.index].bandName }</button>
 						</td>
 					</c:if>
 					<c:if test="${status.count % 2 eq 1 }">
 						<td >
-							<button class="searchBtn" onclick="viewAppFromBand(${bandNoList[status.index].bandNo }) ">${bandNoList[status.index].bandName }</button>
+							<button class="searchBtn" onclick="viewAppFromBand(${barNoList[status.index].bandNo }) ">${barNoList[status.index].bandName }</button>
 						</td>
 					</c:if>
 					
