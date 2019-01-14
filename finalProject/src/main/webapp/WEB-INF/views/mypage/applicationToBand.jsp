@@ -423,10 +423,10 @@
 			
 				<thead>
 				<tr>
-					<th scope="col">밴드소개글</th>
+					<th scope="col">바 소개글</th>
 					<th scope="col">지원일</th>
 					<th scope="col">공연</th>
-					<th scope="col">열람</th>
+<!-- 					<th scope="col">열람</th> -->
 					<th scope="col">수락</th>
 					<th scope="col">지원</th>
 				</tr>
@@ -436,12 +436,12 @@
 				<tr>
 					<c:if test="${status.count % 2 eq 0 }">
 						<td class="even">
-							<button class="searchBtn" onclick="viewAppFromBand(${bandNoList[status.index].bandNo }) ">${bandNoList[status.index].bandName }</button>
+							<button class="searchBtn" onclick="viewAppFromBar(${barNoList[status.index].barNo }) ">${barNoList[status.index].barName }</button>
 						</td>
 					</c:if>
 					<c:if test="${status.count % 2 eq 1 }">
 						<td >
-							<button class="searchBtn" onclick="viewAppFromBand(${bandNoList[status.index].bandNo }) ">${bandNoList[status.index].bandName }</button>
+							<button class="searchBtn" onclick="viewAppFromBar(${barNoList[status.index].barNo }) ">${barNoList[status.index].barName }</button>
 						</td>
 					</c:if>
 					
@@ -468,12 +468,12 @@
 						<c:if test="${i.read eq 1}">열람</c:if>
 					</td>
 					</c:if>
-					<c:if test="${status.count % 2 eq 1 }">
-					<td>
-						<c:if test="${i.read eq 0}">미열람</c:if>
-						<c:if test="${i.read eq 1}">열람</c:if>
-					</td>
-					</c:if>
+<%-- 					<c:if test="${status.count % 2 eq 1 }"> --%>
+<!-- 					<td> -->
+<%-- 						<c:if test="${i.read eq 0}">미열람</c:if> --%>
+<%-- 						<c:if test="${i.read eq 1}">열람</c:if> --%>
+<!-- 					</td> -->
+<%-- 					</c:if> --%>
 					
 					<c:if test="${status.count % 2 eq 0 }">
 					<td class="even">
@@ -602,7 +602,7 @@
 			
 				<thead>
 				<tr>
-					<th scope="col">밴드소개</th>
+					<th scope="col">바 소개글</th>
 					<th scope="col">지원일</th>
 					<th scope="col">공연 지원 날짜 / 시간</th>
 					<th scope="col">수락 여부</th>
@@ -613,12 +613,12 @@
 				<tr>
 					<c:if test="${status.count % 2 eq 0 }">
 						<td class="even">
-							<button class="searchBtn" onclick="viewAppFromBand(${barNoList[status.index].bandNo }) ">${barNoList[status.index].bandName }</button>
+							<button class="searchBtn" onclick="viewAppFromBar(${barNoList[status.index].barNo }) ">${barNoList[status.index].barName }</button>
 						</td>
 					</c:if>
 					<c:if test="${status.count % 2 eq 1 }">
 						<td >
-							<button class="searchBtn" onclick="viewAppFromBand(${barNoList[status.index].bandNo }) ">${barNoList[status.index].bandName }</button>
+							<button class="searchBtn" onclick="viewAppFromBar(${barNoList[status.index].barNo }) ">${barNoList[status.index].barName }</button>
 						</td>
 					</c:if>
 					

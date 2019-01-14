@@ -293,6 +293,24 @@
 			}
 		});
 	}
+	
+	function viewAppFromBar( barNo ){
+		//AJAX 처리하기
+		
+		$.ajax({ 	
+			type: "get"
+			, url: "/bar/viewBar?barNo=" + barNo
+			, data: {
+			}
+			, dataType: "html"
+			, success: function( res ) {
+				$("#body").html(res);
+			}
+			, error: function() {
+				alert("실패");
+			}
+		});
+	}
 
 	function viewMypageUserAdmin(){
 		//AJAX 처리하기
