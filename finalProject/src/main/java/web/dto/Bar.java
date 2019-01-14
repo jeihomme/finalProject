@@ -17,7 +17,7 @@ public class Bar {
 	private String genreName;
 	private int startNo;
 	private int endNo;
-	private int contact;
+	private String contact;
 	
 	private int calendarNo;
 	private String calendarDate;
@@ -58,11 +58,11 @@ public class Bar {
 		this.endTime = endTime;
 	}
 
-	public int getContact() {
+	public String getContact() {
 		return contact;
 	}
 
-	public void setContact(int contact) {
+	public void setContact(String contact) {
 		this.contact = contact;
 	}
 

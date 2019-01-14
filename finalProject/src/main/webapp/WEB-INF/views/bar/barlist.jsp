@@ -52,7 +52,7 @@
 		            for(i=0; i<data.barList.length; i++){
 			            str += '<a href="/bar/viewbar?barNo=' + data.barList[i].barNo + '">';
 			            str += '	<div class="bar">';
-			            str += '		<p><img src="http://' + data.barList[i].path + '/' + data.barList[i].originName + '"></p>';
+			            str += '		<p><img src="../resources/' + data.barList[i].originName + '"></p>';
 			            str += '		<p>' + data.barList[i].barName + '</p>';
 			            str += '	</div>';
 			            str += '</a>';
@@ -132,6 +132,7 @@
 	}
 	.bar img{
 		width: 130px;
+		height: 87px;
 	}
 	.font {
 		text-align:center;
