@@ -29,12 +29,12 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 	@Autowired BandDao bandDao;
 	
 	@Override
-	public List getList(Paging paigng) {
+	public List getList(Paging paging) {
 		
 		FindMember findM = new FindMember();
 		
 		
-		return advertiseDao.selectPagingList(paigng);
+		return advertiseDao.selectPagingList(paging);
 	}
 	
 	@Override

@@ -387,8 +387,6 @@ $(document).ready(function(){
 
 		var calendarNo = $(this).val();
 		
-// 		console.log(calendarNo);
-		
 		$.ajax({
 			type: "post",
 			url: "/calendar/inviteBand",
