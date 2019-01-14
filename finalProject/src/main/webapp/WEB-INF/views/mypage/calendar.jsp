@@ -558,9 +558,7 @@ $(document).ready(function(){
 <table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" width="620" height="665">
 	<tr>
   		<td style="align:center; width:365; font-color:white; text-align:center;">
-  			<h3 style="color:white">${curMonth }. ${curYear }</h3> 
-<%--   			<a href="View.jsp?type=MONTH&curYear=<c:out value="${curYear}"/>&curMonth=<c:out value="${curMonth+1}"/>&curDay=<c:out value="${curDay}"/>">▶</a> --%>
-			<button type="button" id="backView">닫기</button>
+  			<h3 style="color:white">${curYear }년, ${curMonth }월 </h3>
   		</td>
 	</tr>
 	<tr height="3">
