@@ -103,6 +103,10 @@ $(document).ready(function(){
 							}
 							
 						} // end of if
+						
+						// break;
+						return false;
+						
 					}); // end of $.each
 				}); // end of $.each
 
@@ -196,6 +200,11 @@ $(document).ready(function(){
 							
 							
 						} // end of if
+						
+						
+						// break;
+						return false;
+						
 					}); // end of $.each(profile)
 				}); // end of $.each(band)
 				
