@@ -1269,10 +1269,7 @@
 		});
 	}
 	
-	function minHistorylist(resumesNo){
-		
-		var resumesNo = document.getElementById("resumesNo").value;
-		var rnum = document.getElementById("rnum").value;
+	function minHistorylist(resumesNo, rnum){
 		
 		//AJAX 처리하기
 		$.ajax({ 	

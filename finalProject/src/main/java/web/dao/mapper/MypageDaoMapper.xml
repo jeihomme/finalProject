@@ -471,7 +471,7 @@
 			    SELECT rownum rnum, his.* FROM (
 				    select historyNo from History
 				    where resumesNo = #{history.resumesNo }
-				    order by resumesNo
+				    order by year
 				    ) his
 				ORDER BY rnum )
 				where rnum = #{rnum }

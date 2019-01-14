@@ -607,7 +607,7 @@ public class MypageServiceImpl implements MypageService{
 	@Autowired CalendarDao calendarDao;
 	
 	@Override
-	public Map getScheduleByBarNo(Map map, int bandNo) {
+	public Map getScheduleByBarNo(Map map, String bandNo) {
 		// TODO Auto-generated method stub
 		CalendarD cd = new CalendarD(); 
 		
@@ -646,7 +646,7 @@ public class MypageServiceImpl implements MypageService{
 	}
 	
 	@Override
-	public Map getScheduleByBandNo(Map map, int bandNo) {
+	public Map getScheduleByBandNo(Map map, String bandNo) {
 		// TODO Auto-generated method stub
 		CalendarD cd = new CalendarD(); 
 		

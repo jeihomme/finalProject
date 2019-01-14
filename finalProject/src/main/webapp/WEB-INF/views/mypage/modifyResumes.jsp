@@ -287,7 +287,7 @@
 								<input type="hidden" class="insertResumesHistory" name="historyNo[]" value="${i.historyNo }"/>
 								<input type="month" class="insertResumesHistory" name="year[]" value="${i.year }"/>년, 
 								<input type="text" class="insertResumesHistory" name="historyInfo[]" value="${i.historyInfo }"/>
-								<button class="addHistoryList" onclick="minHistorylist(${i.historyNo }) ">-</button>
+								<button class="addHistoryList" onclick="minHistorylist(${resumes.resumesNo }, ${status.count }) ">-</button>
 							</td>
 						</c:if>
 						<c:if test="${status.count %2 eq 0}">
@@ -296,7 +296,7 @@
 								<input type="hidden" class="insertResumesHistory" name="historyNo[]" value="${i.historyNo }"/>
 								<input type="month" class="insertResumesHistory" name="year[]" value="${i.year }"/>년, 
 								<input type="text" class="insertResumesHistory" name="historyInfo[]" value="${i.historyInfo }"/>
-								<button class="addHistoryList" onclick="minHistorylist(${i.historyNo }) ">-</button>
+								<button class="addHistoryList" onclick="minHistorylist(${resumes.resumesNo }, ${status.count }) ">-</button>
 							</td>
 						</c:if>
 							
