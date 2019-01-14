@@ -18,22 +18,10 @@ var idCheck = 0;
 var nickCheck = 0;
 var pwCheck = 0;
 
-// Band 가입할 때 Band Member 추가
-function insertBandMember() {
-	var maxField = 5; // 5개까지만 동적 생성
-	var wrapper=$("#bandMemberAdd");
-	var start = 1;	// 첫 숫자
-	
-	var fieldHTML = '<div><input type="text" id="bandMember[]" value="" /><a href="#" class="removeBandMemberBtn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a></div>';
-	
-// 	$("#bandMemberAddBtn") 
-}
-
 // member 가입시 아이디 중복 확인
 function checkId() {
 	// 닉네임 입력 값
 	var inputed = $("#joinUserId").val();
-	console.log(inputed);
 	
 	$.ajax ({
 		data: {
@@ -52,7 +40,7 @@ function checkId() {
 				$(".nextBtn").prop("disabled", true);
 			
 			// 입력된 값이 없을 때
-			} else if(inputed=="" || inputed==null || inputed.length<=4) {
+			} else if(inputed=="" || inputed==null || inputed.length<=2) {
 				$("#joinIdCheck").css("color", "red");
 				$(".nextBtn").prop("disabled", true);
 
@@ -70,7 +58,6 @@ function checkId() {
 function checkNick() {
 	// 닉네임 입력 값
 	var inputed = $("#joinUserName").val();
-	console.log(inputed);
 	
 	$.ajax ({
 		data: {
@@ -89,7 +76,7 @@ function checkNick() {
 				$(".nextBtn").prop("disabled", true);
 			
 			// 입력된 값이 없을 때
-			} else if(inputed=="" || inputed==null || inputed.length<=4) {
+			} else if(inputed=="" || inputed==null || inputed.length<=2) {
 				$("#joinUserNameCheck").css("color", "red");
 				$(".nextBtn").prop("disabled", true);
 
@@ -97,7 +84,6 @@ function checkNick() {
 			} else if(data=="1") {
 				$("#joinUserNameCheck").css("color", "green");
 				$(".nextBtn").prop("disabled", false);
-
 
 			}
 		}
@@ -109,9 +95,6 @@ function checkPw() {
 	// 비밀번호 입력 값
 	var inputed1 = $("#joinPassword").val();
 	var inputed2 = $("#passwordChk").val();
-	
-	console.log(inputed1);
-	console.log(inputed2);
 	
 	$.ajax ({
 		data: {
@@ -247,6 +230,26 @@ function execDaumPostcode() { // (post)
 
 
 $(document).ready(function() {
+	
+	// Band 가입할 때 Band Member 추가
+	var maxField = 5; // 5개까지만 동적 생성
+	var wrapper = $(".bandMemberAdd");
+	var start = 1;	// 첫 숫자
+	
+	var fieldHTML = '<div><input type="text" id="bandMember[]" value="" style="margin-bottom: 10px" class="input"/><a href="#" class="removeBandMemberBtn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a></div>';
+	
+	$(".AddBandMemberBtn").click(function() {
+		if(start < maxField) {
+			start++;
+			$(".bandMemberAdd").append(fieldHTML); // add field
+		}
+	});
+	
+	$(wrapper).on("click", ".removeBandMemberBtn", function(e) {
+		e.preventDefault();
+		$(this).parent('div').remove(); // remove field
+		start--;
+	});
 	
 	$('.modal-content:not(:eq('+idx+'))').hide();
 	console.log("hide modal");		
@@ -1440,6 +1443,10 @@ $(document).ready(function() {
 	</ul>
 </div><br>
 
+<!-- <!-- <?php -->
+<!-- 	$R['bandMemberAdd'] = isset($R['bandMemberAdd'])? $R['kor']:"; -->
+<!-- <!-- ?> -->
+
 <!-- 로그인 모달 #0 -->
 <div class="modal modal-center fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none">
   <div class="modal-dialog modal-lg" style="width: 30%;">
@@ -1679,7 +1686,7 @@ $(document).ready(function() {
 				</table>
 				</form>
 				<br>
- 				<button type="button" class="btnBarJoin">회원가입</button><br>
+ 				<button type="button" class="btnBarJoin"><b>회원가입</b></button><br>
       		<br>
       </div>
     </div>
@@ -1688,7 +1695,7 @@ $(document).ready(function() {
     <div class="modal-content">
         <button class="backBtn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <div class="modal-body text-center"  style="height: 500px;">
+      <div class="modal-body text-center"  style="height: 700px;">
          <h3 class="modal-title text-center" style="color: black; padding-top: 8px;"><b>Band</b></h3>
          <div class="joinInfo text-right" style="color: black; font-size: 11px; padding-bottom: 15px;"><br>
       		<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
@@ -1717,12 +1724,12 @@ $(document).ready(function() {
 						<option value="6">Boogie Woogie</option>
 					</select></td></tr>
 					<tr><td>
-					<div id="bandMemberAdd">
-					
-					</div></td></tr>
+						<input type="text" id="bandMember[]" class="input" />
+						<a href="#" class="AddBandMemberBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+						<div class="bandMemberAdd"></div>
 			</table><br>
 			</form>
-			<button type="button" class="btnBandJoin">Join</button><br>
+			<button type="button" class="btnBandJoin"><b>회원가입</b></button><br>
 			<br>
       </div>
     </div>

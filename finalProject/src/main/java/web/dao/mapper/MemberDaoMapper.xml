@@ -132,14 +132,31 @@
  	</select>
  	
  	<insert id="insertProfilePic" parameterType="web.dto.ProfilePic">
+	 	<selectKey keyProperty="profileNo" resultType="int" order="BEFORE">
+	<!--          select dept_seq.nextval from dual -->
+	         select * from (
+	         select NVL(max(profileNo)+1, 1) from profilePic
+	         order by profileNo desc
+	         )
+	         where rownum = 1
+	<!--          select max(no)+1 no from test_member -->
+	      </selectKey>
+ 	
  		INSERT INTO profilePic (profileNo, path, originName, storedName)
- 		VALUES (profileNo_seq.nextval, #{path }, #{originName }, #{storedName }) 
+ 		VALUES (#{profileNo }, #{path }, #{originName }, #{storedName }) 
  	</insert>
  	
  	<select id="selectProfileNo" parameterType="String" resultType="int">
- 		SELECT profileNo
- 		FROM profilePic
- 		WHERE storedName=#{profileName }
+ 		
+ 		select * from (
+	         select NVL(max(profileNo), 1) from profilePic
+	         order by profileNo desc
+	         )
+	         where rownum = 1
+	         
+<!--  		SELECT profileNo -->
+<!--  		FROM profilePic -->
+<!--  		WHERE storedName=#{profileName } -->
  	</select>
  	
  	<delete id="deleteMember">

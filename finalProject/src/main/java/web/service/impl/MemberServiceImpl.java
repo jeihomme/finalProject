@@ -209,7 +209,7 @@ public class MemberServiceImpl implements MemberService {
 			// 파일 객체
 			File dest = new File(stored, name);
 			
-			profilePic.setOriginName(file.getOriginalFilename());
+			profilePic.setOriginName(name);
 			profilePic.setStoredName(name);
 			profilePic.setPath(stored);
 			
