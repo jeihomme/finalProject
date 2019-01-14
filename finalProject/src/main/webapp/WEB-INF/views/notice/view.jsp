@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>       
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -27,46 +29,51 @@ $(document).ready(function(){
 	
 })
 </script>
+<style>
+td {
+ color:black;
+}
+
+tr{
+ color:black;
+}
+
+
+</style>
 
 
 <h1>상세보기</h1>
 <hr>
-
-<table>
+<div class="row">
+<div class ="col-xs-2 col-md-2" style="width: 100%">
+<div class="table table-responsive">
+<table class = "table">
 	<tr>
-		<th>번호</th>
-		<td>${notice.noticeNo }</td>
-	</tr>
-
-	<tr>
-		<th>제목</th>
-		<td>${notice.title }</td>
-	</tr>
-	<tr>
-		<th>내용</th>
-		<td>${notice.content }</td>
-	</tr>
-	
-	<tr>
-		<th>작성자</th>
+		<th class="success">번호</th>
+		<td colspan="2">${notice.noticeNo }</td>
+		<th class="success">작성자</th>
 		<td>${notice.userId }</td>
 	</tr>
 
-	
 	<tr>
-		<th>작성일</th>
-		<td>${notice.writtenDate }</td>
+		<th class="success">제목</th>
+		<td colspan="2">${notice.title }</td>
+		<th class="success">작성일</th>
+		<td><fmt:formatDate value="${notice.writtenDate }" pattern="yyyy-MM-dd"/></td>
 	</tr>
-
-	
-	
+	<tr>
+		<th class="success">내용</th>
+		<td colspan="3">${notice.content }</td>
+	</tr>	
 </table>
 
-<div class="text-center">
-		<button id="btnList" class="btn btn-primary">목록</button>
-		<c:if test="${member.roleId eq '0'}"> 
-		<button id="btnUpdate" class="btn btn-info">수정</button>
-		<button id="btnDelete" class="btn btn-danger">삭제</button>
-		</c:if>
-</div>
-
+	<div class="text-center">
+			<button id="btnList" class="btn btn-primary">목록</button>
+			<c:if test="${member.roleId eq '0'}"> 
+			<button id="btnUpdate" class="btn btn-info">수정</button>
+			<button id="btnDelete" class="btn btn-danger">삭제</button>
+			</c:if>
+			</div>
+		</div>
+	</div>
+	</div>

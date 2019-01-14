@@ -171,10 +171,10 @@ input[type=text]{
 </div>
 <table id="advertiseTable" class="table table-striped table-hover">
 <tr>
-	<th style="width: 11%">번호</th>
-	<th style="width: 22%">분류</th>
-	<th style="width: 28%">제목</th>
-	<th style="width: 24%">작성자</th>
+	<th style="width: 14%">번호</th>
+	<th style="width: 15%">분류</th>
+	<th style="width: 24%">제목</th>
+	<th style="width: 29%">작성자</th>
 	<th >작성일</th>
 </tr>
 </table>

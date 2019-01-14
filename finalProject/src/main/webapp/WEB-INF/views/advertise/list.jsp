@@ -64,7 +64,7 @@ td {
     border-radius:20px;
 /*     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */ 
 	margin-left: 20%;
-    margin-top: 24%;
+    margin-top: 20%;
 
 
 
@@ -164,10 +164,10 @@ input[type=text]{
 </div>
 <table id="advertiseTable" class="table table-striped table-hover">
 <tr>
-	<th style="width: 12%">번호</th>
-	<th style="width: 23%">분류</th>
-	<th style="width: 26%">제목</th>
-	<th style="width: 23%">작성자</th>
+	<th style="width: 14%">번호</th>
+	<th style="width: 19%">분류</th>
+	<th style="width: 24%">제목</th>
+	<th style="width: 26%">작성자</th>
 	<th >작성일</th>
 </tr>
 </table>
@@ -277,7 +277,7 @@ $(document).ready(function(){
 				var findM = data.map.findM;
 				var proPic = data.map.proPic;
 				var bandMember = data.map.bandMember;
-//	 			var bandgenre = data.map.bandGenre;
+	 			var band = data.map.band;
 				var member = data.map.member;
 				var part = data.map.part;
 				var genre = data.map.genre;
@@ -289,13 +289,14 @@ $(document).ready(function(){
 				
 				$newadvertiseView = $(
 						     "<div class='modal-img' ><img src='../resources/" + proPic.originName + "' width='100%' height='100%'/></div><div class='modal-info'>"
+						     +"<div style='margin-top: 10%'><p>· BandName<input style='margin-left: 5%; width: 240px;' type='text' value='"+band.bandName+"'/></p></div>"
 						     +"<div style='margin-top: 10%'><p>· Genre<input style='margin-left: 5%; width: 240px;' type='text' value='"+genre.genreName+"'/></p></div>"
 						     +"<div style='margin-top: 10%'><p>· Searching for<input style='margin-left: 5%; width: 195px;' value='"+part.pTitle+"' type='text''/></p></div>"
 						     +"<div style='margin-top: 10%'><p>· Contact Number<input style='margin-left: 5%' type='text' value='"+member.contact+"' /></p></div>"
-						     +"<div class='etc' style='margin-top: 20% '><p>· Etc.<input style='margin-left: 5%; height: 185px; width:88%;' maxlength='12' type='text' name='content' value='"+findM.content+"''/></p></div>"
+						     +"<div class='etc' style='margin-top: 8% '><p>· Etc.<input style='margin-left: 5%; height: 185px; width:88%;' maxlength='12' type='text' name='content' value='"+findM.content+"''/></p></div>"
 						     +"</div></div>"
 						     +"<audio controls class='modal-music'><source type='audio/ogg'><source type='audio/mpeg'></audio><button onclick='javascript:doUpdate("+findM.findNo+");' type='button' id='btnUpdate' class='btn btn-default'>Update</button>"
-						     +"<button onclick='javascript:doClose();' type='button' id='close' class='btn btn-default'>Close</button><button type='button' id='Delete' onclick='javascript:doDelete("+find.findNo+");' class='btn btn-default'>DELETE</button>"
+						     +"<button onclick='javascript:doClose();' type='button' id='close' class='btn btn-default'>Close</button><button type='button' id='Delete' onclick='javascript:doDelete("+findM.findNo+");' class='btn btn-default'>DELETE</button>"
 						      );
 				$("#advertiseView").append($newadvertiseView);
 		

@@ -12,6 +12,7 @@ import web.dao.face.BandDao;
 import web.dao.face.BandGenreDao;
 import web.dao.face.MusicDao;
 import web.dto.Advertise;
+import web.dto.Band;
 import web.dto.FindMember;
 import web.dto.Genre;
 import web.dto.Member;
@@ -65,10 +66,15 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		ProfilePic proPic = advertiseDao.getProPic(profileNo);
 		map.put("proPic", proPic);
 		
+		String bandName = advertiseDao.getBandNo(findM.getBandNo());
+		Band band = advertiseDao.getBandName(bandName);
+		map.put("band", band);
+		
 		// 맴버에서 아이디 가져오기
 		String userId = advertiseDao.getMemberUserId(findM.getBandNo());
 		Member member = advertiseDao.getMemberContact(userId);
 		map.put("member" , member);
+		
 		
 		// 포지션 번호 가져오기
 		String positionNo = advertiseDao.getPositionNo(findM.getPositionNo());

@@ -132,7 +132,7 @@ public class NoticeController {
 	@RequestMapping(value="/notice/delete" , method=RequestMethod.GET)
 	public String delete (
 			
-			int noticeNo , HttpSession session , Notice notice , Model model) {
+	int noticeNo , HttpSession session , Notice notice , Model model) {
 		
 		Member Member = (Member) session.getAttribute("loginInfo");
 		
