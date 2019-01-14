@@ -159,7 +159,7 @@ $(document).ready(function(){
 	var bandNo = "${general.band.bandNo}"
 	var resumesNo = "${general.resumes.resumesNo}";
 // 	var musicTitle = "${general.music.musicTitle}";
-	console.log("${general}");
+// 	console.log("${general}");
 	
 	// 음악파일 타이머
 	var setTime = 0;      // 최초 설정 시간(기본 : 초)
@@ -313,7 +313,7 @@ $(document).ready(function(){
 					
 					// 속성들 재조정
 					
-					$(this).html("수정");
+					$("#editBtn").html("수정");
 					$("input[type=text]").attr("disabled", true);
 					$("input[type=text]").css({"background-color" : "gray"});
 					$("input[type=text]").css({"border" : "none"});
@@ -447,16 +447,12 @@ $(document).ready(function(){
 	   
 	   var hY = $("#hY").val();
 	   var hisInfo = $("#hisInfo").val();
-	   
-	   
-// 	   var tr = $(".hisChk").parent().parent();
-// 	   tr.remove();
-	   
-	   // 여기 비워지지가 않음.
-	   // 비우고 추가해야함.
-	   // 추가는 됨.
-	   // 비워지지가 않음.
-// 	   $("#historyTb > tr:nth-child(2)").remove();
+	  
+	   // history 비우기
+	   var counts = $("#historyTb tr").length;
+	   for(var i=1; i+1<counts; i++) {
+		   $("#historyTb tr:nth-child("+(counts-i)+")").remove();
+	   }
 	   
 	   $.ajax({
 			type: "post",

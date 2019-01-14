@@ -476,7 +476,6 @@ $(document).ready(function(){
 													<a>
 												</c:otherwise>
 											</c:choose>
-												<a class="getDay" id="${curYear }.${curMonth }.${currentDay }">
 												<c:choose>
 													<c:when test="${((currentDay-(8-calendar.firstDayOfWeek)) % 7) == 1}">
 														<%-- 일요일 --%>

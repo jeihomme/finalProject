@@ -100,12 +100,13 @@ $(document).ready(function(){
 							if(counter == 6){
 								$newLine = $("</tr><tr>");
 								$("#lists").append($newLine);
+								
 							}
 							
+							//break;
+							return false;
+							
 						} // end of if
-						
-						// break;
-						return false;
 						
 					}); // end of $.each
 				}); // end of $.each
@@ -198,12 +199,10 @@ $(document).ready(function(){
 								document.getElementById("plus").style.display="none";
 							}
 							
+							// break;
+							return false;
 							
 						} // end of if
-						
-						
-						// break;
-						return false;
 						
 					}); // end of $.each(profile)
 				}); // end of $.each(band)
