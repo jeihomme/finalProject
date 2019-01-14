@@ -18,6 +18,17 @@ var idCheck = 0;
 var nickCheck = 0;
 var pwCheck = 0;
 
+// Band 가입할 때 Band Member 추가
+function insertBandMember() {
+	var maxField = 5; // 5개까지만 동적 생성
+	var wrapper=$("#bandMemberAdd");
+	var start = 1;	// 첫 숫자
+	
+	var fieldHTML = '<div><input type="text" id="bandMember[]" value="" /><a href="#" class="removeBandMemberBtn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a></div>';
+	
+// 	$("#bandMemberAddBtn") 
+}
+
 // member 가입시 아이디 중복 확인
 function checkId() {
 	// 닉네임 입력 값
@@ -554,30 +565,23 @@ $(document).ready(function() {
 			success: function(res) {
 				alert("회원 탈퇴 성공");
 				$(".modal-content:eq("+Number(idx+12)+")").hide();
-// 				opener.location.reload();
-// 				location.reload();
-// 				window.location.reload();
-// 				top.document.framname.location.reload();
-				location.href="/main";
 
+				location.reload();
 
 			},
 			error: function() {
-				alert("회원 탈퇴 성공");
+				alert("회원 탈퇴 실패");
 				$(".modal-content:eq("+Number(idx+12)+")").hide();
-// 				opener.location.reload();
-// 				location.reload();
-// 				window.location.reload();
-// 				top.document.framname.location.reload();
-				location.href="/main";
+
+				location.reload();
+
 
 			}
 		});
 		$(".modal-content:eq("+Number(idx+12)+")").hide();
-// 			opener.location.reload();
-// 			window.location.reload();
-			location.href="/main";
-			top.document.framname.location.reload();
+
+			location.reload();
+
 
 	});
 	
@@ -878,6 +882,7 @@ $(document).ready(function() {
 	$(".btnBarJoin").click(function() {
 		var roleId = 1; // roleId를 1로 줌
 		var genreNo = $("#barGenre").val();
+		var profileNum = 0;
 		
 		console.log(genreNo);
 		
@@ -895,7 +900,8 @@ $(document).ready(function() {
 	    	locationName: $("#addr1").val().substring(0,2),
 	    	barAddress: $("#addr1").val()+" "+$("#addr2").val(),
 	    	barInfo: $("#barInfo").val(),
-	    	genreNo: $("#barGenre").val()
+	    	genreNo: $("#barGenre").val(),
+	    	profileNum: profileNum
 	    };
 	    
 		$.ajax({
@@ -926,6 +932,8 @@ $(document).ready(function() {
 	$(".btnBandJoin").click(function() {
 		var roleId = 2;
 		var genreNo = $("#bandGenre").val();
+		var profileNum = 0;
+
 		
 		console.log(roleId);
 		
@@ -939,7 +947,8 @@ $(document).ready(function() {
 	    	contact: $("#joinContact1").val()+$("#joinContact2").val()+$("#joinContact3").val(),
 	    	email: $("#joinEmail1").val()+"@"+$("#joinEmail2").val(),
 	    	bandName: $("#bandName").val(),
-	    	genreNo: $("#bandGenre").val()
+	    	genreNo: $("#bandGenre").val(),
+	    	profileNum: profileNum
 	    };
 	    	
 			$.ajax({
@@ -1414,7 +1423,7 @@ $(document).ready(function() {
 	</li>
 	
 	<c:if test="${not login }">
-	<li><button class="loginBtn" data-target="#loginModal" data-toggle="modal">Login</button>
+	<li><button class="loginBtn" data-target="#loginModal" data-backdrop="false" data-toggle="modal">Login</button>
 	</li>
 	</c:if>
 	
@@ -1706,7 +1715,11 @@ $(document).ready(function() {
 						<option value="4">Modern</option>
 						<option value="5">Bosa Nova</option>
 						<option value="6">Boogie Woogie</option>
-					</select>
+					</select></td></tr>
+					<tr><td>
+					<div id="bandMemberAdd">
+					
+					</div></td></tr>
 			</table><br>
 			</form>
 			<button type="button" class="btnBandJoin">Join</button><br>
@@ -1718,10 +1731,10 @@ $(document).ready(function() {
     <div class="modal-content">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       <div class="modal-body text-center"  style="height: 150px;">
-         <h3 class="modal-title text-center" style="color: black;"><b>회원가입</b></h3>
+         <h3 class="modal-title text-center" style="color: black;"><b>Join</b></h3>
  			<br><font style="color: black">회원가입이 완료되었습니다!<br>감사합니다!</font>
 				<br>
- 				<button type="button" class="close" data-dismiss="modal" style="color: #ccc; font-size: 18px; border: 1px solid white; background-color: white;">Main</button>
+ 				<button type="button" class="text-center close" data-dismiss="modal" style="color: #ccc; font-size: 18px; border: 1px solid white; background-color: white;">Main</button>
       		<br>
       </div>
     </div>
@@ -1837,8 +1850,8 @@ $(document).ready(function() {
 				<input type="text" id="memberDeleteRoleId" value="${loginInfo.roleId }" style="display: none;">
 				</td></tr>
 				<tr>
-					<td style="height: 20px; width: 20px;"><input type="radio" name="deleteMemberAgree" value="disagree" checked="checked"></td><td style="width: 165px; padding-right:25px">동의하지 않습니다</td>
-				    <td style="width: 20px;"><input type="radio" name="deleteMemberAgree" value="agree"></td><td style="width: 80px">동의합니다</td></tr>
+					<td style="height: 20px; width: 20px;"><input type="radio" name="deleteMemberAgree" value="disagree" checked="checked"></td><td style="width: 165px; padding-right:20px">동의하지 않습니다</td>
+				    <td style="width: 20px;"><input type="radio" name="deleteMemberAgree" value="agree"></td><td style="width: 85px">동의합니다</td></tr>
 			  </table>
 			  </form><br>
 					<button type="button" class="deleteMember"><b>회원 탈퇴</b></button>

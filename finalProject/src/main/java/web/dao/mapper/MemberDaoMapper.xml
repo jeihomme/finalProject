@@ -21,9 +21,9 @@
  		VALUES ( band_seq.nextval, #{bandName }, #{userId }, #{profileNo })
  	</insert>
  	
- 	<insert id="insertBandGenre" parameterType="web.dto.Band">
- 		INSERT INTO bandGenre (bandNo, profileNo)
- 		VALUES ( #{bandNo }, #{profileNo })
+ 	<insert id="insertBandGenre" parameterType="web.dto.BandGenre">
+ 		INSERT INTO bandGenre (bandNo, genreNo)
+ 		VALUES ( #{bandNo }, #{genreNo })
  	</insert>
  	
  	<select id="checkJoinId" parameterType="web.dto.Member" resultType="int">
@@ -138,7 +138,7 @@
  	
  	<select id="selectProfileNo" parameterType="String" resultType="int">
  		SELECT profileNo
- 		FROM profilepic
+ 		FROM profilePic
  		WHERE storedName=#{profileName }
  	</select>
  	

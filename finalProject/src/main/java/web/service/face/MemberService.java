@@ -5,6 +5,7 @@ import javax.servlet.ServletContext;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Band;
+import web.dto.BandGenre;
 import web.dto.Bar;
 import web.dto.Member;
 import web.dto.ProfilePic;
@@ -24,7 +25,7 @@ public interface MemberService {
 	public void bandJoin(Band band);
 	
 	// band 가입 - Genre 테이블 insert
-	public void bandGenreInsert(Band band);
+	public void bandGenreInsert(BandGenre bandGenre);
 	
 	// 아이디 중복 확인
 	public boolean checkId(Member member);
