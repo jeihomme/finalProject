@@ -1,7 +1,6 @@
 package web.controller;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -89,8 +88,8 @@ public class MypageController {
 	public void modifyInfoView(
 			HttpSession session
 			, Model model
+			, HttpServletRequest req
 			) {
-		
 		logger.info("---modifyInfoView---");
 		
 		Member member = (Member) session.getAttribute("loginInfo");
@@ -130,13 +129,6 @@ public class MypageController {
 //			, @RequestParam(value="bandMemName" ,required=false) List<String> arrayParams
 			) {
 		logger.info("---modifyInfoProc---");
-		
-		try {
-			req.setCharacterEncoding("euc-kr");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		Member member = (Member) session.getAttribute("loginInfo");
 		member.setEmail(req.getParameter("email"));

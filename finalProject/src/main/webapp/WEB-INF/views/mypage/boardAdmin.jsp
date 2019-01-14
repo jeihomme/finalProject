@@ -26,7 +26,7 @@
 	}
 	
 	.adminMypageSearchDiv {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: 50px;
 		margin: 10px auto;
@@ -36,7 +36,7 @@
 	}
 	
 	.adminMypageSearchRes {
-		border: 2px solid #fff;
+/* 		border: 2px solid #fff; */
 		width:700px;
 		height: auto;
 		margin: 10px auto;
@@ -95,6 +95,33 @@
 		border-radius: 3px;
 	/* 	background-color:#5c5c5c; */
 	}
+	
+	#pagingBox {
+	position: relative;
+}
+#btnBox {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	height: 30px;
+	margin: auto;
+}
+#btnWrite {
+	height: 25px;
+}
+
+#memberView{
+	cursor:pointer;
+}
+
+#memberView:hover {
+	background: #dadada;
+}
+
+#listTitle {
+	cursor:pointer;
+}
 </style>
 
 <div class="adminMenu">
@@ -126,47 +153,6 @@
 			<button class="searchBtn" onclick="searchBoardInfo()"> 검색 </button>
 	</div>
 </div>
-<style type="text/css">
-/* tr th:not(:nth-child(2)) { */
-tr th {
-	text-align: center;
-	color:#000;
-	background-color: gold;
-}
-td {
-	border-left: 1px solid white;
-	border-right: 1px solid white;
-	color:#fff;
-	background-color: black;
-}
-
-#pagingBox {
-	position: relative;
-}
-#btnBox {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	height: 30px;
-	margin: auto;
-}
-#btnWrite {
-	height: 25px;
-}
-
-#memberView{
-	cursor:pointer;
-}
-
-#memberView:hover {
-	background: #dadada;
-}
-
-#listTitle {
-	cursor:pointer;
-}
-</style>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -362,8 +348,8 @@ $(document).ready(function() {
 
 <div class="adminMypageSearchRes">
 	<div>
-		<table class="table table-hover table-striped table-condensed">
-		
+		<table class="type10">
+		<thead>
 	<tr>
 		<th>이력서 번호</th>
 		<th>밴드 이름</th>
@@ -371,24 +357,61 @@ $(document).ready(function() {
 		<th>사운드 번호</th>
 		<th>정의구현</th>
 	</tr>
+	</thead>
 	
+	<c:if test="${status.count %2 eq 1 }">
+	<td>${i.userId }</td>
+	</c:if>
+	<c:if test="${status.count %2 eq 0 }">
+	<td class="even">${i.userId }</td>
+	</c:if>
+					
+			<tbody>		
 		<c:forEach items="${rsList }" var="i" varStatus="status">
-<%-- 			<tr id="memberView" onclick="location.href='/board/view?board_no=${i.board_no }'"> --%>
 				<tr>
-	<!-- 			<tr id="memberView"> -->
-	<%-- 				<td><input type="hidden" id="board_no${i.board_no }" name="board_no${i.board_no }" value="${i.board_no }">${i.board_no }</td> --%>
-	<%-- 				<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td> --%>
+					<c:if test="${status.count %2 eq 1 }">
 					<td>${i.resumesNo }</td>
+					</c:if>
+					<c:if test="${status.count %2 eq 0 }">
+					<td class="even">${i.resumesNo }</td>
+					</c:if>
+					
+					<c:if test="${status.count %2 eq 1 }">
 					<td>${i.bandName }</td>
+					</c:if>
+					<c:if test="${status.count %2 eq 0 }">
+					<td class="even">${i.bandName }</td>
+					</c:if>
+					
+					<c:if test="${status.count %2 eq 1 }">
 					<td>${i.resumesTitle }</td>
+					</c:if>
+					<c:if test="${status.count %2 eq 0 }">
+					<td class="even">${i.resumesTitle }</td>
+					</c:if>
+					
+					<c:if test="${status.count %2 eq 1 }">
 					<td>${i.musicNo }</td>
+					</c:if>
+					<c:if test="${status.count %2 eq 0 }">
+					<td class="even">${i.musicNo }</td>
+					</c:if>
+					
+					<c:if test="${status.count %2 eq 1 }">
 					<td>
 						<input type="hidden" name="resumesNo" id="selectResumesNo${status.count }" value="${i.resumesNo }">
 						<button class="searchBtn" onclick="deleteBoardInfo${status.count }()">게시글삭제</button>
 					</td>
+					</c:if>
+					<c:if test="${status.count %2 eq 0 }">
+					<td class="even">
+						<input type="hidden" name="resumesNo" id="selectResumesNo${status.count }" value="${i.resumesNo }">
+						<button class="searchBtn" onclick="deleteBoardInfo${status.count }()">게시글삭제</button>
+					</td>
+					</c:if>
 				</tr>
 		</c:forEach>
-			
+			</tbody>
 	</table>
 		
 	<div id="pagingBox" class="text-center">
@@ -420,7 +443,7 @@ $(document).ready(function() {
 	    
 	    	<!-- 이전 페이지 -->
 	    <c:if test="${paging.curPage ne 1}">
-    		<button id="ajaxBtnPrev" class="searchBtn" name="ajaxBtnPrev">Prev</button>
+    		<button id="ajaxBtnPrev" class="searchBtn" name="ajaxBtnPrev">&laquo;</button>
     	</c:if>
     	
 	    <!-- 페이징 리스트 -->
@@ -428,25 +451,20 @@ $(document).ready(function() {
  	     begin="${paging.startPage }"
  	     end="${paging.endPage }"
  	     var="i">
-	
-			<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
-<%-- 			<c:if test="${paging.curPage eq i}">           --%>
-	    	  
-<%-- 	    	  	<a href="/board/list?curPage=${i }">${i }</a> --%>
-	    	  	
-<%-- 	    	</c:if> --%>
-<%-- 			<c:if test="${paging.curPage ne i}">           --%>
-<!-- 	    	  <li> -->
-<%-- 	    	  <a href="/board/list?curPage=${i }">${i }</a> --%>
-<!-- 	    	  </li> -->
-<%-- 	    	</c:if> --%>
-		<li class="active">
-	    	<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+			<li class="active">
+				<c:if test="${paging.endPage > 1}">
+		    		<c:if test="${paging.curPage eq i}">
+			    		<button id="ajaxBtn${i }" class="acceptBtnBlue" name="ajaxBtn${i }" value="${i }">${i }</button>
+			    	</c:if>
+			    	<c:if test="${paging.curPage ne i}">
+			    		<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+			    	</c:if>
+			    </c:if>
 	    	</li>
 	    </c:forEach>
 		
-		<c:if test="${paging.curPage % 5 ne 1}">
-			<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
+		<c:if test="${paging.endPage > 1}">
+			<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">&raquo;</button>
 		</c:if>
 			
 	    <!-- 다음 페이지 -->
@@ -459,7 +477,7 @@ $(document).ready(function() {
 		
 <%-- 	  	<c:if test="${paging.curPage ne paging.totalPage }"> --%>
 <!-- 	    <li> -->
-<%-- 	      <a href="/board/list?curPage=${paging.curPage+1 }" aria-label="Next"> --%>
+	      <a href="/board/list?curPage=${paging.curPage+1 }" aria-label="Next">
 <!-- 	        <span aria-hidden="true">&raquo;</span> -->
 <!-- 	      </a> -->
 <!-- 	    </li> -->

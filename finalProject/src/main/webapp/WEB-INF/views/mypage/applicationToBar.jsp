@@ -399,8 +399,10 @@ $(document).ready(function() {
 			<hr>
 			<ul class="adminDetailInfo">
 				<li>Application 검색 페이지입니다.</li>
-				<li>최근 6개월 간 지원내역에 대해 확인합니다.</li>
-				<li>지원 확정, 취소 등  최근 1년 이내 입니다.</li>
+				<li>받은 지원서의 수락 및 거절할 수 있습니다.</li>
+				<li>받은 지원서의 열람이 기록됩니다.</li>
+				<li>보낸 지원서를 취소할 수 있습니다.</li>
+				<li>수락되거나 거절되면 지원취소할 수 없습니다.</li>
 			</ul>
 		</div>
 		<div class="applicationImage">
@@ -526,7 +528,7 @@ $(document).ready(function() {
 		  <ul class="pagination pagination-sm">
 		    	<!-- 이전 페이지 -->
 		    <c:if test="${paging.curPage > 1}">
-	    		<button id="ajaxBtnPrev" class="searchBtn" name="ajaxBtnPrev">Prev</button>
+	    		<button id="ajaxBtnPrev" class="searchBtn" name="ajaxBtnPrev">&laquo;</button>
 	    	</c:if>
 	    	
 		    <!-- 페이징 리스트 -->
@@ -535,12 +537,17 @@ $(document).ready(function() {
 	 	     end="${paging.endPage }"
 	 	     var="i">
 				<c:if test="${paging.endPage > 1}">
-					<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+					<c:if test="${paging.curPage eq i}">
+			    		<button id="ajaxBtn${i }" class="acceptBtnBlue" name="ajaxBtn${i }" value="${i }">${i }</button>
+			    	</c:if>
+			    	<c:if test="${paging.curPage ne i}">
+			    		<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+			    	</c:if>
 				</c:if>
 		    </c:forEach>
 			
 			<c:if test="${paging.endPage > 1}">
-				<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">Next</button>
+				<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">&raquo;</button>
 			</c:if>
 			
 		    </ul>
@@ -579,8 +586,10 @@ $(document).ready(function() {
 			<hr>
 			<ul class="adminDetailInfo">
 				<li>Application 검색 페이지입니다.</li>
-				<li>최근 6개월 간 지원내역에 대해 확인합니다.</li>
-				<li>지원 확정, 취소 등  최근 1년 이내 입니다.</li>
+				<li>받은 지원서의 수락 및 거절할 수 있습니다.</li>
+				<li>받은 지원서의 열람이 기록됩니다.</li>
+				<li>보낸 지원서를 취소할 수 있습니다.</li>
+				<li>수락되거나 거절되면 지원취소할 수 없습니다.</li>
 			</ul>
 		</div>
 		<div class="applicationImage">
@@ -684,12 +693,16 @@ $(document).ready(function() {
 					<input type="hidden" name="appNo" value="${i.appNo }">
 					<c:if test="${status.count % 2 eq 0 }">
 					<td class="even">
+						<c:if test="${i.accept eq 0}">
 						<button class="acceptBtnRed" onclick="applicationToBarCancel${status.count }() ">지원취소</button>
+						</c:if>
 					</td>
 					</c:if>
 					<c:if test="${status.count % 2 eq 1 }">
 					<td>
-						<button class="acceptBtnRed" onclick="applicationToBarCancel${status.count }() ">지원취소</button>
+						<c:if test="${i.accept eq 0}">
+							<button class="acceptBtnRed" onclick="applicationToBarCancel${status.count }() ">지원취소</button>
+						</c:if>
 					</td>
 					</c:if>
 					
@@ -712,7 +725,12 @@ $(document).ready(function() {
 	 	     end="${paging.endPage }"
 	 	     var="i">
 				<c:if test="${paging.endPage > 1}">
-					<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+					<c:if test="${paging.curPage eq i}">
+			    		<button id="ajaxBtn${i }" class="acceptBtnBlue" name="ajaxBtn${i }" value="${i }">${i }</button>
+			    	</c:if>
+			    	<c:if test="${paging.curPage ne i}">
+			    		<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+			    	</c:if>
 				</c:if>
 		    </c:forEach>
 			

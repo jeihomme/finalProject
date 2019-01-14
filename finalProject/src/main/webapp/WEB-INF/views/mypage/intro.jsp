@@ -354,7 +354,8 @@ $(document).ready(function(){
 			<p class="adminDetailTitle">Intro </p>
 			<hr>
 			<ul class="adminDetailInfo">
-				<li>이력서는 최대 5개까지 작성 가능합니다.</li>
+				<li>이력서, 첨파일은 최대 5개까지 등록 가능합니다.</li>
+				<li>공개될 이력서는 하나만 가능합니다.</li>
 				<li>지원하고자 하는 Bar마다 내용을 다르게 할 수 있습니다.</li>
 				<li>사진을 눌러 수정이 가능합니다.</li>
 			</ul>
@@ -377,7 +378,7 @@ $(document).ready(function(){
 			</c:if>
 			<c:if test="${rListRnum < 5 }">
 				<button class="addResumesList" onclick="viewNewResumes() ">+</button>
-			</c:if><br>
+			</c:if><br><br>
 			<table class="type10">
 				<thead>
 				<tr>
@@ -449,7 +450,7 @@ $(document).ready(function(){
 				</c:if>
 				<input class="bandIntroInsert" type="file" name="file" id="soundFile"/>
 			</form>
-			
+			<br>
 <!-- 			</form> -->
 			<table class="type10">
 				<thead>
@@ -489,9 +490,6 @@ $(document).ready(function(){
 							<c:if test="${status.count % 2 eq 0 }">
 							<td class="even">${i.writtenDate }</td>
 							</c:if>
-							
-							
-							
 						</tr>
 				</c:forEach>
 			</table>
