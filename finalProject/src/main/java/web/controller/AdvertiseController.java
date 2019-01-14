@@ -262,7 +262,6 @@ public class AdvertiseController {
 		Band band = (Band) session.getAttribute("bandInfo");
 		model.addAttribute("band", band);
 		
-		if(band.getBandNo()== )
 		
 		
 		
