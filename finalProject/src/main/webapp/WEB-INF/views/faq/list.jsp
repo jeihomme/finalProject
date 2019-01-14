@@ -22,6 +22,46 @@ $(document).ready(function(){
 
 
 </script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	var result = '${result}';
+	var successMsg = '${successMsg}';
+	var failMsg = '${failMsg}';
+
+	if (result == 'success') {
+		alert(successMsg);
+	} else if (result == 'fali') {
+		alert(failMsg);
+	}
+
+	$("table").on(
+// 			"click",
+// 			"tr",
+			function() {
+// 				//클릭이벤트가 발생한 <tr>의 첫번째 <td>자식의 텍스트
+				var faqNo = $(this).children("td").eq(0).text();
+
+				$(location).attr("href",
+						"/faq/list?faqNo=" + faqNo);
+			});
+
+	$("#btnSearch").click(
+			function() {
+
+				var searchVal = $("#searchVal").val();
+				var searchTxt = $("#searchTxt").val();
+				
+				$(location).attr(
+						"href",
+						"/faq/list?searchVal="
+								+ searchVal+"&"+"searchTxt="
+								+ searchTxt);
+
+			});
+});
+
+</script>
 
 
 
@@ -77,6 +117,18 @@ cursor:pointer;
     
     
   }
+#searchBox{
+	margin-left: 227px;
+	display: inline-block;
+	color: black;
+} 
+
+#btnWrite{
+ 	margin-left: 200px; 
+	background-color: #848484;
+	color:white;
+
+}
  
 
 
@@ -116,7 +168,23 @@ cursor:pointer;
 	</c:if>
 </c:forEach>
 <hr>
-	<button onclick="location.href='/faq/write';" style="color: black; margin-left: 725px;">글쓰기</button>
+	<div id="searchBox" class="text-center">
+			<tr>
+				<td><select id="searchVal" name="searchVal" style="color: black">
+						<option value="title" selected="selected">제목</option>
+						<option value="content">내용</option>
+						<option value="userid">작성자</option>
+				</select></td>
+			</tr>
+			<input type="text" id="searchTxt" name="searchTxt" />
+			<button id="btnSearch"  style="border-radius:10px 0 10px 0; color: blakc;">검색</button>
+			<c:if test="${member.roleId eq '0' }">
+			<button id="btnWrite" onclick="location.href='/notice/write';">글쓰기</button>
+			</c:if>
+		</div>
+
+
+</div>
 </div>
 <jsp:include page="../util/pagingFaq.jsp" />
 

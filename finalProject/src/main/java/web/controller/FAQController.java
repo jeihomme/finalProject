@@ -2,6 +2,7 @@ package web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -31,11 +32,32 @@ public class FAQController {
 					@RequestParam(required=false , defaultValue="0") int curPage,
 					@RequestParam(required=false , defaultValue="10") int listCount,
 					@RequestParam(required=false , defaultValue="10") int pageCount,
-					Model model
+					Model model, String searchVal , String search , String searchTxt,
+					HttpSession session ,HttpServletRequest req
 			 ){
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		 
+		searchVal =(req.getParameter("searchVal") == null ) ? "": req.getParameter("searchVal");
+		
+		searchTxt = req.getParameter("searchTxt");
+		search = "";
+		
+		if(searchVal.equals("title")) {
+			search = searchTxt;
+			
+		}
+		else if (searchVal.equals("content")) {
+			search = searchTxt;
+		}
+		else if(searchVal.equals("userId")) {
+			search = searchTxt;
+		}
 		
 		Paging paging = faqService.getPaging(curPage, listCount, pageCount);
 		model.addAttribute("paging" , paging);
+		paging.setSearch(search);
+		paging.setSearchVal(searchVal);
 		
 		List<FAQ> list = faqService.getList(paging);
 		model.addAttribute("list",list);
