@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Band;
+import web.dto.BandGenre;
 import web.dto.Bar;
 import web.dto.Member;
 import web.dto.ProfilePic;
@@ -48,6 +49,7 @@ public class MemberController {
 							ProfilePic profilePic) {
 		String PicName = memberService.profilePicSave(context, joinPic, profilePic);
 		
+		logger.info(PicName);
 		session.setAttribute("profileName", PicName);
 	}
 
@@ -57,7 +59,9 @@ public class MemberController {
 	public void joinProc(Member member,
 							Bar bar,
 							Band band,
+							BandGenre bandGenre,
 							@RequestParam(required=false, value="locationName") String locationName, 
+							@RequestParam(required=false, value="profileNum") int noProfile, 
 							HttpSession session,
 							Writer out) {
 		
@@ -100,13 +104,23 @@ public class MemberController {
 				bar.setLocationNo(16);
 			}
 			
-			// 프로필 사진 no 찾아서 member에 넘겨주기
 			profileName = (String) session.getAttribute("profileName");
-			profileNo = memberService.checkProfileNo(profileName);
-			bar.setProfileNo(profileNo);
+
+			// 프로필 사진이 없을 때
+			if(profileName==null) {
+				profileNo = noProfile;
+				bar.setProfileNo(noProfile);
+				
+			// 프로필 사진 no 찾아서 member에 넘겨주기
+			} else {
+				profileNo = memberService.checkProfileNo(profileName);
+				bar.setProfileNo(profileNo);				
+			}
 			
 			memberService.join(member);
 			memberService.barJoin(bar);
+			
+			session.setAttribute("profileName", null);
 			
 			// bar와 member 가입 정보가 제대로 넘겨졌는지 확인
 			if(memberService.login(member)) {
@@ -121,14 +135,28 @@ public class MemberController {
 			
 		} else if(member.getRoleId()==2) {
 			
-			// 프로필 사진 no 찾아서 member에 넘겨주기
 			profileName = (String) session.getAttribute("profileName");
-			profileNo = memberService.checkProfileNo(profileName);
-			band.setProfileNo(profileNo);
 			
+			// 프로필 사진이 없을 때
+			if(profileName==null) {
+				profileNo = noProfile;
+				band.setProfileNo(noProfile);
+				
+			// 프로필 사진 no 찾아서 member에 넘겨주기
+			} else {
+				profileNo = memberService.checkProfileNo(profileName);
+				band.setProfileNo(profileNo);
+			}
+						
 			memberService.join(member);
 			memberService.bandJoin(band);
-			memberService.bandGenreInsert(band);
+			band = memberService.checkBandInfo(member);
+			
+			int bandNo = band.getBandNo();
+			bandGenre.setBandNo(bandNo);
+			memberService.bandGenreInsert(bandGenre);
+			
+			session.setAttribute("profileName", null);
 			
 			// bar와 member 가입 정보가 제대로 넘겨졌는지 확인
 			if(memberService.login(member)) {
@@ -376,8 +404,12 @@ public class MemberController {
 		
 		// 로그인 처리 해제
 		session.setAttribute("login", false);
+		session.setAttribute("loginInfo", null);
+		session.setAttribute("barInfo", null);
+		session.setAttribute("bandInfo", null);
+
 		
-		session.invalidate();		
+//		session.invalidate();		
 
 		return "redirect:/main";
 	}

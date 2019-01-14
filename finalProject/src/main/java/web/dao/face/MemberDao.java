@@ -1,10 +1,10 @@
 package web.dao.face;
 
 import web.dto.Band;
+import web.dto.BandGenre;
 import web.dto.Bar;
 import web.dto.Member;
 import web.dto.ProfilePic;
-import web.dto.Resumes;
 
 public interface MemberDao {
 	
@@ -18,7 +18,7 @@ public interface MemberDao {
 	public void insertBand(Band band);
 	
 	// band 가입 - Band Genre insert
-	public void insertBandGenre(Band band);
+	public void insertBandGenre(BandGenre bandGenre);
 	
 	// 가입 - 아이디 중복 확인
 	public int checkJoinId(Member member);

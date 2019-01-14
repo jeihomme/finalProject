@@ -13,10 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.face.MemberDao;
 import web.dto.Band;
+import web.dto.BandGenre;
 import web.dto.Bar;
 import web.dto.Member;
 import web.dto.ProfilePic;
-import web.dto.Resumes;
 import web.service.face.MemberService;
 
 @Service
@@ -77,8 +77,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void bandGenreInsert(Band band) {
-		memberDao.insertBandGenre(band);
+	public void bandGenreInsert(BandGenre bandGenre) {
+		memberDao.insertBandGenre(bandGenre);
 	}
 	
 	@Override
