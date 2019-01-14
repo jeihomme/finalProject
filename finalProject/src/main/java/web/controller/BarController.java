@@ -1,5 +1,6 @@
 package web.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,11 +17,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import web.dto.Band;
 import web.dto.Bar;
 import web.dto.Location;
 import web.dto.Member;
 import web.dto.ProfilePic;
 import web.service.face.BarService;
+import web.service.face.CalendarService;
+import web.service.face.MemberService;
+import web.service.face.MypageService;
 
 @Controller
 public class BarController {
@@ -63,7 +68,7 @@ public class BarController {
 	public void viewBar(
 			Bar bar, 
 //			HttpSession session,
-			Member member,
+//			Member member,
 			Model model
 			){
 		
@@ -74,10 +79,10 @@ public class BarController {
 		
 		logger.info("-----------------------------");
 		model.addAttribute("view", barService.barView(bar));
-		model.addAttribute("contact", barService.contact(member));
+//		model.addAttribute("contact", barService.contact(member));
 		bar = barService.barView(bar);
 		
-		logger.info(member.toString());
+//		logger.info(member.toString());
 		logger.info(bar.toString()); 
 		logger.info(model.toString()); 
 	}
@@ -184,6 +189,62 @@ public class BarController {
 		mav.addObject("result", "true");
 		return mav;
 		
+	}
+	
+	@Autowired MypageService mpService;
+	@Autowired CalendarService calendar;
+	@Autowired MemberService mbService;
+
+@RequestMapping(value = "/bar/calendar", method=RequestMethod.GET)
+	public void calendar(
+			Bar bar,
+			Model model
+			) {
+		logger.info("---calendar---");
+//		calendarView
+		
+//		Member member = (Member) session.getAttribute("loginInfo");
+//		member = mbService.loginInfo(member);
+//		logger.info(member.toString());
+		
+//		Band band = new Band();
+//		Bar bar = new Bar();
+
+//			bar.setUserId(bar.getUserId());
+//			bar = mpService.getBar(bar);
+			
+//			Map<String, Object> map = new HashMap<>();
+//			
+////			map.put("map", calendar.getCalendar());
+//			map = calendar.getCalendar();
+//			
+//			
+//			Map map2 = mpService.getScheduleByBarNo(map, bar.getBarNo());
+////			List list3 = calendar.getInfoBar();
+//			
+//			model.addAttribute("number", bar.getBarNo());
+////			model.addAttribute("bars", list3);
+//			model.addAttribute("map", map);
+		
+		Map map = new HashMap();
+        map = calendar.getCalendar();
+        
+        Map sched = new HashMap();
+        logger.info("---getScheduleByBandNo---");
+        sched = mpService.getScheduleByBarNo(map, String.valueOf(bar.getBarNo() ));
+        
+//        logger.info("---getScheduleByBandNo---");
+//        Map map2 = mpService.getScheduleByBandNo(map, band.getBandNo());
+//        List list3 = calendar.getInfoBand(String.valueOf(band.getBandNo()), tDate);
+        
+        List list3 = calendar.getBar();
+        
+//        model.addAttribute("number", band.getBandNo());
+//        model.addAttribute("bars", list3);
+//        model.addAttribute("map", map);
+        model.addAttribute("bars", list3);
+        model.addAttribute("calendar", map);
+        model.addAttribute("sched", sched);
 		
 	}
 }

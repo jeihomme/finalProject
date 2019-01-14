@@ -85,16 +85,19 @@
 
 $(document).ready(function(){
 	
-	var barNo = ""
+	
 	
 	   // 달력 불러오기
 	   $("#calendarBtn").click(function(){
 		   
+		   var barNo = $("#barNo").val();
+		   
+		   console.log(barNo);
 		   	
 			$.ajax({
-				type: "post",
-				url: "/calendar",
-				data: { barNo : bardNo } ,
+				type: "get",
+				url: "/bar/calendar",
+				data: { barNo : barNo },
 				context: document.body,
 				success: function(data) {
 						
@@ -121,6 +124,7 @@ $(document).ready(function(){
 	<div class="modify"><input type="button" class="btn" onclick="location.href='/bar/updatebarinfo?barNo=${view.barNo}'" value="Modify"></div>
 </form>
 
+<input type="hidden" id="barNo" value="${view.barNo }" /> 
 <div class="calendar"><button id="calendarBtn" style="height:30px;" class="btn right" type="button">Calendar</button></div><br><br><br><hr>
 
 <div class="barImg"><img class="barImg" src="http://${view.path }/${view.originName }"></div>
@@ -146,7 +150,7 @@ $(document).ready(function(){
 			
 			<div class="barContact">
 				<h3>Bar Contact</h3>
-				${contact }<br>
+				${view.contact }<br>
 			</div>
 		
 <!-- 	</div> -->
