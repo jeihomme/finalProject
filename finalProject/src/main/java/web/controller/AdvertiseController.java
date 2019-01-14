@@ -1,9 +1,11 @@
 package web.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -96,14 +98,14 @@ public class AdvertiseController {
 		
 	}
 		@RequestMapping(value="/advertise/adscateCol" , method=RequestMethod.GET)
-		public void adscateCol(Model model,
+		public void adscateCol(Model model,HttpSession session,
 				@RequestParam(required=false , defaultValue="0") int curPage,
 				@RequestParam(required=false , defaultValue="10") int listCount,
 				@RequestParam(required=false , defaultValue="10") int pageCount,
 				HttpServletRequest req 
 				, String searchVal , String search , String searchTxt
 			) {
-
+		Member member = (Member) session.getAttribute("loginInfo");
 		searchVal =(req.getParameter("searchVal") == null ) ? "": req.getParameter("searchVal");
 		
 		searchTxt = req.getParameter("searchTxt");
@@ -142,7 +144,7 @@ public class AdvertiseController {
 		}
 	
 		
-		
+		model.addAttribute("member" ,member);
 		
 		List<FindMember> list = advertiseService.getList(paging);
 		model.addAttribute("list",list);
@@ -161,10 +163,10 @@ public class AdvertiseController {
 				@RequestParam(required=false , defaultValue="0") int curPage,
 				@RequestParam(required=false , defaultValue="10") int listCount,
 				@RequestParam(required=false , defaultValue="10") int pageCount,
-				HttpServletRequest req 
+				HttpServletRequest req  , HttpSession session
 				, String searchVal , String search , String searchTxt
 			) {
-
+			Member member = (Member) session.getAttribute("loginInfo");
 		searchVal =(req.getParameter("searchVal") == null ) ? "": req.getParameter("searchVal");
 		
 		searchTxt = req.getParameter("searchTxt");
@@ -203,7 +205,7 @@ public class AdvertiseController {
 		}
 	
 		
-		
+		model.addAttribute("member" ,member);
 		
 		List<FindMember> list = advertiseService.getList(paging);
 		model.addAttribute("list",list);
@@ -254,7 +256,7 @@ public class AdvertiseController {
 		return "redirect:/advertise/list";
 	}
 	@RequestMapping(value="/advertise/update" , method=RequestMethod.GET)
-	public String update(HttpSession session , HttpServletRequest req , String findNo , Model model ) {
+	public String update(HttpSession session , HttpServletRequest req , String findNo , Model model , HttpServletResponse resp ) {
 		logger.info("글수정 폼");
 		
 //		Part part = advertiseService.getPart(positionNo);
@@ -262,7 +264,16 @@ public class AdvertiseController {
 		Band band = (Band) session.getAttribute("bandInfo");
 		model.addAttribute("band", band);
 		
-		
+		if(band == null) {
+			
+			try {
+				resp.sendRedirect("/advertise/list");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 		
 		
 		FindMember advertise = advertiseService.viewAds(findNo);
@@ -282,8 +293,23 @@ public class AdvertiseController {
 		return "redirect:/advertise/update";
 	}
 	@RequestMapping(value="/advertise/delete" , method=RequestMethod.GET)
-	public void delete() {
+	public String delete(String findNo , HttpSession session , HttpServletResponse resp) {
 		
+		Band band = (Band)session.getAttribute("bandInfo");
+		
+		if(band == null) {
+			try {
+				resp.sendRedirect("/advertise/list");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		advertiseService.delete(findNo);
+		
+		return "redirect:/advertise/list";
 	}
 
 	

@@ -64,9 +64,9 @@ $(document).ready(function(){
 
 <div class="text-center">
 		<button id="btnList" class="btn btn-primary">목록</button>
-<%-- 		<c:if test="${userId eq notice.userId}"> --%>
+		<c:if test="${member.roleId eq '0'}"> 
 		<button id="btnUpdate" class="btn btn-info">수정</button>
 		<button id="btnDelete" class="btn btn-danger">삭제</button>
-<%-- 		</c:if> --%>
+		</c:if>
 </div>
 

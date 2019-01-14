@@ -31,7 +31,7 @@ public interface AdvertiseService {
 	public ProfilePic viewProfile(int profileNo);
 	
 	// 구인 구직 삭제
-	public void delete(Advertise advertise);
+	public void delete(String findNo);
 	
 	// 페이지 정보 만들기
 	public Paging getPaging(int curPage, int listCount, int pageCount);

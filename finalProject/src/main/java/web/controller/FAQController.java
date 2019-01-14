@@ -2,6 +2,8 @@ package web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import web.dto.FAQ;
+import web.dto.Member;
 import web.service.face.FAQService;
 import web.utils.Paging;
 
@@ -43,7 +46,10 @@ public class FAQController {
 	
 	
 	@RequestMapping(value="/faq/write" , method=RequestMethod.GET)
-	public void write() {
+	public void write(Model model , HttpSession session) {
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		model.addAttribute("member" , member);
 		
 		logger.info("글쓰기 폼");
 		
@@ -63,9 +69,12 @@ public class FAQController {
 	@RequestMapping(value="/faq/update" , method=RequestMethod.GET)
 	public void update(
 				int faqNo,
-				Model model
-			
+				Model model,
+				HttpSession session
 			) {
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		model.addAttribute("member" , member);
 		
 		FAQ faq = faqService.view(faqNo);
 		model.addAttribute("faq" ,faq);
