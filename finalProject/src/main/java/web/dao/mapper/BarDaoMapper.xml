@@ -58,18 +58,13 @@
 	</select>
 	
 	<select id="viewBar" parameterType="web.dto.Bar" resultType="web.dto.Bar">
-		SELECT B.BARNO, B.BARNAME, B.USERID, B.PROFILENO, B.LOCATIONNO, B.BARINFO, B.MANAGER, B.BARADDRESS, B.GENRENO, P.PATH, P.ORIGINNAME, P.STOREDNAME, L.LOCATIONNAME, G.GENRENAME
-	    FROM BAR B, PROFILEPIC P, LOCATION L, GENRE G
+		SELECT B.BARNO, B.BARNAME, B.USERID, B.PROFILENO, B.LOCATIONNO, B.BARINFO, B.MANAGER, B.BARADDRESS, B.GENRENO, P.PATH, P.ORIGINNAME, P.STOREDNAME, L.LOCATIONNAME, G.GENRENAME, M.CONTACT
+	    FROM BAR B, PROFILEPIC P, LOCATION L, GENRE G, MEMBER M
 	    WHERE B.PROFILENO = P.PROFILENO
 	        AND B.GENRENO = G.GENRENO
 	        AND B.LOCATIONNO = L.LOCATIONNO 
+	        AND M.USERID = B.USERID
 	        AND B.BARNO = #{barNo }
-	</select>
-	
-	<select id="contact" parameterType="web.dto.Member" resultType="web.dto.Member">
-		SELECT contact, barname
-		FROM member a, bar b
-		WHERE a.userid = #{userId};
 	</select>
 	
 	<select id="getBarCalendar" parameterType="web.dto.CalendarD" resultType="web.dto.CalendarD">

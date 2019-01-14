@@ -17,6 +17,54 @@ public class Bar {
 	private String genreName;
 	private int startNo;
 	private int endNo;
+	private int contact;
+	
+	private int calendarNo;
+	private String calendarDate;
+	private String startTime;
+	private String endTime;
+	
+	
+
+	public int getCalendarNo() {
+		return calendarNo;
+	}
+
+	public void setCalendarNo(int calendarNo) {
+		this.calendarNo = calendarNo;
+	}
+
+	public String getCalendarDate() {
+		return calendarDate;
+	}
+
+	public void setCalendarDate(String calendarDate) {
+		this.calendarDate = calendarDate;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public int getContact() {
+		return contact;
+	}
+
+	public void setContact(int contact) {
+		this.contact = contact;
+	}
 
 	public int getBarNo() {
 		return barNo;
@@ -152,7 +200,10 @@ public class Bar {
 				+ ", barInfo=" + barInfo + ", manager=" + manager + ", locationNo=" + locationNo + ", locationName="
 				+ locationName + ", barAddress=" + barAddress + ", genreNo=" + genreNo + ", path=" + path
 				+ ", originName=" + originName + ", storedName=" + storedName + ", genreName=" + genreName
-				+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
+				+ ", startNo=" + startNo + ", endNo=" + endNo + ", contact=" + contact + ", calendarNo=" + calendarNo
+				+ ", calendarDate=" + calendarDate + ", startTime=" + startTime + ", endTime=" + endTime + "]";
 	}
+
+	
 
 }

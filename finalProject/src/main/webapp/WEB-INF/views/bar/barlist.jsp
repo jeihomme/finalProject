@@ -168,7 +168,7 @@
 	<div class="bar">
 			<c:forEach var="row" varStatus="status" items="${list }">
 					<div class="bar">
-						<p onclick="location.href= '/bar/viewbar?barNo=${row.barNo}' "> <img src="http://${row.path }/${row.originName }"> </p> 
+						<p onclick="location.href= '/bar/viewbar?barNo=${row.barNo}' "> <img src="../resources/${row.originName }"> </p>
 						<p class="font" onclick="location.href= '/bar/viewbar?barNo=${row.barNo}'"> ${row.barName } </p>
 						
 						<c:if test="${status.count % 6 eq 0 }">
