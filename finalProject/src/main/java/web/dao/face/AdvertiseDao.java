@@ -23,7 +23,7 @@ public interface AdvertiseDao {
 	public void updateAdvertise(Advertise advertise);
 	
 	// 구인구직 삭제
-	public void deleteAdvertise();
+	public void deleteAdvertise(String findNo);
 	
 	// 구인구직 상세보기
 	// advertise 가져오기

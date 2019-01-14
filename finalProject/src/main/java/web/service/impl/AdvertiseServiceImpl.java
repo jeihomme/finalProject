@@ -127,8 +127,8 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		return 0;
 	}
 	@Override
-	public void delete(Advertise advertise) {
-		// TODO Auto-generated method stub
+	public void delete(String findNo) {
+		advertiseDao.deleteAdvertise(findNo);
 		
 	}
 

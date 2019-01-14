@@ -161,5 +161,8 @@ SELECT * FROM part WHERE positionNo = #{positionNo}
 						adsNo=#{adsNo}
 						WHERE findNo = #{findNo} AND bandNo=#{bandNo}
 </update>
+<delete id="deleteAdvertise" parameterType="web.dto.FindMember">
+	DELETE FROM findmember WHERE findNo = #{findNo}
+</delete>
 
 </mapper>

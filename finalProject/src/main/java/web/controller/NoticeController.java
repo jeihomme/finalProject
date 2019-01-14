@@ -1,8 +1,11 @@
 package web.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import web.dto.Advertise;
+import web.dto.Member;
 import web.dto.Notice;
 import web.service.face.NoticeService;
 import web.utils.Paging;
@@ -76,7 +81,10 @@ public class NoticeController {
 	
 
 	@RequestMapping(value="/notice/write" , method=RequestMethod.GET)
-	public String write() {
+	public String write(HttpSession session , Model model) {
+		
+		Member member = (Member) session.getAttribute("loginInfo");
+		model.addAttribute("member" , member);
 		
 		logger.info("글쓰기 폼");
 		
@@ -92,9 +100,12 @@ public class NoticeController {
 		return "redirect:/notice/list";
 	}
 	@RequestMapping(value="/notice/update" , method=RequestMethod.GET)
-	public void update(Notice notice, Model model , int noticeNo) {
+	public void update(Notice notice, Model model , int noticeNo , HttpSession session , HttpServletResponse resp ) {
 		
-		
+		Member member = (Member) session.getAttribute("loginInfo");
+		model.addAttribute("member" , member);
+			
+
 		noticeNo = notice.getNoticeNo();
 		notice = noticeService.view(noticeNo);
 		
@@ -121,11 +132,19 @@ public class NoticeController {
 	@RequestMapping(value="/notice/delete" , method=RequestMethod.GET)
 	public String delete (
 			
-			int noticeNo) {
+			int noticeNo , HttpSession session , Notice notice , Model model) {
 		
-		noticeService.delete(noticeNo);
+		Member Member = (Member) session.getAttribute("loginInfo");
 		
-		return "redirect:/notice/list";
+		model.addAttribute("Member" ,Member);
+			
+			noticeService.delete(noticeNo);
+			
+			return "redirect:/notice/list";
+	
+	
+		
+		
 	}
 
 }

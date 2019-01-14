@@ -155,7 +155,9 @@ cursor:pointer;
 			</tr>
 			<input type="text" id="searchTxt" name="searchTxt" />
 			<button id="btnSearch">검색</button>
+			<c:if test="${member.roleId eq '0' }">
 			<button id="btnWrite" onclick="location.href='/notice/write';">글쓰기</button>
+			</c:if>
 		</div>
 
 

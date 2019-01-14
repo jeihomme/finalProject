@@ -110,8 +110,10 @@ cursor:pointer;
 	</table>
 
 	<p style="color: black; margin-left: -15px;">${faq.answer }
+	<c:if test="${member.roleId eq '0' }">
 	<button onclick="location.href='/faq/update?faqNo=${faq.faqNo}';">수정</button>
 	<button id="btnDelete">삭제</button></p>
+	</c:if>
 </c:forEach>
 <hr>
 	<button onclick="location.href='/faq/write';" style="color: black; margin-left: 725px;">글쓰기</button>
