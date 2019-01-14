@@ -14,7 +14,7 @@ import web.utils.Paging;;
 public interface AdvertiseDao {
 
 	// 전체 조회
-	public List selectPagingList(Paging paigng);
+	public List selectPagingList(Paging paging);
 	
 	// 구인구직 글쓰기
 	public Map insertAdvertise(Advertise advertise);

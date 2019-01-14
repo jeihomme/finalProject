@@ -12,7 +12,7 @@ import web.utils.Paging;
 public interface AdvertiseService {
 	
 	// 구인구직 전체 조회
-	public List getList(Paging paigng);
+	public List getList(Paging paging);
 
 	// 구인구직 상세 보기
 	public Map view(String findNo );
