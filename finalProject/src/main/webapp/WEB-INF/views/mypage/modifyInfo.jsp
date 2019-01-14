@@ -195,7 +195,7 @@ $(document).ready(function() {
 				<b class="adminDetailInfo">이메일</b> <input id="email" name="email" value="${member.email }"/><br>
 				<b class="adminDetailInfo">통신사</b> 
 				
-				<select class="modifyBtn" id="telcom" name="telcom" >
+				<select class="modifySelectBtn" id="telcom" name="telcom" >
 					<c:if test="${member.telcom eq null}">
 						<option value="">선택</option>
 					</c:if>
@@ -208,7 +208,7 @@ $(document).ready(function() {
 					<option value="SK">SK</option>
 					<option value="LG">LG</option>
 					
-				</select><br><br>
+				</select><br>
 				<b class="adminDetailInfo">연락처</b> <input id="contact" name="contact" value="${member.contact }"/><br>
 				<button id="modifyPwBtn" class="modifyBtn">비밀번호 변경</button><button class="modifyBtn" onclick="modifyMypageInfo()">수정</button>
 		</div>
