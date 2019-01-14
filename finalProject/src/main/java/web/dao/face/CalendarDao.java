@@ -25,4 +25,13 @@ public interface CalendarDao {
 	
 	// 해당 날짜 정보 가져오기
 	public List getInfoBand(@Param("bandNo") String bandNo, @Param("tDate") String tDate);
+	public List getInfoBar(@Param("barNo") String barNo, @Param("tDate") String tDate);
+	public List getEmptySched(@Param("barNo") String barNo, @Param("tDate") String tDate);
+	
+	// 초청
+	public void inviteBand(@Param("calendarNo") String calendarNo, @Param("barNo") String barNo, 
+			@Param("bandNo") String bandNo);
+	
+	public int cntApp();
+	
 }

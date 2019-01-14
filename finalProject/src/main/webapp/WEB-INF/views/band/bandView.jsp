@@ -449,6 +449,9 @@ $(document).ready(function(){
 				$("input[type=text]").css({"border" : "1px solid black"});
 				$("input[type=checkbox]").css({"display" : "block"});
 			
+				$("#mP").val("");
+				$("#mName").val("");
+				
 			}, error: function() {
 				alert("망함");
 			}
@@ -503,6 +506,9 @@ $(document).ready(function(){
 				$("input[type=text]").css({"border" : "1px solid black"});
 				$("input[type=checkbox]").css({"display" : "block"});
 			
+				$("#hY").val("");
+				$("#hisInfo").val("");
+				
 			}, error: function() {
 				alert("망함");
 			}

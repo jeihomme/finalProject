@@ -88,20 +88,7 @@ $(document).ready(function(){
 	// 밴드넘버, 바넘버 넘겨줄 값 설정 필요
 	var bandNo = ${param.bandNo};
 	var login = "${sessionScope.login}";
-	var barNo;
-	
-	if(login == true){
-// 		var barNo = ${sessionScope.barInfo.barNo};
-		console.log("로그인 되어있음");
-		
-		barNo = "${sessionScope.barInfo.barNo}";
-		
-		if(barNo != ""){
-			console.log("바 계정 로그인");
-			console.log(barNo);
-		}
-	}
-	
+	var barNo = "${sessionScope.barInfo.barNo}";
 	
 	$(".getDay").click(function(){
 		
@@ -111,15 +98,18 @@ $(document).ready(function(){
 		// 선택 날짜
 		var selDay = tDate.split('.');
 		
+// 		console.log(barNo);
+		
 		$.ajax({
 			type: "get",
 			url: "/calendar/info",
 			data: { tDate : tDate ,
-				bandNo : bandNo} ,
+				bandNo : bandNo,
+				barNo : barNo },
 			dataType: "json",
 			success: function(data) {
 
-				console.log(selDay);
+// 				console.log(selDay);
 				
 				document.getElementById("wow").style.display="block";
 				
@@ -127,7 +117,9 @@ $(document).ready(function(){
 				$("#date_D").val(selDay[2]);
 				
 // 				// 해당 날짜 정보 리스트
-				var lists = data.datedInfo;
+				var lists = data.barDInfo.barInfo;
+				var emptyLists = data.barDInfo.emptySched;
+				
 // 				// 시간 리스트
 				var setTime = data.pTime;
 				
@@ -204,13 +196,82 @@ $(document).ready(function(){
 					}
 					
 					// barName
-					var newBarName = $("<input type='text' class='bbName' value='"+ lists[j].barName +"' />")
-					$("#ddInfo").find("tr:last").find("td:last").append(newBarName);
+					var newBandName = $("<input type='text' class='bbName' value='"+ lists[j].bandName +"' />")
+					$("#ddInfo").find("tr:last").find("td:last").append(newBandName);
 						
 				}
 				
+				
+				// 바의 비어있는 스케쥴
+				for(var j=0; j<emptyLists.length; j++) {
+					
+					// tr
+					var newTr = $("<tr></tr>");
+					$("#ddInfo").append(newTr);
+					
+					// td
+					var newTd = $("<td></td>");
+					$("#ddInfo").find("tr:last").append(newTd);
+					
+					// stTime
+					var newStTime = $("<select class='selSt' disabled ></select>");
+					$("#ddInfo").find("tr:last").find("td:last").append(newStTime);
+					
+					//stTime option
+					for(var i=0; i<setTime.length; i++) {
+						
+						if(emptyLists[j].startTime == setTime[i].timeId) {
+						
+							var newOption = $("<option class='stTime' value='"+ setTime[i].timeId +"' selected >"+ setTime[i].hourM +"</option>");
+						
+							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
+							
+						} else {
+							
+							var newOption = $("<option class='stTime' value='"+ setTime[i].timeId +"'>"+ setTime[i].hourM +"</option>");
+							
+							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
+						}
+						
+					}
+					
+					// 시간 중간 ~
+					$("#ddInfo").find("tr:last").find("td:last").append("~");
+					
+					// edTime
+					var newEdTime = $("<select class='selEd' disabled ></select>");
+					$("#ddInfo").find("tr:last").find("td:last").append(newEdTime);
+					
+					// edTime option
+					for(var i=0; i<setTime.length; i++) {
+						
+						if(lists[j].startTime == setTime[i].timeId) {
+							
+							var newOption = $("<option class='edTime' value='"+ setTime[i].timeId +"' selected>"+ setTime[i].hourM +"</option>");
+						
+							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
+							
+						} else {
+							
+							var newOption = $("<option class='edTime' value='"+ setTime[i].timeId +"'>"+ setTime[i].hourM +"</option>");
+							
+							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
+							
+						}
+						
+					}
+					
+					// invite 버튼
+					var inviteBtn = $("<button type='button' class='inviteBtn' value='"+ emptyLists[j].calendarNo +"'>초청</button>");
+					$("#ddInfo").find("tr:last").find("td:last").append(inviteBtn);
+						
+					// invite 버튼 기능에 bind
+					$('.inviteBtn').bind("click", invitePerf);
+					
+				}
+				
 			}, error: function() {
-				alert("하 ㅅㅂ");
+				alert(".getDay 실패");
 			}
 			
 		});
@@ -237,7 +298,7 @@ $(document).ready(function(){
 				$("#body").html(data);
 				
 			}, error: function() {
-				alert("망함");
+				alert("모달 끄기 실패");
 			}
 		});
 		
@@ -315,29 +376,38 @@ $(document).ready(function(){
 // 				$("#ddInfo:last").append("<tr><td>하 씨발 이제 쫌 되는듯하네</td></tr>");
 				
 			}, error: function(){
-				alert("하 ㅆㅂ");
+				alert("추가 실패");
 			}
 		});
 		
-		
 	});
 	
-	
-	$(".getSched").click(function(){
-		var barNo = $(".getSched").attr("id");
+	// 초청 버튼
+	function invitePerf(){
+
+		var calendarNo = $(this).val();
 		
-		console.log(barNo);
-	});
+// 		console.log(calendarNo);
+		
+		$.ajax({
+			type: "post",
+			url: "/calendar/inviteBand",
+			data: { calendarNo : calendarNo,
+					barNo : barNo,
+					bandNo : bandNo },
+			dataType : "json",
+			success: function(res) {
+		
+				console.log("초청 완료");
+			
+			}, error: function(){
+				alert("초청 실패");
+			}
+		});
+		
+	}
+	
 });
-
-function OpenWin(URL, width, height){
-	var str, width, height;
-	str="'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,copyhistory=no,";
-    str=str+"width="+width;
-    str=str+",height="+height+"',top=50,left=50";
-    window.open(URL,'remoteSchedule',str);
-}
-
 </script>
 
 <c:set var="curYear" value="${calendar.curYear }" />
@@ -426,7 +496,6 @@ function OpenWin(URL, width, height){
 										</tr>
 										<tr>
 											<td height="68" width="70" valign="top">
-<%-- 											${(currentDay-(8-map.firstDayOfWeek)) % 7 }<br> --%>
 											<table>
 												<c:forEach var="dayIndex" items="${sched.sched}">
 													<c:if test="${currentDay == dayIndex.calendarDate}">
@@ -434,7 +503,6 @@ function OpenWin(URL, width, height){
 															<table>
 																<tr>
 																	<td>
-<%-- 														<a class="getSched" id="${bars.barNo }"> --%>
 														<a href="http://localhost:8088/bar/viewbar?barNo=${dayIndex.barNo }">
 															${dayIndex.startTime} ~ ${dayIndex.endTime } : ${dayIndex.barName }<br><br>
 														</a>
@@ -536,6 +604,23 @@ function OpenWin(URL, width, height){
 								</tr>
 							</c:if>
 							</c:forEach>
+							<tr>
+								<td>
+									<select class="selSt" disabled >
+	                        			<c:forEach var="pt" items="${sched.pTime }" >
+											<option class="stTime" value="${pt.timeId }">${pt.hourM }</option>
+			                        	</c:forEach>
+			                        </select>
+					~
+    			                    <select class="selEd" disabled >
+                			        	<c:forEach var="pt" items="${sched.pTime }" >
+			                        		<option class="edTime" value="${pt.timeId }">${pt.hourM }</option>
+			                        	</c:forEach>
+			                        </select>
+                        
+			                        <button type="button" id="inviteBtn" value="">초청</button>
+		                        </td>
+								</tr>
 	                    </table>
                     </TD>
                 </TR>

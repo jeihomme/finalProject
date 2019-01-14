@@ -42,7 +42,7 @@ public class CalendarController {
 		sched = calendar.getSchedule(map, bandNo);
 		
 		// 바 리스트
-		List list3 = calendar.getInfoBar();
+		List list3 = calendar.getBar();
 		
 		model.addAttribute("bars", list3);
 		model.addAttribute("calendar", map);
@@ -54,20 +54,26 @@ public class CalendarController {
 	
 	@RequestMapping(value="/calendar/info", method=RequestMethod.GET)
 	public ModelAndView eachDate(
-			String bandNo,
+//			String bandNo,
+			String barNo,
 			String tDate
 			) {
 
 		System.out.println("today = " + tDate);
+		System.out.println(barNo);
+//		System.out.println(bandNo);
 
-		List list = calendar.getInfoBand(bandNo, tDate);
+//		List list = calendar.getInfoBand(bandNo, tDate);
 		List list2 = calendar.getHours();
+		Map map = calendar.getInfoBar(barNo, tDate);
+		
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("jsonView");
 		
-		mav.addObject("datedInfo", list);
+//		mav.addObject("datedInfo", list);
 		mav.addObject("pTime", list2);
+		mav.addObject("barDInfo", map);
 		
 		return mav;
 		
@@ -96,5 +102,22 @@ public class CalendarController {
 		
 	}
 	
+	@RequestMapping(value="/calendar/inviteBand", method=RequestMethod.POST)
+	public void inviteBand(
+			String calendarNo,
+			String barNo,
+			String bandNo,
+			Writer out
+			) {
+		
+		calendar.inviteBand(calendarNo, barNo, bandNo);
+		
+		try {
+			out.write("{\"res\": true}" );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 }
