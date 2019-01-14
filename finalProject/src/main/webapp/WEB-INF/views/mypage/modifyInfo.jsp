@@ -319,7 +319,7 @@ $(document).ready(function() {
 			  </div>
 			</div>
 				
-				<b class="adminDetailInfo">밴드</b> ${band.bandName }<br>
+				<b class="adminDetailInfo">밴드</b> <b class="adminDetailInfo2">${band.bandName }</b><br>
 				
 				<b class="adminDetailInfo">이메일 : </b><input id="email" name="email" value="${member.email }"/><br>
 				<b class="adminDetailInfo">통신사 : </b>

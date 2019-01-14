@@ -451,37 +451,20 @@ $(document).ready(function() {
  	     begin="${paging.startPage }"
  	     end="${paging.endPage }"
  	     var="i">
-			<li class="active">
-				<c:if test="${paging.endPage > 1}">
-		    		<c:if test="${paging.curPage eq i}">
-			    		<button id="ajaxBtn${i }" class="acceptBtnBlue" name="ajaxBtn${i }" value="${i }">${i }</button>
-			    	</c:if>
-			    	<c:if test="${paging.curPage ne i}">
-			    		<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
-			    	</c:if>
-			    </c:if>
-	    	</li>
+			<c:if test="${paging.endPage > 1}">
+	 	     	<c:if test="${paging.curPage eq i}">
+		    		<button id="ajaxBtn${i }" class="acceptBtnBlue" name="ajaxBtn${i }" value="${i }">${i }</button>
+		    	</c:if>
+		    	<c:if test="${paging.curPage ne i}">
+		    		<button id="ajaxBtn${i }" class="searchBtn" name="ajaxBtn${i }" value="${i }">${i }</button>
+		    	</c:if>
+		    </c:if>
 	    </c:forEach>
 		
 		<c:if test="${paging.endPage > 1}">
 			<button id="ajaxBtnNext" class="searchBtn" name="ajaxBtnNext">&raquo;</button>
 		</c:if>
-			
-	    <!-- 다음 페이지 -->
-	  	<c:if test="${paging.curPage eq paging.totalPage }">
-	    <li class="disabled">
-	    	
-<!-- 	        <span aria-hidden="true">&raquo;</span> -->
-	    </li>
-		</c:if>
 		
-<%-- 	  	<c:if test="${paging.curPage ne paging.totalPage }"> --%>
-<!-- 	    <li> -->
-	      <a href="/board/list?curPage=${paging.curPage+1 }" aria-label="Next">
-<!-- 	        <span aria-hidden="true">&raquo;</span> -->
-<!-- 	      </a> -->
-<!-- 	    </li> -->
-<%-- 	    </c:if> --%>
 	    </ul>
 	</div>
 	</div>

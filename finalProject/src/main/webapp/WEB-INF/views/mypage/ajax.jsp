@@ -1566,15 +1566,7 @@
 		});
 	}
 	
-	function applicationToBarCancel1() {
-		
-		var appNoList = [];
-		
-		for(var i=0;i<document.getElementsByName("appNo").length; i++) {
-			appNoList[i] = document.getElementsByName("appNo")[i].value;
-	    }
-		
-		var appNo = appNoList[0];
+	function applicationToBarCancel(appNo) {
 		
 		$.ajax({
 			type: "post"
