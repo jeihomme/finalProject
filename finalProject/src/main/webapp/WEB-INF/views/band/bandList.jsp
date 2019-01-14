@@ -239,22 +239,42 @@ $(document).ready(function(){
 		<c:forEach items="${band }" var="b">
 		<c:set var="counter" value="${counter + 1 }" />
 		<c:set var="plus" value="${itemCounts + 1 }" />
+		
+		<%-- break 만들기 --%>
+		<c:set var="doneLoop" value="false" />
+		
 			<c:forEach items="${profile }" var="p">
+			
+				<c:if test="${not doneLoop }">
 				<c:if test="${b.profileNo eq p.profileNo }">
-					<td>
-						<table>
-							<tr>
-								<td>
-									<img class="img-thumb" src="../resources/${p.originName }"/>
-								</td>
-							</tr>
-							<tr>
-								<td><a href="/band/bandView?bandNo=${b.bandNo }">${b.bandName}</a></td>
-							</tr>
-						</table>
-					</td>
+					<c:if test="${b.profileNo eq 0}">
+						<td><table>
+						<tr><td>
+							<img class="img-thumb" src="../resources/${p.originName }"/>
+						</td></tr>
+						<tr><td>
+							<a href="/band/bandView?bandNo=${b.bandNo }">${b.bandName}</a>
+						</td></tr>
+						</table></td>
+						<%-- break; --%>
+						<c:set var="doneLoop" value="true" />
+					</c:if>
+					<c:if test="${b.profileNo ne 0 }">
+						<td><table>
+							<tr><td>
+								<img class="img-thumb" src="../resources/${p.originName }"/>
+							</td></tr>
+							<tr><td>
+								<a href="/band/bandView?bandNo=${b.bandNo }">${b.bandName}</a>
+							</td></tr>
+						</table></td>
+						<%-- break; --%>
+						<c:set var="doneLoop" value="true" />
+					</c:if>
+				</c:if>
 				</c:if>
 			</c:forEach>
+		
 		<c:if test="${counter == 6 }">
 			</tr>
 			<tr>
