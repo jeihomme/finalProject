@@ -23,11 +23,17 @@ public interface MemberService {
 	// band 가입
 	public void bandJoin(Band band);
 	
+	// band 가입 - Genre 테이블 insert
+	public void bandGenreInsert(Band band);
+	
 	// 아이디 중복 확인
 	public boolean checkId(Member member);
 	
 	// 닉네임 중복 확인
 	public boolean checkUserName(Member member);
+	
+	// 전화번호 중복 확인
+	public boolean checkContact(Member member);
 	
 	// 로그인 성공 확인
 	public boolean login(Member member);

@@ -17,11 +17,17 @@ public interface MemberDao {
 	// band 가입
 	public void insertBand(Band band);
 	
+	// band 가입 - Band Genre insert
+	public void insertBandGenre(Band band);
+	
 	// 가입 - 아이디 중복 확인
 	public int checkJoinId(Member member);
 	
 	// 가입 - 닉네임 중복 확인
 	public int checkJoinUserName(Member member);
+	
+	// 가입 - 전화번호 중복 확인
+	public int checkJoinContact(Member member);
 	
 	// 로그인 성공 유무 확인
 	public int selectCntLogin(Member member);
