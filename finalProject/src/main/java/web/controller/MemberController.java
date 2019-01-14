@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import web.dto.Band;
 import web.dto.Bar;
@@ -128,6 +128,7 @@ public class MemberController {
 			
 			memberService.join(member);
 			memberService.bandJoin(band);
+			memberService.bandGenreInsert(band);
 			
 			// bar와 member 가입 정보가 제대로 넘겨졌는지 확인
 			if(memberService.login(member)) {
@@ -155,11 +156,107 @@ public class MemberController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/member/checkJoinMemberId", method=RequestMethod.GET)
+	public int idCheck(Member member) {
+		
+		// 결과 출력
+		int result = 0;
+		
+		// 아이디 중복 확인 (중복 X, 가입 가능)		
+		if(memberService.checkId(member)) {
+			result = 1;
+			return result;
+		
+		} else if (member.getUserId()==null || member.getUserId().equals(null) ||
+				member.getUserId().equals("") || member.getUserId()=="") {
+			result = 0;
+			return result;
+			
+		// 중복 O, 가입 X
+		} else {
+			result = 0;
+			return result;
+		}
+		
+	}
 	
-	@RequestMapping(value="/member/idcheck", method=RequestMethod.GET)
-	public void idCheck(Member member) {
-		// 아이디 중복 확인
-		memberService.checkId(member);
+	@ResponseBody
+	@RequestMapping(value="/member/checkJoinMemberNick", method=RequestMethod.GET)
+	public int NickNameCheck(Member member) {
+		
+		// 결과 출력
+		int result = 0;
+		
+		// 아이디 중복 확인 (중복 X, 가입 가능)		
+		if(memberService.checkUserName(member)) {
+			result = 1;
+			return result;
+		
+		} else if (member.getUserName()==null || member.getUserName().equals(null) ||
+				member.getUserName().equals("") || member.getUserName()=="") {
+			result = 0;
+			return result;
+			
+		// 중복 O, 가입 X
+		} else {
+			result = 0;
+			return result;
+		}
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/member/checkJoinMemberPw", method=RequestMethod.GET)
+	public int PasswordCheck(
+			@RequestParam(required=false, value="password") String password,
+			@RequestParam(required=false, value="passChk") String passChk ) {
+		
+		// 결과 출력
+		int result = 0;
+		
+		// 비밀번호 일치
+		if(password==passChk || password.equals(passChk) || passChk.equals(password) || passChk==password) {
+			result = 1;
+			return result;
+		
+		} else if (password==null || password.equals(null) ||
+							password.equals("") || password=="" ||
+							passChk==null || passChk.equals(null) ||
+							passChk.equals("") || passChk=="") {
+			result = 0;
+			return result;
+			
+		// 가입 X
+		} else {
+			result = 0;
+			return result;
+		}
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/member/checkJoinMemberContact", method=RequestMethod.GET)
+	public int ContactCheck(Member member) {
+		
+		// 결과 출력
+		int result = 0;
+		
+		// 아이디 중복 확인 (중복 X, 가입 가능)		
+		if(memberService.checkContact(member)) {
+			result = 1;
+			return result;
+		
+		} else if (member.getContact()==null || member.getContact().equals(null) ||
+				member.getContact().equals("") || member.getContact()=="") {
+			result = 0;
+			return result;
+			
+		// 중복 O, 가입 X
+		} else {
+			result = 0;
+			return result;
+		}
 		
 	}
 	
@@ -228,41 +325,6 @@ public class MemberController {
 		session.invalidate();
 		
 		return "redirect:/main";
-	}
-	
-	@RequestMapping(value="/member/check", method=RequestMethod.POST)
-	public void joinCheckIdPw(Member member,
-			@RequestParam(required=false, value="passwordChk") String passChk,
-			Writer out) {
-		
-		// id가 유효한지 확인
-		if(memberService.checkId(member)) {
-			
-			try {
-				out.write("{\"res\": true}" );				
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		// userName이 유효한지 확인	
-		} else if(memberService.checkPassword(member)) {
-			try {
-				out.write("{\"res\": true}" );				
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		} else if(member.getPassword().equals(passChk)) {
-			try {
-				out.write("{\"res\": true}" );				
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
 	}
 	
 	@RequestMapping(value="/member/delete", method=RequestMethod.POST)

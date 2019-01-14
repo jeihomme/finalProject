@@ -77,14 +77,25 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public void bandGenreInsert(Band band) {
+		memberDao.insertBandGenre(band);
+	}
+	
+	@Override
 	public boolean checkId(Member member) {
 		// 아이디 중복 확인 (중복, 가입 안 됨)
 		if(memberDao.checkJoinId(member)==1) {
 			return false;
-		}
+		
+		// 공백일 때
+		} else if(member.getUserId()==null || member.getUserId().equals(null) ||
+					member.getUserId().equals("") || member.getUserId()=="") {
+			return false;
 		
 		// 아이디 중복 아님 (가입 O)
-		return true;
+		} else {
+			return true;			
+		}
 		
 	}	
 	
@@ -93,10 +104,34 @@ public class MemberServiceImpl implements MemberService {
 		// 닉네임 중복 확인 (중복, 가입 안 됨)
 		if(memberDao.checkJoinUserName(member)==1) {
 			return false;
-		}
-
+		
+		// 공백일 때
+		} else if(member.getUserName()==null || member.getUserName().equals(null) ||
+					member.getUserName().equals("") || member.getUserName()=="") {
+			return false;
+		
 		// 닉네임 중복 아님 (가입 O)
-		return true;
+		} else {
+			return true;			
+		}
+		
+	}
+	
+	@Override
+	public boolean checkContact(Member member) {
+		// 전화번호 중복 확인 (중복, 가입 안 됨)
+		if(memberDao.checkJoinContact(member)==1) {
+			return false;
+		
+		// 공백일 때
+		} else if(member.getContact()==null || member.getContact().equals(null) ||
+					member.getContact().equals("") || member.getContact()=="") {
+			return false;
+		
+		// 닉네임 중복 아님 (가입 O)
+		} else {
+			return true;			
+		}
 		
 	}
 
@@ -159,8 +194,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String profilePicSave(ServletContext context, MultipartFile file, ProfilePic profilePic) {
-		// 파일 첨부가 됐을 때
-		if(file!=null) {
+
 			// UUID 고유 식별자
 			String uid = UUID.randomUUID().toString().split("-")[0];
 			
@@ -192,27 +226,6 @@ public class MemberServiceImpl implements MemberService {
 			
 			return name;
 		
-		// 파일 첨부를 안 했을 때
-		} else {
-			// UUID 고유 식별자
-			String uid = UUID.randomUUID().toString().split("-")[0];
-			
-			// 파일이 저장될 경로
-			String stored = "../resources";
-			
-			System.out.println("저장 경로: "+stored);
-			
-			// 저장될 파일의 이름
-			String name = "profileBasic.jpg";
-			
-			profilePic.setOriginName("profileBasic.jpg");
-			profilePic.setStoredName(name);
-			profilePic.setPath(stored);
-			
-			memberDao.insertProfilePic(profilePic);
-			
-			return name;
-		}
 		
 	}
 

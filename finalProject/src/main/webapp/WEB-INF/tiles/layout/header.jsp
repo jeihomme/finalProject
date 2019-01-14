@@ -14,6 +14,172 @@
 
 var idx = 0;
 
+var idCheck = 0;
+var nickCheck = 0;
+var pwCheck = 0;
+
+// member 가입시 아이디 중복 확인
+function checkId() {
+	// 닉네임 입력 값
+	var inputed = $("#joinUserId").val();
+	console.log(inputed);
+	
+	$.ajax ({
+		data: {
+			userId: inputed
+		},
+		url: "/member/checkJoinMemberId",
+		success: function(data) {
+			// 입력 값이 비어 있고 출력되는 값이 0일 때
+			if(inputed=="" && data=="0") {
+				$("#joinIdCheck").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			// 출력 값이 0일 때
+			} else if(data=="0") {
+				$("#joinIdCheck").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			// 입력된 값이 없을 때
+			} else if(inputed=="" || inputed==null || inputed.length<=4) {
+				$("#joinIdCheck").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+
+			// 중복 체크 끝난 다음, 가입 가능할 때
+			} else if(data=="1") {
+				$("#joinIdCheck").css("color", "green");
+				$(".nextBtn").prop("disabled", false);
+			
+			}
+		}
+	});
+}
+
+//member 가입시 닉네임 중복 확인
+function checkNick() {
+	// 닉네임 입력 값
+	var inputed = $("#joinUserName").val();
+	console.log(inputed);
+	
+	$.ajax ({
+		data: {
+			userName: inputed
+		},
+		url: "/member/checkJoinMemberNick",
+		success: function(data) {
+			// 입력 값이 비어 있고 출력되는 값이 0일 때
+			if(inputed=="" && data=="0") {
+				$("#joinUserNameCheck").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			// 출력 값이 0일 때
+			} else if(data=="0") {
+				$("#joinUserNameCheck").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			// 입력된 값이 없을 때
+			} else if(inputed=="" || inputed==null || inputed.length<=4) {
+				$("#joinUserNameCheck").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+
+				// 중복 체크 끝난 다음, 가입 가능할 때
+			} else if(data=="1") {
+				$("#joinUserNameCheck").css("color", "green");
+				$(".nextBtn").prop("disabled", false);
+
+
+			}
+		}
+	});
+}
+
+//member 가입시 비밀번호, 비밀번호 확인이 일치하는지 확인
+function checkPw() {
+	// 비밀번호 입력 값
+	var inputed1 = $("#joinPassword").val();
+	var inputed2 = $("#passwordChk").val();
+	
+	console.log(inputed1);
+	console.log(inputed2);
+	
+	$.ajax ({
+		data: {
+			password: inputed1,
+			passChk: inputed2
+		},
+		url: "/member/checkJoinMemberPw",
+		success: function(data) {
+			// 입력 값이 비어 있고 출력되는 값이 0일 때
+			if(inputed1=="" && data=="0") {
+				$("#joinPwCheck").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+
+			} else if(inputed2=="" && data=="0") {
+				$("#joinPwCheck").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+				
+			// 출력 값이 0일 때
+			} else if(data=="0") {
+				$("#joinPwCheck").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			// 중복 체크 끝난 다음, 가입 가능할 때
+			} else if(data=="1") {
+				$("#joinPwCheck").css("color", "green");
+				$(".nextBtn").prop("disabled", false);
+
+			// 입력된 값이 없을 때
+			} else if(inputed1=="" || inputed1==null) {
+				$("#joinPwCheck").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+				
+			} else if(inputed2=="" || inputed2==null) {
+				$("#joinPwCheck").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+
+			}
+		}
+	});
+
+}
+
+//member 가입시 전화번호 길이가 맞는지 확인
+function checkContact() {
+	// 비밀번호 입력 값
+	var contact1 = $("#joinContact1").val();
+	var contact2 = $("#joinContact2").val();
+	var contact3 = $("#joinContact3").val();
+	var contact = contact1+contact2+contact3;
+
+	$.ajax ({
+		data: {
+			contact: contact
+		},
+		url: "/member/checkJoinMemberContact",
+		success: function(data) {
+		
+			if(contact1.length<=2 || contact2.length<=3 || contact3.length<=3) {
+				$("#joinContactChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+				
+			} else if(contact1.length>=4 || contact2.length>=5 || contact3.length>=5) {
+				$("#joinContactChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			} else if(data=="0") {
+				$("#joinContactChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+				
+			} else if(data=="1" && contact1.length==3 && contact2.length==4 && contact3.length==4) {
+				$("#joinContactChk").css("color", "green");
+				$(".nextBtn").prop("disabled", false);
+			}
+			
+		}
+	
+	});
+}
+
 function onlyNum(event){ // 숫자만 입력하기 위한 함수
 	   event = event || window.event;
 	   var keyID = (event.which) ? event.which : event.keyCode;
@@ -120,6 +286,7 @@ $(document).ready(function() {
 		readBarPicURL(this);
 	});
 	
+	// 사진 미리보기
 	function readBarPicURL(input) {
 		if(input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -131,7 +298,6 @@ $(document).ready(function() {
 			
 		} 
 	}
-	
 	
 	$("#joinBandPic").change(function() {
 		ext = $(this).val().split('.').pop().toLowerCase();
@@ -180,7 +346,7 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	
+	// 상단바에 있는 로그인 버튼을 클릭했을 때
 	$(".loginBtn").click(function() {
 		$(".modal-content").hide();
 		$(".modal-content:eq("+idx+")").show();
@@ -198,29 +364,7 @@ $(document).ready(function() {
 		
 	});
 	
-// 	$("#joinModal1").on(function() {
-// 		var memberCheck = {
-// 				id: $("#joinUserId").val(),
-// 				userName: $("#joinUserName").val(),
-// 				password: $("#joinPassword").val(),
-// 				passwordChk: $("#passwordChk").val()
-// 		};
-		
-// 		$.ajax ({
-// 			url: "/member/check",
-// 			dataType: "json",
-// 			data: memberCheck,
-// 			success: function(res) {
-				
-// 				$("#joinIdCheck").css("color", "#088A4B");
-
-// 			},
-// 			error: function() {
-// 				alert("error");
-// 			}
-// 		});	
-// 	});
-		
+	// 다음 버튼을 클릭했을 때
 	$(".nextBtn").click(function() {
 		console.log("다음 버튼 클릭 "+idx);
 		
@@ -292,33 +436,6 @@ $(document).ready(function() {
 			} else if (joinForm1.joinEmail2.value.length==0) {
 				alert("이메일을 입력해 주세요.");
 				joinForm1.joinEmail2.focus();
-				return;
-			}
-			
-			// 전화번호 형식이 제대로 되지 않았을 때
-			if(joinForm1.joinContact1.value.length<3) {
-				alert("전화번호가 너무 짧습니다.");
-				joinForm1.joinContact1.focus();
-				return;
-			} else if(joinForm1.joinContact1.value.length>=5) {
-				alert("전화번호가 너무 깁니다.");
-				joinForm1.joinContact1.focus();
-				return;
-			} else if(joinForm1.joinContact2.value.length<3) {
-				alert("전화번호가 너무 짧습니다.");
-				joinForm1.joinContact2.focus();
-				return;
-			} else if(joinForm1.joinContact2.value.length>=5) {
-				alert("전화번호가 너무 깁니다.");
-				joinForm1.joinContact2.focus();
-				return;
-			} else if(joinForm1.joinContact3.value.length<4) {
-				alert("전화번호가 너무 짧습니다.");
-				joinForm1.joinContact3.focus();
-				return;
-			} else if(joinForm1.joinContact3.value.length>=5) {
-				alert("전화번호가 너무 깁니다.");
-				joinForm1.joinContact3.focus();
 				return;
 			}
 			
@@ -1328,7 +1445,7 @@ $(document).ready(function() {
 				&nbsp;&nbsp;<input type="password" style="width: 80%; color: black;" id="password" name="password" placeholder=" 비밀번호"/>
 				<br><br>
 			</form>
-			&nbsp;&nbsp;<button type="button" id="btnLogin"><b>Submit</b></button>
+			&nbsp;&nbsp;<button type="button" id="btnLogin"><b>로그인</b></button>
       		<br><br><br>
       	<a data-toggle="modal" class="nextBtn" style="cursor: pointer; color: #6E6E6E;">회원가입</a>&nbsp;&nbsp;&nbsp;
       	<a data-toggle="modal" class="findIdPw" style="cursor: pointer; color: #6E6E6E;">아이디/비밀번호 찾기</a>
@@ -1433,35 +1550,36 @@ $(document).ready(function() {
         	<div class="joinInfo text-right" style="color: black; font-size: 11px;"><br>
       			<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
     	  	</div>
-		        <table style="border: none; height: 300px; width: 120%; color: black">
+		        <table style="border: none; height: 300px; width: 100%; color: black">
 				<tr>
-				<td><font color="red">*</font>&nbsp;<input type="text" id="joinUserId" name="joinUserId" placeholder=" 아이디" />&nbsp;&nbsp;<span class="glyphicon glyphicon-ok-circle" id="joinIdCheck" style="width: 15px; height: 15px;" aria-hidden="true"></span></td>
+				<td><font color="red">*</font>&nbsp;<input type="text" id="joinUserId" name="joinUserId" oninput="checkId()" placeholder=" 아이디" />&nbsp;&nbsp;<span class="glyphicon glyphicon-ok" id="joinIdCheck" style="width: 20px; color: red; height: 20px;" aria-hidden="true"></span></td>
 				</tr>
 				<tr>
-				<td><font color="red">*</font>&nbsp;<input type="text" id="joinUserName" name="joinUserName" placeholder=" 닉네임"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-ok-circle" id="joinUserNameCheck" style="width: 10px; height: 10px;" aria-hidden="true"></span></td>
+				<td><font color="red">*</font>&nbsp;<input type="text" id="joinUserName" name="joinUserName" oninput="checkNick()" placeholder=" 닉네임"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-ok" id="joinUserNameCheck" style="width: 20px; color: red; height: 20px;" aria-hidden="true"></span></td>
 				</tr>
 				<tr>
-				<td><font color="red">*</font>&nbsp;<input type="password" id="joinPassword" name="joinPassword" placeholder=" 비밀번호"/></td>
+				<td><font color="red">*</font>&nbsp;<input type="password" id="joinPassword" name="joinPassword" oninput="checkPw()" placeholder=" 비밀번호"/></td>
 				</tr>
 				<tr>
-				<td><font color="red">*</font>&nbsp;<input type="password" id="passwordChk" name="passwordChk" placeholder=" 비밀번호 확인"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-ok-circle" id="joinPwCheck" style="width: 10px; height: 10px;" aria-hidden="true"></span></td>
+				<td><font color="red">*</font>&nbsp;<input type="password" id="passwordChk" name="passwordChk" oninput="checkPw()" placeholder=" 비밀번호 확인"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-ok" id="joinPwCheck" style="width: 20px; color: red; height: 20px;" aria-hidden="true"></span></td>
 				</tr>
 				<tr>
 				<td><font color="red">*</font>
-					<select id="joinTelcom" name="joinTelcom" style="color: black; width: 15%; height: 28px">
+					<select id="joinTelcom" name="joinTelcom" style="color: black; width: 18%; height: 28px">
 						<option value="SK" selected>SKT</option>
 						<option value="KT">KT</option>
 						<option value="LG">LGT</option>
 					</select>&nbsp;
-						<input type="text" style="width: 50px" name="joinContact1" id="joinContact1" onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/> -
-						<input type="text" style="width: 50px" name="joinContact2" id="joinContact2" onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/> -
-						<input type="text" style="width: 50px" name="joinContact3" id="joinContact3" onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/></td>
+						<input type="text" style="width: 50px" maxlength="3" size="3" name="joinContact1" id="joinContact1" oninput="checkContact()" onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/> -
+						<input type="text" style="width: 50px" maxlength="4" size="4" name="joinContact2" id="joinContact2" oninput="checkContact()" onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/> -
+						<input type="text" style="width: 50px" maxlength="4" size="4" name="joinContact3" id="joinContact3" oninput="checkContact()" onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/>
+						<span class="glyphicon glyphicon-ok" id="joinContactChk" style="width: 20px; color: red; height: 20px;" aria-hidden="true"></span></td>
 				</tr>
 				<tr>
 				<td><font color="red">*</font>
-						<input type="text" id="joinEmail1" name="joinEmail1" style="width: 120px;" placeholder=" 이메일"/> @ 
-						<input type="text" name="joinEmail2" id="joinEmail2" style="color: black; width: 80px" disabled value=""/>
-							<select name="joinEmailCheck" id="joinEmailCheck" style="color: black; width: 90px; height: 30px;">
+						<input type="text" id="joinEmail1" name="joinEmail1" style="width: 110px;" placeholder=" 이메일"/> @ 
+						<input type="text" name="joinEmail2" id="joinEmail2" style="color: black; width: 75px" disabled value=""/>
+							<select name="joinEmailCheck" id="joinEmailCheck" style="color: black; width: 85px; height: 30px;">
 								<option value="0" selected> ::: 선택 :::</option>
 								<option value="naver.com">naver.com</option>
 								<option value="daum.net">daum.net</option>
@@ -1552,7 +1670,7 @@ $(document).ready(function() {
 				</table>
 				</form>
 				<br>
- 				<button type="button" class="btnBarJoin">Join</button><br>
+ 				<button type="button" class="btnBarJoin">회원가입</button><br>
       		<br>
       </div>
     </div>
@@ -1600,7 +1718,7 @@ $(document).ready(function() {
     <div class="modal-content">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       <div class="modal-body text-center"  style="height: 150px;">
-         <h3 class="modal-title text-center" style="color: black;"><b>Join</b></h3>
+         <h3 class="modal-title text-center" style="color: black;"><b>회원가입</b></h3>
  			<br><font style="color: black">회원가입이 완료되었습니다!<br>감사합니다!</font>
 				<br>
  				<button type="button" class="close" data-dismiss="modal" style="color: #ccc; font-size: 18px; border: 1px solid white; background-color: white;">Main</button>
@@ -1617,10 +1735,10 @@ $(document).ready(function() {
          <h3 class="modal-title text-center" style="color: black;"><b>Find Your ID/PW</b></h3>
 		      <table style="border: none; height: 170px; width: 100%; color: black; margin-left: 33px; margin-top: 20px;" >
 				<tr><td>
-				<button type="button" class="findIdBtn"><b>Find ID</b></button>
+				<button type="button" class="findIdBtn"><b>아이디 찾기</b></button>
 				</td></tr>
 				<tr><td style="padding-top: 10px;">
-				<button type="button" class="findPwBtn"><b>Find PW</b></button>
+				<button type="button" class="findPwBtn"><b>비밀번호 찾기</b></button>
 			  </table><br>
       		<br>
       </div>
@@ -1659,7 +1777,7 @@ $(document).ready(function() {
 					<input type="text" style="width: 50px" name="findIdContact3" id="findIdContact3" onkeydown="return onlyNum(event)" onkeyup='removeChar(event)'/>
 				</td></tr>
 			  </table><br></form>
-				<button type="button" class="findIdConfirmBtn"><b>Find ID</b></button>
+				<button type="button" class="findIdConfirmBtn"><b>아이디 찾기</b></button>
       		<br>
       </div>
     </div>
@@ -1687,7 +1805,7 @@ $(document).ready(function() {
 						<option value="9">직접 입력</option>
 					</select></td></tr>
 			  </table><br></form>
-				<button type="button" class="findPwConfirmBtn"><b>Find PW</b></button>
+				<button type="button" class="findPwConfirmBtn"><b>비밀번호 찾기</b></button>
       		<br>
       </div>
     </div>
@@ -1723,7 +1841,7 @@ $(document).ready(function() {
 				    <td style="width: 20px;"><input type="radio" name="deleteMemberAgree" value="agree"></td><td style="width: 80px">동의합니다</td></tr>
 			  </table>
 			  </form><br>
-					<button type="button" class="deleteMember"><b>Delete</b></button>
+					<button type="button" class="deleteMember"><b>회원 탈퇴</b></button>
       </div>
     </div>
 </div>

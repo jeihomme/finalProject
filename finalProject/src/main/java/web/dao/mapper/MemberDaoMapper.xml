@@ -21,6 +21,11 @@
  		VALUES ( band_seq.nextval, #{bandName }, #{userId }, #{profileNo })
  	</insert>
  	
+ 	<insert id="insertBandGenre" parameterType="web.dto.Band">
+ 		INSERT INTO bandGenre (bandNo, profileNo)
+ 		VALUES ( #{bandNo }, #{profileNo })
+ 	</insert>
+ 	
  	<select id="checkJoinId" parameterType="web.dto.Member" resultType="int">
  		SELECT COUNT(*)
  		FROM member
@@ -33,6 +38,13 @@
  		FROM member
  		WHERE 1=1
  			AND userName=#{userName }
+ 	</select>
+ 	
+ 	<select id="checkJoinContact" parameterType="web.dto.Member" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM member
+ 		WHERE 1=1
+ 			AND contact=#{contact }
  	</select>
  	
  	<select id="selectCntLogin" parameterType="web.dto.Member" resultType="int">
