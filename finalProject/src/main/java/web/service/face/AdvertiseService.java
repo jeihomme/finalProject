@@ -46,5 +46,5 @@ public interface AdvertiseService {
 
 	public Part getPart(String positionNo);
 	
-//	public boolean
+
 }
