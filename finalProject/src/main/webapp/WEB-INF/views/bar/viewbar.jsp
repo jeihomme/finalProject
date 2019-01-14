@@ -45,6 +45,7 @@
 	
 	.barImg{
 		width: 400px;
+		height: 267px;
 		position: relative;
 		float: left;
 		margin-right: 25px;
@@ -127,7 +128,7 @@ $(document).ready(function(){
 <input type="hidden" id="barNo" value="${view.barNo }" /> 
 <div class="calendar"><button id="calendarBtn" style="height:30px;" class="btn right" type="button">Calendar</button></div><br><br><br><hr>
 
-<div class="barImg"><img class="barImg" src="http://${view.path }/${view.originName }"></div>
+<div class="barImg"><img class="barImg" src="../resources/${view.originName }"></div>
 
 <div id="barInformation">
 <form name="view" method="get">

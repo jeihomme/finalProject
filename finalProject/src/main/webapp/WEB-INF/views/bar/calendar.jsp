@@ -86,9 +86,9 @@ INPUT {
 $(document).ready(function(){
 	
 	// 밴드넘버, 바넘버 넘겨줄 값 설정 필요
-	var bandNo = ${param.bandNo};
+	var barNo = ${param.barNo};
 	var login = "${sessionScope.login}";
-	var barNo = "${sessionScope.barInfo.barNo}";
+	var bandNo = "${sessionScope.bandInfo.bandNo}";
 	
 	$(".getDay").click(function(){
 		
@@ -104,8 +104,8 @@ $(document).ready(function(){
 			type: "get",
 			url: "/calendar/info",
 			data: { tDate : tDate ,
-				bandNo : bandNo,
-				barNo : barNo },
+				barNo : barNo,
+				bandNo : bandNo},
 			dataType: "json",
 			success: function(data) {
 
@@ -285,12 +285,12 @@ $(document).ready(function(){
 	// 모달 끄기
 	$("#backView").click(function(){
 
-		var bandNo = ${param.bandNo};
+		var barNo = ${param.barNo};
 		
 		$.ajax({
 			type: "get",
-			url: "/band/bandView",
-			data: { bandNo : bandNo } ,
+			url: "/bar/viewbar",
+			data: { barNo : barNo } ,
 			context: document.body,
 			success: function(data) {
 					
