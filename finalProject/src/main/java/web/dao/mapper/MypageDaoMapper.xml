@@ -223,7 +223,7 @@
 		from bandMember
 		where bandNo = #{bandNo }
 		order by bandMemberNo
-	</select>
+	</select> 
 	
 <!-- 	public void insertBandMemberList(BandMember bandMember); -->
 	<insert id="insertBandMemberList" parameterType="web.dto.BandMember">
