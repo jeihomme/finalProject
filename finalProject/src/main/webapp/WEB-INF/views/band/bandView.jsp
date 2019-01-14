@@ -547,7 +547,7 @@ $(document).ready(function(){
 	<div class="div-common div-left">
 		<!-- 밴드 사진 -->
 		<div class="div-photo div-common">
-			<img class="photoIn" src="http://${proPic.path }/${proPic.originName}" />
+			<img class="photoIn" src="../resources/${proPic.originName }"/>
 		</div>
 	
 		<!-- 음악 파일 -->

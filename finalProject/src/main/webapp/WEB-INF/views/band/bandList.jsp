@@ -89,7 +89,7 @@ $(document).ready(function(){
 						if(bands.profileNo == profiles.profileNo){
 														
 							$newList = $("<td><table><tr><td>" +
-											"<img class='img-thumb' src='http://" + profiles.path + "/" + profiles.originName + "' />" +
+										"<img class='img-thumb' src='../resources/"+ profiles.originName +"'/>" +
 										"</td></tr>" +
 										"<tr><td>" +
 										"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
@@ -169,7 +169,7 @@ $(document).ready(function(){
 							$newTR = document.createElement("TR");
 							
 							$newList = $("<td>" + "<table>" + "<tr>" + "<td>" +
-												"<img class='img-thumb' src='http://" + profiles.path + "/" + profiles.originName + "' />" +
+										"<img class='img-thumb' src='../resources/"+ profiles.originName +"'/>" +
 										"</td>" + "</tr>" +
 										"<tr>" + "<td>" +
 										"<a href='/band/bandView?bandNo=" + bands.bandNo + "'>" + bands.bandName + "</a>" +
@@ -245,7 +245,7 @@ $(document).ready(function(){
 						<table>
 							<tr>
 								<td>
-									<img class="img-thumb" src="http://${p.path }/${p.originName}" />
+									<img class="img-thumb" src="../resources/${p.originName }"/>
 								</td>
 							</tr>
 							<tr>
