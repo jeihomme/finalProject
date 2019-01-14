@@ -293,23 +293,27 @@ public class AdvertiseController {
 		return "redirect:/advertise/update";
 	}
 	@RequestMapping(value="/advertise/delete" , method=RequestMethod.GET)
-	public String delete(String findNo , HttpSession session , HttpServletResponse resp) {
+	public String delete(String findNo , HttpSession session , HttpServletResponse resp , Model model) {
 		
 		Band band = (Band)session.getAttribute("bandInfo");
-		
+		model.addAttribute("band" , band);
 		if(band == null) {
-			try {
-				resp.sendRedirect("/advertise/list");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+				try {
+					resp.sendRedirect("/advertise/list");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+		
+		}else {
+			
+			advertiseService.delete(findNo);
+			
 			
 		}
-		
-		advertiseService.delete(findNo);
-		
-		return "redirect:/advertise/list";
+		return "/advertise/list";
+	
 	}
 
 	

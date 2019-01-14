@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import web.dto.Advertise;
+import web.dto.Band;
 import web.dto.FindMember;
 import web.dto.Genre;
 import web.dto.Member;
@@ -63,6 +64,10 @@ public interface AdvertiseDao {
 	public List getBand();
 
 	public ProfilePic getProfile();
+
+	public String getBandNo(String bandNo);
+
+	public Band getBandName(String bandName);
 
 	
 	

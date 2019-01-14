@@ -118,8 +118,18 @@ SELECT COUNT(*) CNT FROM (
 	WHERE genreNo = #{genreNo}
 </select>
 
+<select id="getBandNo" resultType="String">
+	SELECT * FROM Band WHERE bandNo = #{bandNo}
+</select>
+
+<select id="getBandName" parameterType="String" resultType="web.dto.Band">
+	SELECT bandNo , bandName
+	FROM band
+	WHERE bandNo = #{bandNo}
+</select>
+
 <select id="getMemberUserId" resultType="String">
-	SELECT userId
+	SELECT userId , bandName ,bandNo
 	FROM band
 	WHERE bandNo = #{bandNo}
 </select>
