@@ -99,18 +99,18 @@ public class MainController {
 //		Map general2 = bandService.bandView(band2.getBandNo());
 //		Map general3 = bandService.bandView(band3.getBandNo());
 //		Map general4 = bandService.bandView(band4.getBandNo());
-//		
+		
 //		model.addAttribute("general1", general1);
 //		model.addAttribute("general2", general2);
 //		model.addAttribute("general3", general3);
 //		model.addAttribute("general4", general4);
-
-		// bar Photo 정보 찾아오기
+//
+//		// bar Photo 정보 찾아오기
 		ProfilePic bandPic1 = mainService.getBandPicInfo(band1.getProfileNo());
 		ProfilePic bandPic2 = mainService.getBandPicInfo(band2.getProfileNo());
 		ProfilePic bandPic3 = mainService.getBandPicInfo(band3.getProfileNo());
 		ProfilePic bandPic4 = mainService.getBandPicInfo(band4.getProfileNo());
-		
+//		
 		session.setAttribute("bandPic1", bandPic1);
 		session.setAttribute("bandPic2", bandPic2);
 		session.setAttribute("bandPic3", bandPic3);
