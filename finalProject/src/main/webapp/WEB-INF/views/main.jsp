@@ -441,10 +441,16 @@ $(document).ready(function() {
 </script>
 
 <style type="text/css">
-.noticePhoto, .BarImage1, .BarImage2, .BarImage3, .BarImage4,
-.BandImage1, .BandImage2, .BandImage3, .BandImage4 {
+.noticePhoto {
 	height: 200px;
 	width: 350px;
+	border-radius: 15px;
+}
+
+.BarImage1, .BarImage2, .BarImage3, .BarImage4,
+.BandImage1, .BandImage2, .BandImage3, .BandImage4 {
+	height: 150px;
+	width: 200px;
 	border-radius: 15px;
 }
 
@@ -617,15 +623,15 @@ $(document).ready(function() {
 		</header>
 	<br><br>
 		<font style="font-size: 20px; margin-left: 20px; border-bottom: 3px solid gold;"><b>Notice</b></font><br>
-		<div id="noticeDiv" class="text-center" style="margin-top: 10px;">
+		<div id="noticeDiv" style="margin-top: 10px;">
 			<div id="noticePhotoDiv" style="padding-top: 25px; padding-left: 50px;">
 				<a href="/notice/list"><img class="noticePhoto" src="${pageContext.request.contextPath}/resources/joinImg/notice.jpg"></a>
 			</div>
-			<div id="noticeTableDiv" style="padding-top: 35px; padding-left: 480px; line-height: 200%">
+			<div id="noticeTableDiv" class="text-center" style="padding-top: 35px; padding-left: 350px; line-height: 200%">
 				<table id="noticeTable" style="height: 110px;">
 					<c:forEach items="${noticeList }" var="notice">
 					<tr>
-						<td style="width:35%"><ul><a href="/notice/view?noticeNo=${notice.noticeNo}" style="color: #ccc;"><b><li>${notice.content }</li></b></a></ul></td>
+						<td class="text-center" style="width:35%"><ul><a href="/notice/view?noticeNo=${notice.noticeNo}" style="color: #ccc;"><b><li>${notice.content }</li></b></a></ul></td>
 					</tr>
 					</c:forEach>
 				</table>
@@ -759,7 +765,7 @@ $(document).ready(function() {
 				    		</td></tr>
 				    		<tr>
 				    		<td style="padding-top: 25px;" class="text-center">
-<%-- 				    			${member1.bandMemName } --%>
+				    			${member1.bandMemName }
 				    		</td>
 				    		<td style="padding-top: 5px;" class="text-center">
 <%-- 				    			${member1.mPosition } --%>
@@ -781,7 +787,7 @@ $(document).ready(function() {
 				    		</td></tr>
 				    		<tr>
 				    		<td style="padding-top: 25px;" class="text-center">
-<%-- 				    			${bandMem2.bandMemName } --%>
+				    			${bandMem2.bandMemName }
 				    		</td>
 				    		<td style="padding-top: 5px;" class="text-center">${bandMem2.mPosition }
 				    		</td>
