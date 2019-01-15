@@ -144,6 +144,10 @@ SELECT COUNT(*) CNT FROM (
  SELECT * FROM BAND WHERE bandNo = #{bandNo}
 </select>
 
+<select id="getMusic" parameterType="String" resultType="web.dto.Music">
+	SELECT *FROM music WHERE bandNo = #{bandNo}
+</select>
+
 <select id="getProfile" resultType="int">
 SELECT * FROM profilepic WHERE profileNo = #{profileNo}
 </select>

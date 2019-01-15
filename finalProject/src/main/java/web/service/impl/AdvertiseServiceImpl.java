@@ -16,6 +16,7 @@ import web.dto.Band;
 import web.dto.FindMember;
 import web.dto.Genre;
 import web.dto.Member;
+import web.dto.Music;
 import web.dto.Part;
 import web.dto.ProfilePic;
 import web.service.face.AdvertiseService;
@@ -65,6 +66,10 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		int profileNo = advertiseDao.getPicNo(findM.getBandNo());
 		ProfilePic proPic = advertiseDao.getProPic(profileNo);
 		map.put("proPic", proPic);
+		
+		
+		Music Music = advertiseDao.getMusic(findM.getBandNo());
+		map.put("Music", Music);
 		
 		String bandName = advertiseDao.getBandNo(findM.getBandNo());
 		Band band = advertiseDao.getBandName(bandName);

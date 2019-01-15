@@ -8,6 +8,7 @@ import web.dto.Band;
 import web.dto.FindMember;
 import web.dto.Genre;
 import web.dto.Member;
+import web.dto.Music;
 import web.dto.Part;
 import web.dto.ProfilePic;
 import web.utils.Paging;;
@@ -68,6 +69,8 @@ public interface AdvertiseDao {
 	public String getBandNo(String bandNo);
 
 	public Band getBandName(String bandName);
+
+	public Music getMusic(String bandNo);
 
 	
 	
