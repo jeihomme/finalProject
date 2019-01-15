@@ -1,5 +1,7 @@
 package web.service.face;
 
+import java.util.List;
+
 import javax.servlet.ServletContext;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +29,9 @@ public interface MemberService {
 	// band 가입 - Genre 테이블 insert
 	public void bandGenreInsert(BandGenre bandGenre);
 	
+	// band 가입 - band Member 테이블 insert
+	public void insertBandMember(List<String> bandMembers, List<String> bandPositions, int bandNo);
+	
 	// 아이디 중복 확인
 	public boolean checkId(Member member);
 	
@@ -35,6 +40,18 @@ public interface MemberService {
 	
 	// 전화번호 중복 확인
 	public boolean checkContact(Member member);
+	
+	// Bar Name 중복 확인
+	public boolean checkBarName(Bar bar);
+	
+	// Bar Manager 중복 확인
+	public boolean checkBarManager(Bar bar);
+	
+	// Bar Address 중복 확인
+	public boolean checkBarAddress(Bar bar);
+	
+	// Band Name 중복 확인
+	public boolean checkBandName(Band band);
 	
 	// 로그인 성공 확인
 	public boolean login(Member member);
