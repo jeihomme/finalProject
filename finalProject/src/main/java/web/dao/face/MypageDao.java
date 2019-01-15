@@ -158,9 +158,7 @@ public interface MypageDao {
 	
 	public CalendarD selectCalendarByCalendarNo(CalendarD cal);
 	public PTime selectPTimeByTimeId(PTime startTime);
-	
-	
-	
-	
-	
+	public void updateBandProfileNo(Band band);
+	public void insertProfileNoByBand(Band band);
+	public void insertProfileNoByBar(Bar bar);
 }

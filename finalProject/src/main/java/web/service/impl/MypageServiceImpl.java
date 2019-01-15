@@ -491,9 +491,8 @@ public class MypageServiceImpl implements MypageService{
 		pPic.setPath(path);
 		
 		System.out.println(pPic);
-//		if( pPic.get != null ) {
-			mpDao.updateProfilePic(pPic);
-//		}
+		
+		mpDao.updateProfilePic(pPic);
 	}
 
 	@Override
@@ -502,6 +501,12 @@ public class MypageServiceImpl implements MypageService{
 		mpDao.insertBarProfileNo(bar);
 	}
 
+	@Override
+	public void updateBandProfile(Band band) {
+		// TODO Auto-generated method stub
+		mpDao.updateBandProfileNo(band);
+	}
+	
 	@Override
 	public void insertBandProfile(Band band) {
 		// TODO Auto-generated method stub
@@ -727,6 +732,17 @@ public class MypageServiceImpl implements MypageService{
 		// TODO Auto-generated method stub
 		return mpDao.selectPTimeByTimeId(startTime);
 	}
+
+	@Override
+	public void insertProfileNo(Band band) {
+		// TODO Auto-generated method stub
+		mpDao.insertProfileNoByBand(band);
+	}
 	
+	@Override
+	public void insertProfileNo(Bar bar) {
+		// TODO Auto-generated method stub
+		mpDao.insertProfileNoByBar(bar);
+	}
 
 }
