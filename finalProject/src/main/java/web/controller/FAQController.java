@@ -43,11 +43,11 @@ public class FAQController {
 		searchTxt = req.getParameter("searchTxt");
 		search = "";
 		
-		if(searchVal.equals("title")) {
+		if(searchVal.equals("question")) {
 			search = searchTxt;
 			
 		}
-		else if (searchVal.equals("content")) {
+		else if (searchVal.equals("answer")) {
 			search = searchTxt;
 		}
 		else if(searchVal.equals("userId")) {

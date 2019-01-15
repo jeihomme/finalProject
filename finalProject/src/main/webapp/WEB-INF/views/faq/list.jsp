@@ -35,7 +35,7 @@ $(document).ready(function(){
 		alert(failMsg);
 	}
 
-	$("table").on(
+	$("#sumTable").on(
 // 			"click",
 // 			"tr",
 			function() {
@@ -46,19 +46,32 @@ $(document).ready(function(){
 						"/faq/list?faqNo=" + faqNo);
 			});
 
-	$("#btnSearch").click(
-			function() {
+	$("#btnSearch").click(function() {
 
-				var searchVal = $("#searchVal").val();
-				var searchTxt = $("#searchTxt").val();
+		var searchVal = $("#searchVal").val();
+		var searchTxt = $("#searchTxt").val();
 				
-				$(location).attr(
-						"href",
-						"/faq/list?searchVal="
+		$(location).attr("href","/faq/list?searchVal="
 								+ searchVal+"&"+"searchTxt="
 								+ searchTxt);
+// 		$.ajax({
+// 			type: "get",
+// 			url : "/faq/list",
+// 			data : { searchVal : searchVal,
+// 					searchTxt : searchTxt },
+// 			context: document.body,
+// 			success: function(data){
+				
+// 				$("#body").html(data);
+				
+// 			}, error: function(){
+// 				alert("안돼");
+// 			}
+			
+// 		});
+		
 
-			});
+	});
 });
 
 </script>
@@ -171,8 +184,8 @@ cursor:pointer;
 	<div id="searchBox" class="text-center">
 			<tr>
 				<td><select id="searchVal" name="searchVal" style="color: black">
-						<option value="title" selected="selected">제목</option>
-						<option value="content">내용</option>
+						<option value="question" selected="selected">제목</option>
+						<option value="answer">내용</option>
 						<option value="userid">작성자</option>
 				</select></td>
 			</tr>
