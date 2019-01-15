@@ -711,9 +711,10 @@ public class MypageController {
 			
 			pPic = new ProfilePic();
 			
-//			if ( bar.getProfileNo() == null ) {
-//				mpService.insertBarProfile(bar);
-//			}
+			if ( bar.getProfileNo() == 0 ) {
+				mpService.insertBarProfile(bar);
+				mpService.insertProfileNo(bar);
+			}
 			
 			pPic.setProfileNo(bar.getProfileNo());
 			
@@ -729,13 +730,14 @@ public class MypageController {
 			
 			pPic = new ProfilePic();
 			
-//			if( band.getProfileNo() == 0) {
-//				mpService.insertBandProfile(band);
-//			}
-			
+			if( band.getProfileNo() == 0) {
+				mpService.updateBandProfile(band);
+				mpService.insertProfileNo(band);
+			} 
 			pPic.setProfileNo(band.getProfileNo());
 			
 			mpService.uploadPicture(context, pPic, file);
+			
 		}
 		
 		return "redirect:/mypage/intro";

@@ -143,6 +143,10 @@ public interface MypageService {
 	public Map getScheduleByBandNo(Map map, String string);
 	public CalendarD getCalendar(CalendarD cal);
 	public PTime getPTime(PTime startTime);
+	public void updateBandProfile(Band band);
+	
+	public void insertProfileNo(Band band);
+	public void insertProfileNo(Bar bar);
 	
 	
 	
