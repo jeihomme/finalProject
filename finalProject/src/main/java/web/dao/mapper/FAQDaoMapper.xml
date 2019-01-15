@@ -8,8 +8,9 @@
 
 <sql id="selectFAQ">
 SELECT faqNo, userId, question, answer, writtenDate FROM faq
+<where>
 <if test="search != null and search != '' and searchVal == ('question')"> 
-	WHERE question LIKE '%' || #{search} || '%'
+	 question LIKE '%' || #{search} || '%'
 </if>
 <if test="search != null and search != '' and searchVal == ('answer')">
 	AND answer LIKE '%' || #{search} || '%'
@@ -17,6 +18,7 @@ SELECT faqNo, userId, question, answer, writtenDate FROM faq
 <if test="search != null and search != '' and searchVal == ('userId')">
 	AND userId LIKE '%' || #{search} || '%'
 </if>
+</where>
 </sql>
 <select id="selectPagingList" resultType="web.dto.FAQ" parameterType="web.utils.Paging">
 SELECT * FROM ( SELECT rownum rnum, B.* FROM (

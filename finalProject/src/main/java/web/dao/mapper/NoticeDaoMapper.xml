@@ -8,8 +8,9 @@
 
 <sql id="selectNotice">
 SELECT noticeNo, title, userId, content, writtenDate FROM notice
+<where>
 <if test="search != null and search != '' and searchVal == ('title')"> 
-	WHERE title LIKE '%' || #{search} || '%'
+	 title LIKE '%' || #{search} || '%'
 </if>
 <if test="search != null and search != '' and searchVal == ('content')">
 	AND content LIKE '%' || #{search} || '%'
@@ -17,6 +18,7 @@ SELECT noticeNo, title, userId, content, writtenDate FROM notice
 <if test="search != null and search != '' and searchVal == ('userId')">
 	AND userId LIKE '%' || #{search} || '%'
 </if>
+</where>
 </sql>
 <select id="selectPagingList" resultType="web.dto.Notice" parameterType="web.utils.Paging">
 SELECT * FROM ( SELECT rownum rnum, B.* FROM (
