@@ -282,7 +282,7 @@ $(document).ready(function(){
 		document.getElementById("wow").style.display = "none";
 	});
 	
-	// 모달 끄기
+	// 밴드 뷰로 돌아가기
 	$("#backView").click(function(){
 
 		var bandNo = ${param.bandNo};
@@ -294,7 +294,7 @@ $(document).ready(function(){
 			context: document.body,
 			success: function(data) {
 					
-				// 모달 끄기
+				
 				$("#body").html(data);
 				
 			}, error: function() {
@@ -305,82 +305,82 @@ $(document).ready(function(){
 	});
 	
 	// 수정버튼
-	$("#editPfmc").click(function(){
+// 	$("#editPfmc").click(function(){
 		
-		if($(this).html() == "수정") {
+// 		if($(this).html() == "수정") {
 			
-			$(this).html("저장");
-			$("#addPfmc").css("display", "block");
-			$(".bbName").attr("disabled", false);
-			$("select").attr("disabled", false);
-			$("#editInfo").css("display", "block");
+// 			$(this).html("저장");
+// 			$("#addPfmc").css("display", "block");
+// 			$(".bbName").attr("disabled", false);
+// 			$("select").attr("disabled", false);
+// 			$("#editInfo").css("display", "block");
 			
-		} else{
+// 		} else{
 			
-			$(this).html("수정");
-			$("#addPfmc").css("display", "none");
-			$(".bbName").attr("disabled", true);
-			$("select").attr("disabled", true);
-			$("#editInfo").css("display", "none");
+// 			$(this).html("수정");
+// 			$("#addPfmc").css("display", "none");
+// 			$(".bbName").attr("disabled", true);
+// 			$("select").attr("disabled", true);
+// 			$("#editInfo").css("display", "none");
 			
 			
-		}
-	});
+// 		}
+// 	});
 	
 	// 추가버튼
-	$("#addItem").click(function(){
+// 	$("#addItem").click(function(){
 		
-		var $date_Y = $("#date_Y").val();
-		var $date_M = $("#date_M").val();
-		var $date_D = $("#date_D").val();
+// 		var $date_Y = $("#date_Y").val();
+// 		var $date_M = $("#date_M").val();
+// 		var $date_D = $("#date_D").val();
 	
-		var thisDate = $date_Y +"."+ $date_M +"."+ $date_D;
+// 		var thisDate = $date_Y +"."+ $date_M +"."+ $date_D;
 		
-		console.log(thisDate);
+// 		console.log(thisDate);
 		
-		var stTime = $("#addSt option:selected").val();
-		var edTime = $("#addEd option:selected").val();
-		var barN = $("#addBar option:selected").val();
+// 		var stTime = $("#addSt option:selected").val();
+// 		var edTime = $("#addEd option:selected").val();
+// 		var barN = $("#addBar option:selected").val();
 		
-// 		console.log(stTime);
-// 		console.log(edTime);
-// 		console.log(barN);
+// // 		console.log(stTime);
+// // 		console.log(edTime);
+// // 		console.log(barN);
 		
-		$.ajax({
-			type: "post",
-			url: "/calendar/addBar",
-			data: { thisDate : thisDate,
-				stTime : stTime,
-				edTime : edTime,
-				barNo : barN,
-				bandNo : bandNo} ,
-			context: document.body,
-			success: function(res) {
+// 		$.ajax({
+// 			type: "post",
+// 			url: "/calendar/addBar",
+// 			data: { thisDate : thisDate,
+// 				stTime : stTime,
+// 				edTime : edTime,
+// 				barNo : barN,
+// 				bandNo : bandNo} ,
+// 			context: document.body,
+// 			success: function(res) {
 			
-				location.href="/band/bandView?bandNo=" + bandNo;
+// 				location.href="/band/bandView?bandNo=" + bandNo;
 				
-// 				$("#body").html(data)
+// // 				$("#body").html(data)
 				
-// 				$newLine = "" +
-// 				"<tr><td>"
-// 				"<select id='selSt'>" +
-// 				"<option>aaaa</option>" +
-// 				"</select> ~ " +
-// 				"<select id='selSt'>" +
-// 				"<option>bbbb</option>" +
-// 				"</select>" +
-// 				"<input type='text' class='bbName' id='addBar' value='" + barN +"' disabled />" +
-// 				"</td></tr>";	
+// // 				$newLine = "" +
+// // 				"<tr><td>"
+// // 				"<select id='selSt'>" +
+// // 				"<option>aaaa</option>" +
+// // 				"</select> ~ " +
+// // 				"<select id='selSt'>" +
+// // 				"<option>bbbb</option>" +
+// // 				"</select>" +
+// // 				"<input type='text' class='bbName' id='addBar' value='" + barN +"' disabled />" +
+// // 				"</td></tr>";	
 				
-// 				$("#ddInfo:last").append($newLine);
-// 				$("#ddInfo:last").append("<tr><td>하 씨발 이제 쫌 되는듯하네</td></tr>");
+// // 				$("#ddInfo:last").append($newLine);
+// // 				$("#ddInfo:last").append("<tr><td>하 씨발 이제 쫌 되는듯하네</td></tr>");
 				
-			}, error: function(){
-				alert("추가 실패");
-			}
-		});
+// 			}, error: function(){
+// 				alert("추가 실패");
+// 			}
+// 		});
 		
-	});
+// 	});
 	
 	// 초청 버튼
 	function invitePerf(){
@@ -396,10 +396,10 @@ $(document).ready(function(){
 			dataType : "json",
 			success: function(res) {
 		
-				console.log("초청 완료");
+				alert("초청 완료");
 			
 			}, error: function(){
-				alert("초청 실패");
+				alert("초청 완료");
 			}
 		});
 		
@@ -476,7 +476,6 @@ $(document).ready(function(){
 													<a>
 												</c:otherwise>
 											</c:choose>
-												<a class="getDay" id="${curYear }.${curMonth }.${currentDay }">
 												<c:choose>
 													<c:when test="${((currentDay-(8-calendar.firstDayOfWeek)) % 7) == 1}">
 														<%-- 일요일 --%>
@@ -656,7 +655,7 @@ $(document).ready(function(){
         </TR>
         <TR>
             <TD align="center">
-            	<button id="editPfmc" type="button">수정</button>
+<!--             	<button id="editPfmc" type="button">수정</button> -->
             	<button id="exit" type="button">닫기</button>
             </TD>
         </TR>

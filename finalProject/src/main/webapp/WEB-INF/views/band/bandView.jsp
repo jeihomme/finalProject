@@ -158,47 +158,24 @@ $(document).ready(function(){
 	
 	var bandNo = "${general.band.bandNo}"
 	var resumesNo = "${general.resumes.resumesNo}";
-	var musicFile = "${general.music}";
+// 	var musicTitle = "${general.music.musicTitle}";
+// 	console.log("${general}");
 	
-	// 음악파일 처리
-// 	window.stop();
-// 	   $("#preSound").click( function() {
-// 	      timerStart();
-// 	      song.play();
-// 	   });
+	// 음악파일 타이머
+	var setTime = 0;      // 최초 설정 시간(기본 : 초)
+	var song = new Audio('/resources/${general.music.musicTitle }');
+	 
+	// 음악파일 버튼
+	window.stop();
+	$("#preSound").click( function() {
+// 	   timerStart();
+	   song.play();
+	});
 	
-
-// 	if(!musicFile){
-// 		console.log("음악파일 없음");
-	
-// 	} else {
-		
-// 	var setTime = 15;      // 최초 설정 시간(기본 : 초)
-// 	var song = new Audio('/resources/seong-youAreMySpring.mp3');
-
-// 		function msg_time() {    1초씩 카운트
-       
-// 			m = Math.floor(setTime / 60) + "분 " + (setTime % 60) + "초";    남은 시간 계산
-      
-// 			var msg = "현재 남은 시간은 <font color='red'>" + m + "</font> 입니다.";
-      
-// //       document.all.ViewTimer.innerHTML = msg;      // div 영역에 보여줌 
-            
-// 			setTime--;               // 1초씩 감소
-      
-// 			if (setTime < 0) {         // 시간이 종료 되었으면..
-// 				song.pause();
-// 				song.currentTime = 0;
-// 				clearInterval(tid);
-// 			}
-// 		}
-// 	}
-   
-//    function timerStart(){ 
-//       tid=setInterval('msg_time()',1000);
-//    }
-   
-  
+	$("#stopSound").click( function(){
+// 		timerStart();
+		song.pause();
+	});     
    
    // 달력 불러오기
    $("#calendarBtn").click(function(){
@@ -336,7 +313,7 @@ $(document).ready(function(){
 					
 					// 속성들 재조정
 					
-					$(this).html("수정");
+					$("#editBtn").html("수정");
 					$("input[type=text]").attr("disabled", true);
 					$("input[type=text]").css({"background-color" : "gray"});
 					$("input[type=text]").css({"border" : "none"});
@@ -464,22 +441,16 @@ $(document).ready(function(){
 	  
    });
    
-   
-   
    $("#addHistory").click(function(){
 	   
 	   var hY = $("#hY").val();
 	   var hisInfo = $("#hisInfo").val();
-	   
-	   
-// 	   var tr = $(".hisChk").parent().parent();
-// 	   tr.remove();
-	   
-	   // 여기 비워지지가 않음.
-	   // 비우고 추가해야함.
-	   // 추가는 됨.
-	   // 비워지지가 않음.
-// 	   $("#historyTb > tr:nth-child(2)").remove();
+	  
+	   // history 비우기
+	   var counts = $("#historyTb tr").length;
+	   for(var i=1; i+1<counts; i++) {
+		   $("#historyTb tr:nth-child("+(counts-i)+")").remove();
+	   }
 	   
 	   $.ajax({
 			type: "post",
@@ -557,10 +528,9 @@ $(document).ready(function(){
 	
 		<!-- 음악 파일 -->
 		<div class="div-music div-common">
-			<h4>음악 파일</h4><br>
-<!-- 			<audio src="" autoplay controls> -->
-<!-- 			</audio> -->
-			<button id="preSound" >미리듣기</button>
+			<h4>음악 샘플</h4><br>
+			<button id="preSound" class="searchBtn" >재생</button>
+			<button id="stopSound" class="searchBtn">정지</button>
 		</div>
 	</div>
 	
