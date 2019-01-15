@@ -2,6 +2,7 @@ package web.dao.face;
 
 import web.dto.Band;
 import web.dto.BandGenre;
+import web.dto.BandMember;
 import web.dto.Bar;
 import web.dto.Member;
 import web.dto.ProfilePic;
@@ -20,6 +21,9 @@ public interface MemberDao {
 	// band 가입 - Band Genre insert
 	public void insertBandGenre(BandGenre bandGenre);
 	
+	// band 가입 - Band Member insert
+	public void insertBandMember(BandMember bandMember);
+	
 	// 가입 - 아이디 중복 확인
 	public int checkJoinId(Member member);
 	
@@ -28,6 +32,18 @@ public interface MemberDao {
 	
 	// 가입 - 전화번호 중복 확인
 	public int checkJoinContact(Member member);
+	
+	// bar 가입 - barName 중복 확인
+	public int checkBarName(Bar bar);
+	
+	// bar 가입 - manager 중복 확인
+	public int checkBarManager(Bar bar);
+	
+	// bar 가입 - address 중복 확인
+	public int checkBarAddress(Bar bar);
+	
+	// band 가입 - bandName 중복 확인
+	public int checkBandName(Band band);
 	
 	// 로그인 성공 유무 확인
 	public int selectCntLogin(Member member);

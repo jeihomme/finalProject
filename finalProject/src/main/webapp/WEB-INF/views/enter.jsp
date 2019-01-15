@@ -15,10 +15,12 @@ body{
 	text-align:center;
 }
 
-
 .enterImage img {
-	cursor:pointer;
+   cursor:pointer;
+   width:1100px;
+   height:800px;
 }
+
 </style>
 </head>
 <body>

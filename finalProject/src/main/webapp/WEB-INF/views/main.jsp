@@ -121,9 +121,125 @@ function barTableDiv() {
   barTableDivEvent();
 }
 
+//슬라이드 
+function bandTableDiv() {
+  var wid = 0;
+  var now_num = 0;
+  var bandTableDiv_length = 0;
+  var auto = null;
+  var $bandTableDotli = $('.bandTableDot>li');
+  var $bandTablePanel = $('.bandTablePanel');
+  var $bandTablePanelLi = $bandTablePanel.children('li');
+
+  // 변수 초기화
+  function init1() {
+    wid = $('#bandWindow').width();
+    now_num = $('.bandTableDot>li.on').index();
+    bandTableDiv_length = $bandTableDotli.length;
+  }
+
+  // 이벤트 묶음
+  function bandTableDivEvent() {
+
+    // 슬라이드 하단 barTableDot버튼 클릭했을때
+    $bandTableDotli.click(function() {
+      now_num = $(this).index();
+      bandTableDivMove();
+    });
+
+    // 이후 버튼 클릭했을때
+    $('.bandRecNext').click(function() {
+      bandRecNextChkPlay();
+    });
+
+    // 이전 버튼 클릭했을때
+    $('.bandRecPrev').click(function() {
+      bandRecPrevChkPlay();
+    });
+
+    // 오토플레이
+    autoPlay1();
+
+    // 오토플레이 멈춤
+    autoPlayStop1();
+
+    // 오토플레이 재시작
+    autoPlayRestart1();
+
+    // 화면크기 재설정 되었을때
+    resize1();
+  }
+
+  // 자동실행 함수
+  function autoPlay1() {
+    auto = setInterval(function() {
+      bandRecNextChkPlay();
+    }, 3000);
+  }
+
+  // 자동실행 멈춤
+  function autoPlayStop1() {
+    $bandTablePanelLi.mouseenter(function() {
+      clearInterval(auto);
+    });
+  }
+
+
+  // 자동실행 멈췄다가 재실행
+  function autoPlayRestart1() {
+    $bandTablePanelLi.mouseleave(function() {
+      auto = setInterval(function() {
+        bandRecNextChkPlay();
+      }, 3000);
+    });
+  }
+
+  // 이전 버튼 클릭시 조건 검사후 슬라이드 무브
+  function bandRecPrevChkPlay() {
+    if (now_num == 0) {
+      now_num = bandTableDiv_length - 1;
+    } else {
+      now_num--;
+    }
+    bandTableDivMove();
+  }
+
+  // 이후 버튼 클릭시 조건 검사후 슬라이드 무브
+  function bandRecNextChkPlay() {
+    if (now_num == bandTableDiv_length - 1) {
+      now_num = 0;
+    } else {
+      now_num++;
+    }
+    bandTableDivMove();
+  }
+
+  // 슬라이드 무브
+  function bandTableDivMove() {
+    $bandTablePanel.stop().animate({
+      'margin-left': -wid * now_num +35
+    });
+    $bandTableDotli.removeClass('on');
+    $bandTableDotli.eq(now_num).addClass('on');
+  }
+
+  // 화면크기 조정시 화면 재설정
+  function resize1() {
+    $(window).resize(function() {
+      init1();
+      $bandTablePanel.css({
+        'margin-left': -wid * now_num
+      });
+    });
+  }
+  init1();
+  bandTableDivEvent();
+}
+
 $(document).ready(function() {
 	
 	barTableDiv();
+	bandTableDiv();
 	
 	
 	var scrollEvent = false;
@@ -325,13 +441,14 @@ $(document).ready(function() {
 </script>
 
 <style type="text/css">
-.noticePhoto {
+.noticePhoto, .BarImage1, .BarImage2, .BarImage3, .BarImage4,
+.BandImage1, .BandImage2, .BandImage3, .BandImage4 {
 	height: 200px;
 	width: 350px;
 	border-radius: 15px;
 }
 
-#noticeDiv, .barTableDiv, #bandTableDiv {
+#noticeDiv, .barTableDiv, .bandTableDiv {
 	background-color: rgb(68,68,68,0.8);
 	border-radius: 15px;
 	height: 250px;
@@ -363,8 +480,13 @@ $(document).ready(function() {
 	border-bottom: 3px solid #ffffff;
 }
 
-#noticeWindow, #barWindow, #bandWindow {
-	padding-top: 20px;
+#noticeWindow {
+ 	padding-top: 20px; 
+	width: 100%;
+ 	height: 720px;
+}
+
+#barWindow, #bandWindow {
 	width: 100%;
  	height: 720px;
 }
@@ -380,23 +502,23 @@ $(document).ready(function() {
 }
 
 
-.barTableDiv {
+.barTableDiv, .bandTableDiv {
   position: relative;
   padding-top: 50px;
   overflow: hidden;
 }
 
-.barTablePanel {
+.barTablePanel, .bandTablePanel {
   width: 400%;
 }
 
-.barTablePanel:after {
+.barTablePanel:after, .bandTablePanel:after {
   content: "";
   display: block;
   clear: both;
 }
 
-.barTablePanel>li {
+.barTablePanel>li, .bandTablePanel>li {
   width: 25%;
   height: 200px;
   float: left;
@@ -405,20 +527,20 @@ $(document).ready(function() {
   position: relative;
 }
 
-.barTableDot:after {
+.barTableDot:after, .bandTableDot:after {
   content: "";
   display: block;
   clear: both;
 }
 
-.barTableDot {
+.barTableDot, .bandTableDot {
   position: absolute;
   left: 50%;
   bottom: 10%;
   transform: translateX(-50%);
 }
 
-.barTableDot>li {
+.barTableDot>li, .bandTableDot>li {
   float: left;
   width: 10px;
   height: 10px;
@@ -430,35 +552,62 @@ $(document).ready(function() {
   cursor: pointer;
 }
 
-.barTableDot>li.on {
+.barTableDot>li.on, .bandTableDot>li.on {
   background-color: gold;
 }
 
 .barRecPrev {
-  position: absolute;
+/*   position: absolute; */
   width: 50px;
   height: 50px;
   background-color: black;
-/*   transform: translateY(-50%); */
-  top: 158%;
+   transform: translateY(-50%);
+/*   top: 158%; */
   left: 16%;  
   cursor: pointer;
 }
 
 .barRecNext {
-  position: absolute;
+/*   position: absolute; */
   width: 50px;
   height: 50px;
   background-color: black;
-/*   transform: translateY(-50%); */
-  top: 158%;
+  transform: translateY(-50%); 
+/*   top: 158%; */
+  right: 15%; 
+  cursor: pointer;
+}
+
+.bandRecPrev {
+/*   position: absolute; */
+  width: 50px;
+  height: 50px;
+  background-color: black;
+   transform: translateY(-50%);
+/*   top: 158%; */
+  left: 16%;  
+  cursor: pointer;
+}
+
+.bandRecNext {
+/*   position: absolute; */
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  transform: translateY(-50%); 
+/*   top: 158%; */
   right: 15%; 
   cursor: pointer;
 }
 
 </style>
 
-<body>
+<c:set var="member1" value="${general1.member }" />
+<c:set var="member2" value="${general2.member }" />
+<c:set var="member3" value="${general3.member }" />
+<c:set var="member4" value="${general4.member }" />
+
+
 <div>
 	<div id="noticeWindow">
 		<header id="MainHead">
@@ -493,21 +642,24 @@ $(document).ready(function() {
 			<b id="goToBarRec2">Today's Bar</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<b id="goToBandRec2">Today's Band</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		</header>
-		<br><br>
+		<br><br><br>
 		<font style="font-size: 20px; margin-left: 20px; border-bottom: 3px solid gold;"><b>Today's Bar</b></font><br>
-		<div class="barTableDiv" style="margin-top: 10px;">
-			  <ul class="barTablePanel">
+		<div class="barTableDiv" style="margin-top: 30px;">
+			  <ul class="barTablePanel" >
 				    <!-- bar 추천 슬라이드 1 -->
-				    <li>
+				    <li style="padding-bottom: 60px;">
 				    	<div id="barRecommend1">
-				    		<table id="barRecommend1Table">
-				    		<tr><td>
-				    			${bar1.barName }
+					    	<div id="bar1Photo" style="float: left;">
+						    		<img src="../resources/${barPic1.storedName }" class="BarImage1" style="cursor: pointer;" onclick="location.href='/bar/viewbar?barNo=${bar1.barNo }' ">
+					    	</div>	
+				    		<table id="barRecommend1Table" style="margin-right: 220px;">
+				    		<tr><td style="font-size: 20px;" class="text-center">
+				    			<b>${bar1.barName }</b>
 				    		</td></tr>
-				    		<tr><td>
+				    		<tr><td style="padding-top: 25px;" class="text-center">
 				    			${bar1.barAddress }
 				    		</td></tr>
-				    		<tr><td>
+				    		<tr><td style="padding-top: 5px;" class="text-center">
 				    			${bar1.manager }
 				    		</td></tr>
 				    		</table>
@@ -516,14 +668,17 @@ $(document).ready(function() {
 				    <!-- bar 추천 슬라이드 2 -->
 				    <li>
 				    	<div id="barRecommend2">
-				    		<table id="barRecommend2Table">
-				    		<tr><td>
-				    			${bar2.barName }
+				    		<div id="bar2Photo" style="float: left;">
+						    	<img src="../resources/${barPic2.storedName }" class="BarImage2" style="cursor: pointer;" onclick="location.href='/bar/viewbar?barNo=${bar2.barNo }' ">
+					    	</div>	
+				    		<table id="barRecommend2Table" style="margin-right: 300px;">
+				    		<tr><td style="font-size: 20px;" class="text-center">
+				    			<b>${bar2.barName }</b>
 				    		</td></tr>
-				    		<tr><td>
+				    		<tr><td style="padding-top: 25px;" class="text-center">
 				    			${bar2.barAddress }
 				    		</td></tr>
-				    		<tr><td>
+				    		<tr><td style="padding-top: 5px;" class="text-center">
 				    			${bar2.manager }
 				    		</td></tr>
 				    		</table>
@@ -532,14 +687,17 @@ $(document).ready(function() {
 				    <!-- bar 추천 슬라이드 3 -->
 				    <li>
 				    	<div id="barRecommend3">
-				    		<table id="barRecommend3Table">
-				    		<tr><td>
-				    			${bar3.barName }
+				    		<div id="bar3Photo" style="float: left;">
+						    		<img src="../resources/${barPic3.storedName }" class="BarImage3" style="cursor: pointer;" onclick="location.href='/bar/viewbar?barNo=${bar3.barNo }' ">
+					    	</div>	
+				    		<table id="barRecommend3Table" style="margin-right: 300px;">
+				    		<tr><td style="font-size: 20px;" class="text-center">
+				    			<b>${bar3.barName }</b>
 				    		</td></tr>
-				    		<tr><td>
+				    		<tr><td style="padding-top: 25px;" class="text-center">
 				    			${bar3.barAddress }
 				    		</td></tr>
-				    		<tr><td>
+				    		<tr><td style="padding-top: 5px;" class="text-center">
 				    			${bar3.manager }
 				    		</td></tr>
 				    		</table>
@@ -548,14 +706,18 @@ $(document).ready(function() {
 				    <!-- bar 추천 슬라이드 4 -->
 				    <li>
 				    	<div id="barRecommend4">
-				    		<table id="barRecommend4Table">
-				    		<tr><td>
-				    			${bar4.barName }
+				    		<div id="bar4Photo" style="float: left;">
+						    		<img src="../resources/${barPic4.storedName }" class="BarImage4" style="cursor: pointer;" onclick="location.href='/bar/viewbar?barNo=${bar4.barNo }' ">
+					    	</div>
+					    		
+				    		<table id="barRecommend4Table" style="margin-right: 300px;">
+				    		<tr><td style="font-size: 20px;" class="text-center">
+				    			<b>${bar4.barName }</b>
 				    		</td></tr>
-				    		<tr><td>
+				    		<tr><td style="padding-top: 25px;" class="text-center">
 				    			${bar4.barAddress }
 				    		</td></tr>
-				    		<tr><td>
+				    		<tr><td style="padding-top: 5px;" class="text-center">
 				    			${bar4.manager }
 				    		</td></tr>
 				    		</table>
@@ -569,8 +731,8 @@ $(document).ready(function() {
 				    <li></li>
 			  </ul>
 		</div>
-			  <div class="barRecPrev"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></div>
-			  <div class="barRecNext"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div>
+<!-- 			  <div class="barRecPrev" style="float:left"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></div> -->
+<!-- 			  <div class="barRecNext" style="float:right"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div> -->
 		<button id="moveToTop" style="background-color: black; border: 1px solid #ccc;"><b>Top</b></button>		
 	</div>
 	
@@ -582,15 +744,101 @@ $(document).ready(function() {
 		</header>
 		<br><br>
 		<font style="font-size: 20px; margin-left: 20px; border-bottom: 3px solid gold;"><b>Today's Band</b></font><br>
-		<div id="bandRecoDiv" class="text-center" style="margin-top: 10px;">
-			<div id="bandRecoPhotoDiv" style="padding-top: 25px; padding-left: 50px;">
-			test
-			</div>
-			
-			<div id="bandTableDiv" style="padding-top: 25px; padding-left: 50px;">
-			test
-			</div>
+		<div class="bandTableDiv" style="margin-top: 10px;">
+			  <ul class="bandTablePanel">
+				    <!-- band 추천 슬라이드 1 -->
+				    <li>
+				    	<div id="bandRecommend1">
+				    		<div id="band1Photo" style="float: left;">
+						    	<img src="../resources/${bandPic1.storedName }" class="BandImage1" style="cursor: pointer;" onclick="location.href='/band/bandView?bandNo=${band1.bandNo }' ">
+					    	</div>
+					    	
+				    		<table id="bandRecommend1Table" style="margin-right: 300px;">
+				    		<tr><td style="font-size: 20px;" class="text-center">
+				    			<b>${band1.bandName }</b>
+				    		</td></tr>
+				    		<tr>
+				    		<td style="padding-top: 25px;" class="text-center">
+<%-- 				    			${member1.bandMemName } --%>
+				    		</td>
+				    		<td style="padding-top: 5px;" class="text-center">
+<%-- 				    			${member1.mPosition } --%>
+				    		</td>
+				    		</tr>
+				    		</table>
+				    	</div>
+					</li>
+				    <!-- band 추천 슬라이드 2 -->
+				    <li>
+				    	<div id="bandRecommend2">
+				    		<div id="band2Photo" style="float: left;">
+						    	<img src="../resources/${bandPic2.storedName }" class="BandImage2" style="cursor: pointer;" onclick="location.href='/band/bandView?bandNo=${band2.bandNo }' ">
+					    	</div>
+				    	
+				    		<table id="bandRecommend2Table" style="margin-right: 300px;">
+				    		<tr><td style="font-size: 20px;" class="text-center">
+				    			<b>${band2.bandName }</b>
+				    		</td></tr>
+				    		<tr>
+				    		<td style="padding-top: 25px;" class="text-center">
+<%-- 				    			${bandMem2.bandMemName } --%>
+				    		</td>
+				    		<td style="padding-top: 5px;" class="text-center">${bandMem2.mPosition }
+				    		</td>
+				    		</tr>
+				    		</table>
+				    	</div>
+				    </li>
+				    <!-- band 추천 슬라이드 3 -->
+				    <li>
+				    	<div id="bandRecommend3">
+				    		<div id="band3Photo" style="float: left;">
+						    	<img src="../resources/${bandPic3.storedName }" class="BandImage3" style="cursor: pointer;" onclick="location.href='/band/bandView?bandNo=${band3.bandNo }' ">
+					    	</div>
+				    		
+				    		<table id="bandRecommend3Table" style="margin-right: 300px;">
+				    		<tr><td style="font-size: 20px;" class="text-center">
+				    			<b>${band3.bandName }</b>
+				    		</td></tr>
+				    		<tr>
+				    		<td style="padding-top: 25px;" class="text-center">${bandMem3.bandMemName }
+				    		</td>
+				    		<td style="padding-top: 5px;" class="text-center">${bandMem3.mPosition }
+				    		</td>
+				    		</tr>
+				    		</table>
+				    	</div>
+				    </li>
+				    <!-- band 추천 슬라이드 4 -->
+				    <li>
+				    	<div id="bandRecommend4">
+				    		<div id="band4Photo" style="float: left;">
+						    	<img src="../resources/${bandPic4.storedName }" class="BandImage4" style="cursor: pointer;" onclick="location.href='/band/bandView?bandNo=${band4.bandNo }' ">
+					    	</div>
+				    	
+				    		<table id="bandRecommend4Table" style="margin-right: 300px;">
+				    		<tr><td style="font-size: 20px;" class="text-center">
+				    			<b>${band4.bandName }</b>
+				    		</td></tr>
+				    		<tr>
+				    		<td style="padding-top: 25px;" class="text-center">${bandMem4.bandMemName }
+				    		</td>
+				    		<td style="padding-top: 5px;" class="text-center">${bandMem4.mPosition }
+				    		</td>
+				    		</tr>
+				    		</table>
+				    	</div>
+				    </li>
+			  </ul>
+			  <ul class="bandTableDot">
+				    <li class="on"></li>
+				    <li></li>
+				    <li></li>
+				    <li></li>
+			  </ul>
 		</div>
+<!-- 			  <div class="bandRecPrev"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></div> -->
+<!-- 			  <div class="bandRecNext"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></div> -->
 		<button id="moveToTop2" style="background-color: black; border: 1px solid #ccc;"><b>Top</b></button>		
 	</div>
 

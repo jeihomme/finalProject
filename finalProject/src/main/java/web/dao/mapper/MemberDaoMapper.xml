@@ -26,6 +26,11 @@
  		VALUES ( #{bandNo }, #{genreNo })
  	</insert>
  	
+ 	<insert id="insertBandMember" parameterType="web.dto.BandMember">
+ 		INSERT INTO bandMember (bandMemberNo, bandMemName, mPosition, bandNo)
+ 		VALUES (bandMember_seq.nextval, #{bandMemName }, #{mPosition }, #{bandNo })
+ 	</insert>
+ 	
  	<select id="checkJoinId" parameterType="web.dto.Member" resultType="int">
  		SELECT COUNT(*)
  		FROM member
@@ -45,6 +50,34 @@
  		FROM member
  		WHERE 1=1
  			AND contact=#{contact }
+ 	</select>
+ 	
+ 	<select id="checkBarName" parameterType="web.dto.Bar" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM bar
+ 		WHERE 1=1
+ 			AND barName=#{barName }
+ 	</select>
+ 	
+ 	<select id="checkBarManager" parameterType="web.dto.Bar" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM bar
+ 		WHERE 1=1
+ 			AND manager=#{manager }
+ 	</select>
+ 	
+ 	<select id="checkBarAddress" parameterType="web.dto.Bar" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM bar
+ 		WHERE 1=1
+ 			AND barAddress=#{barAddress }
+ 	</select>
+ 	
+ 	<select id="checkBandName" parameterType="web.dto.Band" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM band
+ 		WHERE 1=1
+ 			AND bandName=#{bandName }
  	</select>
  	
  	<select id="selectCntLogin" parameterType="web.dto.Member" resultType="int">

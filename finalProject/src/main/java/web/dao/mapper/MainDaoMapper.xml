@@ -34,6 +34,33 @@
 	) WHERE ROWNUM BETWEEN 1 AND 4
 </select>
 
+<select id="selectBarPicInfo" resultType="web.dto.ProfilePic" parameterType="int">
+	SELECT *
+	FROM profilePic
+	WHERE profileNo = #{profileNo }
+</select>
+
+<select id="selectBandList" resultType="web.dto.Band">
+	SELECT *
+	FROM (
+		SELECT *
+		FROM band
+		ORDER BY DBMS_random.value
+	) WHERE ROWNUM BETWEEN 1 AND 4
+</select>
+
+<select id="selectBandMember" resultType="web.dto.BandMember" parameterType="int">
+	SELECT *
+	FROM bandMember
+	WHERE bandNo = #{bandNo }
+</select>
+
+<select id="selectBandPicInfo" resultType="web.dto.ProfilePic" parameterType="int">
+	SELECT *
+	FROM profilePic
+	WHERE profileNo = #{profileNo }
+</select>
+
 </mapper>
 
 

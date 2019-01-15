@@ -2,6 +2,7 @@ package web.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import web.dao.face.MemberDao;
 import web.dto.Band;
 import web.dto.BandGenre;
+import web.dto.BandMember;
 import web.dto.Bar;
 import web.dto.Member;
 import web.dto.ProfilePic;
@@ -82,9 +84,115 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public void insertBandMember(List<String> bandMembers, List<String> bandPositions, int bandNo) {
+		
+		String bandMem1 = bandMembers.get(0);
+		String bandMem2 = bandMembers.get(1);		
+		String bandMem3 = bandMembers.get(2);
+		String bandMem4 = bandMembers.get(3);
+		String bandMem5 = bandMembers.get(4);
+		
+		BandMember bandMember1 = new BandMember();
+		BandMember bandMember2 = new BandMember();
+		BandMember bandMember3 = new BandMember();
+		BandMember bandMember4 = new BandMember();
+		BandMember bandMember5 = new BandMember();
+
+		// band Member를 기입하지 않았을 때
+		if(bandMem1==null || bandMem1.equals(null) || bandMem1=="" || bandMem1.equals("")) {
+			
+		// 한 명만 입력했을 때
+		} else if((bandMem1!=null && bandMem2==null) || (!bandMem1.equals(null) && bandMem2.equals(null))) {
+			bandMember1.setBandNo(bandNo);
+			bandMember1.setBandMemName(bandMembers.get(0));
+			bandMember1.setmPosition(bandPositions.get(0));
+			memberDao.insertBandMember(bandMember1);
+			
+		// 두 명 입력
+		} else if((bandMem2!=null && bandMem3==null) || (!bandMem2.equals(null) && bandMem3.equals(null))) {
+			bandMember1.setBandNo(bandNo);
+			bandMember1.setBandMemName(bandMembers.get(0));
+			bandMember1.setmPosition(bandPositions.get(0));
+			memberDao.insertBandMember(bandMember1);
+			
+			bandMember2.setBandNo(bandNo);
+			bandMember2.setBandMemName(bandMembers.get(1));
+			bandMember2.setmPosition(bandPositions.get(1));
+			memberDao.insertBandMember(bandMember2);
+			
+		// 세 명 입력
+		} else if((bandMem3!=null && bandMem4==null) || (!bandMem3.equals(null) && bandMem4.equals(null))) {
+			bandMember1.setBandNo(bandNo);
+			bandMember1.setBandMemName(bandMembers.get(0));
+			bandMember1.setmPosition(bandPositions.get(0));
+			memberDao.insertBandMember(bandMember1);
+			
+			bandMember2.setBandNo(bandNo);
+			bandMember2.setBandMemName(bandMembers.get(1));
+			bandMember2.setmPosition(bandPositions.get(1));
+			memberDao.insertBandMember(bandMember2);
+			
+			bandMember3.setBandNo(bandNo);
+			bandMember3.setBandMemName(bandMembers.get(2));
+			bandMember3.setmPosition(bandPositions.get(2));
+			memberDao.insertBandMember(bandMember3);
+		
+		// 네 명 입력
+		} else if((bandMem4!=null && bandMem5==null) || (!bandMem4.equals(null) && bandMem5.equals(null))) {
+			bandMember1.setBandNo(bandNo);
+			bandMember1.setBandMemName(bandMembers.get(0));
+			bandMember1.setmPosition(bandPositions.get(0));
+			memberDao.insertBandMember(bandMember1);
+			
+			bandMember2.setBandNo(bandNo);
+			bandMember2.setBandMemName(bandMembers.get(1));
+			bandMember2.setmPosition(bandPositions.get(1));
+			memberDao.insertBandMember(bandMember2);
+			
+			bandMember3.setBandNo(bandNo);
+			bandMember3.setBandMemName(bandMembers.get(2));
+			bandMember3.setmPosition(bandPositions.get(2));
+			memberDao.insertBandMember(bandMember3);
+			
+			bandMember4.setBandNo(bandNo);
+			bandMember4.setBandMemName(bandMembers.get(3));
+			bandMember4.setmPosition(bandPositions.get(3));
+			memberDao.insertBandMember(bandMember4);
+		
+		// 다섯 명 다 입력
+		} else if(bandMem5!=null || !bandMem5.equals(null)) {
+			bandMember1.setBandNo(bandNo);
+			bandMember1.setBandMemName(bandMembers.get(0));
+			bandMember1.setmPosition(bandPositions.get(0));
+			memberDao.insertBandMember(bandMember1);
+			
+			bandMember2.setBandNo(bandNo);
+			bandMember2.setBandMemName(bandMembers.get(1));
+			bandMember2.setmPosition(bandPositions.get(1));
+			memberDao.insertBandMember(bandMember2);
+			
+			bandMember3.setBandNo(bandNo);
+			bandMember3.setBandMemName(bandMembers.get(2));
+			bandMember3.setmPosition(bandPositions.get(2));
+			memberDao.insertBandMember(bandMember3);
+			
+			bandMember4.setBandNo(bandNo);
+			bandMember4.setBandMemName(bandMembers.get(3));
+			bandMember4.setmPosition(bandPositions.get(3));
+			memberDao.insertBandMember(bandMember4);
+			
+			bandMember5.setBandNo(bandNo);
+			bandMember5.setBandMemName(bandMembers.get(4));
+			bandMember5.setmPosition(bandPositions.get(4));
+			memberDao.insertBandMember(bandMember5);
+		}
+
+	}
+	
+	@Override
 	public boolean checkId(Member member) {
 		// 아이디 중복 확인 (중복, 가입 안 됨)
-		if(memberDao.checkJoinId(member)==1) {
+		if(memberDao.checkJoinId(member)>=1) {
 			return false;
 		
 		// 공백일 때
@@ -102,7 +210,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean checkUserName(Member member) {
 		// 닉네임 중복 확인 (중복, 가입 안 됨)
-		if(memberDao.checkJoinUserName(member)==1) {
+		if(memberDao.checkJoinUserName(member)>=1) {
 			return false;
 		
 		// 공백일 때
@@ -120,7 +228,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean checkContact(Member member) {
 		// 전화번호 중복 확인 (중복, 가입 안 됨)
-		if(memberDao.checkJoinContact(member)==1) {
+		if(memberDao.checkJoinContact(member)>=1) {
 			return false;
 		
 		// 공백일 때
@@ -134,6 +242,79 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
+	
+	@Override
+	public boolean checkBarName(Bar bar) {
+		// 전화번호 중복 확인 (중복, 가입 안 됨)
+		if(memberDao.checkBarName(bar)>=1) {
+			return false;
+		
+		// 공백일 때
+		} else if(bar.getBarName()==null || bar.getBarName().equals(null) ||
+				bar.getBarName().equals("") || bar.getBarName()=="") {
+			return false;
+		
+		// 닉네임 중복 아님 (가입 O)
+		} else {
+			return true;			
+		}
+		
+	}
+	
+	@Override
+	public boolean checkBarManager(Bar bar) {
+		// 전화번호 중복 확인 (중복, 가입 안 됨)
+		if(memberDao.checkBarManager(bar)>=1) {
+			return false;
+		
+		// 공백일 때
+		} else if(bar.getManager()==null || bar.getManager().equals(null) ||
+				bar.getManager().equals("") || bar.getManager()=="") {
+			return false;
+		
+		// 닉네임 중복 아님 (가입 O)
+		} else {
+			return true;			
+		}
+		
+	}
+	
+	@Override
+	public boolean checkBarAddress(Bar bar) {
+		// 전화번호 중복 확인 (중복, 가입 안 됨)
+		if(memberDao.checkBarAddress(bar)>=1) {
+			return false;
+		
+		// 공백일 때
+		} else if(bar.getBarAddress()==null || bar.getBarAddress().equals(null) ||
+				bar.getBarAddress().equals("") || bar.getBarAddress()=="") {
+			return false;
+		
+		// 닉네임 중복 아님 (가입 O)
+		} else {
+			return true;			
+		}
+		
+	}
+	
+	@Override
+	public boolean checkBandName(Band band) {
+		// 전화번호 중복 확인 (중복, 가입 안 됨)
+		if(memberDao.checkBandName(band)>=1) {
+			return false;
+		
+		// 공백일 때
+		} else if(band.getBandName()==null || band.getBandName().equals(null) ||
+				band.getBandName().equals("") || band.getBandName()=="") {
+			return false;
+		
+		// 닉네임 중복 아님 (가입 O)
+		} else {
+			return true;			
+		}
+		
+	}
+	
 
 	@Override
 	public boolean login(Member member) {

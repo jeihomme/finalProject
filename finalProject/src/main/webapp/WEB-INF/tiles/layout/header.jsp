@@ -174,6 +174,151 @@ function checkContact() {
 	});
 }
 
+// bar 가입시 barName 중복 확인
+function checkBarName() {
+	// 닉네임 입력 값
+	var inputed = $("#barName").val();
+	
+	$.ajax ({
+		data: {
+			barName: inputed
+		},
+		url: "/member/checkJoinBarName",
+		success: function(data) {
+			// 입력 값이 비어 있고 출력되는 값이 0일 때
+			if(inputed=="" && data=="0") {
+				$("#joinBarNameChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			// 출력 값이 0일 때
+			} else if(data=="0") {
+				$("#joinBarNameChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			// 입력된 값이 없을 때
+			} else if(inputed=="" || inputed==null || inputed.length<=2) {
+				$("#joinBarNameChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+
+				// 중복 체크 끝난 다음, 가입 가능할 때
+			} else if(data=="1") {
+				$("#joinBarNameChk").css("color", "green");
+				$(".nextBtn").prop("disabled", false);
+
+			}
+		}
+	});
+}
+
+//bar 가입시 manager 중복 확인
+function checkBarManager() {
+	// 닉네임 입력 값
+	var inputed = $("#manager").val();
+	
+	$.ajax ({
+		data: {
+			manager: inputed
+		},
+		url: "/member/checkJoinBarManager",
+		success: function(data) {
+			// 입력 값이 비어 있고 출력되는 값이 0일 때
+			if(inputed=="" && data=="0") {
+				$("#joinBarManagerChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			// 출력 값이 0일 때
+			} else if(data=="0") {
+				$("#joinBarManagerChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			// 입력된 값이 없을 때
+			} else if(inputed=="" || inputed==null || inputed.length<=2) {
+				$("#joinBarManagerChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+
+				// 중복 체크 끝난 다음, 가입 가능할 때
+			} else if(data=="1") {
+				$("#joinBarManagerChk").css("color", "green");
+				$(".nextBtn").prop("disabled", false);
+
+			}
+		}
+	});
+}
+
+//bar 가입시 주소 중복 확인
+function checkBarAddress() {
+	// 닉네임 입력 값
+	var inputed = $("#addr1").val();
+// 	var inputed2 = $("#manager").val();
+
+	$.ajax ({
+		data: {
+			barAddress: inputed
+		},
+		url: "/member/checkJoinBarAddress",
+		success: function(data) {
+			// 입력 값이 비어 있고 출력되는 값이 0일 때
+			if(inputed=="" && data=="0") {
+				$("#joinBarAddressChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			// 출력 값이 0일 때
+			} else if(data=="0") {
+				$("#joinBarAddressChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			// 입력된 값이 없을 때
+			} else if(inputed=="" || inputed==null || inputed.length<=2) {
+				$("#joinBarAddressChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+
+				// 중복 체크 끝난 다음, 가입 가능할 때
+			} else if(data=="1") {
+				$("#joinBarAddressChk").css("color", "green");
+				$(".nextBtn").prop("disabled", false);
+
+			}
+		}
+	});
+}
+
+//band 가입시 bandName 중복 확인
+function checkBandName() {
+	// 닉네임 입력 값
+	var inputed = $("#bandName").val();
+
+	$.ajax ({
+		data: {
+			bandName: inputed
+		},
+		url: "/member/checkJoinBandName",
+		success: function(data) {
+			// 입력 값이 비어 있고 출력되는 값이 0일 때
+			if(inputed=="" && data=="0") {
+				$("#joinBandNameChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			// 출력 값이 0일 때
+			} else if(data=="0") {
+				$("#joinBandNameChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+			
+			// 입력된 값이 없을 때
+			} else if(inputed=="" || inputed==null || inputed.length<=2) {
+				$("#joinBandNameChk").css("color", "red");
+				$(".nextBtn").prop("disabled", true);
+
+				// 중복 체크 끝난 다음, 가입 가능할 때
+			} else if(data=="1") {
+				$("#joinBandNameChk").css("color", "green");
+				$(".nextBtn").prop("disabled", false);
+
+			}
+		}
+	});
+}
+
 function onlyNum(event){ // 숫자만 입력하기 위한 함수
 	   event = event || window.event;
 	   var keyID = (event.which) ? event.which : event.keyCode;
@@ -236,7 +381,7 @@ $(document).ready(function() {
 	var wrapper = $(".bandMemberAdd");
 	var start = 1;	// 첫 숫자
 	
-	var fieldHTML = '<div><input type="text" id="bandMember[]" value="" style="margin-bottom: 10px" class="input"/><a href="#" class="removeBandMemberBtn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a></div>';
+	var fieldHTML = '<div><input type="text" name="bandMember" value="" style="margin-bottom: 10px; width: 130px;" class="input"/> - <input type="text" name="bandMemberPosition" value="" style="margin-bottom: 10px; width: 130px;" class="input"/><a href="#" class="removeBandMemberBtn"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a></div>';
 	
 	$(".AddBandMemberBtn").click(function() {
 		if(start < maxField) {
@@ -936,9 +1081,18 @@ $(document).ready(function() {
 		var roleId = 2;
 		var genreNo = $("#bandGenre").val();
 		var profileNum = 0;
-
 		
-		console.log(roleId);
+		var bandMember1 = $("input[name=bandMember]:eq(0)").val();
+		var bandMember2 = $("input[name=bandMember]:eq(1)").val();
+		var bandMember3 = $("input[name=bandMember]:eq(2)").val();
+		var bandMember4 = $("input[name=bandMember]:eq(3)").val();
+		var bandMember5 = $("input[name=bandMember]:eq(4)").val();
+
+		var bandMemberPosition1 = $("input[name=bandMemberPosition]:eq(0)").val();
+		var bandMemberPosition2 = $("input[name=bandMemberPosition]:eq(1)").val();
+		var bandMemberPosition3 = $("input[name=bandMemberPosition]:eq(2)").val();
+		var bandMemberPosition4 = $("input[name=bandMemberPosition]:eq(3)").val();
+		var bandMemberPosition5 = $("input[name=bandMemberPosition]:eq(4)").val();
 		
 	    // 넘겨 줄 값 설정
 	    var formData = {
@@ -951,7 +1105,17 @@ $(document).ready(function() {
 	    	email: $("#joinEmail1").val()+"@"+$("#joinEmail2").val(),
 	    	bandName: $("#bandName").val(),
 	    	genreNo: $("#bandGenre").val(),
-	    	profileNum: profileNum
+	    	profileNum: profileNum,
+	    	bandMember1: bandMember1,
+	    	bandMember2: bandMember2,
+	    	bandMember3: bandMember3,
+	    	bandMember4: bandMember4,
+	    	bandMember5: bandMember5,
+	    	bandPosition1: bandMemberPosition1,
+	    	bandPosition2: bandMemberPosition2,
+	    	bandPosition3: bandMemberPosition3,
+	    	bandPosition4: bandMemberPosition4,
+	    	bandPosition5: bandMemberPosition5
 	    };
 	    	
 			$.ajax({
@@ -981,6 +1145,36 @@ $(document).ready(function() {
 		
 	});
 	
+	// Main 버튼(닫기 버튼) 클릭시
+	$(".goToMain").click(function() {
+		// 전체 모달 숨기기
+		$("#loginModal").hide();
+		
+		// Form 안의 내용 초기화
+			document.getElementById("loginForm").reset();
+			document.getElementById("joinAgreePost1").reset();
+			document.getElementById("joinAgreePost2").reset();
+			document.getElementById("joinForm1").reset();
+// 			$("#joinBarPicform").get(0).reset();
+			document.getElementById("joinBarPicform").reset();
+			document.getElementById("joinForm2").reset();
+// 			$("#joinBandPicform").get(0).reset();
+			document.getElementById("joinBandPicform").reset();
+			document.getElementById("joinForm3").reset();
+			document.getElementById("findIdForm").reset();
+			document.getElementById("findPwForm").reset();
+			$("#joinIdCheck").css("color", "red");
+			$("#joinUserNameCheck").css("color", "red");
+			$("#joinPwCheck").css("color", "red");
+			$("#joinContactChk").css("color", "red");
+			$("#joinBarNameChk").css("color", "red");
+			$("#joinBarManagerChk").css("color", "red");
+			$("#joinBarAddressChk").css("color", "red");
+			$("#joinBandNameChk").css("color", "red");
+		
+		idx=0;
+	});
+	
 	// x 버튼(닫기 버튼) 클릭시
 	$(".close").click(function() {
 		// 전체 모달 숨기기
@@ -991,14 +1185,22 @@ $(document).ready(function() {
 			document.getElementById("joinAgreePost1").reset();
 			document.getElementById("joinAgreePost2").reset();
 			document.getElementById("joinForm1").reset();
-			$("#joinBarPicform").get(0).reset();
+// 			$("#joinBarPicform").get(0).reset();
 			document.getElementById("joinBarPicform").reset();
 			document.getElementById("joinForm2").reset();
-			$("#joinBandPicform").get(0).reset();
+// 			$("#joinBandPicform").get(0).reset();
 			document.getElementById("joinBandPicform").reset();
 			document.getElementById("joinForm3").reset();
 			document.getElementById("findIdForm").reset();
 			document.getElementById("findPwForm").reset();
+			$("#joinIdCheck").css("color", "red");
+			$("#joinUserNameCheck").css("color", "red");
+			$("#joinPwCheck").css("color", "red");
+			$("#joinContactChk").css("color", "red");
+			$("#joinBarNameChk").css("color", "red");
+			$("#joinBarManagerChk").css("color", "red");
+			$("#joinBarAddressChk").css("color", "red");
+			$("#joinBandNameChk").css("color", "red");
 		
 		idx=0;
 	});
@@ -1227,7 +1429,7 @@ $(document).ready(function() {
 	}
 	
 	#btnLogin, .btnBarJoin, .btnBandJoin, .findIdBtn, .findPwBtn, .deleteMember,
-			.findIdConfirmBtn, .findPwConfirmBtn {
+			.findIdConfirmBtn, .findPwConfirmBtn, .goToMain {
 		border: none;
 		outline: none;
 		color: gold;
@@ -1642,24 +1844,23 @@ $(document).ready(function() {
     <div class="modal-content">
         <button class="backBtn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <div class="modal-body text-center"  style="height: 700px;">
+      <div class="modal-body text-center"  style="height: 650px;">
          <h3 class="modal-title text-center" style="color: black; padding-top: 8px;"><b>Bar</b></h3>
          <div class="joinInfo text-right" style="color: black; font-size: 11px;"><br>
       		<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
     	 </div> 
 		        <br>
 		        <form id="joinBarPicform" name="joinBarPicform" class="joinBarPicform" enctype="multipart/form-data">
-      			<font color="red" style="vertical-align: top;">*</font>
       			<img class="text-center" id="previewBarPic" src="../resources/joinImg/profileBasic.jpg">
       			<button class="barPicAdd" style="border: 1px solid white; color: black; margin-bottom: 50px; background-color: white;"><span class="glyphicon glyphicon-picture" style="top: 40px; right: 10px;" aria-hidden="true"></span></button>
       			<input type="file" id="joinBarPic" style="display: none;">
       			</form>
       			<form id="joinForm2" name="joinPost2" class="joinForm">
-		        <table style="border: none; height: 300px; width: 100%; color: black;">
+		        <table style="border: none; height: 350px; width: 100%; color: black;">
 				<tr>
 				<td>
 				<input type="text" name="barRoleId" id="barRoleId" value="1" style="display: none;">
-				<font color="red">*</font>&nbsp;<input type="text" name="barName" id="barName" placeholder=" bar 이름"/>
+				<font color="red">*</font>&nbsp;<input type="text" name="barName" id="barName" oninput="checkBarName()" placeholder=" bar 이름"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-ok" id="joinBarNameChk" style="width: 20px; color: red; height: 20px;" aria-hidden="true"></span>
 				</td></tr>
 				<tr>
 				<td><font color="red">*</font>&nbsp;<select name="barGenre" id="barGenre" style="color: black; width: 170px; height: 26px; ">
@@ -1672,15 +1873,15 @@ $(document).ready(function() {
 						<option value="6">Boogie Woogie</option>
 					</select>
 				<tr>
-				<td><font color="red">*</font>&nbsp;<input type="text" name="manager" id="manager" placeholder=" 담당자 이름"/>
+				<td><font color="red">*</font>&nbsp;<input type="text" name="manager" id="manager" oninput="checkBarManager()" placeholder=" 담당자 이름"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-ok" id="joinBarManagerChk" style="width: 20px; color: red; height: 20px;" aria-hidden="true"></span>
 				</td></tr>
 				<tr>
 				<td><font color="red">*</font>
-						<input type="text" id="addr1" name="addr1" placeholder=" bar 주소" style="width: 225px;"/>
+						<input type="text" id="addr1" name="addr1" oninput="checkBarAddress()" placeholder=" bar 주소" style="width: 225px;"/>
 						<input type="button" onclick="execDaumPostcode()" value="주소 찾기" class="btn btn-xs"/>
 				</td></tr>
 				<tr><td>
-				<input type="text" id="addr2" name="addr2" placeholder=" 상세 주소" style="width: 250px; margin-left: 10px;"/></td></tr>
+				<input type="text" id="addr2" name="addr2" oninput="checkBarAddress()" placeholder=" 상세 주소" style="width: 250px; margin-left: 10px;"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-ok" id="joinBarAddressChk" style="width: 20px; color: red; height: 20px;" aria-hidden="true"></span></td></tr>
 				<tr><td><textarea rows="4" cols="40" style="resize: none; margin-left: 10px;" id="barInfo" name="barInfo" placeholder=" bar 소개"></textarea>
 				</td></tr>
 				</table>
@@ -1695,23 +1896,22 @@ $(document).ready(function() {
     <div class="modal-content">
         <button class="backBtn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span></button>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <div class="modal-body text-center"  style="height: 700px;">
+      <div class="modal-body text-center"  style="height: 600px;">
          <h3 class="modal-title text-center" style="color: black; padding-top: 8px;"><b>Band</b></h3>
          <div class="joinInfo text-right" style="color: black; font-size: 11px; padding-bottom: 15px;"><br>
       		<font color="red">*</font> 표시가 된 부분은 필수 항목입니다
     	 </div> 
       			<form id="joinBandPicform" name="joinBandPicform" class="joinBandPicform" enctype="multipart/form-data">
-      		    <font color="red" style="vertical-align: top;">*</font>
       			<img id="previewBandPic" src="../resources/joinImg/profileBasic.jpg">
       			<button class="bandPicAdd" style="color: black; border: 1px solid white; background-color: white;"><span class="glyphicon glyphicon-picture" style="top: 40px; right: 10px;" aria-hidden="true"></span></button>
       			<input type="file" id="joinBandPic" style="display: none;">
       			</form>
       	    <form id="joinForm3" name="joinPost3" class="joinForm">
-      		<table style="border: none; height: 200px; width: 100%; color: black;" >
+      		<table style="border: none; height: 300px; width: 100%; color: black;" >
 				<tr>
 				<td>
 				<input type="text" name="bandRoleId" id="bandRoleId" value="2" style="display: none;">
-				<font color="red">*</font>&nbsp;<input type="text" name="bandName" id="bandName" placeholder=" band 이름"/>
+				<font color="red">*</font>&nbsp;<input type="text" oninput="checkBandName()" name="bandName" id="bandName" placeholder=" Band 이름"/>&nbsp;&nbsp;<span class="glyphicon glyphicon-ok" id="joinBandNameChk" style="width: 20px; color: red; height: 20px;" aria-hidden="true"></span>
 				</td></tr>
 				<tr>
 				<td><font color="red">*</font>&nbsp;<select name="bandGenre" id="bandGenre" style="color: black; width: 170px; height: 26px; ">
@@ -1723,8 +1923,10 @@ $(document).ready(function() {
 						<option value="5">Bosa Nova</option>
 						<option value="6">Boogie Woogie</option>
 					</select></td></tr>
-					<tr><td>
-						<input type="text" id="bandMember[]" class="input" />
+					<tr><td style="padding-left: 9px">
+						<input type="text" name="bandMember" class="input" style="margin-bottom: 10px; width: 130px;" placeholder=" Band Member 추가"/>
+						 - <input type="text" name="bandMemberPosition" class="input" style="margin-bottom: 10px; width: 130px;" placeholder=" 포지션"/>
+						
 						<a href="#" class="AddBandMemberBtn"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 						<div class="bandMemberAdd"></div>
 			</table><br>
@@ -1737,11 +1939,11 @@ $(document).ready(function() {
 <!-- 회원가입 모달 5, 회원 완료 #7 -->
     <div class="modal-content">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <div class="modal-body text-center"  style="height: 150px;">
+      <div class="modal-body text-center"  style="height: 180px;">
          <h3 class="modal-title text-center" style="color: black;"><b>Join</b></h3>
  			<br><font style="color: black">회원가입이 완료되었습니다!<br>감사합니다!</font>
 				<br>
- 				<button type="button" class="text-center close" data-dismiss="modal" style="color: #ccc; font-size: 18px; border: 1px solid white; background-color: white;">Main</button>
+ 				<button type="button" class="goToMain" data-dismiss="modal" style="margin-top: 10px;"><b>Main</b></button>
       		<br>
       </div>
     </div>

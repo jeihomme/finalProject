@@ -83,8 +83,8 @@ public class BarController {
 		bar = barService.barView(bar);
 		
 //		logger.info(member.toString());
-		logger.info(bar.toString()); 
-		logger.info(model.toString()); 
+//		logger.info(bar.toString()); 
+//		logger.info(model.toString()); 
 	}
 
 	
