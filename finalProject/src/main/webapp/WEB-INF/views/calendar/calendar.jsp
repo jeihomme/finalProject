@@ -203,72 +203,72 @@ $(document).ready(function(){
 				
 				
 				// 바의 비어있는 스케쥴
-// 				for(var j=0; j<emptyLists.length; j++) {
+				for(var j=0; j<emptyLists.length; j++) {
 					
-// 					// tr
-// 					var newTr = $("<tr></tr>");
-// 					$("#ddInfo").append(newTr);
+					// tr
+					var newTr = $("<tr></tr>");
+					$("#ddInfo").append(newTr);
 					
-// 					// td
-// 					var newTd = $("<td></td>");
-// 					$("#ddInfo").find("tr:last").append(newTd);
+					// td
+					var newTd = $("<td></td>");
+					$("#ddInfo").find("tr:last").append(newTd);
 					
-// 					// stTime
-// 					var newStTime = $("<select class='selSt' disabled ></select>");
-// 					$("#ddInfo").find("tr:last").find("td:last").append(newStTime);
+					// stTime
+					var newStTime = $("<select class='selSt' disabled ></select>");
+					$("#ddInfo").find("tr:last").find("td:last").append(newStTime);
 					
-// 					//stTime option
-// 					for(var i=0; i<setTime.length; i++) {
+					//stTime option
+					for(var i=0; i<setTime.length; i++) {
 						
-// 						if(emptyLists[j].startTime == setTime[i].timeId) {
+						if(emptyLists[j].startTime == setTime[i].timeId) {
 						
-// 							var newOption = $("<option class='stTime' value='"+ setTime[i].timeId +"' selected >"+ setTime[i].hourM +"</option>");
+							var newOption = $("<option class='stTime' value='"+ setTime[i].timeId +"' selected >"+ setTime[i].hourM +"</option>");
 						
-// 							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
+							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
 							
-// 						} else {
+						} else {
 							
-// 							var newOption = $("<option class='stTime' value='"+ setTime[i].timeId +"'>"+ setTime[i].hourM +"</option>");
+							var newOption = $("<option class='stTime' value='"+ setTime[i].timeId +"'>"+ setTime[i].hourM +"</option>");
 							
-// 							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
-// 						}
+							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
+						}
 						
-// 					}
+					}
 					
-// 					// 시간 중간 ~
-// 					$("#ddInfo").find("tr:last").find("td:last").append("~");
+					// 시간 중간 ~
+					$("#ddInfo").find("tr:last").find("td:last").append("~");
 					
-// 					// edTime
-// 					var newEdTime = $("<select class='selEd' disabled ></select>");
-// 					$("#ddInfo").find("tr:last").find("td:last").append(newEdTime);
+					// edTime
+					var newEdTime = $("<select class='selEd' disabled ></select>");
+					$("#ddInfo").find("tr:last").find("td:last").append(newEdTime);
 					
-// 					// edTime option
-// 					for(var i=0; i<setTime.length; i++) {
+					// edTime option
+					for(var i=0; i<setTime.length; i++) {
 						
-// 						if(lists[j].startTime == setTime[i].timeId) {
+						if(lists[j].startTime == setTime[i].timeId) {
 							
-// 							var newOption = $("<option class='edTime' value='"+ setTime[i].timeId +"' selected>"+ setTime[i].hourM +"</option>");
+							var newOption = $("<option class='edTime' value='"+ setTime[i].timeId +"' selected>"+ setTime[i].hourM +"</option>");
 						
-// 							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
+							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
 							
-// 						} else {
+						} else {
 							
-// 							var newOption = $("<option class='edTime' value='"+ setTime[i].timeId +"'>"+ setTime[i].hourM +"</option>");
+							var newOption = $("<option class='edTime' value='"+ setTime[i].timeId +"'>"+ setTime[i].hourM +"</option>");
 							
-// 							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
+							$("#ddInfo").find("tr:last").find("td:last").find("select").append(newOption);
 							
-// 						}
+						}
 						
-// 					}
+					}
 					
-// 					// invite 버튼
-// 					var inviteBtn = $("<button type='button' class='inviteBtn' value='"+ emptyLists[j].calendarNo +"'>초청</button>");
-// 					$("#ddInfo").find("tr:last").find("td:last").append(inviteBtn);
+					// invite 버튼
+					var inviteBtn = $("<button type='button' class='inviteBtn' value='"+ emptyLists[j].calendarNo +"'>초청</button>");
+					$("#ddInfo").find("tr:last").find("td:last").append(inviteBtn);
 						
-// 					// invite 버튼 기능에 bind
-// 					$('.inviteBtn').bind("click", invitePerf);
+					// invite 버튼 기능에 bind
+					$('.inviteBtn').bind("click", invitePerf);
 					
-// 				}
+				}
 				
 			}, error: function() {
 				alert(".getDay 실패");
@@ -383,27 +383,27 @@ $(document).ready(function(){
 // 	});
 	
 	// 초청 버튼
-// 	function invitePerf(){
+	function invitePerf(){
 
-// 		var calendarNo = $(this).val();
+		var calendarNo = $(this).val();
 		
-// 		$.ajax({
-// 			type: "post",
-// 			url: "/calendar/inviteBand",
-// 			data: { calendarNo : calendarNo,
-// 					barNo : barNo,
-// 					bandNo : bandNo },
-// 			dataType : "json",
-// 			success: function(res) {
+		$.ajax({
+			type: "post",
+			url: "/calendar/inviteBand",
+			data: { calendarNo : calendarNo,
+					barNo : barNo,
+					bandNo : bandNo },
+			dataType : "json",
+			success: function(res) {
 		
-// 				console.log("초청 완료");
+				alert("초청 완료");
 			
-// 			}, error: function(){
-// 				alert("초청 실패");
-// 			}
-// 		});
+			}, error: function(){
+				alert("초청 완료");
+			}
+		});
 		
-// 	}
+	}
 	
 });
 </script>

@@ -441,8 +441,6 @@ $(document).ready(function(){
 	  
    });
    
-   
-   
    $("#addHistory").click(function(){
 	   
 	   var hY = $("#hY").val();
