@@ -54,6 +54,8 @@ public class FAQController {
 			search = searchTxt;
 		}
 		
+		
+		model.addAttribute("member" , member);
 		Paging paging = faqService.getPaging(curPage, listCount, pageCount);
 		model.addAttribute("paging" , paging);
 		paging.setSearch(search);

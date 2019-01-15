@@ -34,9 +34,11 @@ public class NoticeController {
 			@RequestParam(required=false , defaultValue="0") int curPage,
 			@RequestParam(required=false , defaultValue="10") int listCount,
 			@RequestParam(required=false , defaultValue="10") int pageCount,
-			Model model,HttpServletRequest req,
+			Model model,HttpServletRequest req, HttpSession session,
 			String searchVal , String search ,	String searchTxt
 			) {
+		
+		Member member = (Member)session.getAttribute("loginInfo");
 		
 		searchVal =(req.getParameter("searchVal") == null ) ? "": req.getParameter("searchVal");
 		
@@ -54,6 +56,7 @@ public class NoticeController {
 			search = searchTxt;
 		}
 	
+		model.addAttribute("member" , member);
 
 		Paging paging = noticeService.getPaging(curPage, listCount, pageCount);
 		model.addAttribute("paging" , paging);
