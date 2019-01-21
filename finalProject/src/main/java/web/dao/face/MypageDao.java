@@ -123,7 +123,6 @@ public interface MypageDao {
 	public void deleteBandGenre(Resumes resumes);
 	public void updatePublicResumes(Band band);
 	public void updateProfilePic(ProfilePic pPic);
-	public void insertBarProfileNo(Bar bar);
 	public void insertBandProfileNo(Band band);
 	public int selectResumesTotalCount(Band band);
 	public int selectAppListCntByBandNo(Band band);
@@ -158,7 +157,11 @@ public interface MypageDao {
 	
 	public CalendarD selectCalendarByCalendarNo(CalendarD cal);
 	public PTime selectPTimeByTimeId(PTime startTime);
+	
 	public void updateBandProfileNo(Band band);
+	public void updateBarProfileNo(Bar bar);
+	
 	public void insertProfileNoByBand(Band band);
 	public void insertProfileNoByBar(Bar bar);
+	
 }

@@ -693,20 +693,6 @@
 		values(#{profileNo }, null, null, null)
 		
 	</update>
-	
-<!-- 	public void insertBarProfileNo(Bar bar); -->
-	<update id="insertBarProfileNo"
-		parameterType="web.dto.Bar">
-			insert into Bar
-			values(
-				profileNo= (select * from (
-				select NVL(max(profileNo)+1, 1) from ProfilePic
-				order by profileNo desc
-				)
-				where rownum = 1)
-				)
-			where barNo = #{barNo }
-	</update>
 <!-- 	public void insertBandProfileNo(Band band); -->
 	<update id="updateBandProfileNo"
 		parameterType="web.dto.Band">
@@ -721,6 +707,21 @@
 		</selectKey>
 			update Band set profileNo=#{profileNo }
 			where bandNo = #{bandNo }
+	</update>
+<!-- 	public void updateBarProfileNo(Bar bar); -->
+	<update id="updateBarProfileNo"
+		parameterType="web.dto.Bar">
+		<selectKey keyProperty="profileNo" resultType="int" order="BEFORE">
+<!-- 			select dept_seq.nextval from dual -->
+			select * from (
+			select NVL(max(profileNo)+1, 1) from ProfilePic
+			order by profileNo desc
+			)
+			where rownum = 1
+<!-- 			select max(no)+1 no from test_member -->
+		</selectKey>
+			update Bar set profileNo=#{profileNo }
+			where barNo = #{barNo }
 	</update>
 <!-- 	public List<Application> selectAppListByBandNoAppliedBar(@Param("paging")Paging paging, @Param("band")Band band); -->
 	<select id="selectAppListByBandNoAppliedBar" resultType="web.dto.Application">

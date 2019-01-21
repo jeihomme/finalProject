@@ -712,7 +712,7 @@ public class MypageController {
 			pPic = new ProfilePic();
 			
 			if ( bar.getProfileNo() == 0 ) {
-				mpService.insertBarProfile(bar);
+				mpService.updateBarProfile(bar);
 				mpService.insertProfileNo(bar);
 			}
 			

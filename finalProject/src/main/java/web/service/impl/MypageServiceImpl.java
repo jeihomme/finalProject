@@ -496,12 +496,6 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public void insertBarProfile(Bar bar) {
-		// TODO Auto-generated method stub
-		mpDao.insertBarProfileNo(bar);
-	}
-
-	@Override
 	public void updateBandProfile(Band band) {
 		// TODO Auto-generated method stub
 		mpDao.updateBandProfileNo(band);
@@ -743,6 +737,12 @@ public class MypageServiceImpl implements MypageService{
 	public void insertProfileNo(Bar bar) {
 		// TODO Auto-generated method stub
 		mpDao.insertProfileNoByBar(bar);
+	}
+
+	@Override
+	public void updateBarProfile(Bar bar) {
+		// TODO Auto-generated method stub
+		mpDao.updateBarProfileNo(bar);
 	}
 
 }
