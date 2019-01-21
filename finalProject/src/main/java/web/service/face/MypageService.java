@@ -107,7 +107,6 @@ public interface MypageService {
 	public void deleteBandGenre(Resumes resumes);
 	public void updatePublicResumes(Band band);
 	public void uploadPicture(ServletContext context, ProfilePic pPic, MultipartFile file);
-	public void insertBarProfile(Bar bar);
 	public void insertBandProfile(Band band);
 	
 	public List<Application> appViewAppliedBar(Paging paging, Band band);
@@ -143,10 +142,13 @@ public interface MypageService {
 	public Map getScheduleByBandNo(Map map, String string);
 	public CalendarD getCalendar(CalendarD cal);
 	public PTime getPTime(PTime startTime);
+	
 	public void updateBandProfile(Band band);
+	public void updateBarProfile(Bar bar);
 	
 	public void insertProfileNo(Band band);
 	public void insertProfileNo(Bar bar);
+	
 	
 	
 	
